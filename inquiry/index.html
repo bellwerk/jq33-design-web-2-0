@@ -1,0 +1,614 @@
+<html lang="en" vid="0">
+  <head vid="1">
+    <meta charset="UTF-8" vid="2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3" />
+    <title vid="4">Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
+    <meta
+      name="description"
+      content="Tell us about your Montreal commercial space. Get a reply within 24 hours with next steps and the best package. Book a free 15-minute call."
+    />
+    <link rel="canonical" href="https://jq33.design/inquiry/" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JQ33 DESIGN" />
+    <meta
+      property="og:title"
+      content="Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)"
+    />
+    <meta
+      property="og:description"
+      content="Tell us about your Montreal commercial space. Get a reply within 24 hours with next steps and the best package. Book a free 15-minute call."
+    />
+    <meta property="og:url" content="https://jq33.design/inquiry/" />
+    <meta
+      property="og:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)"
+    />
+    <meta
+      name="twitter:description"
+      content="Tell us about your Montreal commercial space. Get a reply within 24 hours with next steps and the best package. Book a free 15-minute call."
+    />
+    <meta
+      name="twitter:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Permanent+Marker&amp;display=swap"
+      rel="stylesheet"
+      vid="7"
+    />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+    <style vid="8">
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        --cobalt: var(--cobalt-text);
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100svh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #1a1a1a;
+        font-family: var(--font-sans);
+        color: var(--cobalt);
+        position: relative;
+      }
+
+      .bg-layer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-image: none;
+        background-size: cover;
+        background-position: center;
+        filter: grayscale(60%) brightness(35%);
+        transition: transform 0.5s ease-out;
+      }
+
+      .brand-mark {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        font-family: var(--font-display);
+        font-size: clamp(72px, 25vh, 280px);
+        color: var(--cobalt);
+        white-space: nowrap;
+        z-index: 1;
+        pointer-events: none;
+        line-height: 0.8;
+        text-shadow: 0px 0px 20px rgba(59, 65, 227, 0.1);
+        opacity: 0.2;
+      }
+
+      .main-content {
+        position: relative;
+        z-index: 5;
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100svh;
+        display: grid;
+        grid-template-columns: 10vw 1fr 1fr 10vw;
+        grid-template-rows: 15vh 1fr 15vh;
+        overflow-y: auto;
+        scrollbar-width: none;
+      }
+      .main-content::-webkit-scrollbar {
+        display: none;
+      }
+
+      .info-col {
+        position: sticky;
+        top: 15vh;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        height: fit-content;
+      }
+
+      .col-left {
+        grid-column: 1;
+        margin-left: auto;
+        padding-top: 15vh;
+      }
+      .col-right {
+        grid-column: 4;
+        margin-right: auto;
+        padding-top: 15vh;
+        transform: rotate(180deg);
+        writing-mode: vertical-rl;
+      }
+
+      .center-grid {
+        grid-column: 2 / 4;
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+        padding: clamp(120px, 15vh, 180px) 0 80px;
+        min-height: 100%;
+      }
+
+      .center-grid__content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(1.25rem, 4vw, 4rem);
+        flex: 1 1 auto;
+      }
+
+      .center-grid .site-footer {
+        margin-top: auto;
+      }
+
+      .section-label {
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        opacity: 0.7;
+        font-size: var(--fs-label);
+        letter-spacing: var(--ls-label);
+        border-bottom: 1px solid var(--cobalt);
+        padding-bottom: 0.5rem;
+        width: fit-content;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+        white-space: nowrap;
+      }
+
+      .hp-field {
+        position: absolute;
+        left: -9999px;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid rgba(59, 65, 227, 0.3);
+        padding: 0.75rem 0;
+        color: #fff;
+        font-family: var(--font-sans);
+        font-size: 0.85rem;
+        outline: none;
+        transition: border-color 0.3s;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-bottom: 1px solid var(--cobalt);
+      }
+
+      input:focus-visible,
+      textarea:focus-visible {
+        outline: 2px solid var(--focus-ring);
+        outline-offset: 4px;
+        border-bottom: 1px solid var(--cobalt);
+      }
+
+      button {
+        background: var(--cobalt-base);
+        color: #fff;
+        border: none;
+        padding: 1rem 2rem;
+        font-family: var(--font-sans);
+        font-weight: 600;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      button:hover {
+        background: var(--cobalt-base-hover);
+      }
+
+      button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .form-status {
+        margin-top: 1rem;
+        min-height: 1.4em;
+        color: #bfe3ff;
+        font-size: 0.85rem;
+      }
+
+      .form-status.is-error {
+        color: #ffd2d2;
+      }
+
+      .bio-item {
+        margin-bottom: 2.5rem;
+      }
+
+      .bio-name {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+        color: #fff;
+      }
+
+      .bio-role {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        opacity: 0.8;
+        margin-bottom: 0.75rem;
+      }
+
+      .bio-text {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        opacity: 0.7;
+        color: #fff;
+      }
+
+      .map-container {
+        width: 100%;
+        height: clamp(180px, 28vh, 240px);
+        background: #222;
+        margin-top: 1rem;
+        border: 1px solid rgba(59, 65, 227, 0.2);
+        position: relative;
+        overflow: hidden;
+        filter: grayscale(1);
+      }
+
+      .map-placeholder {
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(
+            circle at 20% 20%,
+            rgba(59, 65, 227, 0.25),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at 78% 35%,
+            rgba(59, 65, 227, 0.18),
+            transparent 60%
+          ),
+          linear-gradient(135deg, #0f0f0f, #1a1a1a);
+        opacity: 0.65;
+      }
+
+      .content-block {
+        margin-bottom: 3rem;
+      }
+
+      a {
+        color: var(--cobalt);
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      a:hover {
+        color: #fff;
+      }
+
+      .nav-link {
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 4px 0;
+      }
+
+      .grain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        z-index: 10;
+      }
+
+      .cursor-dot {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--cobalt);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+      }
+
+      .cursor-hover {
+        background-color: var(--cobalt);
+        opacity: 0.5;
+        width: 40px;
+        height: 40px;
+      }
+
+      .active-link {
+        text-decoration: line-through;
+        opacity: 0.55;
+        pointer-events: none;
+      }
+
+      @media (max-width: 1024px) {
+        .main-content {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto;
+          overflow: visible;
+        }
+
+        .center-grid {
+          grid-column: 1;
+          padding: 130px min(6vw, 2rem) 60px;
+        }
+
+        .col-right {
+          display: none;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .center-grid__content {
+          grid-template-columns: 1fr;
+        }
+
+        .brand-mark {
+          font-size: clamp(56px, 16vh, 150px);
+          opacity: 0.12;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .center-grid {
+          padding: 108px 1rem 40px;
+          gap: 2.25rem;
+        }
+
+        .section-label {
+          margin-bottom: 1.25rem;
+        }
+
+        button {
+          width: 100%;
+        }
+
+        .cursor-dot {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body vid="9">
+    <div class="bg-layer" id="parallax-bg" vid="10"></div>
+    <div class="grain" vid="11"></div>
+    <div class="brand-mark" vid="12">JQ33<br vid="13" />DESIGN</div>
+
+    <header class="header-nav" data-component="header-nav"></header>
+
+    <main class="main-content" vid="14">
+      <h1 class="sr-only">Project inquiry</h1>
+      <div class="center-grid" vid="21">
+        <div class="center-grid__content">
+          <section vid="22">
+            <div class="section-label" vid="23">Get a free quote (2 minutes)</div>
+            <form data-lead-form="inquiry" method="post" vid="24">
+              <div class="hp-field" aria-hidden="true">
+                <label for="inquiry-company">Company</label>
+                <input
+                  type="text"
+                  id="inquiry-company"
+                  name="_gotcha"
+                  tabindex="-1"
+                  autocomplete="off"
+                />
+              </div>
+              <div class="form-group" vid="25">
+                <label class="sr-only" for="inquiry-name">Name and business name</label>
+                <input
+                  type="text"
+                  id="inquiry-name"
+                  name="name_business"
+                  placeholder="Name + business name"
+                  autocomplete="name"
+                  required
+                  vid="26"
+                />
+              </div>
+              <div class="form-group" vid="27">
+                <label class="sr-only" for="inquiry-email">Email address</label>
+                <input
+                  type="email"
+                  id="inquiry-email"
+                  name="email"
+                  placeholder="Email address"
+                  autocomplete="email"
+                  required
+                  vid="28"
+                />
+              </div>
+              <div class="form-group" vid="29">
+                <label class="sr-only" for="inquiry-space-type">Space type</label>
+                <input
+                  type="text"
+                  id="inquiry-space-type"
+                  name="space_type"
+                  placeholder="Space type (Cafe / Salon / Clinic / Retail / Office / Other)"
+                  required
+                  vid="30"
+                />
+              </div>
+              <div class="form-group" vid="31">
+                <label class="sr-only" for="inquiry-goals">Project goals and constraints</label>
+                <textarea
+                  id="inquiry-goals"
+                  name="project_goals"
+                  placeholder="What are you trying to achieve? (Timeline, budget range, neighborhood, constraints)"
+                  rows="4"
+                  required
+                  vid="32"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                onmouseenter="hoverCursor()"
+                onmouseleave="leaveCursor()"
+                vid="33"
+              >
+                Get a free quote
+              </button>
+              <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+            </form>
+
+            <div class="section-label" vid="34" style="margin-top: 5rem">
+              Studio (Montreal)
+            </div>
+            <div class="map-container" vid="35">
+              <div class="map-placeholder" vid="36"></div>
+              <div
+                style="
+                  position: absolute;
+                  bottom: 10px;
+                  left: 10px;
+                  font-size: 10px;
+                  color: var(--cobalt);
+                "
+                vid="37"
+              >
+                Montreal, Quebec
+              </div>
+            </div>
+          </section>
+
+          <section vid="38">
+            <div class="section-label" vid="39">What you'll get</div>
+            <div class="bio-item" vid="40">
+              <div class="bio-name" vid="41">Clear layout that improves flow</div>
+              <div class="bio-role" vid="42">Space planning</div>
+              <div class="bio-text" vid="43">
+                Space planning focused on customer experience and staff efficiency.
+              </div>
+            </div>
+            <div class="bio-item" vid="44">
+              <div class="bio-name" vid="45">Confident finishes + lighting direction</div>
+              <div class="bio-role" vid="46">Taste + visual clarity</div>
+              <div class="bio-text" vid="47">
+                A tight palette that looks premium and photographs well.
+              </div>
+            </div>
+            <div class="bio-item" vid="48">
+              <div class="bio-name" vid="49">3D visuals to decide faster</div>
+              <div class="bio-role" vid="50">Decision support</div>
+              <div class="bio-text" vid="51">
+                See key viewpoints before you spend on construction.
+              </div>
+            </div>
+
+            <div class="section-label" vid="52" style="margin-top: 2rem">
+              Next step
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem" vid="53">
+              <a
+                href="https://calendly.com/hello-jq33/15min"
+                data-calendly-cta
+                style="color: inherit; text-decoration: underline"
+                target="_blank"
+                rel="noopener"
+                vid="54"
+                >Prefer talking first? Book a free 15-minute call</a
+              >
+              <div vid="55">Want pricing fast? Get a free quote</div>
+            </div>
+          </section>
+        </div>
+
+        <footer class="site-footer site-footer--stacked" data-component="footer"></footer>
+      </div>
+
+      <div class="info-col col-right" vid="58">
+        <div class="content-block" vid="59">
+          <div class="label" vid="60">CONTACT</div>
+          <div vid="61">hello@jq33.design</div>
+          <div vid="62">+1 514 473 0075</div>
+        </div>
+        <div class="content-block" vid="63">
+          <div class="label" vid="64">HOURS</div>
+          <div vid="65">Mon-Fri / 9:00-5:00 ET</div>
+          <div vid="66">Montreal consultations by appointment</div>
+        </div>
+      </div>
+    </main>
+
+    <div class="cursor-dot" id="cursor" vid="67"></div>
+
+    <script src="/assets/js/supabase-config.js"></script>
+    <script src="/assets/js/analytics.js"></script>
+    <script src="/assets/js/leads.js"></script>
+    <script src="/assets/js/calendly.js"></script>
+    <script src="/assets/js/components/header-nav.js"></script>
+    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/nav-drawer.js"></script>
+    <script vid="68">
+      const cursor = document.getElementById("cursor");
+      const bg = document.getElementById("parallax-bg");
+      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+      document.addEventListener("mousemove", (e) => {
+        if (!canHover) return;
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+        const x = (window.innerWidth - e.pageX * 2) / 100;
+        const y = (window.innerHeight - e.pageY * 2) / 100;
+        bg.style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
+      });
+
+      function hoverCursor() {
+        if (!canHover) return;
+        cursor.classList.add("cursor-hover");
+      }
+      function leaveCursor() {
+        if (!canHover) return;
+        cursor.classList.remove("cursor-hover");
+      }
+    </script>
+  </body>
+</html>

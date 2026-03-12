@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio Admin | JQ33 DESIGN</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        --cobalt: var(--cobalt-text);
+        min-height: 100vh;
+        background: #0f0f14;
+        color: #f4f4f4;
+        font-family: var(--font-sans);
+      }
+
+      .admin-shell {
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+        padding: 140px 0 80px;
+        display: grid;
+        gap: 2.5rem;
+      }
+
+      .admin-header {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .admin-header h1 {
+        font-size: var(--fs-h1);
+        line-height: var(--lh-tight);
+        letter-spacing: -0.02em;
+      }
+
+      .admin-header p {
+        max-width: 60ch;
+        opacity: 0.75;
+        line-height: 1.6;
+      }
+
+      .admin-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 2rem;
+      }
+
+      .admin-card {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(59, 65, 227, 0.2);
+        border-radius: 18px;
+        padding: 2rem;
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .admin-card h2 {
+        font-size: var(--fs-h2);
+        line-height: 1.1;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--cobalt);
+      }
+
+      .admin-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .admin-field {
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        padding: 0.85rem 1rem;
+        color: #fff;
+        font-family: var(--font-sans);
+        font-size: 0.95rem;
+      }
+
+      textarea {
+        min-height: 140px;
+        resize: vertical;
+      }
+
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--cobalt);
+        box-shadow: 0 0 0 2px rgba(59, 65, 227, 0.25);
+      }
+
+      .admin-button {
+        background: var(--cobalt-base);
+        color: #fff;
+        border: none;
+        padding: 0.85rem 1.2rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 999px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        width: fit-content;
+      }
+
+      .admin-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(59, 65, 227, 0.35);
+      }
+
+      .admin-button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .status {
+        font-size: 0.85rem;
+        min-height: 1.4em;
+      }
+
+      .status.is-error {
+        color: #f8b4b4;
+      }
+
+      .status.is-success {
+        color: #b4f8d1;
+      }
+
+      .file-list {
+        display: grid;
+        gap: 0.75rem;
+      }
+
+      .file-item {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 0.75rem;
+        border-radius: 12px;
+        display: grid;
+        gap: 0.6rem;
+      }
+
+      .file-name {
+        font-size: 0.85rem;
+        opacity: 0.8;
+      }
+
+      .admin-hint {
+        font-size: 0.85rem;
+        opacity: 0.65;
+        line-height: 1.5;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 960px) {
+        .admin-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header-nav" data-component="header-nav"></header>
+
+    <main class="admin-shell">
+      <section class="admin-header">
+        <h1>Portfolio Uploads</h1>
+        <p>
+          Upload new portfolio work with up to 10 images, a short description, and the key
+          project details. This panel is private and only available to approved admin emails.
+        </p>
+      </section>
+
+      <section class="admin-grid">
+        <div class="admin-card">
+          <h2>Admin Access</h2>
+          <div class="admin-field">
+            <label class="admin-label" for="admin-email">Email</label>
+            <input type="email" id="admin-email" placeholder="hello@jq33.design" />
+          </div>
+          <button class="admin-button" id="sign-in-button">Send magic link</button>
+          <button class="admin-button hidden" id="sign-out-button">Sign out</button>
+          <div class="status" id="auth-status"></div>
+          <p class="admin-hint">
+            You must be allowlisted in the Supabase <code>admin_users</code> table. Use the
+            magic link in your email to finish sign-in.
+          </p>
+        </div>
+
+        <form class="admin-card hidden" id="portfolio-form">
+          <h2>New Project</h2>
+          <div class="admin-field">
+            <label class="admin-label" for="project-title">Title</label>
+            <input type="text" id="project-title" name="title" required />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label" for="project-slug">Slug</label>
+            <input type="text" id="project-slug" name="slug" required />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label" for="project-year">Year</label>
+            <input type="text" id="project-year" name="year" placeholder="2024" />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label" for="project-category">Category</label>
+            <input type="text" id="project-category" name="category" placeholder="Cafe / Salon / Retail" />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label" for="project-summary">Project description</label>
+            <textarea
+              id="project-summary"
+              name="summary"
+              placeholder="Short narrative about the project goals and outcomes."
+              required
+            ></textarea>
+          </div>
+          <div class="admin-field">
+            <label class="admin-label" for="project-title-lines">Title lines (optional)</label>
+            <input
+              type="text"
+              id="project-title-lines"
+              name="title_lines"
+              placeholder="Bruton / Place IV"
+            />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label" for="project-sort-order">Sort order</label>
+            <input type="number" id="project-sort-order" name="sort_order" placeholder="0" />
+          </div>
+          <div class="admin-field">
+            <label class="admin-label" for="project-images">Project images (max 10)</label>
+            <input type="file" id="project-images" name="images" accept="image/*" multiple required />
+          </div>
+          <div class="file-list" id="file-list"></div>
+          <button class="admin-button" type="submit">Upload project</button>
+          <div class="status" id="upload-status"></div>
+          <p class="admin-hint">
+            The first image becomes the hero + preview. Captions appear under gallery images.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <script src="/assets/js/supabase-config.js"></script>
+    <script type="module" src="/assets/js/portfolio-admin.js"></script>
+    <script src="/assets/js/components/header-nav.js"></script>
+  </body>
+</html>

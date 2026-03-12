@@ -1,0 +1,17 @@
+{
+  "name": "jq33-design-web",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static marketing site for JQ33 DESIGN.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "build:content": "node scripts/generate-projects.mjs && node scripts/generate-journal.mjs && node scripts/generate-sitemap.mjs",
+    "build:runtime-config": "node scripts/generate-runtime-config.mjs",
+    "build": "node scripts/build.mjs",
+    "check:links": "node scripts/check-links.mjs",
+    "check:redirects": "node scripts/check-redirects.mjs"
+  }
+}

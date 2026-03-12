@@ -1,0 +1,71 @@
+<svg width="445" height="445" viewBox="0 0 445 445" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="407" y="232" width="38" height="212" fill="#3B41E3" />
+  <rect
+    x="343"
+    y="134.87"
+    width="38"
+    height="80"
+    transform="rotate(-45 343 134.87)"
+    fill="#3B41E3"
+  />
+  <rect x="320" y="232" width="38" height="212" fill="#3B41E3" />
+  <rect x="233" y="232" width="38" height="212" fill="#3B41E3" />
+  <rect
+    x="117"
+    y="372.163"
+    width="37"
+    height="100"
+    transform="rotate(-45 117 372.163)"
+    fill="#3B41E3"
+  />
+  <rect
+    x="187.794"
+    y="346.791"
+    width="37"
+    height="100"
+    transform="rotate(45 187.794 346.791)"
+    fill="#3B41E3"
+  />
+  <rect
+    y="373.163"
+    width="37"
+    height="100"
+    transform="rotate(-45 0 373.163)"
+    fill="#3B41E3"
+  />
+  <rect
+    x="70.7939"
+    y="347.791"
+    width="37"
+    height="100"
+    transform="rotate(45 70.7939 347.791)"
+    fill="#3B41E3"
+  />
+  <rect
+    y="257.163"
+    width="37"
+    height="100"
+    transform="rotate(-45 0 257.163)"
+    fill="#3B41E3"
+  />
+  <rect
+    x="70.7939"
+    y="231.791"
+    width="37"
+    height="100"
+    transform="rotate(45 70.7939 231.791)"
+    fill="#3B41E3"
+  />
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M339 212C397.542 212 445 164.542 445 106C445 47.4578 397.542 0 339 0C280.458 0 233 47.4578 233 106C233 164.542 280.458 212 339 212ZM407 106C407 143.555 376.555 174 339 174C301.445 174 271 143.555 271 106C271 68.4446 301.445 38 339 38C376.555 38 407 68.4446 407 106Z"
+    fill="#3B41E3"
+  />
+  <path
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M213 0C213 117.084 118.084 212 1 212V174C97.0975 174 175 96.0975 175 0H213Z"
+    fill="#3B41E3"
+  />
+</svg>

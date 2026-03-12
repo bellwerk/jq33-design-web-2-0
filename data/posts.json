@@ -1,0 +1,138 @@
+[
+  {
+    "slug": "reduction-as-creation",
+    "status": "published",
+    "title": "Reduction as Creation",
+    "title_lines": ["Reduction", "As Creation"],
+    "hero_title_lines": ["REDUCTION", "AS CREATION"],
+    "meta": {
+      "title": "Reduction as Creation | Commercial Interior Design (Montreal) | JQ33 DESIGN",
+      "description": "Why simplifying your layout and finish choices creates a stronger customer experience-and a smoother build. Practical interior design thinking for Montreal businesses."
+    },
+    "published": "2024-02-01",
+    "published_display": "FEB 2024",
+    "category": "Layout",
+    "author": "JQ33 DESIGN",
+    "lead": "The fastest way to make a commercial space feel premium is to remove the \"almosts\"-and design what matters most: flow, lighting, and one signature moment people remember (and photograph).",
+    "intro_paragraphs": [
+      "Most spaces don't need more features-they need fewer decisions. When the layout is clear, customers move naturally, staff work faster, and the space feels intentional instead of busy.",
+      "Reduction isn't about being minimal for style. It's about choosing one strong concept, a tight material palette, and lighting that makes people and surfaces look good-day and night-so the finished space matches the goal: attract customers and convert visits into sales."
+    ],
+    "closing_paragraphs": [
+      "When you simplify the plan, you reduce construction risk. Contractors quote faster, substitutions are easier to manage, and the final result stays closer to what you approved.",
+      "If you're planning a cafe, salon, clinic, boutique, or small office in Montreal, start by cutting the noise. Then invest where it shows: the entry view, the counter/feature zone, and lighting."
+    ],
+    "key_concepts": ["01. Customer Flow First", "02. One Signature Moment", "03. Tight Finish Palette"],
+    "pull_quote": "MAKE IT CLEAR. MAKE IT SHAREABLE. MAKE IT BUILDABLE.",
+    "card": {
+      "number": "POST_001",
+      "meta": "Journal / Layout",
+      "image": {
+        "local": "assets/journal/cards/reduction-as-creation.webp",
+        "remote": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2400&auto=format&fit=crop"
+      },
+      "alt": "Material sampling"
+    },
+    "images": {
+      "feature_one": {
+        "local": "assets/journal/reduction-as-creation/feature-1.webp",
+        "remote": "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
+        "alt": "Material sampling",
+        "label": "Site Study / Flow + Sightlines",
+        "width": 2070,
+        "height": 1380
+      },
+      "feature_two": {
+        "local": "assets/journal/reduction-as-creation/feature-2.webp",
+        "remote": "https://images.unsplash.com/photo-1558442074-3c19857bc1dc?q=80&w=1964&auto=format&fit=crop",
+        "alt": "Finish detail",
+        "label": "Reference / Material Mood",
+        "width": 1964,
+        "height": 1309
+      },
+      "feature_three": {
+        "local": "assets/journal/reduction-as-creation/feature-3.webp",
+        "remote": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2070&auto=format&fit=crop",
+        "alt": "Final interior view",
+        "label": "Final layout / Customer experience",
+        "width": 2070,
+        "height": 1380
+      }
+    }
+  },
+  {
+    "slug": "lighting-that-sells",
+    "status": "teaser",
+    "title": "Lighting That Sells",
+    "title_lines": ["Lighting", "That Sells"],
+    "card": {
+      "number": "PRJ_002",
+      "meta": "Journal / Lighting",
+      "image": {
+        "local": "assets/journal/cards/lighting-that-sells.webp",
+        "remote": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=2400&auto=format&fit=crop"
+      },
+      "alt": "Lighting detail"
+    }
+  },
+  {
+    "slug": "the-customer-path",
+    "status": "teaser",
+    "title": "The Customer Path",
+    "title_lines": ["The", "Customer Path"],
+    "card": {
+      "number": "PRJ_003",
+      "meta": "Journal / Flow",
+      "image": {
+        "local": "assets/journal/cards/customer-path.webp",
+        "remote": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2400&auto=format&fit=crop"
+      },
+      "alt": "Monolith"
+    }
+  },
+  {
+    "slug": "durable-premium-materials",
+    "status": "teaser",
+    "title": "Durable, Premium Materials",
+    "title_lines": ["Durable,", "Premium Materials"],
+    "card": {
+      "number": "PRJ_004",
+      "meta": "Journal / Finishes",
+      "image": {
+        "local": "assets/journal/cards/durable-materials.webp",
+        "remote": "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2400&auto=format&fit=crop"
+      },
+      "alt": "Finish detail"
+    }
+  },
+  {
+    "slug": "small-shop-big-impact",
+    "status": "teaser",
+    "title": "Small Shop, Big Impact",
+    "title_lines": ["Small", "Shop, Big Impact"],
+    "card": {
+      "number": "PRJ_005",
+      "meta": "Journal / Retail",
+      "image": {
+        "local": "assets/journal/cards/small-shop-big-impact.webp",
+        "remote": "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2400&auto=format&fit=crop"
+      },
+      "alt": "Interior grids"
+    }
+  },
+  {
+    "slug": "spend-where-it-shows",
+    "status": "teaser",
+    "title": "Spend Where It Shows",
+    "title_lines": ["Spend", "Where It Shows"],
+    "card": {
+      "number": "PRJ_006",
+      "meta": "Journal / Budget",
+      "image": {
+        "local": "assets/journal/cards/spend-where-it-shows.webp",
+        "remote": "https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?q=80&w=2400&auto=format&fit=crop"
+      },
+      "alt": "Abstract lines"
+    }
+  }
+]

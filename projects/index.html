@@ -1,0 +1,470 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
+    <meta
+      name="description"
+      content="Explore commercial interior design projects in Montreal-cafes, salons, clinics, boutiques, and small offices. Layout-first design, confident finishes, and 3D visuals that speed up decisions."
+    />
+    <link rel="canonical" href="https://jq33.design/projects/" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JQ33 DESIGN" />
+    <meta
+      property="og:title"
+      content="Projects | JQ33 DESIGN Commercial Interior Design (Montreal)"
+    />
+    <meta
+      property="og:description"
+      content="Explore commercial interior design projects in Montreal-cafes, salons, clinics, boutiques, and small offices. Layout-first design, confident finishes, and 3D visuals that speed up decisions."
+    />
+    <meta property="og:url" content="https://jq33.design/projects/" />
+    <meta
+      property="og:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Projects | JQ33 DESIGN Commercial Interior Design (Montreal)"
+    />
+    <meta
+      name="twitter:description"
+      content="Explore commercial interior design projects in Montreal-cafes, salons, clinics, boutiques, and small offices. Layout-first design, confident finishes, and 3D visuals that speed up decisions."
+    />
+    <meta
+      name="twitter:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100svh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        font-family: var(--font-sans);
+        color: var(--cobalt);
+        position: relative;
+      }
+
+      body.site-default-bg .bg-layer {
+        transition: background-image 0.5s ease-in-out;
+      }
+
+      .brand-mark {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        font-family: var(--font-display);
+        font-size: clamp(72px, 25vh, 280px);
+        color: var(--cobalt);
+        white-space: nowrap;
+        z-index: 1;
+        pointer-events: none;
+        line-height: 0.8;
+        text-shadow: 0px 0px 20px rgba(59, 65, 227, 0.1);
+        opacity: 0.2;
+      }
+
+      .info-col {
+        position: fixed;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        height: auto;
+      }
+
+      .col-left {
+        top: 15vh;
+        left: 5vw;
+      }
+
+      .label {
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        opacity: 0.7;
+        font-size: var(--fs-label);
+      }
+
+      .content-block {
+        margin-bottom: 3rem;
+      }
+
+      a {
+        color: var(--cobalt);
+        text-decoration: none;
+        position: relative;
+        transition: color var(--dur-lg) var(--ease-standard);
+        cursor: pointer;
+      }
+
+      a:hover {
+        color: #fff;
+        text-shadow: 0 0 10px var(--cobalt);
+      }
+
+      .nav-link {
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 4px 0;
+      }
+
+      .nav-link.active {
+        color: #fff;
+      }
+
+      .portfolio-container {
+        position: relative;
+        z-index: 15;
+        width: min(1100px, 92vw);
+        margin: 0 auto;
+        height: 100vh;
+        height: 100svh;
+        overflow-y: auto;
+        padding: 180px 0 15vh;
+        scrollbar-width: none;
+      }
+
+      .portfolio-title {
+        margin-bottom: 1rem;
+        max-width: 18ch;
+      }
+
+      .portfolio-container::-webkit-scrollbar {
+        display: none;
+      }
+
+      .project-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .project-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(59, 65, 227, 0.2);
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+      }
+
+      .project-item:hover {
+        border-bottom-color: var(--cobalt);
+      }
+
+      .project-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .project-year {
+        font-size: 0.7rem;
+        font-weight: 600;
+        opacity: 0.6;
+      }
+
+      .project-title {
+        font-size: var(--fs-h2);
+        line-height: 1.1;
+        text-transform: uppercase;
+        transition: transform 0.3s ease, color 0.3s ease;
+      }
+
+      .project-item:hover .project-title {
+        color: #fff;
+        transform: translateX(10px);
+      }
+
+      .project-category {
+        font-size: 0.75rem;
+        text-align: right;
+        max-width: 200px;
+        opacity: 0.6;
+      }
+
+      .hover-preview {
+        position: fixed;
+        pointer-events: none;
+        width: min(400px, 88vw);
+        height: clamp(190px, 34vw, 250px);
+        z-index: 25;
+        opacity: 0;
+        transform: scale(0.8);
+        transition: opacity 0.4s ease,
+          transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        overflow: hidden;
+        border: 1px solid var(--cobalt);
+      }
+
+      .hover-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .cursor-dot {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--cobalt);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+      }
+
+      .cursor-hover {
+        background-color: var(--cobalt);
+        opacity: 0.5;
+        width: 60px;
+        height: 60px;
+      }
+
+      @media (max-width: 900px) {
+        .info-col {
+          display: none;
+        }
+
+        .portfolio-container {
+          width: min(1100px, 94vw);
+          height: auto;
+          min-height: 100vh;
+          min-height: 100svh;
+          overflow: visible;
+          padding: 140px 0 80px;
+        }
+
+        .project-item {
+          align-items: flex-start;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .project-category {
+          text-align: left;
+          max-width: 100%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .brand-mark {
+          font-size: clamp(56px, 17vh, 160px);
+          opacity: 0.12;
+        }
+
+        .project-item {
+          padding: 1.35rem 0;
+        }
+
+        .project-item:hover .project-title {
+          transform: none;
+        }
+
+        .hover-preview,
+        .cursor-dot {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body class="site-default-bg">
+    <div class="bg-layer" id="main-bg"></div>
+    <div class="grain"></div>
+
+    <div class="brand-mark">JQ33<br />DESIGN</div>
+
+    <header class="header-nav" data-component="header-nav"></header>
+
+    <div class="info-col col-left">
+      <div class="content-block">
+        <div class="label">Commercial Interior Design</div>
+        <div>Montreal · Greater Montreal</div>
+      </div>
+    </div>
+
+    <main class="portfolio-container">
+      <h1 class="portfolio-title">
+        Commercial Interior Design Projects in Montreal
+      </h1>
+      <p style="max-width: 65ch; opacity: 0.78; margin-bottom: 2.2rem">
+        A portfolio showcased on this page reflects our comprehensive approach focused
+        on flow, lighting, and signature moments-designed to get shared and bring
+        customers in.
+      </p>
+      <div class="project-list">
+        <a
+          class="project-item"
+          href="/projects/bruton-place-iv/"
+          data-img="/assets/projects/bruton-place-iv/preview.webp"
+          data-title="Bruton Place IV"
+          onmouseenter="hoverProject(this)"
+          onmouseleave="leaveProject()"
+        >
+          <div class="project-meta">
+            <span class="project-year">2023</span>
+            <h2 class="project-title">Bruton<br />Place IV</h2>
+          </div>
+          <div class="project-category">Office / Reception + client-facing spaces</div>
+        </a>
+        <a
+          class="project-item"
+          href="/projects/ethereal-gallery/"
+          data-img="/assets/projects/ethereal-gallery/preview.webp"
+          data-title="Ethereal Gallery"
+          onmouseenter="hoverProject(this)"
+          onmouseleave="leaveProject()"
+        >
+          <div class="project-meta">
+            <span class="project-year">2023</span>
+            <h2 class="project-title">Ethereal<br />Gallery</h2>
+          </div>
+          <div class="project-category">Retail / Minimal, product-forward</div>
+        </a>
+        <a
+          class="project-item"
+          href="/projects/obsidian-lounge/"
+          data-img="/assets/projects/obsidian-lounge/preview.webp"
+          data-title="Obsidian Lounge"
+          onmouseenter="hoverProject(this)"
+          onmouseleave="leaveProject()"
+        >
+          <div class="project-meta">
+            <span class="project-year">2023</span>
+            <h2 class="project-title">Obsidian<br />Lounge</h2>
+          </div>
+          <div class="project-category">Hospitality / Atmosphere + night lighting</div>
+        </a>
+        <a
+          class="project-item"
+          href="/projects/vortex-showroom/"
+          data-img="/assets/projects/vortex-showroom/preview.webp"
+          data-title="Vortex Showroom"
+          onmouseenter="hoverProject(this)"
+          onmouseleave="leaveProject()"
+        >
+          <div class="project-meta">
+            <span class="project-year">2022</span>
+            <h2 class="project-title">Vortex<br />Showroom</h2>
+          </div>
+          <div class="project-category">Showroom / High-impact brand moments</div>
+        </a>
+        <a
+          class="project-item"
+          href="/projects/canvas-studios/"
+          data-img="/assets/projects/canvas-studios/preview.webp"
+          data-title="Canvas Studios"
+          onmouseenter="hoverProject(this)"
+          onmouseleave="leaveProject()"
+        >
+          <div class="project-meta">
+            <span class="project-year">2022</span>
+            <h2 class="project-title">Canvas<br />Studios</h2>
+          </div>
+          <div class="project-category">Salon / Stations, storage, and smooth flow</div>
+        </a></div>
+
+      <footer class="site-footer" data-component="footer"></footer>
+    </main>
+
+    <div id="preview-container" class="hover-preview">
+      <img
+        id="preview-img"
+        src=""
+        alt="Project preview"
+        width="1200"
+        height="800"
+        decoding="async"
+      />
+    </div>
+
+    <div class="cursor-dot" id="cursor"></div>
+
+    <script src="/assets/js/analytics.js"></script>
+    <script src="/assets/js/calendly.js"></script>
+    <script src="/assets/js/components/header-nav.js"></script>
+    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/nav-drawer.js"></script>
+    <script>
+      const cursor = document.getElementById("cursor");
+      const preview = document.getElementById("preview-container");
+      const previewImg = document.getElementById("preview-img");
+      const mainBg = document.getElementById("main-bg");
+      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+      document.addEventListener("mousemove", (e) => {
+        if (!canHover) return;
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+
+        if (preview.style.opacity === "1") {
+          preview.style.left = e.clientX + 30 + "px";
+          preview.style.top = e.clientY - 125 + "px";
+        }
+      });
+
+      function hoverCursor() {
+        if (!canHover) return;
+        cursor.classList.add("cursor-hover");
+      }
+
+      function leaveCursor() {
+        if (!canHover) return;
+        cursor.classList.remove("cursor-hover");
+      }
+
+      function hoverProject(el) {
+        if (!canHover) return;
+        const imgSrc = el.getAttribute("data-img");
+        const title = el.getAttribute("data-title");
+        previewImg.src = imgSrc;
+        previewImg.alt = title ? `Preview of ${title}` : "Project preview";
+        preview.style.opacity = "1";
+        preview.style.transform = "scale(1)";
+
+        mainBg.style.backgroundImage = `url(${imgSrc})`;
+        hoverCursor();
+      }
+
+      function leaveProject() {
+        if (!canHover) return;
+        preview.style.opacity = "0";
+        preview.style.transform = "scale(0.8)";
+        leaveCursor();
+      }
+    </script>
+  </body>
+</html>

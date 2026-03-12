@@ -1,0 +1,412 @@
+[
+  {
+    "slug": "bruton-place-iv",
+    "title": "Bruton Place IV",
+    "title_lines": ["Bruton", "Place IV"],
+    "hero_title_lines": ["BRUTON", "PLACE IV"],
+    "year": "2023",
+    "category": "Office / Reception + client-facing spaces",
+    "meta": {
+      "title": "Bruton Place IV | JQ33 DESIGN Commercial Interior Project (Montreal)",
+      "description": "A commercial interior case study focused on layout clarity, lighting intent, and durable finishes-designed for day-to-day operations and customer perception."
+    },
+    "images": {
+      "preview": {
+        "local": "assets/projects/bruton-place-iv/preview.webp",
+        "remote": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=800&q=80"
+      },
+      "hero": {
+        "local": "assets/projects/bruton-place-iv/hero.webp",
+        "remote": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2301&auto=format&fit=crop"
+      },
+      "gallery": [
+        {
+          "local": "assets/projects/bruton-place-iv/g1.webp",
+          "remote": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Central corridor",
+          "caption": "Fig 01. Main customer axis / Flow + sightlines"
+        },
+        {
+          "local": "assets/projects/bruton-place-iv/g2.webp",
+          "remote": "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Feature zone",
+          "caption": "Fig 02. Feature zone / Lighting + brand moment"
+        }
+      ]
+    },
+    "details": [
+      {
+        "label": "Client",
+        "lines": ["Independent business owner", "Commercial renovation"]
+      },
+      {
+        "label": "Location",
+        "lines": ["Montreal, QC", "Canada"]
+      },
+      {
+        "label": "Timeline",
+        "lines": ["Design phase: 2-4 weeks", "Renovation timeline varies by contractor"]
+      },
+      {
+        "label": "Area",
+        "lines": ["Approx. 1,200-3,000 sq ft", "Customer-facing + back-of-house"]
+      }
+    ],
+    "narrative": [
+      {
+        "label": "Brief / Concept",
+        "text": "The goal was simple: make the space feel premium, photograph well, and work better day-to-day. We focused on a layout that guides customers naturally, creates one or two signature moments, and keeps the build realistic for budget and timeline."
+      },
+      {
+        "label": "Execution",
+        "text": "We refined lighting intent, finishes, and key viewpoints so the space looks great from the entrance, at the counter, and from main seating and consult zones. Durable materials and clear handoff notes kept quoting straightforward and protected the design during value engineering."
+      }
+    ],
+    "specifications": [
+      {
+        "label": "Lighting Design",
+        "value": "Warm, camera-friendly layers (ambient + feature + task)"
+      },
+      {
+        "label": "Flooring",
+        "value": "Durable, easy-clean surface (low maintenance)"
+      },
+      {
+        "label": "Joinery",
+        "value": "Custom millwork for storage + clean counter moments"
+      },
+      {
+        "label": "Acoustics",
+        "value": "Comfort-forward noise control for conversations"
+      }
+    ]
+  },
+  {
+    "slug": "ethereal-gallery",
+    "title": "Ethereal Gallery",
+    "title_lines": ["Ethereal", "Gallery"],
+    "hero_title_lines": ["ETHEREAL", "GALLERY"],
+    "year": "2023",
+    "category": "Retail / Minimal, product-forward",
+    "meta": {
+      "title": "Ethereal Gallery | JQ33 DESIGN Commercial Interior Project (Montreal)",
+      "description": "A retail gallery concept built to feel calm and premium, with clean display planes, controlled lighting, and a layout that lets products read as the hero."
+    },
+    "images": {
+      "preview": {
+        "local": "assets/projects/ethereal-gallery/preview.webp",
+        "remote": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=800&q=80"
+      },
+      "hero": {
+        "local": "assets/projects/ethereal-gallery/hero.webp",
+        "remote": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2301&auto=format&fit=crop"
+      },
+      "gallery": [
+        {
+          "local": "assets/projects/ethereal-gallery/g1.webp",
+          "remote": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Retail gallery overview",
+          "caption": "Fig 01. Primary display sweep / Calm, premium atmosphere"
+        },
+        {
+          "local": "assets/projects/ethereal-gallery/g2.webp",
+          "remote": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Detail wall moment",
+          "caption": "Fig 02. Feature wall / Product-forward lighting"
+        }
+      ]
+    },
+    "details": [
+      {
+        "label": "Client",
+        "lines": ["Independent gallery operator", "Retail renovation"]
+      },
+      {
+        "label": "Location",
+        "lines": ["Montreal, QC", "Canada"]
+      },
+      {
+        "label": "Timeline",
+        "lines": ["Design phase: 3-5 weeks", "Install scheduled around exhibits"]
+      },
+      {
+        "label": "Area",
+        "lines": ["Approx. 900-1,800 sq ft", "Front-of-house + storage"]
+      }
+    ],
+    "narrative": [
+      {
+        "label": "Brief / Concept",
+        "text": "The brief was to create a quiet, high-contrast gallery that frames product like art. The layout needed a strong central axis, flexible display zones, and a refined material palette that stays out of the way."
+      },
+      {
+        "label": "Execution",
+        "text": "We tuned lighting layers for soft, shadow-free viewing, introduced slim display planes, and planned circulation that keeps the focal wall in view. The result is a calm, premium environment that supports both browsing and private appointments."
+      }
+    ],
+    "specifications": [
+      {
+        "label": "Lighting Design",
+        "value": "Track + wash lighting to highlight product edges"
+      },
+      {
+        "label": "Display",
+        "value": "Modular plinths with hidden storage"
+      },
+      {
+        "label": "Surfaces",
+        "value": "Neutral plaster finish for consistent color rendering"
+      },
+      {
+        "label": "Branding",
+        "value": "Minimal signage with a single hero wall"
+      }
+    ]
+  },
+  {
+    "slug": "obsidian-lounge",
+    "title": "Obsidian Lounge",
+    "title_lines": ["Obsidian", "Lounge"],
+    "hero_title_lines": ["OBSIDIAN", "LOUNGE"],
+    "year": "2023",
+    "category": "Hospitality / Atmosphere + night lighting",
+    "meta": {
+      "title": "Obsidian Lounge | JQ33 DESIGN Commercial Interior Project (Montreal)",
+      "description": "A hospitality lounge focused on atmosphere, layered lighting, and durable finishes that hold up to late-night traffic and high guest turnover."
+    },
+    "images": {
+      "preview": {
+        "local": "assets/projects/obsidian-lounge/preview.webp",
+        "remote": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=800&q=80"
+      },
+      "hero": {
+        "local": "assets/projects/obsidian-lounge/hero.webp",
+        "remote": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2301&auto=format&fit=crop"
+      },
+      "gallery": [
+        {
+          "local": "assets/projects/obsidian-lounge/g1.webp",
+          "remote": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Lounge seating",
+          "caption": "Fig 01. Lounge seating / Layered lighting plan"
+        },
+        {
+          "local": "assets/projects/obsidian-lounge/g2.webp",
+          "remote": "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Bar moment",
+          "caption": "Fig 02. Bar focus / Material contrast"
+        }
+      ]
+    },
+    "details": [
+      {
+        "label": "Client",
+        "lines": ["Hospitality group", "Lounge + bar fit-out"]
+      },
+      {
+        "label": "Location",
+        "lines": ["Montreal, QC", "Canada"]
+      },
+      {
+        "label": "Timeline",
+        "lines": ["Design phase: 4-6 weeks", "Phased build to stay operational"]
+      },
+      {
+        "label": "Area",
+        "lines": ["Approx. 1,500-3,200 sq ft", "Public + VIP zones"]
+      }
+    ],
+    "narrative": [
+      {
+        "label": "Brief / Concept",
+        "text": "We aimed for a dark, moody lounge that still reads premium in photos. The layout needed a clear bar focus, intimate seating clusters, and lighting that shifts from early evening to late-night energy."
+      },
+      {
+        "label": "Execution",
+        "text": "We developed layered lighting zones, introduced tactile finishes, and used strategic sightlines to keep the bar as the hero. The materials were selected for durability, clean-up speed, and strong contrast under low light."
+      }
+    ],
+    "specifications": [
+      {
+        "label": "Lighting Design",
+        "value": "Dim-to-warm layers for day-to-night transitions"
+      },
+      {
+        "label": "Finishes",
+        "value": "High-durability surfaces with low reflectivity"
+      },
+      {
+        "label": "Seating Plan",
+        "value": "Clustered seating with clear service paths"
+      },
+      {
+        "label": "Bar Program",
+        "value": "Feature back bar with integrated storage"
+      }
+    ]
+  },
+  {
+    "slug": "vortex-showroom",
+    "title": "Vortex Showroom",
+    "title_lines": ["Vortex", "Showroom"],
+    "hero_title_lines": ["VORTEX", "SHOWROOM"],
+    "year": "2022",
+    "category": "Showroom / High-impact brand moments",
+    "meta": {
+      "title": "Vortex Showroom | JQ33 DESIGN Commercial Interior Project (Montreal)",
+      "description": "A product showroom designed for high-impact brand moments, with clear visitor flow, bold materials, and a layout built for demonstrations."
+    },
+    "images": {
+      "preview": {
+        "local": "assets/projects/vortex-showroom/preview.webp",
+        "remote": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?auto=format&fit=crop&w=800&q=80"
+      },
+      "hero": {
+        "local": "assets/projects/vortex-showroom/hero.webp",
+        "remote": "https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=2301&auto=format&fit=crop"
+      },
+      "gallery": [
+        {
+          "local": "assets/projects/vortex-showroom/g1.webp",
+          "remote": "https://images.unsplash.com/photo-1517502884422-41eaead166d4?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Showroom demo zone",
+          "caption": "Fig 01. Demo zone / Brand moment"
+        },
+        {
+          "local": "assets/projects/vortex-showroom/g2.webp",
+          "remote": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Showroom entry",
+          "caption": "Fig 02. Entry experience / Clear visitor flow"
+        }
+      ]
+    },
+    "details": [
+      {
+        "label": "Client",
+        "lines": ["Product manufacturer", "Showroom refresh"]
+      },
+      {
+        "label": "Location",
+        "lines": ["Montreal, QC", "Canada"]
+      },
+      {
+        "label": "Timeline",
+        "lines": ["Design phase: 2-3 weeks", "Launch aligned with product release"]
+      },
+      {
+        "label": "Area",
+        "lines": ["Approx. 1,200-2,400 sq ft", "Demo + meeting zones"]
+      }
+    ],
+    "narrative": [
+      {
+        "label": "Brief / Concept",
+        "text": "The goal was a showroom that feels bold but easy to navigate. We needed a strong entry moment, clear product sequencing, and space for live demonstrations."
+      },
+      {
+        "label": "Execution",
+        "text": "We created a central demo spine with flexible perimeter bays, tuned lighting for product clarity, and aligned sightlines to the hero display. Materials were chosen to carry brand color while staying clean and durable."
+      }
+    ],
+    "specifications": [
+      {
+        "label": "Lighting Design",
+        "value": "Balanced ambient + focused demo lighting"
+      },
+      {
+        "label": "Display",
+        "value": "Modular bays for rotating product lines"
+      },
+      {
+        "label": "Flow",
+        "value": "Clear visitor loop with direct exit access"
+      },
+      {
+        "label": "Branding",
+        "value": "Integrated signage at entry and demo wall"
+      }
+    ]
+  },
+  {
+    "slug": "canvas-studios",
+    "title": "Canvas Studios",
+    "title_lines": ["Canvas", "Studios"],
+    "hero_title_lines": ["CANVAS", "STUDIOS"],
+    "year": "2022",
+    "category": "Salon / Stations, storage, and smooth flow",
+    "meta": {
+      "title": "Canvas Studios | JQ33 DESIGN Commercial Interior Project (Montreal)",
+      "description": "A salon interior focused on efficient circulation, clean storage, and a calm customer experience from arrival through checkout."
+    },
+    "images": {
+      "preview": {
+        "local": "assets/projects/canvas-studios/preview.webp",
+        "remote": "https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?auto=format&fit=crop&w=800&q=80"
+      },
+      "hero": {
+        "local": "assets/projects/canvas-studios/hero.webp",
+        "remote": "https://images.unsplash.com/photo-1511447333015-45b65e60f6d5?q=80&w=2301&auto=format&fit=crop"
+      },
+      "gallery": [
+        {
+          "local": "assets/projects/canvas-studios/g1.webp",
+          "remote": "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Salon stations",
+          "caption": "Fig 01. Station rhythm / Clean, calm workflow"
+        },
+        {
+          "local": "assets/projects/canvas-studios/g2.webp",
+          "remote": "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=2301&auto=format&fit=crop",
+          "alt": "Reception counter",
+          "caption": "Fig 02. Reception moment / Brand-forward entry"
+        }
+      ]
+    },
+    "details": [
+      {
+        "label": "Client",
+        "lines": ["Salon owner", "Multi-station fit-out"]
+      },
+      {
+        "label": "Location",
+        "lines": ["Montreal, QC", "Canada"]
+      },
+      {
+        "label": "Timeline",
+        "lines": ["Design phase: 3-4 weeks", "Renovation phased by station"]
+      },
+      {
+        "label": "Area",
+        "lines": ["Approx. 1,000-2,200 sq ft", "Front-of-house + back bar"]
+      }
+    ],
+    "narrative": [
+      {
+        "label": "Brief / Concept",
+        "text": "Canvas Studios needed a salon layout that stays calm at peak hours. The brief focused on smooth circulation, a clear reception moment, and storage that keeps the work floor clean."
+      },
+      {
+        "label": "Execution",
+        "text": "We tightened station spacing, created a back bar with concealed storage, and balanced lighting for accurate color work. The material palette was selected for easy maintenance and long-term durability."
+      }
+    ],
+    "specifications": [
+      {
+        "label": "Lighting Design",
+        "value": "Even, color-accurate task lighting"
+      },
+      {
+        "label": "Storage",
+        "value": "Concealed back bar with dedicated product zones"
+      },
+      {
+        "label": "Flow",
+        "value": "Clear circulation between stations and wash area"
+      },
+      {
+        "label": "Finishes",
+        "value": "Salon-grade surfaces for easy cleanup"
+      }
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+name = "jq33-design-web"
+compatibility_date = "2026-02-23"
+pages_build_output_dir = "."
+
+[vars]
+PUBLIC_SITE_URL = "https://jq33.design"

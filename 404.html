@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found | JQ33 DESIGN</title>
+    <meta
+      name="description"
+      content="The page you requested could not be found. Return to JQ33 DESIGN for commercial interior projects, services, or to request a quote."
+    />
+    <link rel="canonical" href="https://jq33.design/404" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JQ33 DESIGN" />
+    <meta property="og:title" content="Page Not Found | JQ33 DESIGN" />
+    <meta
+      property="og:description"
+      content="We could not find that page. Explore projects, services, or request a quote with JQ33 DESIGN."
+    />
+    <meta property="og:url" content="https://jq33.design/404" />
+    <meta
+      property="og:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Page Not Found | JQ33 DESIGN" />
+    <meta
+      name="twitter:description"
+      content="We could not find that page. Explore projects, services, or request a quote with JQ33 DESIGN."
+    />
+    <meta
+      name="twitter:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        min-height: 100vh;
+        min-height: 100svh;
+        color: var(--text);
+        font-family: var(--font-sans);
+      }
+
+      main {
+        position: relative;
+        z-index: 2;
+        padding: 170px clamp(1.5rem, 6vw, 6rem) 120px;
+        display: grid;
+        gap: 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+        gap: clamp(2rem, 6vw, 5rem);
+        align-items: center;
+      }
+
+      .eyebrow {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.35em;
+        color: var(--text-subtle);
+      }
+
+      h1 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h1);
+        line-height: var(--lh-tight);
+        color: var(--cobalt);
+        margin-top: 1.5rem;
+      }
+
+      .hero-lead {
+        margin-top: 1.5rem;
+        font-size: 1.05rem;
+        color: var(--text-muted);
+        max-width: 46ch;
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.95rem 1.6rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: transform var(--dur-sm) var(--ease-out),
+          box-shadow var(--dur-sm) var(--ease-out), background var(--dur-sm) var(--ease-out);
+      }
+
+      .btn-primary {
+        background: var(--gradient-accent);
+        color: #fff;
+        box-shadow: 0 20px 40px rgba(59, 65, 227, 0.25);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 24px 45px rgba(59, 65, 227, 0.32);
+      }
+
+      .btn-secondary {
+        border-color: var(--border-strong);
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .btn-secondary:hover {
+        transform: translateY(-2px);
+        border-color: var(--cobalt);
+      }
+
+      .hero-meta {
+        margin-top: 1.5rem;
+        font-size: 0.85rem;
+        color: var(--text-subtle);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+
+      .hero-meta a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 2px;
+      }
+
+      .hero-meta a:hover {
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .error-panel {
+        border-radius: 24px;
+        padding: 2.5rem;
+        background: linear-gradient(160deg, rgba(59, 65, 227, 0.22), rgba(0, 0, 0, 0.9));
+        border: 1px solid rgba(59, 65, 227, 0.45);
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .error-code {
+        font-family: var(--font-display);
+        font-size: clamp(3.5rem, 10vw, 7rem);
+        letter-spacing: 0.2rem;
+        color: #fff;
+      }
+
+      .error-copy {
+        color: var(--text-muted);
+        line-height: 1.7;
+      }
+
+      .coord-grid {
+        display: grid;
+        gap: 0.75rem;
+        font-size: 0.85rem;
+        color: var(--text-subtle);
+      }
+
+      .coord-grid strong {
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .link-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.5rem;
+      }
+
+      .link-card {
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(15, 15, 15, 0.6);
+        padding: 1.5rem;
+        border-radius: 18px;
+        display: grid;
+        gap: 0.6rem;
+        min-height: 140px;
+        transition: transform var(--dur-sm) var(--ease-out),
+          border-color var(--dur-sm) var(--ease-out);
+      }
+
+      .link-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--border-strong);
+      }
+
+      .link-card span {
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--text-subtle);
+      }
+
+      .link-card strong {
+        font-size: 1.1rem;
+        color: #fff;
+      }
+
+      .link-card p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        line-height: 1.6;
+      }
+
+      @media (max-width: 1100px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .link-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        main {
+          padding: 140px 1.2rem 100px;
+        }
+
+        .hero-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .btn {
+          width: 100%;
+        }
+
+        .link-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body class="site-default-bg">
+    <div class="bg-layer"></div>
+    <div class="grain"></div>
+
+    <header class="header-nav" data-component="header-nav"></header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="eyebrow">Page not found</div>
+          <h1>This space is still on the drawing board.</h1>
+          <p class="hero-lead">
+            The page you are looking for has moved or does not exist. Pick a destination below
+            and we will get you back to the JQ33 DESIGN experience.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/">Back to home</a>
+            <a class="btn btn-secondary" href="/projects/">View projects</a>
+          </div>
+          <div class="hero-meta">
+            <span>Quick links:</span>
+            <a href="/commercial-interior-design-montreal/">Commercial interiors</a>
+            <a href="/inquiry/">Get a free quote</a>
+            <a href="/contact/">Contact</a>
+          </div>
+        </div>
+        <div class="error-panel">
+          <div class="error-code">404</div>
+          <p class="error-copy">
+            Consider this a soft redirect back to clarity. We design layout-first commercial
+            interiors across Montreal with a fast, decision-ready process.
+          </p>
+          <div class="coord-grid">
+            <div><span>Studio</span> · <strong>Montreal, QC</strong></div>
+            <div><span>Availability</span> · <strong>Next 2-4 weeks</strong></div>
+            <div><span>Response time</span> · <strong>24 hours</strong></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="link-grid" aria-label="Popular destinations">
+        <a class="link-card" href="/commercial-interior-design-montreal/">
+          <span>Service</span>
+          <strong>Commercial interiors</strong>
+          <p>Core service overview, packages, and Montreal case studies.</p>
+        </a>
+        <a class="link-card" href="/projects/">
+          <span>Portfolio</span>
+          <strong>Selected projects</strong>
+          <p>Browse concept studies, retail, hospitality, and office work.</p>
+        </a>
+        <a class="link-card" href="/journal/">
+          <span>Insights</span>
+          <strong>Journal</strong>
+          <p>Short reads on layout strategy, finishes, and decision-making.</p>
+        </a>
+        <a class="link-card" href="/inquiry/">
+          <span>Get started</span>
+          <strong>Request a quote</strong>
+          <p>Share your space details and receive next steps within 24 hours.</p>
+        </a>
+        <a class="link-card" href="/contact/">
+          <span>Contact</span>
+          <strong>Talk to the studio</strong>
+          <p>Direct contact details and calendar access for a quick intro call.</p>
+        </a>
+        <a class="link-card" href="/projects/bruton-place-iv/">
+          <span>Featured</span>
+          <strong>Bruton Place IV</strong>
+          <p>Office reception concept focused on flow and premium first impressions.</p>
+        </a>
+      </section>
+    </main>
+
+    <footer class="site-footer" data-component="footer"></footer>
+
+    <script src="/assets/js/analytics.js"></script>
+    <script src="/assets/js/calendly.js"></script>
+    <script src="/assets/js/components/header-nav.js"></script>
+    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/nav-drawer.js"></script>
+  </body>
+</html>

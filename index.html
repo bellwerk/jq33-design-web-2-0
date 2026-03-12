@@ -1,0 +1,2433 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JQ33 DESIGN | Commercial Interior Design Studio in Montreal</title>
+
+    <meta
+      name="description"
+      content="Commercial interior design in Montreal for cafes, salons, clinics, boutiques, and small offices. Smart layouts, confident finishes, and 3D visuals in 7-14 days. Book a free 15-minute call."
+    />
+
+    <link rel="canonical" href="https://jq33.design/" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="JQ33 DESIGN" />
+    <meta
+      property="og:title"
+      content="Commercial Interior Design Studio in Montreal | JQ33 DESIGN"
+    />
+    <meta
+      property="og:description"
+      content="Make your space a marketing asset with layout, finishes, and 3D visuals-fast and build-ready. Serving Montreal and Greater Montreal."
+    />
+    <meta property="og:url" content="https://jq33.design/" />
+    <meta
+      property="og:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Commercial Interior Design Studio in Montreal | JQ33 DESIGN"
+    />
+    <meta
+      name="twitter:description"
+      content="Make your space a marketing asset with layout, finishes, and 3D visuals-fast and build-ready. Serving Montreal and Greater Montreal."
+    />
+    <meta
+      name="twitter:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Asul:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background: #0c0c0c;
+        color: var(--cobalt);
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      .page {
+        height: 100vh;
+        height: 100svh;
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        background: #0c0c0c;
+        overflow-x: hidden;
+        overscroll-behavior-y: contain;
+      }
+
+      .panel {
+        position: relative;
+        min-height: 100vh;
+        min-height: 100svh;
+        width: 100%;
+        overflow: hidden;
+        background: #1a1a1a;
+      }
+
+      /* Hybrid scroll: snap on desktop, natural on touch/mobile */
+      @media (hover: hover) and (pointer: fine) and (min-width: 980px) {
+        .page {
+          scroll-snap-type: y mandatory;
+        }
+
+        .panel {
+          scroll-snap-align: start;
+        }
+      }
+
+      @media (pointer: coarse), (max-width: 979px) {
+        .page {
+          scroll-behavior: auto;
+          scroll-snap-type: none;
+        }
+
+        .panel {
+          scroll-snap-align: none;
+          overflow: visible;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .page {
+          scroll-behavior: auto;
+        }
+
+        .bg-layer,
+        .brand-mark__text {
+          transition: none !important;
+        }
+      }
+
+      .bg-layer {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background-size: cover;
+        background-position: center;
+        opacity: calc(0.38 + (var(--bg-progress, 0) * 0.62));
+        transform: scale(calc(1.01 + (var(--bg-progress, 0) * 0.06)))
+          translate(var(--parallax-x, 0px), var(--parallax-y, 0px));
+        transition: transform 220ms linear, opacity 220ms linear;
+        will-change: transform, opacity;
+      }
+
+      /* Default panel background (no global image) */
+      .panel .bg-layer {
+        background-image: none;
+        filter: none;
+      }
+
+      .grain {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        z-index: 1;
+      }
+
+      .brand-mark {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-display);
+        font-size: clamp(56px, 14vh, 220px);
+        color: var(--cobalt);
+        pointer-events: none;
+        line-height: 0.9;
+        z-index: 2;
+      }
+
+      .brand-mark__rotate {
+        display: inline-block;
+        transform: rotate(-90deg);
+        transform-origin: center;
+      }
+
+      .brand-mark__text {
+        display: inline-block;
+        white-space: pre-line;
+        text-align: center;
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+        letter-spacing: 0.01em;
+        transition: opacity 240ms cubic-bezier(0.22, 1, 0.36, 1),
+          filter 240ms cubic-bezier(0.22, 1, 0.36, 1),
+          transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .brand-mark__text--dim {
+        opacity: 0.5;
+      }
+
+      .brand-mark__text.is-fading-out {
+        opacity: 0;
+        filter: blur(0.8px);
+        transform: translateY(1.2px);
+      }
+
+      /* Only the required DOM path brand-mark stays visible */
+      .panel:not(#home) > .brand-mark {
+        display: none;
+      }
+
+      .cursor-dot {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--cobalt);
+        border-radius: 50%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        z-index: 9999;
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+      }
+
+      .cursor-hover {
+        background-color: var(--cobalt);
+        opacity: 0.5;
+        width: 40px;
+        height: 40px;
+      }
+
+      @media (pointer: coarse) {
+        .cursor-dot {
+          display: none;
+        }
+      }
+
+      /* ------------------------------ */
+      /* HOME (panel--home)             */
+      /* ------------------------------ */
+      .panel--home .bg-layer {
+        background-image: url("./assets/home page images/commercial hairsaloon interior.webp");
+        filter: grayscale(20%) contrast(110%);
+      }
+
+      .panel--home .brand-mark {
+        z-index: 2;
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(59, 65, 227, 0.2);
+      }
+
+      .panel--home .header-nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: clamp(1rem, 4vw, 3rem) clamp(1rem, 4.5vw, 4rem);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        z-index: 10;
+      }
+
+      .panel--home .header-tagline {
+        position: absolute;
+        top: 50%;
+        left: clamp(1rem, 4vw, 4rem);
+        transform: translateY(-50%);
+        font-size: 1rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        line-height: 1.4;
+        text-align: left;
+        z-index: 10;
+        color: var(--cobalt);
+      }
+
+      .panel--home .header-subheadline {
+        position: absolute;
+        left: 50%;
+        bottom: 5rem;
+        transform: translateX(-50%);
+        z-index: 10;
+        max-width: min(80vw, 42ch);
+        text-align: center;
+        color: var(--cobalt);
+        font-size: 16px;
+        line-height: 1.25;
+        font-weight: 700;
+        letter-spacing: 1px;
+        vertical-align: middle;
+        text-transform: uppercase;
+      }
+
+      .panel--home .nav-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3rem;
+        list-style: none;
+        color: var(--cobalt);
+      }
+
+      .panel--home .nav-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .panel--home .nav-logo {
+        width: clamp(80px, 9vw, 108px);
+        height: auto;
+        display: block;
+        object-fit: contain;
+        margin-bottom: 0.25rem;
+      }
+
+      .panel--home .info-pillar {
+        position: absolute;
+        bottom: 4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        z-index: 3;
+        max-width: min(34ch, 42vw);
+      }
+
+      .panel--home .pillar-left {
+        left: 4rem;
+      }
+
+      .panel--home .pillar-right {
+        right: 4rem;
+        text-align: right;
+        max-width: min(30ch, 36vw);
+      }
+
+      .panel--home .label {
+        text-transform: uppercase;
+        margin-bottom: 4px;
+        opacity: 0.7;
+        font-size: 0.65rem;
+      }
+
+      .panel--home .content-block {
+        margin-bottom: 1.5rem;
+      }
+
+      .panel--home a {
+        color: var(--cobalt);
+        transition: color 0.3s ease;
+      }
+
+      .panel--home a:hover {
+        color: #fff;
+        text-shadow: 0 0 10px var(--cobalt);
+      }
+
+      .panel--home .nav-link {
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .panel--home .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--cobalt);
+        transition: width 0.3s;
+      }
+
+      .panel--home .nav-link:hover::after {
+        width: 100%;
+      }
+
+      /* ------------------------------ */
+      /* CTA (panel--cta)               */
+      /* ------------------------------ */
+      .panel--cta {
+        display: grid;
+        place-items: center;
+      }
+
+      .panel--cta .brand-mark {
+        z-index: 2;
+        opacity: 0.1;
+        text-shadow: 0 0 20px rgba(59, 65, 227, 0.1);
+      }
+
+      .panel--cta .info-col {
+        position: absolute;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        top: 15vh;
+        left: 5vw;
+      }
+
+      .panel--cta .label {
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        opacity: 0.7;
+        font-size: 0.65rem;
+      }
+
+      .panel--cta .cta-container {
+        position: relative;
+        z-index: 20;
+        display: flex;
+        width: min(1100px, 90vw);
+        height: min(520px, 70vh);
+        gap: 2px;
+        background-color: rgba(59, 65, 227, 0.1);
+        margin-top: 200px;
+      }
+
+      .panel--cta .cta-intro {
+        position: absolute;
+        top: 12vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(1100px, 90vw);
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .panel--cta .cta-intro h2 {
+        font-size: var(--fs-h2);
+        line-height: 1.1;
+        max-width: 48ch;
+        color: rgba(204, 202, 203, 1);
+        text-align: left;
+        vertical-align: bottom;
+        width: fit-content;
+      }
+
+      .panel--cta .cta-intro p {
+        margin-top: 30px;
+        color: rgba(204, 202, 203, 1);
+        font-size: 20px;
+        line-height: 1.6;
+        width: fit-content;
+        text-align: left;
+      }
+
+      .panel--cta .cta-card {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: clamp(24px, 4vw, 64px);
+        position: relative;
+        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+          background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        overflow: hidden;
+      }
+
+      .panel--cta .card-consult {
+        background-color: #0c0c0c;
+        border: 1px solid rgba(59, 65, 227, 0.3);
+      }
+
+      .panel--cta .card-process {
+        position: relative;
+        border: 1px solid rgba(59, 65, 227, 0.2);
+        opacity: 0.75;
+      }
+
+      .panel--cta .card-process::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('assets/home page images/bar-interior.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        filter: blur(3px);
+        z-index: -1;
+      }
+
+      .panel--cta .cta-title {
+        font-size: var(--fs-h2);
+        line-height: 1.1;
+        margin-bottom: 16px;
+        color: #fff;
+      }
+
+      .panel--cta .cta-desc {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.75);
+        max-width: 32ch;
+      }
+
+      .panel--cta .cta-arrow {
+        margin-top: 18px;
+        font-size: 1.5rem;
+        color: #fff;
+        opacity: 0.8;
+        transform: translateX(0);
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .panel--cta .cta-card:hover {
+        transform: translateY(-8px);
+      }
+
+      .panel--cta .cta-card:hover .cta-arrow {
+        transform: translateX(10px);
+      }
+
+      @media (max-width: 860px) {
+        .panel--cta .cta-container {
+          flex-direction: column;
+          height: auto;
+        }
+      }
+
+      /* ------------------------------ */
+      /* HOW IT WORKS (panel--how)      */
+      /* ------------------------------ */
+      #how {
+        background: #1a1a1a;
+      }
+
+      .panel--how {
+        --how-cobalt: var(--cobalt);
+        --how-cobalt-dark: #1e2281;
+        --how-ink: #1a1a1a;
+        --how-white: #ffffff;
+        --how-grey: rgba(59, 65, 227, 0.2);
+      }
+
+      .panel--how .grain {
+        z-index: 4;
+      }
+
+      .panel--how .how-brand-header {
+        position: absolute;
+        top: 60px;
+        left: 80px;
+        z-index: 10;
+      }
+
+      .panel--how .how-brand-mark {
+        font-family: var(--font-display);
+        font-size: clamp(38px, 3vw, 48px);
+        line-height: 0.9;
+        color: var(--how-cobalt);
+        text-transform: uppercase;
+        opacity: 0.95;
+      }
+
+      .panel--how .how-page-title {
+        position: absolute;
+        top: 60px;
+        right: 80px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        z-index: 10;
+        opacity: 0.85;
+        color: var(--how-cobalt);
+      }
+
+      .panel--how .how-timeline-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(1200px, 92vw);
+        height: min(600px, 62vh);
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 24px;
+        align-items: stretch;
+        z-index: 6;
+      }
+
+      .panel--how .how-timeline-line,
+      .panel--how .how-timeline-progress {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        height: 1px;
+        z-index: 1;
+      }
+
+      .panel--how .how-timeline-line {
+        right: 0;
+        background: var(--how-grey);
+      }
+
+      .panel--how .how-timeline-progress {
+        width: 0%;
+        background: var(--how-cobalt);
+        z-index: 2;
+        animation: howGrowLine 4s ease-in-out infinite;
+        box-shadow: 0 0 15px var(--how-cobalt);
+      }
+
+      @keyframes howGrowLine {
+        0% {
+          width: 0%;
+        }
+        100% {
+          width: 100%;
+        }
+      }
+
+      .panel--how .how-step-card {
+        width: 100%;
+        height: 100%;
+        min-height: clamp(240px, 42vh, 360px);
+        background: rgba(26, 26, 26, 0.8);
+        border: 1px solid var(--how-grey);
+        padding: 40px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        z-index: 3;
+        transition: transform 0.4s var(--ease-emphasis),
+          border-color 0.4s var(--ease-emphasis),
+          background-color 0.4s var(--ease-emphasis);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+      }
+
+      .panel--how .how-step-card:hover {
+        border-color: var(--how-cobalt);
+        transform: translateY(-16px);
+        background: rgba(59, 65, 227, 0.05);
+      }
+
+      .panel--how .how-step-number {
+        font-family: var(--font-display);
+        font-size: clamp(52px, 5vw, 72px);
+        line-height: 1;
+        opacity: 0.28;
+        transition: opacity 0.4s var(--ease-emphasis);
+        color: var(--how-cobalt);
+      }
+
+      .panel--how .how-step-card:hover .how-step-number {
+        opacity: 1;
+      }
+
+      .panel--how .how-step-content h3 {
+        font-size: var(--fs-h3);
+        line-height: 1.3;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 14px;
+        color: var(--how-cobalt);
+      }
+
+      .panel--how .how-step-content p {
+        font-size: 0.85rem;
+        line-height: 1.6;
+        opacity: 0.82;
+        color: var(--how-white);
+        max-width: 36ch;
+      }
+
+      .panel--how .how-indicator {
+        width: 12px;
+        height: 12px;
+        background: var(--how-ink);
+        border: 2px solid var(--how-cobalt);
+        border-radius: 50%;
+        position: absolute;
+        left: 50%;
+        z-index: 4;
+      }
+
+      .panel--how .how-indicator--top {
+        top: 0;
+        transform: translate(-50%, -50%);
+      }
+
+      .panel--how .how-indicator--bottom {
+        bottom: 0;
+        transform: translate(-50%, 50%);
+      }
+
+      .panel--how .how-indicator::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 30px;
+        height: 30px;
+        border: 1px solid var(--how-cobalt);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: howPulse 2s infinite;
+      }
+
+      @keyframes howPulse {
+        0% {
+          transform: translate(-50%, -50%) scale(0.5);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(2.5);
+          opacity: 0;
+        }
+      }
+
+      .panel--how .how-metadata {
+        position: absolute;
+        bottom: 60px;
+        left: 80px;
+        display: flex;
+        gap: 60px;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        z-index: 10;
+        color: var(--how-cobalt);
+      }
+
+      .panel--how .how-meta-item .how-meta-label {
+        opacity: 0.55;
+        margin-bottom: 10px;
+      }
+
+      @media (max-width: 1100px) {
+        .panel--how .how-timeline-container {
+          height: auto;
+          top: 54%;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .panel--how .how-brand-header {
+          left: 24px;
+          top: 36px;
+        }
+
+        .panel--how .how-page-title {
+          right: 24px;
+          top: 40px;
+          letter-spacing: 0.14em;
+        }
+
+        .panel--how .how-timeline-container {
+          position: relative;
+          inset: auto;
+          transform: none;
+          margin: 140px auto 80px;
+          grid-template-columns: 1fr;
+          width: min(520px, 90vw);
+        }
+
+        .panel--how .how-timeline-line,
+        .panel--how .how-timeline-progress {
+          display: none;
+        }
+
+        .panel--how .how-metadata {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .panel--how .how-timeline-progress {
+          animation: none;
+          width: 100%;
+        }
+
+        .panel--how .how-indicator::after {
+          animation: none;
+        }
+      }
+
+      /* ------------------------------ */
+      /* PRICING (panel--pricing)       */
+      /* ------------------------------ */
+      .panel--pricing {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      .panel--pricing .bg-layer {
+        background-image: none;
+        filter: none;
+        opacity: 1;
+      }
+
+      .panel--pricing .grain {
+        z-index: 2;
+      }
+
+      .panel--pricing .pricing-shell {
+        position: relative;
+        z-index: 4;
+        width: min(1125px, 92vw);
+        padding: clamp(80px, 10vh, 130px) 0;
+        display: flex;
+        flex-direction: column;
+        gap: 2.4rem;
+      }
+
+      .panel--pricing .section-header h2 {
+        font-size: var(--fs-h2);
+        line-height: 1.1;
+        color: #fff;
+        font-family: "Asul", system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+
+      .panel--pricing .pricing-subnote {
+        color: var(--text-subtle);
+        font-size: 0.9rem;
+      }
+
+      .panel--pricing .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.6rem;
+        align-items: stretch;
+      }
+
+      .panel--pricing .pricing-card {
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(10, 10, 10, 0.75);
+        padding: 2.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.3rem;
+        min-height: 360px;
+      }
+
+      .panel--pricing .pricing-card.is-featured {
+        border-color: rgba(59, 65, 227, 0.55);
+        background: linear-gradient(
+          165deg,
+          rgba(59, 65, 227, 0.2),
+          rgba(0, 0, 0, 0.78)
+        );
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+
+      .panel--pricing .pricing-tier {
+        font-size: 0.8rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-subtle);
+      }
+
+      .panel--pricing .pricing-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.7rem;
+        font-size: 0.65rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: rgba(59, 65, 227, 0.25);
+      }
+
+      .panel--pricing .pricing-card h3 {
+        font-size: var(--fs-h3);
+        line-height: 1.3;
+        color: #fff;
+      }
+
+      .panel--pricing .pricing-price {
+        font-size: 2.1rem;
+        font-weight: 700;
+        color: var(--cobalt);
+      }
+
+      .panel--pricing .pricing-note {
+        color: var(--text-subtle);
+        font-size: 0.85rem;
+        line-height: 1.6;
+      }
+
+      .panel--pricing .pricing-list {
+        list-style: none;
+        display: grid;
+        gap: 0.75rem;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .panel--pricing .pricing-list li {
+        display: flex;
+        gap: 0.6rem;
+      }
+
+      .panel--pricing .pricing-list li::before {
+        content: "—";
+        color: var(--cobalt);
+      }
+
+      .panel--pricing .pricing-cta {
+        margin-top: auto;
+      }
+
+      .panel--pricing .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.95rem 1.6rem;
+        font-weight: 700;
+        font-size: 0.7rem;
+        text-decoration: none;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        border: 1px solid rgba(59, 65, 227, 0.5);
+        color: #fff;
+        background: rgba(59, 65, 227, 0.18);
+        transition: transform 180ms var(--ease-out),
+          box-shadow 180ms var(--ease-out),
+          background 180ms var(--ease-out);
+      }
+
+      .panel--pricing .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 32px rgba(59, 65, 227, 0.25);
+        background: rgba(59, 65, 227, 0.28);
+      }
+
+      .panel--pricing .pricing-secondary {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+        color: var(--text-subtle);
+      }
+
+      .panel--pricing .pricing-secondary a {
+        color: #fff;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .panel--pricing .pricing-footnote {
+        margin-top: 0.6rem;
+        color: var(--text-subtle);
+        font-size: 0.85rem;
+        max-width: 70ch;
+      }
+
+      @media (max-width: 1100px) {
+        .panel--pricing {
+          align-items: flex-start;
+        }
+
+        .panel--pricing .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .panel--pricing .pricing-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .panel--pricing .pricing-shell {
+          padding: 120px 0 90px;
+        }
+
+        .panel--pricing .pricing-card {
+          min-height: 0;
+        }
+      }
+
+      /* ------------------------------ */
+      /* ATELIER (panel--atelier)       */
+      /* ------------------------------ */
+      .panel--atelier .brand-mark {
+        z-index: 2;
+        opacity: 0.4;
+        font-size: clamp(64px, 16vh, 220px);
+        text-shadow: 0 0 20px rgba(59, 65, 227, 0.2);
+      }
+
+      .panel--atelier .info-col {
+        position: absolute;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        color: #cccacb;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        height: auto;
+        top: 10vh;
+      }
+
+      .panel--atelier .col-left {
+        left: 5vw;
+        align-items: flex-start;
+      }
+
+      .panel--atelier .col-right {
+        right: 5vw;
+        align-items: flex-start;
+      }
+
+      .panel--atelier .label {
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        opacity: 0.7;
+        font-size: 0.65rem;
+      }
+
+      .panel--atelier .content-block {
+        margin-bottom: 3rem;
+      }
+
+      .panel--atelier .nav-link {
+        display: block;
+        margin-top: 10px;
+        opacity: 0.85;
+      }
+
+      .panel--atelier .active-link {
+        opacity: 1;
+        text-decoration: underline;
+        text-underline-offset: 4px;
+      }
+
+      .panel--atelier .methodology-timeline {
+        position: absolute;
+        bottom: 15vh;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(1100px, 80vw);
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+      }
+
+      .panel--atelier .timeline-step {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+      }
+
+      .panel--atelier .step-number {
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1;
+        opacity: 0.9;
+      }
+
+      .panel--atelier .step-label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .panel--atelier .step-desc {
+        font-size: 0.75rem;
+        opacity: 0.85;
+        max-width: 180px;
+      }
+
+      .panel--atelier .progress-line {
+        position: absolute;
+        top: 2rem;
+        left: 4rem;
+        right: 2rem;
+        height: 2px;
+        background: rgba(59, 65, 227, 0.2);
+        overflow: hidden;
+      }
+
+      .panel--atelier .progress-fill {
+        height: 100%;
+        width: 100%;
+        background: var(--cobalt);
+        transform: translateX(-100%);
+        animation: progressFlow 3s infinite linear;
+      }
+
+      @keyframes progressFlow {
+        0% {
+          transform: translateX(-100%);
+        }
+        100% {
+          transform: translateX(100%);
+        }
+      }
+
+      @media (max-width: 980px) {
+        .panel--atelier .methodology-timeline {
+          flex-direction: column;
+          align-items: stretch;
+          bottom: 8vh;
+        }
+        .panel--atelier .progress-line {
+          display: none;
+        }
+        .panel--atelier .info-col {
+          writing-mode: horizontal-tb;
+          transform: none;
+          position: relative;
+          top: auto;
+          left: auto;
+          right: auto;
+          padding: 24px 8vw 0;
+        }
+      }
+
+      /* ------------------------------ */
+      /* FAQ (panel--faq)               */
+      /* ------------------------------ */
+      .panel--faq .faq-shell {
+        position: relative;
+        z-index: 6;
+        display: grid;
+        grid-template-columns: minmax(280px, 420px) 1fr;
+        height: 100%;
+      }
+
+      .panel--faq .faq-sidebar {
+        border-right: 1px solid rgba(59, 65, 227, 0.18);
+        padding: clamp(28px, 6vh, 80px) clamp(20px, 3vw, 42px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 42px;
+      }
+
+      .panel--faq .faq-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-weight: 700;
+        opacity: 0.65;
+      }
+
+      .panel--faq .faq-question-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .panel--faq .faq-question {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        padding: 0;
+        text-align: left;
+        cursor: pointer;
+        font-family: var(--font-display);
+        font-size: 1.55rem;
+        line-height: 1.15;
+        color: var(--cobalt);
+        opacity: 0.38;
+        transform: translateX(0);
+        transition: opacity 180ms ease, transform 180ms ease;
+      }
+
+      .panel--faq .faq-question:hover {
+        opacity: 0.8;
+        transform: translateX(10px);
+      }
+
+      .panel--faq .faq-question.is-active {
+        opacity: 1;
+        transform: translateX(14px);
+      }
+
+      .panel--faq .faq-question:focus-visible {
+        outline: 2px solid rgba(59, 65, 227, 0.55);
+        outline-offset: 8px;
+        border-radius: 8px;
+      }
+
+      .panel--faq .faq-content {
+        padding: clamp(28px, 6vh, 80px) clamp(20px, 7vw, 10%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .panel--faq .faq-answer {
+        max-width: 640px;
+      }
+
+      .panel--faq .faq-answer-heading {
+        font-family: var(--font-display);
+        font-size: clamp(56px, 7vw, 92px);
+        line-height: 0.9;
+        margin-bottom: 22px;
+        display: none;
+        color: var(--cobalt);
+      }
+
+      .panel--faq .faq-answer-heading.is-active {
+        display: block;
+      }
+
+      .panel--faq .faq-answer-body {
+        font-size: 1.05rem;
+        line-height: 1.85;
+        color: rgba(255, 255, 255, 0.62);
+        display: none;
+      }
+
+      .panel--faq .faq-answer-body.is-active {
+        display: block;
+      }
+
+      @media (max-width: 980px) {
+        .panel--faq .faq-shell {
+          grid-template-columns: 1fr;
+        }
+        .panel--faq .faq-sidebar {
+          border-right: 0;
+          border-bottom: 1px solid rgba(59, 65, 227, 0.18);
+          justify-content: flex-start;
+          gap: 18px;
+        }
+        .panel--faq .faq-question-list {
+          gap: 16px;
+        }
+        .panel--faq .faq-question {
+          font-size: 1.25rem;
+        }
+      }
+
+      /* ------------------------------ */
+      /* WORK (panel--work)             */
+      /* ------------------------------ */
+      .panel--work .bg-layer {
+        background-image: url("./assets/home page images/footer reno.webp");
+        filter: grayscale(20%) contrast(110%);
+      }
+
+      .panel--work .brand-mark {
+        z-index: 2;
+        opacity: 0.95;
+        text-shadow: 0 0 20px rgba(59, 65, 227, 0.2);
+      }
+
+      .panel--work {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      .panel--work .site-footer {
+        margin-top: auto;
+        margin-bottom: clamp(40px, 8vh, 80px);
+      }
+
+      .panel--work .header-nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 3rem 4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        z-index: 10;
+      }
+
+      .panel--work .nav-group {
+        display: flex;
+        gap: 3rem;
+        list-style: none;
+      }
+
+      .panel--work .nav-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .panel--work .nav-link {
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--cobalt);
+      }
+
+      .panel--work .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background: var(--cobalt);
+        transition: width 0.3s;
+      }
+
+      .panel--work .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .panel--work .info-pillar {
+        position: static;
+        display: flex;
+        flex-direction: column;
+        z-index: 3;
+        background: var(--cobalt-base);
+        color: #fff;
+        padding: 2.5rem;
+      }
+
+      .panel--work .pillar-left {
+        left: 0;
+        width: min(560px, 45vw);
+        clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
+        padding-top: 4rem;
+      }
+
+      .panel--work .pillar-right {
+        right: 0;
+        width: min(720px, 55vw);
+        text-align: right;
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+        padding-top: 5rem;
+        align-items: flex-end;
+        background-color: rgba(59, 65, 227, 1);
+      }
+
+      .panel--work .label {
+        text-transform: uppercase;
+        margin-bottom: 8px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        background: rgba(255, 255, 255, 0.2);
+        display: inline-block;
+        padding: 2px 8px;
+        color: #fff;
+      }
+
+      .panel--work .content-block {
+        margin-bottom: 2.5rem;
+      }
+
+      .panel--work .heavy-text {
+        font-weight: 900;
+        font-size: 1.5rem;
+        line-height: 1.1;
+        text-transform: uppercase;
+      }
+
+      .panel--work .asymmetric-offset {
+        margin-left: 2rem;
+      }
+
+      .panel--work a:hover {
+        opacity: 0.75;
+      }
+
+      @media (max-width: 768px) {
+        .panel--home .header-nav,
+        .panel--work .header-nav {
+          padding: 2rem;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 1rem;
+        }
+
+        .panel--home .nav-group,
+        .panel--work .nav-group {
+          gap: 1.5rem;
+        }
+
+        .panel--home .brand-mark {
+          font-size: clamp(45px, 11.2vh, 176px);
+        }
+
+        .panel--home .header-tagline {
+          top: calc(5rem + 82px);
+          left: 2rem;
+          transform: none;
+          font-size: 0.82rem;
+          letter-spacing: 1.2px;
+        }
+
+        .panel--home .header-subheadline {
+          top: calc(5rem + 82px + 3.6rem);
+          left: 2rem;
+          right: 2rem;
+          bottom: auto;
+          transform: none;
+          max-width: min(84vw, 28ch);
+          text-align: left;
+          font-size: 0.9rem;
+          line-height: 1.35;
+          letter-spacing: 0.04em;
+        }
+
+        .panel--home .info-pillar.pillar-right {
+          display: none;
+        }
+
+        .panel--home .info-pillar {
+          left: 2rem;
+          right: 2rem;
+          bottom: 1.5rem;
+          position: absolute;
+          gap: 1.2rem;
+          font-size: 0.7rem;
+          line-height: 1.35;
+          max-width: min(90vw, 34ch);
+        }
+
+        .panel--home .pillar-right {
+          bottom: 10rem;
+          text-align: left;
+        }
+
+        .panel--work .info-pillar {
+          width: 100%;
+          position: relative;
+          clip-path: none;
+          padding: 2rem;
+        }
+
+        .panel--work .pillar-left,
+        .panel--work .pillar-right {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .panel--home .header-tagline {
+          top: calc(4.75rem + 76px);
+          left: 1rem;
+          right: 1rem;
+          font-size: 0.75rem;
+          line-height: 1.35;
+        }
+
+        .panel--home .header-subheadline {
+          top: calc(4.75rem + 76px + 3.2rem);
+          left: 1rem;
+          right: 1rem;
+          max-width: 26ch;
+          font-size: 0.82rem;
+        }
+
+        .panel--home .info-pillar {
+          left: 1rem;
+          right: 1rem;
+          bottom: 1rem;
+          font-size: 0.68rem;
+          gap: 0.9rem;
+        }
+
+        .panel--home .pillar-left .content-block:last-child {
+          display: none;
+        }
+      }
+    </style>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://jq33.design/#organization",
+            "name": "JQ33 DESIGN",
+            "url": "https://jq33.design/",
+            "email": "hello@jq33.design",
+            "telephone": "+1 514 473 0075",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "2727 Saint-Patrick St.",
+              "addressLocality": "Montreal",
+              "addressRegion": "QC",
+              "postalCode": "H3K 0A8",
+              "addressCountry": "CA"
+            }
+          },
+          {
+            "@type": "ProfessionalService",
+            "@id": "https://jq33.design/#service",
+            "name": "JQ33 DESIGN",
+            "url": "https://jq33.design/",
+            "description": "Commercial interior design studio in Montreal for cafes, salons, clinics, boutiques, and small offices.",
+            "image": "https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg",
+            "areaServed": {
+              "@type": "City",
+              "name": "Montreal",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Montreal",
+                "addressRegion": "QC",
+                "addressCountry": "CA"
+              }
+            },
+            "serviceType": "Commercial interior design",
+            "provider": {
+              "@id": "https://jq33.design/#organization"
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://jq33.design/#website",
+            "url": "https://jq33.design/",
+            "name": "JQ33 DESIGN",
+            "publisher": {
+              "@id": "https://jq33.design/#organization"
+            },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://jq33.design/projects/?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How fast can we start?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "If you have measurements and photos, we can begin immediately. Concept Sprint delivers in 7-10 days. Larger packages typically take 2-4 weeks depending on complexity and feedback speed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What do you need to quote?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Space type, Montreal-area location, approximate square footage, timeline, budget range, and any existing floor plan or lease constraints."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do you do permits and stamped drawings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We provide a contractor-friendly design package (layout + finishes + lighting intent + visuals). If your project needs permit-ready drawings or stamps, I can coordinate with an architect, technologist, or engineer depending on scope."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can you work with my contractor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We can hand off a clean package for quoting and stay available during the build so the result stays consistent."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "I'm not sure about my style yet-is that a problem?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not a problem. We use references, moodboard, finishes direction, and visuals to create clarity quickly before money is spent."
+            }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body class="is-home">
+    <div class="cursor-dot" id="cursor" aria-hidden="true"></div>
+
+    <main class="page" id="page">
+      <section class="panel panel--home" id="home" aria-label="Home">
+        <div
+          class="bg-layer"
+          data-parallax-bg
+          data-parallax-strength="100"
+          data-parallax-scale="1.05"
+        ></div>
+        <div class="grain"></div>
+
+        <div class="brand-mark" aria-live="polite">
+          <span class="brand-mark__rotate">
+            <span class="brand-mark__text" id="brand-mark-text">JQ33
+Design</span>
+          </span>
+        </div>
+
+        <h1 class="visually-hidden">Commercial Interior Design Montreal</h1>
+
+        <header class="header-nav" data-component="header-nav"></header>
+
+        <div class="header-tagline">COMMERCIAL INTERIOR<br />DESIGN MONTREAL</div>
+        <p class="header-subheadline">Your interior is your best marketing asset.</p>
+
+        <div class="info-pillar pillar-left">
+          <div class="content-block">
+            <div class="label">Location</div>
+            <div>Montreal, Quebec</div>
+          </div>
+          <div class="content-block">
+            <div class="label">Enquiries</div>
+            <a href="mailto:hello@jq33.design">hello@jq33.design</a>
+            <div>+1 514 473 0075</div>
+          </div>
+          <div class="content-block">
+            <div class="label">Availability</div>
+            <div>Now booking: Next 2-4 weeks</div>
+            <div>Fast turnaround options (7-14 days)</div>
+          </div>
+        </div>
+
+        <div class="info-pillar pillar-right">
+          <div class="content-block">
+            <div class="label">Headquarters</div>
+            <div>2727 Saint-Patrick St.</div>
+            <div>Montreal, Quebec H3K 0A8</div>
+          </div>
+          <div class="content-block">
+            <div class="label">Status</div>
+            <div>Cafes · Salons · Clinics · Boutiques · Offices</div>
+            <div>Layout + finishes + 3D visuals to decide fast</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel--cta" id="cta" aria-label="Inquiry">
+        <div class="bg-layer"></div>
+        <div class="grain"></div>
+
+        <div class="brand-mark">JQ33<br />DESIGN</div>
+
+        <div class="info-col">
+          <div class="content-block">
+            <div class="label">Commercial Interior Design</div>
+            <div>Montreal · Greater Montreal</div>
+          </div>
+        </div>
+
+        <div class="cta-intro">
+          <h2 style="width: fit-content;">
+            We design standout commercial spaces in Montreal that will make your clients
+            take pictures and come back with their friends.
+          </h2>
+          <p>Our priority is the needs of those interacting with the space.</p>
+        </div>
+
+        <div class="cta-container" role="list">
+          <a
+            href="https://calendly.com/hello-jq33/15min"
+            class="cta-card card-consult"
+            role="listitem"
+            data-calendly-cta
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="label" style="color: #FF3CC7; margin-bottom: auto">
+              01 / Start
+            </div>
+            <div>
+              <h2 class="cta-title" style="color: #FF3CC7;">Book a free<br />15-minute call</h2>
+              <p class="cta-desc" style="color: #FF3CC7;">
+                Let's discuss your space type, timeline, and budget range. We'll
+                recommend the best package and next steps.
+              </p>
+              <div class="cta-arrow" style="color: #FF3CC7;">→</div>
+            </div>
+          </a>
+
+          <a href="/projects/" class="cta-card card-process" role="listitem">
+            <div
+              class="label"
+              style="color: var(--cobalt); margin-bottom: auto"
+            >
+              02 / Work
+            </div>
+            <div>
+              <h2 class="cta-title" style="color: #fff">See Our Portfolio</h2>
+              <p class="cta-desc">
+                Explore projects designed for flow, lighting, and signature moments-built
+                to get shared and bring customers in.
+              </p>
+              <div class="cta-arrow" style="color: var(--cobalt)">→</div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <section class="panel panel--how" id="how" aria-label="How it works">
+        <div
+          class="bg-layer"
+          data-parallax-bg
+          data-parallax-strength="150"
+          data-parallax-scale="1.06"
+        ></div>
+        <div class="grain"></div>
+
+        <header class="how-brand-header">
+          <div class="how-brand-mark">How<br />We Work</div>
+        </header>
+
+        <div class="how-page-title">Process / 04 Steps</div>
+
+        <h2 class="visually-hidden">How it works</h2>
+
+        <div class="section-header">
+          <h2 class="heading-section">How the process works</h2>
+          <div class="section-copy">
+            <p>
+              Four clear steps from first call to a contractor-ready design package for your
+              commercial space in Montreal.
+            </p>
+          </div>
+        </div>
+
+        <main class="how-timeline-container" aria-label="Service workflow">
+          <div class="how-timeline-line" aria-hidden="true"></div>
+          <div class="how-timeline-progress" aria-hidden="true"></div>
+
+          <section class="how-step-card" aria-label="Step 01: Free 15-minute call">
+            <div class="how-step-number">01</div>
+            <div class="how-step-content">
+              <h3>Free 15-minute call</h3>
+              <p>
+                We align on goals, timeline, budget, and constraints-so the design is
+                decisive from day one.
+              </p>
+            </div>
+            <div class="how-indicator how-indicator--bottom" aria-hidden="true"></div>
+          </section>
+
+          <section class="how-step-card" aria-label="Step 02: Measurements + photos">
+            <div class="how-step-number">02</div>
+            <div class="how-step-content">
+              <h3>Measurements + photos</h3>
+              <p>
+                You share measurements, a floor plan (if available), and photos/video.
+                A site measure can be coordinated in Montreal if needed.
+              </p>
+            </div>
+            <div class="how-indicator how-indicator--top" aria-hidden="true"></div>
+          </section>
+
+          <section class="how-step-card" aria-label="Step 03: Layout + concept + 3D">
+            <div class="how-step-number">03</div>
+            <div class="how-step-content">
+              <h3>Layout + concept + 3D</h3>
+              <p>
+                You receive a space plan, finishes direction, and 3D visuals for key
+                customer viewpoints-then we refine with revisions.
+              </p>
+            </div>
+            <div class="how-indicator how-indicator--bottom" aria-hidden="true"></div>
+          </section>
+
+          <section
+            class="how-step-card"
+            aria-label="Step 04: Contractor-ready next steps"
+          >
+            <div class="how-step-number">04</div>
+            <div class="how-step-content">
+              <h3>Contractor-ready next steps</h3>
+              <p>
+                A clean package you can share for quoting-so what gets built matches
+                what you approved.
+              </p>
+            </div>
+            <div class="how-indicator how-indicator--top" aria-hidden="true"></div>
+          </section>
+        </main>
+
+        <aside class="how-metadata" aria-label="Workflow metadata">
+          <div class="how-meta-item">
+            <div class="how-meta-label">Focus</div>
+            <div>Flow · Lighting · Finish</div>
+          </div>
+          <div class="how-meta-item">
+            <div class="how-meta-label">Outcome</div>
+            <div>Clear scope, faster quotes</div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="panel panel--pricing" id="pricing" aria-label="Pricing">
+        <div class="bg-layer"></div>
+        <div class="grain"></div>
+
+        <div class="pricing-shell">
+          <div class="section-header">
+            <h2>Pricing</h2>
+            <div class="section-copy">
+              <p>
+                Choose the level of design support that fits your timeline, budget, and build
+                complexity.
+              </p>
+            </div>
+          </div>
+
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <div class="pricing-tier">Tier 01</div>
+              <h3>Layout Sprint</h3>
+              <div class="pricing-price">From $2,900 CAD</div>
+              <p class="pricing-note">
+                Best for fast space planning, circulation, and fixture decisions.
+              </p>
+              <ul class="pricing-list">
+                <li>On-site measure + base plan</li>
+                <li>Zoning + furniture/equipment layout</li>
+                <li>1 mood direction key view</li>
+                <li>1 revision round</li>
+                <li>Delivery in 7-10 business days</li>
+              </ul>
+              <div class="pricing-cta">
+                <a
+                  class="btn btn-primary"
+                  href="https://calendly.com/hello-jq33/15min"
+                  data-calendly-cta
+                >
+                  Book a free 15-minute call
+                </a>
+              </div>
+            </div>
+
+            <div class="pricing-card is-featured">
+              <div class="pricing-tier">Tier 02</div>
+              <div class="pricing-badge">Most Popular</div>
+              <h3>Signature Interior</h3>
+              <div class="pricing-price">From $6,800 CAD</div>
+              <p class="pricing-note">
+                Best for a polished concept with finishes, lighting direction, and strong visual
+                presentation.
+              </p>
+              <ul class="pricing-list">
+                <li>Layout + finishes palette</li>
+                <li>Lighting concept + fixture list</li>
+                <li>2 signature 3D views</li>
+                <li>2 revision rounds</li>
+                <li>Delivery in 3-4 weeks</li>
+              </ul>
+              <div class="pricing-cta">
+                <a
+                  class="btn btn-primary"
+                  href="https://calendly.com/hello-jq33/15min"
+                  data-calendly-cta
+                >
+                  Book a free 15-minute call
+                </a>
+              </div>
+            </div>
+
+            <div class="pricing-card">
+              <div class="pricing-tier">Tier 03</div>
+              <h3>Contractor-Ready Package</h3>
+              <div class="pricing-price">From $12,500 CAD</div>
+              <p class="pricing-note">
+                Best for multi-zone spaces that need clearer pricing, sourcing, and execution
+                direction.
+              </p>
+              <ul class="pricing-list">
+                <li>Multi-zone layout + key details</li>
+                <li>Finish schedule + sourcing guide</li>
+                <li>3-4 3D views + elevations</li>
+                <li>2-3 revision rounds</li>
+                <li>Delivery in 4-6 weeks</li>
+              </ul>
+              <div class="pricing-cta">
+                <a
+                  class="btn btn-primary"
+                  href="https://calendly.com/hello-jq33/15min"
+                  data-calendly-cta
+                >
+                  Book a free 15-minute call
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <p class="pricing-secondary">
+            Need a custom scope? <a href="/inquiry/">Get a quote</a>
+          </p>
+          <p class="pricing-footnote">
+            Starting prices. Final quote depends on space size, number of zones, existing plans
+            provided, and technical scope. Site measurement is included within the Montreal area.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel panel--atelier" id="atelier" aria-label="Atelier">
+        <div
+          class="bg-layer"
+          data-parallax-bg
+          data-parallax-strength="150"
+          data-parallax-scale="1.08"
+        ></div>
+        <div class="grain"></div>
+
+        <div class="brand-mark">PACKAGES</div>
+
+        <div class="section-header">
+          <h2 class="heading-section">Design packages</h2>
+          <div class="section-copy">
+            <p>
+              Three levels of design support for commercial interiors-from a fast Concept Sprint to
+              a full contractor-ready package and ongoing support during the build.
+            </p>
+          </div>
+        </div>
+
+        <div class="info-col col-left">
+          <div class="content-block">
+            <div class="label">JQ33 DESIGN</div>
+            <div>Commercial interiors, designed for speed</div>
+          </div>
+
+          <nav class="content-block" aria-label="Index">
+            <div class="label">Explore</div>
+            <a href="/projects/" class="nav-link">Projects / Case studies</a>
+            <a href="/inquiry/" class="nav-link active-link">Inquiry / Packages</a>
+            <a href="/journal/" class="nav-link">Journal / FAQ</a>
+          </nav>
+
+          <div class="content-block">
+            <div class="label">Services</div>
+            <div>Space planning + layout optimization</div>
+            <div>Finishes + lighting direction</div>
+            <div>3D visuals for decision-making</div>
+          </div>
+        </div>
+
+        <div class="info-col col-right">
+          <div class="content-block">
+            <div class="label">Deliverables</div>
+            <div>Space plan (PDF) + key dimensions</div>
+            <div>Moodboard + finishes direction</div>
+            <div>3D views of main customer moments</div>
+          </div>
+
+          <div class="content-block">
+            <div class="label">Approach</div>
+            <div>Designed for real photos, not just renders</div>
+            <div>Built for flow, durability, and build reality</div>
+          </div>
+        </div>
+
+        <section class="methodology-timeline" aria-label="Methodology timeline">
+          <div class="timeline-step">
+            <div class="step-number">01</div>
+            <div class="step-label">Concept Sprint (7-10 days)</div>
+            <div class="step-desc">
+              Best for new leases or fast renovations-layout, finishes direction, and
+              key 3D views.
+            </div>
+            <div class="progress-line">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="timeline-step">
+            <div class="step-number">02</div>
+            <div class="step-label">Design Package (2-4 weeks)</div>
+            <div class="step-desc">
+              For full refreshes/build-outs-more options, deeper sourcing direction,
+              fewer surprises.
+            </div>
+            <div class="progress-line">
+              <div class="progress-fill" style="animation-delay: 0.75s"></div>
+            </div>
+          </div>
+
+          <div class="timeline-step">
+            <div class="step-number">03</div>
+            <div class="step-label">Contractor Support (hourly)</div>
+            <div class="step-desc">
+              Value engineering, substitutions, and quick redesigns when constraints
+              hit.
+            </div>
+            <div class="progress-line">
+              <div class="progress-fill" style="animation-delay: 1.5s"></div>
+            </div>
+          </div>
+
+          <div class="timeline-step">
+            <div class="step-number">04</div>
+            <div class="step-label">Start with a free call</div>
+            <div class="step-desc">
+              We'll recommend the best package and next steps after a 15-minute
+              consult.
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <section class="panel panel--faq" id="faq" aria-label="FAQ">
+        <div class="bg-layer"></div>
+        <div class="grain"></div>
+
+        <div class="faq-shell" data-faq>
+          <aside class="faq-sidebar">
+            <div class="faq-label">FAQ</div>
+            <ul class="faq-question-list">
+              <li>
+                <button
+                  type="button"
+                  class="faq-question is-active"
+                  data-faq-target="q1"
+                  aria-controls="faq-q1-body"
+                  aria-expanded="true"
+                >
+                  01. HOW FAST CAN WE START?
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="faq-question"
+                  data-faq-target="q2"
+                  aria-controls="faq-q2-body"
+                  aria-expanded="false"
+                >
+                  02. WHAT DO YOU NEED TO QUOTE?
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="faq-question"
+                  data-faq-target="q3"
+                  aria-controls="faq-q3-body"
+                  aria-expanded="false"
+                >
+                  03. DO YOU DO PERMITS AND STAMPED DRAWINGS?
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="faq-question"
+                  data-faq-target="q4"
+                  aria-controls="faq-q4-body"
+                  aria-expanded="false"
+                >
+                  04. CAN YOU WORK WITH MY CONTRACTOR?
+                </button>
+              </li>
+              <li>
+                <button
+                  type="button"
+                  class="faq-question"
+                  data-faq-target="q5"
+                  aria-controls="faq-q5-body"
+                  aria-expanded="false"
+                >
+                  05. I'M NOT SURE ABOUT MY STYLE YET-IS THAT A PROBLEM?
+                </button>
+              </li>
+            </ul>
+          </aside>
+
+          <div class="faq-content">
+            <div class="faq-answer">
+              <h2 class="faq-answer-heading is-active" id="faq-q1-heading">
+                START<br />TIMELINE
+              </h2>
+              <div class="faq-answer-body is-active" id="faq-q1-body">
+                <p>
+                  If you have measurements and photos, we can begin immediately.
+                  Concept Sprint delivers in 7-10 days. Larger packages typically
+                  take 2-4 weeks depending on complexity and feedback speed.
+                </p>
+              </div>
+
+              <h2 class="faq-answer-heading" id="faq-q2-heading">
+                QUOTE<br />INPUTS
+              </h2>
+              <div class="faq-answer-body" id="faq-q2-body">
+                <p>
+                  Space type, Montreal-area location, approximate square footage,
+                  timeline, budget range, and any existing floor plan or lease
+                  constraints.
+                </p>
+              </div>
+
+              <h2 class="faq-answer-heading" id="faq-q3-heading">
+                PERMITS<br />+ STAMPS
+              </h2>
+              <div class="faq-answer-body" id="faq-q3-body">
+                <p>
+                  We provide a contractor-friendly design package (layout + finishes +
+                  lighting intent + visuals). If your project needs permit-ready
+                  drawings or stamps, I can coordinate with an architect/technologist/
+                  engineer depending on scope.
+                </p>
+              </div>
+
+              <h2 class="faq-answer-heading" id="faq-q4-heading">
+                CONTRACTOR<br />WORKFLOW
+              </h2>
+              <div class="faq-answer-body" id="faq-q4-body">
+                <p>
+                  Yes. We can hand off a clean package for quoting and stay available
+                  during the build so the result stays consistent.
+                </p>
+              </div>
+
+              <h2 class="faq-answer-heading" id="faq-q5-heading">
+                STYLE<br />CLARITY
+              </h2>
+              <div class="faq-answer-body" id="faq-q5-body">
+                <p>
+                  Not a problem. We use references -> moodboard -> finishes direction
+                  -> visuals to create clarity quickly before money is spent.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel--work" id="work" aria-label="Work">
+        <div
+          class="bg-layer"
+          data-parallax-bg
+          data-parallax-strength="100"
+          data-parallax-scale="1.05"
+        ></div>
+        <div class="grain"></div>
+
+        <div class="brand-mark">JQ33<br />DESIGN</div>
+
+        <footer class="site-footer" data-component="footer"></footer>
+      </section>
+    </main>
+
+    <script src="/assets/js/analytics.js"></script>
+    <script src="/assets/js/calendly.js"></script>
+    <script src="/assets/js/components/header-nav.js"></script>
+    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/nav-drawer.js"></script>
+    <script>
+      const cursor = document.getElementById("cursor");
+      const page = document.getElementById("page");
+      const brandTextEl = document.getElementById("brand-mark-text");
+      const panels = Array.from(document.querySelectorAll(".panel"));
+
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      const parallaxEls = Array.from(
+        document.querySelectorAll("[data-parallax-bg]")
+      );
+
+      const sectionCopy = {
+        home: "JQ33\nDesign",
+        cta: "send\nrequest",
+        how: "How it\nWorks",
+        pricing: "pricing\npackages",
+        atelier: "packages",
+        faq: "faq /\nnotes",
+        work: "let's\nwork",
+      };
+
+      let currentSectionId = "home";
+      let isSwapping = false;
+
+      const setBrandEmphasis = (id) => {
+        if (!brandTextEl) return;
+        const isStrong = id === "home" || id === "work";
+        brandTextEl.classList.toggle("brand-mark__text--dim", !isStrong);
+      };
+
+      const getDominantSection = () => {
+        const viewportCenter = window.innerHeight / 2;
+        let closestId = "home";
+        let closestDist = Infinity;
+
+        for (const panel of panels) {
+          const rect = panel.getBoundingClientRect();
+          const dist = Math.abs(rect.top + rect.height / 2 - viewportCenter);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closestId = panel.id || "home";
+          }
+        }
+        return closestId;
+      };
+
+      const swapBrandText = (nextId) => {
+        if (!brandTextEl || nextId === currentSectionId || isSwapping) return;
+
+        isSwapping = true;
+        currentSectionId = nextId;
+        const nextText = sectionCopy[nextId] || "JQ33\nDesign";
+        setBrandEmphasis(nextId);
+
+        if (prefersReducedMotion) {
+          brandTextEl.textContent = nextText;
+          isSwapping = false;
+          return;
+        }
+
+        brandTextEl.classList.add("is-fading-out");
+
+        const onFadeOut = () => {
+          brandTextEl.removeEventListener("transitionend", onFadeOut);
+          brandTextEl.textContent = nextText;
+          void brandTextEl.offsetWidth;
+          brandTextEl.classList.remove("is-fading-out");
+
+          const onFadeIn = () => {
+            brandTextEl.removeEventListener("transitionend", onFadeIn);
+            isSwapping = false;
+          };
+          brandTextEl.addEventListener("transitionend", onFadeIn, { once: true });
+
+          window.setTimeout(() => {
+            isSwapping = false;
+          }, 300);
+        };
+
+        brandTextEl.addEventListener("transitionend", onFadeOut, { once: true });
+
+        window.setTimeout(() => {
+          if (isSwapping && brandTextEl.classList.contains("is-fading-out")) {
+            onFadeOut();
+          }
+        }, 300);
+      };
+
+      document.addEventListener("mousemove", (e) => {
+        if (cursor) {
+          cursor.style.left = e.clientX + "px";
+          cursor.style.top = e.clientY + "px";
+        }
+
+        for (const el of parallaxEls) {
+          const strength = Number(el.dataset.parallaxStrength || "120");
+          const x = (window.innerWidth - e.pageX * 2) / strength;
+          const y = (window.innerHeight - e.pageY * 2) / strength;
+          el.style.setProperty("--parallax-x", `${x.toFixed(2)}px`);
+          el.style.setProperty("--parallax-y", `${y.toFixed(2)}px`);
+        }
+      });
+
+      let rafId = 0;
+      const updateScrollVisuals = () => {
+        rafId = 0;
+        const viewportCenter = window.innerHeight / 2;
+
+        for (const panel of panels) {
+          const rect = panel.getBoundingClientRect();
+          const panelCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(viewportCenter - panelCenter);
+          const normalized = Math.max(0, 1 - distance / (window.innerHeight * 0.95));
+          panel.style.setProperty("--bg-progress", normalized.toFixed(3));
+
+          const bgLayer = panel.querySelector(".bg-layer");
+          if (bgLayer) {
+            bgLayer.style.setProperty("--bg-progress", normalized.toFixed(3));
+          }
+        }
+
+        swapBrandText(getDominantSection());
+      };
+
+      const requestScrollVisualUpdate = () => {
+        if (rafId) return;
+        rafId = window.requestAnimationFrame(updateScrollVisuals);
+      };
+
+      page?.addEventListener("scroll", requestScrollVisualUpdate, { passive: true });
+      window.addEventListener("resize", requestScrollVisualUpdate);
+
+      const hoverTargets = Array.from(document.querySelectorAll("a, button"));
+      for (const el of hoverTargets) {
+        el.addEventListener("pointerenter", () =>
+          cursor?.classList.add("cursor-hover")
+        );
+        el.addEventListener("pointerleave", () =>
+          cursor?.classList.remove("cursor-hover")
+        );
+      }
+
+      const initFaq = () => {
+        const root = document.querySelector("[data-faq]");
+        if (!(root instanceof HTMLElement)) return;
+
+        const questionButtons = Array.from(
+          root.querySelectorAll("button[data-faq-target]")
+        );
+
+        const setActive = (id) => {
+          for (const btn of questionButtons) {
+            const btnTarget = btn.getAttribute("data-faq-target");
+            const isActive = btnTarget === id;
+            btn.classList.toggle("is-active", isActive);
+            btn.setAttribute("aria-expanded", isActive ? "true" : "false");
+          }
+
+          const headings = Array.from(
+            root.querySelectorAll(".faq-answer-heading")
+          );
+          const bodies = Array.from(root.querySelectorAll(".faq-answer-body"));
+
+          for (const h of headings) {
+            const isMatch = h.id === `faq-${id}-heading`;
+            h.classList.toggle("is-active", isMatch);
+          }
+          for (const b of bodies) {
+            const isMatch = b.id === `faq-${id}-body`;
+            b.classList.toggle("is-active", isMatch);
+          }
+        };
+
+        for (const btn of questionButtons) {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-faq-target");
+            if (!id) return;
+            setActive(id);
+          });
+        }
+      };
+
+      initFaq();
+
+      document.addEventListener("click", (e) => {
+        const target =
+          e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
+        if (!target) return;
+
+        const href = target.getAttribute("href");
+        if (!href || href === "#") return;
+
+        const section = document.querySelector(href);
+        if (!(section instanceof HTMLElement)) return;
+
+        e.preventDefault();
+        const shouldSmoothScroll =
+          !prefersReducedMotion &&
+          window.matchMedia(
+            "(hover: hover) and (pointer: fine) and (min-width: 980px)"
+          ).matches;
+
+        section.scrollIntoView({
+          behavior: shouldSmoothScroll ? "smooth" : "auto",
+          block: "start",
+        });
+        history.replaceState(null, "", href);
+      });
+
+      if (location.hash) {
+        const section = document.querySelector(location.hash);
+        if (section instanceof HTMLElement) {
+          queueMicrotask(() =>
+            section.scrollIntoView({ behavior: "auto", block: "start" })
+          );
+        }
+      } else {
+        queueMicrotask(() => page?.scrollTo({ top: 0, behavior: "auto" }));
+      }
+
+      queueMicrotask(requestScrollVisualUpdate);
+    </script>
+  </body>
+</html>

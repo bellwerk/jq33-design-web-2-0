@@ -1,0 +1,484 @@
+<html lang="en" vid="0">
+  <head vid="1">
+    <meta charset="UTF-8" vid="2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3" />
+    <title vid="4">{{meta_title}}</title>
+    <meta name="description" content="{{meta_description}}" />
+    <link rel="canonical" href="{{canonical_url}}" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="JQ33 DESIGN" />
+    <meta property="og:title" content="{{og_title}}" />
+    <meta property="og:description" content="{{og_description}}" />
+    <meta property="og:url" content="{{og_url}}" />
+    <meta property="og:image" content="{{og_image}}" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{twitter_title}}" />
+    <meta name="twitter:description" content="{{twitter_description}}" />
+    <meta name="twitter:image" content="{{twitter_image}}" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": "{{schema_headline}}",
+        "description": "{{schema_description}}",
+        "image": "{{schema_image}}",
+        "author": {
+          "@type": "Organization",
+          "name": "JQ33 DESIGN",
+          "url": "https://jq33.design/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "JQ33 DESIGN",
+          "url": "https://jq33.design/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://jq33.design/favicon.svg"
+          }
+        },
+        "datePublished": "{{schema_date_published}}",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "{{schema_page_url}}"
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Permanent+Marker&amp;display=swap"
+      rel="stylesheet"
+      vid="7"
+    />
+    <link rel="stylesheet" href="/assets/css/site.css" />
+    <style vid="8">
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        width: 100%;
+        min-height: 100vh;
+        min-height: 100svh;
+        font-family: var(--font-sans);
+        color: var(--cobalt);
+        overflow-x: hidden;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--cobalt) transparent;
+      }
+
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--cobalt);
+      }
+
+      .nav-rail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: clamp(56px, 6vw, 80px);
+        height: 100vh;
+        height: 100svh;
+        z-index: 20;
+        border-right: 1px solid rgba(59, 65, 227, 0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 40px 0;
+        background: #111;
+      }
+
+      .nav-vertical-text {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-link {
+        color: var(--cobalt);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .nav-link:hover {
+        color: #fff;
+      }
+
+      .active-link {
+        text-decoration: line-through;
+        opacity: 0.5;
+        pointer-events: none;
+      }
+
+      main {
+        margin-left: clamp(56px, 6vw, 80px);
+        padding: 180px clamp(1rem, 8vw, 10vw) 80px;
+        max-width: 1200px;
+        position: relative;
+        z-index: 2;
+      }
+
+      header {
+        margin-bottom: 100px;
+      }
+
+      .article-meta {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+      }
+
+      h1 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h1);
+        line-height: var(--lh-tight);
+        color: var(--cobalt);
+        margin-bottom: 40px;
+        max-width: 800px;
+      }
+
+      .lead {
+        font-size: 1.5rem;
+        line-height: 1.4;
+        max-width: 600px;
+        font-weight: 400;
+        color: #ccc;
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 100px;
+        margin-bottom: 150px;
+      }
+
+      .body-text {
+        font-size: 1rem;
+        line-height: 1.8;
+        color: #999;
+      }
+
+      .body-text p {
+        margin-bottom: 2rem;
+      }
+
+      .pull-quote {
+        grid-column: 1 / -1;
+        font-family: var(--font-display);
+        font-size: clamp(2rem, 6vw, 4rem);
+        line-height: 1.1;
+        padding: 80px 0;
+        border-top: 1px solid rgba(59, 65, 227, 0.3);
+        border-bottom: 1px solid rgba(59, 65, 227, 0.3);
+        margin: 60px 0;
+        text-align: center;
+      }
+
+      .image-container {
+        width: 100%;
+        height: clamp(260px, 52vh, 600px);
+        background-color: var(--zinc);
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 40px;
+      }
+
+      .image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: grayscale(100%) contrast(120%) brightness(0.7);
+        transition: filter 0.5s ease;
+      }
+
+      .image-container:hover img {
+        filter: grayscale(0%) contrast(110%) brightness(0.8);
+      }
+
+      .image-label {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        background: var(--cobalt);
+        color: white;
+        padding: 4px 8px;
+      }
+
+      .sidebar {
+        position: sticky;
+        top: 80px;
+        height: fit-content;
+      }
+
+      .label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        opacity: 0.6;
+        display: block;
+      }
+
+      .cursor-dot {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--cobalt);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 999;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s, background-color 0.2s;
+      }
+
+      .cursor-hover {
+        background-color: var(--cobalt);
+        opacity: 0.5;
+        width: 40px;
+        height: 40px;
+      }
+
+      .article-footer {
+        margin-top: 200px;
+        padding-bottom: 80px;
+        border-top: 1px solid rgba(59, 65, 227, 0.1);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+
+      .next-article {
+        font-family: var(--font-display);
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        color: var(--cobalt);
+        text-decoration: none;
+      }
+
+      @media (max-width: 1024px) {
+        .nav-rail {
+          display: none;
+        }
+
+        main {
+          margin-left: 0;
+          padding-top: 140px;
+        }
+        .content-grid {
+          grid-template-columns: 1fr;
+          gap: 56px;
+        }
+        h1 {
+          font-size: var(--fs-h1);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .article-meta {
+          gap: 14px 20px;
+        }
+
+        .lead {
+          font-size: 1.15rem;
+          line-height: 1.5;
+        }
+
+        .pull-quote {
+          padding: 44px 0;
+          margin: 40px 0;
+        }
+
+        .article-footer {
+          margin-top: 100px;
+          align-items: flex-start;
+        }
+
+        .article-footer > div:last-child {
+          text-align: left !important;
+        }
+
+        .cursor-dot {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        main {
+          padding: 120px 1rem 56px;
+        }
+
+        .body-text {
+          line-height: 1.7;
+        }
+
+        .image-label {
+          font-size: 0.58rem;
+          right: 12px;
+          bottom: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body class="site-default-bg" vid="9">
+    <div class="bg-layer"></div>
+    <div class="grain" vid="10"></div>
+    <div class="cursor-dot" id="cursor" vid="11"></div>
+
+    <header class="header-nav" data-component="header-nav"></header>
+
+    <aside class="nav-rail">
+      <div class="nav-vertical-text">JQ33 DESIGN</div>
+      <a class="nav-link" href="/journal/">Back to Journal</a>
+    </aside>
+
+    <main vid="19">
+      <header vid="20">
+        <div class="article-meta" vid="21">
+          <div vid="22"><span class="label" vid="23">Published</span> {{published_display}}</div>
+          <div vid="24"><span class="label" vid="25">Category</span> {{category}}</div>
+          <div vid="26"><span class="label" vid="27">Author</span> {{author}}</div>
+        </div>
+        <h1 vid="28">{{hero_title}}</h1>
+        <p class="lead" vid="30">{{lead}}</p>
+      </header>
+
+      <section class="content-grid" vid="31">
+        <div class="body-text" vid="32">
+          {{intro_paragraphs}}
+          <div class="image-container" style="height: clamp(240px, 40vh, 400px)" vid="35">
+            <img
+              src="{{image_one_src}}"
+              alt="{{image_one_alt}}"
+              width="{{image_one_width}}"
+              height="{{image_one_height}}"
+              loading="lazy"
+              decoding="async"
+              vid="36"
+            />
+            <div class="image-label" vid="37">{{image_one_label}}</div>
+          </div>
+        </div>
+
+        <div class="sidebar" vid="38">
+          <div class="content-block" style="margin-bottom: 60px" vid="39">
+            <span class="label" vid="40">Key Concepts</span>
+            <ul style="list-style: none; line-height: 2" vid="41">
+              {{key_concepts}}
+            </ul>
+          </div>
+          <div class="image-container" style="height: clamp(260px, 44vh, 500px)" vid="45">
+            <img
+              src="{{image_two_src}}"
+              alt="{{image_two_alt}}"
+              width="{{image_two_width}}"
+              height="{{image_two_height}}"
+              loading="lazy"
+              decoding="async"
+              vid="46"
+            />
+            <div class="image-label" vid="47">{{image_two_label}}</div>
+          </div>
+        </div>
+
+        <blockquote class="pull-quote" vid="48">"{{pull_quote}}"</blockquote>
+
+        <div
+          class="image-container"
+          style="grid-column: 1 / -1; height: clamp(300px, 56vh, 700px)"
+          vid="49"
+        >
+          <img
+            src="{{image_three_src}}"
+            alt="{{image_three_alt}}"
+            width="{{image_three_width}}"
+            height="{{image_three_height}}"
+            loading="lazy"
+            decoding="async"
+            vid="50"
+          />
+          <div class="image-label" vid="51">{{image_three_label}}</div>
+        </div>
+
+        {{closing_blocks}}
+      </section>
+
+      <footer class="article-footer" vid="56">
+        <div vid="57">
+          <span class="label" vid="58">Next Article</span>
+          <a
+            href="{{next_href}}"
+            class="next-article"
+            onmouseenter="hoverCursor()"
+            onmouseleave="leaveCursor()"
+            vid="59"
+            >{{next_label}}</a
+          >
+        </div>
+        <div style="text-align: right" vid="61">
+          <span class="label" vid="62">Contact</span>
+          <div vid="63">hello@jq33.design</div>
+        </div>
+      </footer>
+
+      <footer class="site-footer" data-component="footer"></footer>
+    </main>
+
+    <script src="/assets/js/analytics.js"></script>
+    <script src="/assets/js/calendly.js"></script>
+    <script src="/assets/js/components/header-nav.js"></script>
+    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/nav-drawer.js"></script>
+    <script vid="64">
+      const cursor = document.getElementById("cursor");
+      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+      document.addEventListener("mousemove", (e) => {
+        if (!canHover) return;
+        cursor.style.left = e.clientX + "px";
+        cursor.style.top = e.clientY + "px";
+      });
+
+      function hoverCursor() {
+        if (!canHover) return;
+        cursor.classList.add("cursor-hover");
+      }
+
+      function leaveCursor() {
+        if (!canHover) return;
+        cursor.classList.remove("cursor-hover");
+      }
+
+      if (canHover) {
+        document.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("mouseenter", hoverCursor);
+          link.addEventListener("mouseleave", leaveCursor);
+        });
+      }
+    </script>
+  </body>
+</html>
