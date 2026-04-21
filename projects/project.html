@@ -5,19 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Project | JQ33 DESIGN</title>
     <meta name="description" content="Commercial interior project by JQ33 DESIGN." />
-    <link rel="canonical" href="https://jq33.design/projects/" />
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta property="og:title" content="Project | JQ33 DESIGN" />
     <meta property="og:description" content="Commercial interior project by JQ33 DESIGN." />
-    <meta property="og:url" content="https://jq33.design/projects/" />
-    <meta property="og:image" content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg" />
+    <meta
+      property="og:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+    />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Project | JQ33 DESIGN" />
     <meta name="twitter:description" content="Commercial interior project by JQ33 DESIGN." />
-    <meta name="twitter:image" content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg" />
+    <meta
+      name="twitter:image"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+    />
+    <script src="/assets/js/supabase-config.js"></script>
+    <script>
+      (() => {
+        const config = window.JQ33 || {};
+        const supabaseUrl = String(config.SUPABASE_URL || "").trim();
+        const anonKey = String(config.SUPABASE_ANON_KEY || "").trim();
+        const PLACEHOLDER_TOKEN = /your-anon-key|your-project/i;
+        if (
+          !supabaseUrl ||
+          !anonKey ||
+          PLACEHOLDER_TOKEN.test(supabaseUrl) ||
+          PLACEHOLDER_TOKEN.test(anonKey)
+        ) {
+          return;
+        }
+
+        const getSlug = () => {
+          const path = window.location.pathname.replace(/\/+$/, "");
+          const parts = path.split("/");
+          const slug = parts[parts.length - 1];
+          if (slug === "project.html" || slug === "projects") {
+            return new URLSearchParams(window.location.search).get("slug") || "";
+          }
+          return slug;
+        };
+
+        const toPublicUrl = (path) => {
+          if (!path) return "";
+          if (/^https?:\/\//i.test(path)) return path;
+          const clean = path.replace(/^\/+/, "");
+          const bucketPrefix = "portfolio/";
+          const normalized = clean.startsWith(bucketPrefix) ? clean : `${bucketPrefix}${clean}`;
+          return `${supabaseUrl}/storage/v1/object/public/${normalized}`;
+        };
+
+        const setMeta = (selector, content) => {
+          if (!content) return;
+          let node = document.querySelector(selector);
+          if (!node) {
+            node = document.createElement("meta");
+            const nameMatch = selector.match(/name="([^"]+)"/i);
+            const propMatch = selector.match(/property="([^"]+)"/i);
+            if (nameMatch) {
+              node.setAttribute("name", nameMatch[1]);
+            }
+            if (propMatch) {
+              node.setAttribute("property", propMatch[1]);
+            }
+            document.head.appendChild(node);
+          }
+          node.setAttribute("content", content);
+        };
+
+        const setCanonical = (href) => {
+          if (!href) return;
+          let node = document.querySelector('link[rel="canonical"]');
+          if (!node) {
+            node = document.createElement("link");
+            node.setAttribute("rel", "canonical");
+            document.head.appendChild(node);
+          }
+          node.setAttribute("href", href);
+        };
+
+        const fetchJson = async (path) => {
+          const response = await fetch(`${supabaseUrl}/rest/v1/${path}`, {
+            headers: {
+              apikey: anonKey,
+              Authorization: `Bearer ${anonKey}`
+            }
+          });
+          if (!response.ok) return null;
+          return response.json();
+        };
+
+        const init = async () => {
+          const slug = getSlug();
+          if (!slug) return;
+          const projectData = await fetchJson(
+            `portfolio_projects?select=id,slug,title,summary,meta_title,meta_description&slug=eq.${encodeURIComponent(
+              slug
+            )}&limit=1`
+          );
+          const project = Array.isArray(projectData) ? projectData[0] : null;
+          if (!project) return;
+          const images = await fetchJson(
+            `portfolio_images?select=path,is_hero,sort_order&project_id=eq.${project.id}&order=is_hero.desc,sort_order.asc&limit=1`
+          );
+          const hero = Array.isArray(images) ? images[0] : null;
+          const heroUrl = hero?.path ? toPublicUrl(hero.path) : "";
+          const metaTitle =
+            project.meta_title ||
+            `${project.title} | JQ33 DESIGN Commercial Interior Project (Montreal)`;
+          const metaDescription = project.meta_description || project.summary || "";
+          const canonicalUrl = `${window.location.origin}/projects/${project.slug}/`;
+
+          document.title = metaTitle;
+          setMeta('meta[name="description"]', metaDescription);
+          setMeta('meta[property="og:title"]', metaTitle);
+          setMeta('meta[property="og:description"]', metaDescription);
+          setMeta('meta[property="og:image"]', heroUrl);
+          setMeta('meta[property="og:url"]', canonicalUrl);
+          setMeta('meta[name="twitter:title"]', metaTitle);
+          setMeta('meta[name="twitter:description"]', metaDescription);
+          setMeta('meta[name="twitter:image"]', heroUrl);
+          setMeta('meta[name="robots"]', "noindex, nofollow");
+          setCanonical(canonicalUrl);
+        };
+
+        init();
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
@@ -357,7 +474,6 @@
       <footer class="site-footer" data-component="footer"></footer>
     </main>
 
-    <script src="/assets/js/supabase-config.js"></script>
     <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/portfolio-detail.js"></script>
     <script src="/assets/js/calendly.js"></script>

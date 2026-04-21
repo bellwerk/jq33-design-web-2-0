@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,7 +28,7 @@
     <meta property="og:url" content="https://jq33.design/projects/" />
     <meta
       property="og:image"
-      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
 
     <!-- Twitter -->
@@ -42,7 +43,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.jpg"
+      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -325,7 +326,7 @@
         on flow, lighting, and signature moments-designed to get shared and bring
         customers in.
       </p>
-      <div class="project-list">
+      <div class="project-list" data-portfolio-list>
         <a
           class="project-item"
           href="/projects/bruton-place-iv/"
@@ -413,11 +414,13 @@
 
     <div class="cursor-dot" id="cursor"></div>
 
+    <script src="/assets/js/supabase-config.js"></script>
     <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
     <script src="/assets/js/components/footer.js"></script>
     <script src="/assets/js/nav-drawer.js"></script>
+    <script src="/assets/js/portfolio.js"></script>
     <script>
       const cursor = document.getElementById("cursor");
       const preview = document.getElementById("preview-container");

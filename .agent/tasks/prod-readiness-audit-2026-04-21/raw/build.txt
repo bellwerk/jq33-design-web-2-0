@@ -1,0 +1,9 @@
+﻿
+> jq33-design-web@1.0.0 build C:\Users\BELLWERK\Documents\PROJECTS\JQ33 DESIGN\WEB 2.0
+> node scripts/build.mjs
+
+Projects generated.
+Journal generated.
+Sitemap generated.
+Runtime config generated.
+Build completed.

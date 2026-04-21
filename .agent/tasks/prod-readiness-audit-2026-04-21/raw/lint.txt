@@ -1,0 +1,59 @@
+﻿# check:links
+
+
+> jq33-design-web@1.0.0 check:links C:\Users\BELLWERK\Documents\PROJECTS\JQ33 DESIGN\WEB 2.0
+> node scripts/check-links.mjs
+
+All internal anchor links look valid.
+
+# check:redirects
+
+
+> jq33-design-web@1.0.0 check:redirects C:\Users\BELLWERK\Documents\PROJECTS\JQ33 DESIGN\WEB 2.0
+> node scripts/check-redirects.mjs
+
+Redirect fallback checks passed.
+
+# check-images
+
+All images include alt text.
+
+# syntax checks
+
+
+# regression checks
+
+.\404.html:28:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\404.html:40:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\index.html:33:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\index.html:48:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\index.html:1554:            "image": "https://jq33.design/og/jq33-design-commercial-interior-montreal.png",
+.\home-page.html:32:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\home-page.html:47:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\terms\index.html:28:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\terms\index.html:40:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\contact\index.html:31:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\contact\index.html:46:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\commercial-interior-design-montreal\index.html:31:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\commercial-interior-design-montreal\index.html:46:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\inquiry\index.html:31:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\inquiry\index.html:46:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\privacy\index.html:28:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\privacy\index.html:40:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\projects\index.html:31:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\projects\index.html:46:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\projects\_projects-index-template.html:31:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\projects\_projects-index-template.html:46:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\journal\index.html:31:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\journal\index.html:46:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\scripts\generate-journal.mjs:18:const defaultOgImage = `${baseUrl}/og/jq33-design-commercial-interior-montreal.png`;
+.\journal\_journal-index-template.html:31:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\journal\_journal-index-template.html:46:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\projects\project.html:16:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\projects\project.html:24:      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+.\journal\reduction-as-creation\index.html:20:    <meta property="og:image" content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png" />
+.\journal\reduction-as-creation\index.html:26:    <meta name="twitter:image" content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png" />
+.\journal\reduction-as-creation\index.html:33:        "image": "https://jq33.design/og/jq33-design-commercial-interior-montreal.png",
+Duplicate supabase-config.js includes:
+8:    <meta name="robots" content="noindex, nofollow" />
+131:          setMeta('meta[name="robots"]', "noindex, nofollow");

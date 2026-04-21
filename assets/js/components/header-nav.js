@@ -89,7 +89,11 @@
     const targets = document.querySelectorAll(
       'header.header-nav[data-component="header-nav"]'
     );
-    for (const el of targets) el.innerHTML = html;
+    for (const el of targets) {
+      if (el.dataset.navMounted === "true") continue;
+      el.innerHTML = html;
+      el.dataset.navMounted = "true";
+    }
     ensureDrawer();
   };
 

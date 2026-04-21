@@ -6,6 +6,7 @@ const MAX_FILE_SIZE_BYTES = 12 * 1024 * 1024;
 const DEFAULT_ALLOWED_ORIGINS = [
   "https://jq33.design",
   "http://localhost:3000",
+  "http://localhost:5173",
   "http://localhost:8788"
 ];
 

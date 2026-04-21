@@ -70,8 +70,14 @@ const renderFileList = (files) => {
   files.forEach((file, index) => {
     const item = document.createElement("div");
     item.className = "file-item";
-    item.innerHTML = `
-      <div class="file-name">${file.name}</div>
+    const fileName = document.createElement("div");
+    fileName.className = "file-name";
+    fileName.textContent = file.name;
+    item.appendChild(fileName);
+
+    item.insertAdjacentHTML(
+      "beforeend",
+      `
       <div class="admin-field">
         <label class="admin-label">Caption (optional)</label>
         <input type="text" data-caption-index="${index}" placeholder="Fig 01. Hero moment" />
@@ -80,7 +86,8 @@ const renderFileList = (files) => {
         <label class="admin-label">Alt text (optional)</label>
         <input type="text" data-alt-index="${index}" placeholder="Describe the image" />
       </div>
-    `;
+    `
+    );
     fileList.appendChild(item);
   });
 };
@@ -141,7 +148,8 @@ signInButton?.addEventListener("click", async () => {
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: `${window.location.origin}/admin/portfolio/`
+      emailRedirectTo: `${window.location.origin}/admin/portfolio/`,
+      shouldCreateUser: false
     }
   });
 

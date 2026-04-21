@@ -15,7 +15,7 @@ const indexTemplatePath = path.join(
 );
 
 const baseUrl = (process.env.PUBLIC_SITE_URL || "https://jq33.design").replace(/\/+$/, "");
-const defaultOgImage = `${baseUrl}/og/jq33-design-commercial-interior-montreal.jpg`;
+const defaultOgImage = `${baseUrl}/og/jq33-design-commercial-interior-montreal.png`;
 
 const escapeHtml = (value) =>
   String(value ?? "")

@@ -3,12 +3,24 @@
   const supabaseUrl = config.SUPABASE_URL;
   const anonKey = config.SUPABASE_ANON_KEY;
   const PLACEHOLDER_TOKEN = /your-anon-key|your-project/i;
+  const STORAGE_BUCKET = "portfolio";
 
   const list = document.querySelector("[data-portfolio-list]");
   const mainBg = document.getElementById("main-bg");
+  const fallbackMarkup = list ? list.innerHTML.trim() : "";
+  const hasFallback = Boolean(fallbackMarkup);
+
+  const applyFallbackPreview = () => {
+    if (!list || !mainBg) return;
+    const firstItem = list.querySelector(".project-item");
+    const preview = firstItem?.getAttribute("data-img");
+    if (preview) {
+      mainBg.style.backgroundImage = `url(${preview})`;
+    }
+  };
 
   const showMessage = (message) => {
-    if (!list) return;
+    if (!list || hasFallback) return;
     list.innerHTML = `<div style="opacity:0.7; padding: 2rem 0;">${message}</div>`;
   };
 
@@ -18,6 +30,10 @@
     PLACEHOLDER_TOKEN.test(supabaseUrl) ||
     PLACEHOLDER_TOKEN.test(anonKey)
   ) {
+    if (hasFallback) {
+      applyFallbackPreview();
+      return;
+    }
     showMessage("Portfolio data is not configured yet.");
     return;
   }
@@ -45,8 +61,11 @@
 
   const toPublicUrl = (path) => {
     if (!path) return "";
+    if (/^https?:\/\//i.test(path)) return path;
     const clean = path.replace(/^\/+/, "");
-    return `${supabaseUrl}/storage/v1/object/public/${clean}`;
+    const bucketPrefix = `${STORAGE_BUCKET}/`;
+    const normalized = clean.startsWith(bucketPrefix) ? clean : `${bucketPrefix}${clean}`;
+    return `${supabaseUrl}/storage/v1/object/public/${normalized}`;
   };
 
   const renderTitleLines = (project) => {
@@ -70,6 +89,10 @@
     });
 
     if (!projects.length) {
+      if (hasFallback) {
+        applyFallbackPreview();
+        return;
+      }
       showMessage("New projects are being prepared.");
       return;
     }

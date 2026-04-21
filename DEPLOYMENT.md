@@ -12,7 +12,7 @@ These are public-safe runtime values used to generate `assets/js/supabase-config
 
 - `PUBLIC_SITE_URL` (example: `https://jq33.design`)
 - `PUBLIC_SUPABASE_URL` (example: `https://<project>.supabase.co`)
-- `PUBLIC_SUPABASE_ANON_KEY`
+- `PUBLIC_SUPABASE_ANON_KEY` (must match `SUPABASE_ANON_KEY` configured in Supabase Edge Functions)
 - `PUBLIC_LEAD_FUNCTION_URL` (optional override)
 - `PUBLIC_ADMIN_UPLOAD_FUNCTION_URL` (optional override)
 - `PUBLIC_FORM_FALLBACK_ENABLED` (`true` or `false`, default `false`)
@@ -24,6 +24,7 @@ These are public-safe runtime values used to generate `assets/js/supabase-config
 Set these in Supabase for Edge Functions:
 
 - `SUPABASE_URL`
+- `SUPABASE_ANON_KEY` (match `PUBLIC_SUPABASE_ANON_KEY`)
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `ALLOWED_ORIGINS` (comma-separated, include production + preview origins)
 - `RESEND_API_KEY` (optional)
@@ -33,6 +34,9 @@ Set these in Supabase for Edge Functions:
 ## 4) Deploy functions
 - Deploy `lead-intake` and `admin-portfolio-upload` to Supabase Edge Functions.
 - Confirm both function URLs respond to `OPTIONS` and `POST` from your Cloudflare domain.
+- `lead-intake` expects both headers: `apikey: <PUBLIC_SUPABASE_ANON_KEY>` and `Authorization: Bearer <PUBLIC_SUPABASE_ANON_KEY>`.
+- `admin-portfolio-upload` expects `Authorization: Bearer <user_access_token>` plus `apikey: <PUBLIC_SUPABASE_ANON_KEY>`.
+- Keep `/projects/project.html` as a fallback runtime route and non-indexable by default (`noindex, nofollow`).
 
 ## 5) Pre-release checks
 - `pnpm build`

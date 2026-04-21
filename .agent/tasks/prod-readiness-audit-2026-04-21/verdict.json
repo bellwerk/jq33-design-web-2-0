@@ -1,0 +1,59 @@
+{
+  "task_id": "prod-readiness-audit-2026-04-21",
+  "overall_verdict": "PASS",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "Task artifacts initialized, spec frozen, and validation passed."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "Default OG/Twitter references now point to raster PNG asset."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "Duplicate supabase-config.js includes removed in source template and generated output."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "Fallback project route defaults to noindex, nofollow."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "Deployment docs now match runtime config and function header requirements."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "Build and quality checks passed; outputs captured in raw artifacts."
+    }
+  ],
+  "commands_run": [
+    "pnpm.cmd build",
+    "pnpm.cmd check:links",
+    "pnpm.cmd check:redirects",
+    "node scripts/check-images.mjs",
+    "node --check assets/js/portfolio.js",
+    "node --check assets/js/portfolio-detail.js",
+    "node --check assets/js/portfolio-admin.js",
+    "node --check assets/js/components/header-nav.js",
+    "node --check assets/js/analytics.js",
+    "node --check supabase/functions/lead-intake/index.ts",
+    "node --check supabase/functions/admin-portfolio-upload/index.ts",
+    "C:\\Users\\BELLWERK\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe C:\\Users\\BELLWERK\\.codex\\skills\\repo-task-proof-loop\\scripts\\task_loop.py validate --task-id prod-readiness-audit-2026-04-21"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/prod-readiness-audit-2026-04-21/spec.md",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/evidence.md",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/evidence.json",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/build.txt",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/test-unit.txt",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/test-integration.txt"
+  ]
+}

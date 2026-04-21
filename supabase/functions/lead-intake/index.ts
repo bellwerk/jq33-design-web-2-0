@@ -18,6 +18,14 @@ const getAllowedOrigins = () => {
 
 const allowedOrigins = getAllowedOrigins();
 
+const getAnonKey = () =>
+  Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("PUBLIC_SUPABASE_ANON_KEY") || "";
+
+const isAllowedOrigin = (origin: string | null) => {
+  if (!origin) return false;
+  return allowedOrigins.has(origin) || allowedOrigins.has("*");
+};
+
 const getCorsHeaders = (origin: string | null) => {
   const allowOrigin =
     origin && (allowedOrigins.has(origin) || allowedOrigins.has("*"))
@@ -93,6 +101,24 @@ Deno.serve(async (req) => {
     return json(origin, 405, { error: "Method not allowed." });
   }
 
+  if (!isAllowedOrigin(origin)) {
+    return json(origin, 403, { error: "Origin not allowed." });
+  }
+
+  const anonKey = getAnonKey();
+  if (!anonKey) {
+    console.error("lead-intake: missing anon key for auth");
+    return json(origin, 500, { error: "Server not configured." });
+  }
+
+  const apiKeyHeader = req.headers.get("apikey") || "";
+  const authHeader = req.headers.get("authorization") || "";
+  const bearerToken = authHeader.replace(/^Bearer\s+/i, "").trim();
+
+  if (apiKeyHeader !== anonKey || bearerToken !== anonKey) {
+    return json(origin, 401, { error: "Unauthorized." });
+  }
+
   let payload: z.infer<typeof LeadSchema>;
 
   try {
@@ -151,20 +177,28 @@ Deno.serve(async (req) => {
 
   if (resendKey && toEmail && fromEmail) {
     const emailBody = formatEmailBody(payload, ipAddress);
-    await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${resendKey}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: [toEmail],
-        reply_to: payload.email ? [payload.email] : undefined,
-        subject: `New ${payload.form_type} lead`,
-        text: emailBody
-      })
-    });
+    try {
+      const response = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${resendKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: [toEmail],
+          reply_to: payload.email ? [payload.email] : undefined,
+          subject: `New ${payload.form_type} lead`,
+          text: emailBody
+        })
+      });
+
+      if (!response.ok) {
+        console.error("lead-intake: resend failed", { status: response.status });
+      }
+    } catch (error) {
+      console.error("lead-intake: resend fetch failed", { error: String(error) });
+    }
   }
 
   return json(origin, 200, { status: "ok" });

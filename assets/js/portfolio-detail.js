@@ -3,6 +3,7 @@
   const supabaseUrl = config.SUPABASE_URL;
   const anonKey = config.SUPABASE_ANON_KEY;
   const PLACEHOLDER_TOKEN = /your-anon-key|your-project/i;
+  const STORAGE_BUCKET = "portfolio";
 
   const container = document.getElementById("project-container");
   const heroImage = document.getElementById("hero-image");
@@ -54,8 +55,11 @@
 
   const toPublicUrl = (path) => {
     if (!path) return "";
+    if (/^https?:\/\//i.test(path)) return path;
     const clean = path.replace(/^\/+/, "");
-    return `${supabaseUrl}/storage/v1/object/public/${clean}`;
+    const bucketPrefix = `${STORAGE_BUCKET}/`;
+    const normalized = clean.startsWith(bucketPrefix) ? clean : `${bucketPrefix}${clean}`;
+    return `${supabaseUrl}/storage/v1/object/public/${normalized}`;
   };
 
   const escapeHtml = (value) =>
@@ -67,17 +71,32 @@
       .replace(/'/g, "&#39;");
 
   const setMeta = (selector, content) => {
-    const node = document.querySelector(selector);
-    if (node && content) {
-      node.setAttribute("content", content);
+    if (!content) return;
+    let node = document.querySelector(selector);
+    if (!node) {
+      node = document.createElement("meta");
+      const nameMatch = selector.match(/name="([^"]+)"/i);
+      const propMatch = selector.match(/property="([^"]+)"/i);
+      if (nameMatch) {
+        node.setAttribute("name", nameMatch[1]);
+      }
+      if (propMatch) {
+        node.setAttribute("property", propMatch[1]);
+      }
+      document.head.appendChild(node);
     }
+    node.setAttribute("content", content);
   };
 
   const setCanonical = (href) => {
-    const node = document.querySelector('link[rel="canonical"]');
-    if (node && href) {
-      node.setAttribute("href", href);
+    if (!href) return;
+    let node = document.querySelector('link[rel="canonical"]');
+    if (!node) {
+      node = document.createElement("link");
+      node.setAttribute("rel", "canonical");
+      document.head.appendChild(node);
     }
+    node.setAttribute("href", href);
   };
 
   const renderDetails = (project) => {
@@ -234,6 +253,7 @@
     setMeta('meta[name="twitter:title"]', metaTitle);
     setMeta('meta[name="twitter:description"]', metaDescription);
     setMeta('meta[name="twitter:image"]', heroUrl);
+    setMeta('meta[name="robots"]', "index, follow");
     setCanonical(canonicalUrl);
   };
 

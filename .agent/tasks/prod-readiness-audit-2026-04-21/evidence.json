@@ -1,0 +1,196 @@
+{
+  "task_id": "prod-readiness-audit-2026-04-21",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "Workflow artifacts for prod-readiness-audit-2026-04-21 are initialized, spec is frozen, and validation passes.",
+      "status": "PASS",
+      "proof": [
+        {
+          "type": "command",
+          "command": "task_loop.py init --task-id prod-readiness-audit-2026-04-21 --task-text \"Production-readiness remediation and prior-agent audit for JQ33 DESIGN web repo\"",
+          "exit_code": 0,
+          "summary": "Initialized .agent task folder, AGENTS/CLAUDE guides, and project subagent templates."
+        },
+        {
+          "type": "command",
+          "command": "task_loop.py validate --task-id prod-readiness-audit-2026-04-21",
+          "exit_code": 0,
+          "summary": "Task artifact schema validation returned valid=true."
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Default Open Graph and Twitter image references use a raster asset (PNG/JPG) for launch-critical pages/templates and build generators.",
+      "status": "PASS",
+      "proof": [
+        {
+          "type": "file",
+          "path": "og/jq33-design-commercial-interior-montreal.png",
+          "summary": "Raster OG default asset added."
+        },
+        {
+          "type": "command",
+          "command": "rg -n \"jq33-design-commercial-interior-montreal\\.svg\" -S .",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+          "exit_code": 1,
+          "summary": "No remaining references to old SVG default."
+        },
+        {
+          "type": "command",
+          "command": "rg -n \"jq33-design-commercial-interior-montreal\\.png\" -S .",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+          "exit_code": 0,
+          "summary": "PNG references present in pages/templates/scripts."
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Duplicate supabase-config.js includes are removed from projects index template and generated output; there is exactly one include on each page.",
+      "status": "PASS",
+      "proof": [
+        {
+          "type": "file",
+          "path": "projects/_projects-index-template.html",
+          "summary": "Duplicate include removed at source template level."
+        },
+        {
+          "type": "command",
+          "command": "pnpm.cmd build",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/build.txt",
+          "exit_code": 0,
+          "summary": "Regenerated projects index from fixed template."
+        },
+        {
+          "type": "command",
+          "command": "Get-ChildItem -Recurse -Filter *.html | ForEach-Object { $count=(Select-String -Path $_.FullName -Pattern 'supabase-config\\.js' -AllMatches).Matches.Count; if($count -gt 1){ \"$($_.FullName):$count\" } }",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+          "exit_code": 0,
+          "summary": "No HTML pages reported with duplicate supabase-config.js includes."
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Fallback project route metadata is crawler-safe by default (non-indexable unless explicit static page metadata applies).",
+      "status": "PASS",
+      "proof": [
+        {
+          "type": "file",
+          "path": "projects/project.html",
+          "summary": "Default robots and runtime-set robots policy are both noindex, nofollow."
+        },
+        {
+          "type": "command",
+          "command": "rg -n \"noindex, nofollow\" -S projects/project.html",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+          "exit_code": 0,
+          "summary": "Robots directives found in static and JS metadata update paths."
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Deployment contract documentation aligns with runtime configuration and Supabase function auth requirements.",
+      "status": "PASS",
+      "proof": [
+        {
+          "type": "file",
+          "path": "DEPLOYMENT.md",
+          "summary": "Documented anon key matching requirements and required headers for lead/admin functions."
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Production checks (build, link/redirect/image checks, syntax checks) pass and are captured in evidence artifacts.",
+      "status": "PASS",
+      "proof": [
+        {
+          "type": "command",
+          "command": "pnpm.cmd build",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/build.txt",
+          "exit_code": 0,
+          "summary": "Build pipeline completed successfully."
+        },
+        {
+          "type": "command",
+          "command": "pnpm.cmd check:links && pnpm.cmd check:redirects && node scripts/check-images.mjs",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+          "exit_code": 0,
+          "summary": "Links, redirects, and image-alt checks all passed."
+        },
+        {
+          "type": "command",
+          "command": "node --check on modified JS/TS files",
+          "path": ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+          "exit_code": 0,
+          "summary": "Syntax checks passed for modified frontend and Supabase function files."
+        },
+        {
+          "type": "command",
+          "command": "task_loop.py validate --task-id prod-readiness-audit-2026-04-21",
+          "exit_code": 0,
+          "summary": "Workflow artifact set validates cleanly after updates."
+        }
+      ],
+      "gaps": [
+        "Live functional submissions for contact/inquiry/admin were not executed in this session due missing deployed credentials/endpoints."
+      ]
+    }
+  ],
+  "changed_files": [
+    ".agent/tasks/prod-readiness-audit-2026-04-21/spec.md",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/evidence.md",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/evidence.json",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/verdict.json",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/problems.md",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/build.txt",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/lint.txt",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/test-unit.txt",
+    ".agent/tasks/prod-readiness-audit-2026-04-21/raw/test-integration.txt",
+    "DEPLOYMENT.md",
+    "scripts/generate-journal.mjs",
+    "projects/_projects-index-template.html",
+    "projects/project.html",
+    "projects/index.html",
+    "index.html",
+    "journal/index.html",
+    "contact/index.html",
+    "inquiry/index.html",
+    "privacy/index.html",
+    "terms/index.html",
+    "commercial-interior-design-montreal/index.html",
+    "404.html",
+    "journal/reduction-as-creation/index.html",
+    "og/jq33-design-commercial-interior-montreal.png"
+  ],
+  "commands_for_fresh_verifier": [
+    "pnpm.cmd build",
+    "pnpm.cmd check:links",
+    "pnpm.cmd check:redirects",
+    "node scripts/check-images.mjs",
+    "node --check assets/js/portfolio.js",
+    "node --check assets/js/portfolio-detail.js",
+    "node --check assets/js/portfolio-admin.js",
+    "node --check assets/js/components/header-nav.js",
+    "node --check assets/js/analytics.js",
+    "node --check supabase/functions/lead-intake/index.ts",
+    "node --check supabase/functions/admin-portfolio-upload/index.ts",
+    "rg -n \"jq33-design-commercial-interior-montreal\\.svg\" -S .",
+    "Get-ChildItem -Recurse -Filter *.html | ForEach-Object { $count=(Select-String -Path $_.FullName -Pattern 'supabase-config\\.js' -AllMatches).Matches.Count; if($count -gt 1){ \"$($_.FullName):$count\" } }",
+    "rg -n \"noindex, nofollow\" -S projects/project.html",
+    "C:\\Users\\BELLWERK\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe C:\\Users\\BELLWERK\\.codex\\skills\\repo-task-proof-loop\\scripts\\task_loop.py validate --task-id prod-readiness-audit-2026-04-21"
+  ],
+  "known_gaps": [
+    "Browser-executed functional checks for contact/inquiry/admin were not run against a live configured deployment in this session."
+  ]
+}

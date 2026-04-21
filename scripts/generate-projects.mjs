@@ -32,6 +32,13 @@ const toPublicPath = (filePath) => {
   return filePath.startsWith("/") ? filePath : `/${filePath}`;
 };
 
+const toAbsoluteUrl = (value) => {
+  if (!value) return "";
+  if (/^https?:\/\//i.test(value)) return value;
+  if (value.startsWith("/")) return `${baseUrl}${value}`;
+  return `${baseUrl}/${value}`;
+};
+
 const pickImage = (image) => {
   if (!image) return "";
   if (image.local) {
@@ -169,6 +176,7 @@ const generate = () => {
     const metaDescription = escapeHtml(project.meta?.description || "");
     const canonicalUrl = `${baseUrl}/projects/${project.slug}/`;
     const ogImage = pickImage(project.images?.hero) || pickImage(project.images?.preview);
+    const ogImageUrl = toAbsoluteUrl(ogImage);
     const prevProject = index > 0 ? projects[index - 1] : null;
     const nextProject = index < projects.length - 1 ? projects[index + 1] : null;
 
@@ -178,7 +186,7 @@ const generate = () => {
       canonical_url: canonicalUrl,
       og_title: metaTitle,
       og_description: metaDescription,
-      og_image: ogImage,
+      og_image: ogImageUrl,
       hero_image: heroImage,
       hero_alt: escapeHtml(project.title),
       hero_title: heroTitle,

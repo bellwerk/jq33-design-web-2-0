@@ -40,6 +40,8 @@
   let clsValue = 0;
   let lcpEntry;
   const reportVitals = () => {
+    if (reportVitals.hasReported) return;
+    reportVitals.hasReported = true;
     if (lcpEntry) {
       sendWebVital("LCP", lcpEntry.startTime);
     }
@@ -47,6 +49,7 @@
       sendWebVital("CLS", clsValue);
     }
   };
+  reportVitals.hasReported = false;
 
   if ("PerformanceObserver" in window) {
     try {
