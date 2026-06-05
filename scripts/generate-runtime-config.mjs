@@ -14,8 +14,12 @@ const envOrFallback = (key, fallback = "") => {
   return typeof value === "string" ? value.trim() : fallback;
 };
 
-const supabaseUrl = envOrFallback("PUBLIC_SUPABASE_URL", "https://your-project.supabase.co");
-const supabaseAnonKey = envOrFallback("PUBLIC_SUPABASE_ANON_KEY", "your-anon-key");
+const defaultSupabaseUrl = "https://pdfvgsnahwunywbvyqkz.supabase.co";
+const defaultSupabaseAnonKey =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXJhYmFzZSIsInJlZiI6InBkZnZnc25haHd1bnl3YnZ5cWt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA2NjI1MzQsImV4cCI6MjA5NjIzODUzNH0.iq6RQI5fvEukJcBExupopYRzKM7-8bnI62UPDJu7qN4";
+
+const supabaseUrl = envOrFallback("PUBLIC_SUPABASE_URL", defaultSupabaseUrl);
+const supabaseAnonKey = envOrFallback("PUBLIC_SUPABASE_ANON_KEY", defaultSupabaseAnonKey);
 const leadFunctionUrl = envOrFallback(
   "PUBLIC_LEAD_FUNCTION_URL",
   supabaseUrl.includes("your-project")
