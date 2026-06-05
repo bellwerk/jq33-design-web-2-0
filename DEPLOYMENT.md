@@ -40,7 +40,11 @@ Set these in Supabase for Edge Functions:
 
 ## 5) Pre-release checks
 - `pnpm build`
-- `pnpm check:links`
-- `pnpm check:redirects`
+- `pnpm check:launch`
 - Submit contact form and inquiry form.
 - Upload a project through `/admin/portfolio/`.
+
+## 6) Local environment template
+- Use `.env.example` as the non-secret launch setup checklist.
+- Do not commit a real `.env` file; `.env*` is ignored except `.env.example`.
+- Keep production values in Cloudflare Pages and Supabase dashboards.

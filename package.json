@@ -12,6 +12,8 @@
     "build:runtime-config": "node scripts/generate-runtime-config.mjs",
     "build": "node scripts/build.mjs",
     "check:links": "node scripts/check-links.mjs",
-    "check:redirects": "node scripts/check-redirects.mjs"
+    "check:redirects": "node scripts/check-redirects.mjs",
+    "check:images": "node scripts/check-images.mjs",
+    "check:launch": "pnpm build && pnpm check:links && pnpm check:redirects && pnpm check:images"
   }
 }

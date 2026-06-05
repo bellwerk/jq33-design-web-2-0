@@ -1,0 +1,62 @@
+{
+  "task_id": "launch-setup-2026-05-24",
+  "overall_status": "PARTIAL",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "evidence": [
+        ".agent/tasks/launch-setup-2026-05-24/spec.md",
+        ".agent/tasks/launch-setup-2026-05-24/raw/"
+      ]
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "evidence": [
+        "package.json check:launch",
+        ".agent/tasks/launch-setup-2026-05-24/raw/check-launch.txt"
+      ]
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "evidence": [
+        ".env.example"
+      ]
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "evidence": [
+        ".gitignore",
+        "git check-ignore -v .tmp-static-server.js"
+      ]
+    },
+    {
+      "id": "AC5",
+      "status": "PARTIAL",
+      "evidence": [
+        ".agent/tasks/launch-setup-2026-05-24/raw/build.txt",
+        ".agent/tasks/launch-setup-2026-05-24/raw/check-launch.txt",
+        ".agent/tasks/launch-setup-2026-05-24/raw/browser-policy-block.txt"
+      ],
+      "gaps": [
+        "Browser blocked localhost and file URLs in this session.",
+        "Live Cloudflare/Supabase/Search Console setup requires account access."
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "command": "pnpm build",
+      "status": "PASS",
+      "raw": ".agent/tasks/launch-setup-2026-05-24/raw/build.txt"
+    },
+    {
+      "command": "pnpm check:launch",
+      "status": "PASS",
+      "raw": ".agent/tasks/launch-setup-2026-05-24/raw/check-launch.txt"
+    }
+  ]
+}

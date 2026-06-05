@@ -1,0 +1,13 @@
+Attempted Browser launch QA against:
+- http://127.0.0.1:8123/
+- http://localhost:8123/
+- file:///C:/Users/BELLWERK/Documents/PROJECTS/JQ33%20DESIGN/WEB%202.0/index.html
+
+Result:
+- Browser blocked 127.0.0.1 with net::ERR_BLOCKED_BY_CLIENT.
+- Browser blocked localhost with net::ERR_BLOCKED_BY_CLIENT.
+- Browser rejected file:// navigation under Browser Use URL policy.
+
+Impact:
+- Local Browser smoke test could not be completed in this session.
+- Static launch command verification completed separately through `pnpm check:launch`.

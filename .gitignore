@@ -1,6 +1,8 @@
 node_modules/
 .pnpm-store/
 .env*
+!.env.example
 .DS_Store
 Thumbs.db
 .cursor/
+.tmp-static-server.js
