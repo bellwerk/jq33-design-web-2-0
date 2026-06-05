@@ -6,3 +6,4 @@ node_modules/
 Thumbs.db
 .cursor/
 .tmp-static-server.js
+supabase/.temp/

@@ -1,0 +1,15 @@
+{
+  "task_id": "supabase-function-env-fallback-2026-06-05",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    { "id": "AC1", "status": "PASS" },
+    { "id": "AC2", "status": "PASS" },
+    { "id": "AC3", "status": "PASS" },
+    { "id": "AC4", "status": "PASS" }
+  ],
+  "commands": [
+    "npx supabase functions deploy lead-intake --project-ref pdfvgsnahwunywbvyqkz",
+    "npx supabase functions deploy admin-portfolio-upload --project-ref pdfvgsnahwunywbvyqkz",
+    "pnpm check:launch"
+  ]
+}

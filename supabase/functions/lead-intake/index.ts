@@ -18,8 +18,12 @@ const getAllowedOrigins = () => {
 
 const allowedOrigins = getAllowedOrigins();
 
-const getAnonKey = () =>
-  Deno.env.get("SUPABASE_ANON_KEY") || Deno.env.get("PUBLIC_SUPABASE_ANON_KEY") || "";
+const getAnonKeys = () =>
+  [
+    Deno.env.get("ANON_KEY"),
+    Deno.env.get("SUPABASE_ANON_KEY"),
+    Deno.env.get("PUBLIC_SUPABASE_ANON_KEY")
+  ].filter((value): value is string => Boolean(value));
 
 const isAllowedOrigin = (origin: string | null) => {
   if (!origin) return false;
@@ -105,8 +109,8 @@ Deno.serve(async (req) => {
     return json(origin, 403, { error: "Origin not allowed." });
   }
 
-  const anonKey = getAnonKey();
-  if (!anonKey) {
+  const anonKeys = getAnonKeys();
+  if (anonKeys.length === 0) {
     console.error("lead-intake: missing anon key for auth");
     return json(origin, 500, { error: "Server not configured." });
   }
@@ -115,7 +119,7 @@ Deno.serve(async (req) => {
   const authHeader = req.headers.get("authorization") || "";
   const bearerToken = authHeader.replace(/^Bearer\s+/i, "").trim();
 
-  if (apiKeyHeader !== anonKey || bearerToken !== anonKey) {
+  if (!anonKeys.includes(apiKeyHeader) || !anonKeys.includes(bearerToken)) {
     return json(origin, 401, { error: "Unauthorized." });
   }
 
@@ -137,8 +141,9 @@ Deno.serve(async (req) => {
     return json(origin, 400, { error: "Missing required fields." });
   }
 
-  const supabaseUrl = Deno.env.get("SUPABASE_URL");
-  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  const supabaseUrl = Deno.env.get("SUPABASE_URL") || Deno.env.get("URL");
+  const serviceRoleKey =
+    Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || Deno.env.get("SERVICE_ROLE_KEY");
 
   if (!supabaseUrl || !serviceRoleKey) {
     console.error("lead-intake: missing server env");
