@@ -1,4 +1,6 @@
-/projects/* /projects/project.html 200
+/home-page / 301
+/home-page/ / 301
+/home-page.html / 301
 /cafe-interior-design-montreal/ /commercial-interior-design-montreal/ 301
 /salon-interior-design-montreal/ /commercial-interior-design-montreal/ 301
 /clinic-interior-design-montreal/ /commercial-interior-design-montreal/ 301

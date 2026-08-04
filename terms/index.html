@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Terms of Service | JQ33 DESIGN</title>
     <meta
       name="description"
-      content="Terms of service for JQ33 DESIGN. Review the basics for project inquiries, proposals, and design engagements."
+      content="Terms for JQ33 DESIGN inquiries, proposals, design services, client approvals, project changes, intellectual property, and cancellations."
     />
     <link rel="canonical" href="https://jq33.design/terms/" />
 
@@ -16,37 +16,39 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta property="og:title" content="Terms of Service | JQ33 DESIGN" />
     <meta
       property="og:description"
-      content="Terms of service for JQ33 DESIGN. Review the basics for project inquiries, proposals, and design engagements."
+      content="Terms for JQ33 DESIGN inquiries, proposals, design services, client approvals, project changes, intellectual property, and cancellations."
     />
     <meta property="og:url" content="https://jq33.design/terms/" />
     <meta
       property="og:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JQ33 DESIGN terms of service" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Terms of Service | JQ33 DESIGN" />
     <meta
       name="twitter:description"
-      content="Terms of service for JQ33 DESIGN. Review the basics for project inquiries, proposals, and design engagements."
+      content="Terms for JQ33 DESIGN inquiries, proposals, design services, client approvals, project changes, intellectual property, and cancellations."
     />
     <meta
       name="twitter:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/assets/css/site.css" />
+    <meta name="twitter:image:alt" content="JQ33 DESIGN terms of service" />
+    <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260717-lato" />
     <style>
+      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -55,17 +57,18 @@
 
       body {
         --cobalt: var(--cobalt-text);
+        --link: var(--cobalt-text);
         min-height: 100vh;
         min-height: 100svh;
-        background: #0c0c0c;
-        color: #fff;
+        background: var(--color-ink);
+        color: var(--color-white);
         font-family: var(--font-sans);
       }
 
       main {
-        width: min(900px, 92vw);
-        margin: clamp(110px, 15vh, 160px) auto 0;
-        padding-bottom: 40px;
+        width: min(900px, calc(100vw - 48px));
+        margin: var(--section-top) auto 0;
+        padding-bottom: var(--space-10);
       }
 
       h1 {
@@ -73,19 +76,25 @@
         font-size: var(--fs-h1);
         line-height: var(--lh-tight);
         color: var(--cobalt);
-        margin-bottom: 24px;
+        margin-bottom: var(--space-lg);
       }
 
       p {
         font-size: 1rem;
         line-height: 1.8;
-        color: rgba(255, 255, 255, 0.78);
-        margin-bottom: 16px;
+        color: var(--color-white-a78);
+        margin-bottom: var(--space-md);
+      }
+
+      h2 {
+        margin: var(--space-10) 0 var(--space-sm);
+        color: var(--text-inverse);
+        font-size: clamp(1.5rem, 3vw, 2.25rem);
       }
 
       @media (max-width: 640px) {
         main {
-          width: 94vw;
+          width: calc(100vw - 32px);
         }
 
         p {
@@ -95,27 +104,82 @@
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="header-nav" data-component="header-nav"></header>
 
-    <main>
+    <main id="main-content">
       <h1>Terms of Service</h1>
+      <p><strong>Effective July 29, 2026.</strong></p>
+
+      <h2>Inquiries and proposals</h2>
       <p>
-        All projects begin with a written proposal outlining scope, timeline, and fee.
-        Work starts after approval and deposit as outlined in the proposal.
+        Website information is general and does not create a designer-client
+        relationship. A project begins only when both parties accept a written
+        proposal or agreement that states the scope, deliverables, schedule, fees,
+        payment terms, and required deposit. That signed document controls if it
+        conflicts with these website terms.
       </p>
+
+      <h2>Client inputs and approvals</h2>
       <p>
-        Questions? Reach out at
-        <a href="mailto:hello@jq33.design">hello@jq33.design</a>.
+        Clients are responsible for accurate measurements, existing-condition
+        information, budgets, timely decisions, access, and approvals unless the
+        project agreement says otherwise. Product samples and final specifications
+        should be reviewed before purchase or construction because screens,
+        photography, and illustrative visuals cannot guarantee exact colour,
+        texture, or site conditions.
+      </p>
+
+      <h2>Permits, consultants, and construction</h2>
+      <p>
+        Interior design direction is not architectural, engineering, legal, or
+        contractor work. Permits, stamped drawings, code review, engineering,
+        hazardous-material assessment, contractor means and methods, and site safety
+        remain with the appropriately qualified parties unless expressly included
+        in writing.
+      </p>
+
+      <h2>Changes, delays, and cancellation</h2>
+      <p>
+        Work outside the agreed scope requires written approval and may change fees
+        or timing. Schedules depend on prompt client feedback and third-party
+        availability. Cancellation, rescheduling, non-refundable work, and payment
+        obligations are governed by the signed project agreement.
+      </p>
+
+      <h2>Intellectual property and portfolio use</h2>
+      <p>
+        JQ33 DESIGN retains ownership of its methods, working files, and design
+        authorship except for rights expressly granted in the project agreement.
+        Client use is limited to the agreed project and paid deliverables. We publish
+        client work only with the permission described in the applicable agreement;
+        self-initiated concept studies on this website are labelled as illustrative
+        and are not completed client work.
+      </p>
+
+      <h2>Warranties and liability</h2>
+      <p>
+        We perform services with reasonable professional care but do not guarantee
+        approvals, contractor pricing, procurement dates, business outcomes, or the
+        performance of third-party products and services. Any warranties, liability
+        limits, indemnities, and dispute process are those in the signed project
+        agreement and applicable law.
+      </p>
+
+      <h2>Governing terms and contact</h2>
+      <p>
+        These website terms are governed by the laws applicable in Quebec, Canada,
+        without limiting mandatory consumer protections. For questions, email
+        <a href="mailto:hello@jq33.design">hello@jq33.design</a>. These terms should
+        be reviewed by JQ33 DESIGN's legal adviser before launch.
       </p>
     </main>
 
     <footer class="site-footer site-footer--stacked" data-component="footer"></footer>
 
-    <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/components/footer.js?v=20260716-1"></script>
     <script src="/assets/js/nav-drawer.js"></script>
   </body>
 </html>

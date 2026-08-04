@@ -1,0 +1,306 @@
+/* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
+/* Hallmark · pre-emit critique: P5 H4 E5 S5 R4 V5 */
+/*
+ * First-screen shared CSS. The complete site stylesheet is applied after the
+ * first paint; every rule here intentionally matches its final computed value.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text-primary);
+}
+
+body.site-default-bg,
+body.is-home {
+  --cobalt: var(--cobalt-text);
+}
+
+body.site-default-bg {
+  --link: var(--cobalt-text);
+  --text-accent: var(--cobalt-text);
+  background: var(--bg-2);
+  color: var(--text-primary);
+}
+
+:where(body.site-default-bg) :where(p, li, dd, .section-copy) {
+  color: var(--text-secondary);
+}
+
+:where(body.site-default-bg) :where(.label, small, figcaption) {
+  color: var(--text-tertiary);
+}
+
+a {
+  color: var(--link);
+}
+
+body.site-default-bg .bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-image: none;
+  background-size: cover;
+  background-position: center;
+  filter: var(--site-bg-filter);
+  opacity: var(--site-bg-opacity);
+}
+
+body.site-default-bg .grain {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-brand) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  line-height: 1.3;
+}
+
+.label {
+  font-size: var(--fs-label);
+  font-weight: var(--fw-label);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+:focus-visible {
+  outline: var(--focus-size, 3px) solid var(--focus-ring);
+  outline-offset: var(--focus-offset, 4px);
+}
+
+.skip-link {
+  position: fixed;
+  top: max(var(--space-sm), env(safe-area-inset-top, 0px));
+  left: var(--space-sm);
+  z-index: 3000;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-control);
+  background: var(--color-warm-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+  transform: translateY(calc(-100% - 2rem));
+  transition: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0) !important;
+}
+
+header.header-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: clamp(var(--space-5-8), 3vw, var(--space-9-4)) clamp(var(--space-5), 4vw, var(--space-13));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1500;
+  margin: 0;
+}
+
+header.header-nav .nav-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(var(--space-6-4), 3vw, var(--space-10-4));
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--cobalt);
+}
+
+header.header-nav .nav-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  text-decoration: none;
+}
+
+header.header-nav .nav-logo {
+  width: clamp(76px, 7.8vw, 98px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  margin-bottom: var(--space-1);
+}
+
+header.header-nav a {
+  color: var(--cobalt);
+}
+
+header.header-nav .nav-link {
+  position: relative;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+header.header-nav .nav-toggle {
+  display: none;
+  min-width: 46px;
+  min-height: 40px;
+  padding: var(--space-sm);
+  border: 0;
+  border-radius: 30px;
+  appearance: none;
+  background: transparent;
+  color: var(--cobalt);
+  cursor: pointer;
+  line-height: 0;
+}
+
+header.header-nav .nav-toggle-bars {
+  width: 22px;
+  height: 16px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+header.header-nav .nav-toggle-bars span {
+  width: 100%;
+  height: 2px;
+  display: block;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* The drawer is injected before the deferred stylesheet. Its fixed, hidden
+ * geometry must therefore exist in the critical layer to prevent a full-page
+ * layout shift while the complete component styles load. */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 2001;
+  width: min(360px, 92vw);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  padding: max(var(--space-4-5), env(safe-area-inset-top, 0px)) var(--space-4-5)
+    max(18px, env(safe-area-inset-bottom, 0px));
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+body.is-nav-open .nav-overlay,
+body.is-nav-open .nav-drawer {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.btn,
+.cta-button,
+button[type="submit"],
+.hero-action,
+.final-cta__link,
+[data-calendly-cta] {
+  white-space: nowrap;
+}
+
+.btn,
+.cta-button,
+button[type="submit"] {
+  min-height: 48px;
+  border-radius: var(--radius-control) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  font-family: var(--font-sans);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.project-card,
+.selected-project {
+  overflow: clip;
+  border-radius: var(--radius-card) !important;
+}
+
+.hero,
+.hero-media,
+.hero-media img {
+  border-radius: var(--radius-hero) !important;
+}
+
+@media (max-width: 768px) {
+  header.header-nav {
+    padding: max(var(--space-md), env(safe-area-inset-top, 0px)) var(--space-md) var(--space-md);
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  header.header-nav .nav-group {
+    display: none;
+  }
+
+  header.header-nav .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+  }
+}

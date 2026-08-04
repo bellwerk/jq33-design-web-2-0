@@ -1,9 +1,16 @@
 node_modules/
 .pnpm-store/
+dist/
+dist-manifest.json
+.wrangler/
 .env*
 !.env.example
 .DS_Store
 Thumbs.db
 .cursor/
+.playwright-mcp/
+debug.log
+playwright-report/
+test-results/
 .tmp-static-server.js
 supabase/.temp/

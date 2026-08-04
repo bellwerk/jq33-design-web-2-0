@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" vid="0">
-  <head vid="1">
-    <meta charset="UTF-8" vid="2" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3" />
-    <title vid="4">Contact | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
     <meta
       name="description"
-      content="Contact JQ33 DESIGN in Montreal for commercial interior design. Layout, finishes, and 3D visuals for cafes, salons, clinics, boutiques, and small offices. Book a free 15-minute call."
+      content="Contact JQ33 DESIGN about commercial interior design for a Montreal cafe, salon, clinic, boutique, or office. Share your space, timing, and goals."
     />
     <link rel="canonical" href="https://jq33.design/contact/" />
 
@@ -16,6 +16,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta
       property="og:title"
@@ -23,13 +24,16 @@
     />
     <meta
       property="og:description"
-      content="Contact JQ33 DESIGN in Montreal for commercial interior design. Layout, finishes, and 3D visuals for cafes, salons, clinics, boutiques, and small offices. Book a free 15-minute call."
+      content="Contact JQ33 DESIGN about commercial interior design for a Montreal cafe, salon, clinic, boutique, or office. Share your space, timing, and goals."
     />
     <meta property="og:url" content="https://jq33.design/contact/" />
     <meta
       property="og:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Contact JQ33 DESIGN about a Montreal commercial interior" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -39,21 +43,19 @@
     />
     <meta
       name="twitter:description"
-      content="Contact JQ33 DESIGN in Montreal for commercial interior design. Layout, finishes, and 3D visuals for cafes, salons, clinics, boutiques, and small offices. Book a free 15-minute call."
+      content="Contact JQ33 DESIGN about commercial interior design for a Montreal cafe, salon, clinic, boutique, or office. Share your space, timing, and goals."
     />
     <meta
       name="twitter:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Permanent+Marker&amp;display=swap"
-      rel="stylesheet"
-      vid="7"
-    />
-    <link rel="stylesheet" href="/assets/css/site.css" />
-    <style vid="8">
+    <meta name="twitter:image:alt" content="Contact JQ33 DESIGN about a Montreal commercial interior" />
+    <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260717-lato" />
+    <style>
+      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       :root {
         --split-point: 50%;
       }
@@ -68,9 +70,8 @@
         width: 100%;
         min-height: 100vh;
         min-height: 100svh;
-        overflow-x: hidden;
-        overflow-y: auto;
-        background-color: #ffffff;
+        overflow-x: clip;
+        background-color: var(--color-white);
         font-family: var(--font-sans);
         color: var(--ink);
         display: flex;
@@ -87,11 +88,12 @@
       .left-panel {
         width: var(--split-point);
         height: 100%;
-        background-color: #ffffff;
+        background-color: var(--color-white);
+        color-scheme: light;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        padding: clamp(120px, 10%, 170px) 8%;
+        padding: clamp(var(--space-28), 10%, var(--space-38)) 8%;
         z-index: 2;
         position: relative;
       }
@@ -111,36 +113,36 @@
       }
 
       .headline {
-        margin-bottom: 1.75rem;
+        margin-bottom: var(--space-7);
         color: var(--ink);
       }
 
       .page-intro {
-        max-width: 36ch;
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: #404040;
-        margin-bottom: 2.25rem;
+        max-width: 48ch;
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--text-on-light-muted);
+        margin-bottom: var(--space-9);
       }
 
       .capture-form {
         display: flex;
         flex-direction: column;
-        gap: 1.5rem;
+        gap: var(--space-lg);
         max-width: 480px;
       }
 
       .input-group {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: var(--space-xs);
       }
 
       .input-group label {
         font-size: 0.75rem;
         text-transform: uppercase;
-        font-weight: 600;
-        letter-spacing: 0.1em;
+        font-weight: 750;
+        letter-spacing: 0.12em;
         color: var(--cobalt);
       }
 
@@ -148,12 +150,16 @@
       .input-group select,
       .input-group textarea {
         border: none;
-        border-bottom: 2px solid #e0e0e0;
-        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--color-deep-charcoal-a22);
+        padding: var(--space-3-6) 0;
         font-family: var(--font-sans);
-        font-size: 1rem;
-        outline: none;
-        transition: border-color 0.3s ease;
+        font-size: 0.98rem;
+        line-height: 1.45;
+        outline: 2px solid transparent;
+        outline-offset: 1px;
+        color: var(--ink);
+        transition: border-color var(--dur-lg) var(--ease-standard),
+          background-color var(--dur-lg) var(--ease-standard);
         background: transparent;
       }
 
@@ -167,55 +173,76 @@
       .input-group select:focus-visible,
       .input-group textarea:focus-visible {
         outline: 2px solid var(--focus-ring);
-        outline-offset: 4px;
+        outline-offset: 2px;
         border-color: var(--cobalt);
       }
 
+      .input-group input:disabled,
+      .input-group select:disabled,
+      .input-group textarea:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+
       .cta-button {
-        margin-top: 1rem;
-        background-color: var(--cobalt-base);
-        color: white;
-        border: none;
-        display: inline-block;
-        padding: 1.25rem 2rem;
+        margin-top: var(--space-md);
+        background-color: var(--color-accent);
+        color: var(--color-accent-ink);
+        border: 1px solid var(--color-accent);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-4-2) var(--space-5-8);
         font-family: var(--font-sans);
-        font-weight: 600;
-        font-size: 1rem;
+        font-weight: 800;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        transition: background-color var(--dur-lg) var(--ease-standard),
+          transform var(--dur-sm) var(--ease-standard),
+          border-color var(--dur-lg) var(--ease-standard);
         text-align: center;
         text-decoration: none;
         width: fit-content;
       }
 
-      .cta-button:hover {
-        background-color: var(--cobalt-base-hover);
-        transform: translateY(-2px);
-      }
-
       .cta-button:disabled {
-        opacity: 0.7;
+        opacity: 0.55;
         cursor: not-allowed;
         transform: none;
       }
 
       .hp-field {
         position: absolute;
-        left: -9999px;
         width: 1px;
         height: 1px;
+        padding: 0;
+        margin: -1px;
         overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        border: 0;
+        white-space: nowrap;
       }
 
       .form-status {
-        margin-top: 0.5rem;
-        color: #1f4f2f;
+        margin-top: var(--space-xs);
+        color: var(--color-success-ink);
         font-size: 0.9rem;
         min-height: 1.4em;
       }
 
       .form-status.is-error {
-        color: #8b1d1d;
+        color: var(--color-error-ink);
+      }
+
+      .form-status.is-success {
+        color: var(--color-success-ink);
+      }
+
+      .field-error {
+        color: var(--color-error-ink);
       }
 
       .bg-layer {
@@ -241,9 +268,9 @@
         white-space: nowrap;
         z-index: 3;
         pointer-events: none;
-        opacity: 0.95;
-        line-height: 0.8;
-        text-shadow: 0px 0px 20px rgba(59, 65, 227, 0.2);
+        opacity: var(--decorative-brand-opacity);
+        line-height: 1;
+        text-shadow: 0px 0px 20px var(--color-cobalt-a20);
       }
 
       .grain {
@@ -259,7 +286,7 @@
 
       .nav-header {
         position: absolute;
-        top: 3rem;
+        top: var(--space-2xl);
         left: 8%;
         z-index: 10;
       }
@@ -275,8 +302,8 @@
       .site-nav {
         display: flex;
         flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 14px;
+        gap: var(--space-3-5);
+        margin-top: var(--space-3-5);
       }
 
       .site-nav a {
@@ -287,12 +314,7 @@
         color: var(--ink);
         text-decoration: none;
         opacity: 0.8;
-        transition: color 0.2s ease, opacity 0.2s ease;
-      }
-
-      .site-nav a:hover {
-        color: var(--cobalt);
-        opacity: 1;
+        transition: color var(--dur-sm) var(--ease-standard);
       }
 
       .site-nav a[aria-current="page"] {
@@ -300,6 +322,16 @@
         color: var(--cobalt);
         text-decoration: underline;
         text-underline-offset: 4px;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .cta-button:hover {
+          background-color: var(--cobalt-base-hover);
+        }
+
+        .site-nav a:hover {
+          color: var(--cobalt);
+        }
       }
 
       @media (max-width: 900px) {
@@ -311,7 +343,7 @@
           width: 100%;
           height: auto;
           justify-content: flex-start;
-          padding: 120px 8% 12%;
+          padding: var(--space-28) max(var(--space-lg), 8%) 12%;
         }
 
         .right-panel {
@@ -324,15 +356,15 @@
           left: 50%;
           transform: translate(-50%, -50%) rotate(-90deg);
           font-size: clamp(56px, 14vh, 130px);
-          opacity: 0.8;
+          opacity: 0.18;
         }
       }
 
       @media (max-width: 640px) {
         .nav-header {
-          top: 1rem;
-          left: 1rem;
-          right: 1rem;
+          top: var(--space-md);
+          left: var(--space-md);
+          right: var(--space-md);
         }
 
         .capture-form {
@@ -347,21 +379,22 @@
 
       @media (max-width: 520px) {
         .headline {
-          margin-bottom: 2rem;
+          margin-bottom: var(--space-xl);
         }
       }
     </style>
   </head>
-  <body vid="9">
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="header-nav" data-component="header-nav"></header>
     <div class="nav-header">
       <div class="nav-label">JQ33 DESIGN (Montreal)</div>
     </div>
-    <main class="contact-layout">
-      <div class="left-panel" vid="10">
+    <main class="contact-layout" id="main-content">
+      <div class="left-panel">
         <div class="left-panel__content">
-          <h1 class="headline" vid="13">
-            Commercial Interior Design<br vid="14" />in Montreal
+          <h1 class="headline">
+            Commercial Interior Design<br />in Montreal
           </h1>
 
           <p class="page-intro">
@@ -369,7 +402,16 @@
             best design package for your project.
           </p>
 
-          <form class="capture-form" data-lead-form="contact" method="post" vid="16">
+          <form
+            class="capture-form"
+            data-lead-form="contact"
+            method="post"
+            action="{{FORMSPREE_CONTACT_URL}}"
+            accept-charset="UTF-8"
+          >
+            <input type="hidden" name="form_type" value="contact" />
+            <input type="hidden" name="source_path" value="/contact/" />
+            <input type="hidden" name="_subject" value="JQ33 Contact request" />
             <div class="hp-field" aria-hidden="true">
               <label for="contact-company">Company</label>
               <input
@@ -380,41 +422,56 @@
                 autocomplete="off"
               />
             </div>
-            <div class="input-group" vid="17">
-              <label for="contact-name" vid="18">Name</label>
+            <div class="input-group">
+              <label for="contact-name">Name</label>
               <input
                 type="text"
                 id="contact-name"
                 name="name"
                 placeholder="Your name"
                 autocomplete="name"
+                maxlength="120"
                 required
-                vid="19"
+                aria-describedby="contact-name-error"
               />
+              <p class="field-error" id="contact-name-error" data-field-error aria-live="polite"></p>
             </div>
-            <div class="input-group" vid="20">
-              <label for="contact-email" vid="21">Email</label>
+            <div class="input-group">
+              <label for="contact-email">Email</label>
               <input
                 type="email"
                 id="contact-email"
                 name="email"
                 placeholder="you@business.com"
                 autocomplete="email"
+                maxlength="254"
                 required
-                vid="22"
+                aria-describedby="contact-email-error"
               />
+              <p class="field-error" id="contact-email-error" data-field-error aria-live="polite"></p>
             </div>
-            <div class="input-group" vid="23">
-              <label for="contact-project-type" vid="24">Project Type</label>
-              <select id="contact-project-type" name="project_type" required vid="25">
-                <option value="" selected disabled vid="26">Select project type</option>
-                <option value="coffee-shop-cafe" vid="27">Coffee shop / cafe</option>
-                <option value="salon-beauty-studio" vid="28">Salon / beauty studio</option>
-                <option value="clinic-wellness" vid="29">Clinic / wellness</option>
-                <option value="retail-boutique" vid="30">Retail / boutique</option>
-                <option value="small-office" vid="31">Small office</option>
-                <option value="other" vid="32">Other</option>
+            <div class="input-group">
+              <label for="contact-project-type">Project Type</label>
+              <select
+                id="contact-project-type"
+                name="project_type"
+                required
+                aria-describedby="contact-project-type-error"
+              >
+                <option value="" selected disabled>Select project type</option>
+                <option value="coffee-shop-cafe">Coffee shop / cafe</option>
+                <option value="salon-beauty-studio">Salon / beauty studio</option>
+                <option value="clinic-wellness">Clinic / wellness</option>
+                <option value="retail-boutique">Retail / boutique</option>
+                <option value="small-office">Small office</option>
+                <option value="other">Other</option>
               </select>
+              <p
+                class="field-error"
+                id="contact-project-type-error"
+                data-field-error
+                aria-live="polite"
+              ></p>
             </div>
             <div class="input-group">
               <label for="contact-message">Project details</label>
@@ -423,53 +480,56 @@
                 name="message"
                 rows="4"
                 placeholder="Tell us about your space, timeline, and goals."
+                maxlength="2000"
                 required
+                aria-describedby="contact-message-error"
               ></textarea>
+              <p class="field-error" id="contact-message-error" data-field-error aria-live="polite"></p>
             </div>
-            <button type="submit" class="cta-button">Get a free quote (reply in 24h)</button>
-            <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+            <button type="submit" class="cta-button">Get a quote</button>
+            <p
+              class="form-status"
+              data-form-status
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            ></p>
+            <button
+              class="cta-button cta-button--secondary"
+              type="button"
+              data-form-retry
+              hidden
+            >
+              Retry
+            </button>
             <a
               class="cta-button"
-              href="https://calendly.com/hello-jq33/15min"
+              href="{{CALENDLY_URL}}"
               data-calendly-cta
               target="_blank"
-              rel="noopener"
-              vid="30"
-              >Book a free 15-minute call</a
+              rel="noopener noreferrer"
+              >Book a call</a
             >
-            <p style="margin-top: 0.75rem; color: #404040; font-size: 0.9rem">
+            <p style="margin-top: var(--space-sm); color: var(--color-neutral-strong); font-size: 0.9rem">
               Or: Get a free quote - reply within 24 hours
             </p>
           </form>
         </div>
       </div>
 
-      <div class="right-panel" vid="31">
-        <div class="bg-layer" id="parallax-bg" vid="32"></div>
-        <div class="grain" vid="33"></div>
-        <div class="brand-mark" vid="34">JQ33<br vid="35" />DESIGN</div>
+      <div class="right-panel">
+        <div class="bg-layer" id="parallax-bg" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+        <div class="brand-mark" aria-hidden="true">JQ33<br />DESIGN</div>
       </div>
     </main>
 
     <footer class="site-footer site-footer--stacked" data-component="footer"></footer>
 
-    <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/leads.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/components/footer.js?v=20260716-1"></script>
     <script src="/assets/js/nav-drawer.js"></script>
-    <script vid="36">
-      const bg = document.getElementById("parallax-bg");
-      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-      if (canHover && bg) {
-        document.addEventListener("mousemove", (e) => {
-          const x = (window.innerWidth - e.pageX * 2) / 100;
-          const y = (window.innerHeight - e.pageY * 2) / 100;
-          bg.style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
-        });
-      }
-    </script>
   </body>
 </html>

@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Privacy Policy | JQ33 DESIGN</title>
+    <title>Privacy and Data | JQ33 DESIGN</title>
     <meta
       name="description"
-      content="Privacy policy for JQ33 DESIGN. Learn how we collect, use, and protect contact and project inquiry information."
+      content="Read how JQ33 DESIGN handles inquiry information, the processors we use, retention, deletion requests, analytics, and outbound services."
     />
     <link rel="canonical" href="https://jq33.design/privacy/" />
 
@@ -16,37 +16,39 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
-    <meta property="og:title" content="Privacy Policy | JQ33 DESIGN" />
+    <meta property="og:title" content="Privacy and Data | JQ33 DESIGN" />
     <meta
       property="og:description"
-      content="Privacy policy for JQ33 DESIGN. Learn how we collect, use, and protect contact and project inquiry information."
+      content="Read how JQ33 DESIGN handles inquiry information, the processors we use, retention, deletion requests, analytics, and outbound services."
     />
     <meta property="og:url" content="https://jq33.design/privacy/" />
     <meta
       property="og:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JQ33 DESIGN privacy and data information" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Privacy Policy | JQ33 DESIGN" />
+    <meta name="twitter:title" content="Privacy and Data | JQ33 DESIGN" />
     <meta
       name="twitter:description"
-      content="Privacy policy for JQ33 DESIGN. Learn how we collect, use, and protect contact and project inquiry information."
+      content="Read how JQ33 DESIGN handles inquiry information, the processors we use, retention, deletion requests, analytics, and outbound services."
     />
     <meta
       name="twitter:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Permanent+Marker&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/assets/css/site.css" />
+    <meta name="twitter:image:alt" content="JQ33 DESIGN privacy and data information" />
+    <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/tokens.css" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260717-lato" />
     <style>
+      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -55,17 +57,18 @@
 
       body {
         --cobalt: var(--cobalt-text);
+        --link: var(--cobalt-text);
         min-height: 100vh;
         min-height: 100svh;
-        background: #0c0c0c;
-        color: #fff;
+        background: var(--color-ink);
+        color: var(--color-white);
         font-family: var(--font-sans);
       }
 
       main {
-        width: min(900px, 92vw);
-        margin: clamp(110px, 15vh, 160px) auto 0;
-        padding-bottom: 40px;
+        width: min(900px, calc(100vw - 48px));
+        margin: var(--section-top) auto 0;
+        padding-bottom: var(--space-10);
       }
 
       h1 {
@@ -73,19 +76,31 @@
         font-size: var(--fs-h1);
         line-height: var(--lh-tight);
         color: var(--cobalt);
-        margin-bottom: 24px;
+        margin-bottom: var(--space-lg);
       }
 
       p {
         font-size: 1rem;
         line-height: 1.8;
-        color: rgba(255, 255, 255, 0.78);
-        margin-bottom: 16px;
+        color: var(--color-white-a78);
+        margin-bottom: var(--space-md);
+      }
+
+      h2 {
+        margin: var(--space-10) 0 var(--space-sm);
+        color: var(--text-inverse);
+        font-size: clamp(1.5rem, 3vw, 2.25rem);
+      }
+
+      ul {
+        margin: 0 0 var(--space-md) var(--space-5);
+        color: var(--text-secondary);
+        line-height: 1.8;
       }
 
       @media (max-width: 640px) {
         main {
-          width: 94vw;
+          width: calc(100vw - 32px);
         }
 
         p {
@@ -95,28 +110,74 @@
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="header-nav" data-component="header-nav"></header>
 
-    <main>
+    <main id="main-content">
       <h1>Privacy Policy</h1>
+      <p><strong>Effective July 29, 2026.</strong></p>
+
+      <h2>Information we receive</h2>
       <p>
-        We collect the information you submit through contact and inquiry forms so we
-        can respond to your request and prepare a project proposal.
+        When you use a Contact or Inquiry form, JQ33 DESIGN receives the information
+        you enter, such as your name, business name, email address, space type, and
+        project details. Formspree processes the submission and delivers it to our
+        Google Workspace inbox. Formspree and Cloudflare may also process technical
+        data such as an IP address, browser details, request time, and anti-spam
+        signals in their operational logs.
       </p>
+
+      <h2>How we use it</h2>
       <p>
-        We do not sell or share your contact details with third parties. If you would
-        like your information removed, email
-        <a href="mailto:hello@jq33.design">hello@jq33.design</a>.
+        We use inquiry information to respond, understand your project, arrange a
+        consultation, prepare a proposal, prevent abuse, and maintain necessary
+        business records. We do not sell personal information or use it for
+        behavioural advertising.
+      </p>
+
+      <h2>Processors and outbound services</h2>
+      <p>
+        We use Formspree for form processing, Google Workspace for email, and
+        Cloudflare Pages and Web Analytics for hosting, security, and
+        privacy-focused traffic measurement. A booking link takes you to Calendly
+        only after you activate it; Calendly then applies its own privacy terms.
+        Social links likewise open the selected third-party service only after
+        activation. These providers may process data outside Quebec or Canada under
+        their own safeguards and retention policies.
+      </p>
+
+      <h2>Retention and deletion</h2>
+      <p>
+        We keep information from leads who do not become clients for a maximum of
+        12 months, then delete or anonymize it. Records tied to an active client
+        engagement, a legal obligation, fraud prevention, or a dispute are kept
+        only for as long as that purpose requires. Service providers may retain
+        limited security or delivery logs according to their published policies.
+        To request access, correction, or deletion, email
+        <a href="mailto:hello@jq33.design">hello@jq33.design</a>. We will verify the
+        request and respond as required by applicable law.
+      </p>
+
+      <h2>Your choices</h2>
+      <ul>
+        <li>You may contact us directly by email instead of using a web form.</li>
+        <li>You may decline to open Calendly or social links.</li>
+        <li>You may request that we stop a non-contractual follow-up at any time.</li>
+      </ul>
+
+      <h2>Changes and questions</h2>
+      <p>
+        We may update this notice when our services or legal requirements change.
+        The effective date above identifies the current version. Questions can be
+        sent to <a href="mailto:hello@jq33.design">hello@jq33.design</a>.
       </p>
     </main>
 
     <footer class="site-footer site-footer--stacked" data-component="footer"></footer>
 
-    <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/components/footer.js?v=20260716-1"></script>
     <script src="/assets/js/nav-drawer.js"></script>
   </body>
 </html>

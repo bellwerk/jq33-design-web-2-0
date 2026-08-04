@@ -1,0 +1,806 @@
+name: Production readiness
+
+# Immutable action pins verified against the official upstream GitHub repositories on 2026-08-04:
+# actions/checkout v4: https://github.com/actions/checkout/commit/11d5960a326750d5838078e36cf38b85af677262
+# actions/setup-node v4: https://github.com/actions/setup-node/commit/49933ea5288caeca8642d1e84afbd3f7d6820020
+# actions/upload-artifact v4: https://github.com/actions/upload-artifact/commit/ea165f8d65b6e75b540449e92b4886f43607fa02
+# actions/download-artifact v4: https://github.com/actions/download-artifact/commit/d3f86a106a0bac45b974a628896c90dbdf5c8093
+# pnpm/action-setup v4: https://github.com/pnpm/action-setup/commit/b906affcce14559ad1aafd4ab0e942779e9f58b1
+# GitHub-hosted runners cannot be pinned to an immutable image digest. ubuntu-24.04 pins the OS
+# family/version; ImageOS and ImageVersion are recorded in the build context for exact auditability.
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Select candidate verification, exact-byte production promotion, or post-production finalization
+        required: true
+        type: choice
+        options:
+          - verify-candidate
+          - promote-production
+          - finalize-production
+        default: verify-candidate
+      candidate_run_id:
+        description: Successful candidate run containing the immutable candidate and preview attestation
+        required: false
+        type: string
+      candidate_commit_sha:
+        description: Full main-branch commit SHA bound to the candidate
+        required: false
+        type: string
+      prepromotion_evidence_sha256:
+        description: SHA-256 of the strict pre-promotion evidence.json
+        required: false
+        type: string
+      production_run_id:
+        description: Successful promote-production run containing production parity proof
+        required: false
+        type: string
+      production_run_commit_sha:
+        description: Full main-branch head SHA of the promote-production run
+        required: false
+        type: string
+      production_parity_sha256:
+        description: SHA-256 of the downloaded production parity attestation
+        required: false
+        type: string
+      final_evidence_sha256:
+        description: SHA-256 of final-evidence.json containing the fresh post-production verifier verdict
+        required: false
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: jq33-production-${{ github.ref }}-${{ inputs.operation || 'candidate' }}
+  cancel-in-progress: false
+
+env:
+  PNPM_VERSION: 11.13.0
+  WRANGLER_VERSION: 4.115.0
+  TASK_DIR: .agent/tasks/jq33-production-readiness-2026-07-29
+  WORKFLOW_PATH: .github/workflows/production-readiness.yml
+
+jobs:
+  build-and-verify:
+    if: github.event_name != 'workflow_dispatch' || inputs.operation == 'verify-candidate'
+    runs-on: ubuntu-24.04
+    outputs:
+      artifact_sha256: ${{ steps.manifest.outputs.artifact_sha256 }}
+      lockfile_sha256: ${{ steps.manifest.outputs.lockfile_sha256 }}
+    # Candidate bytes are built before any deployment environment is entered.
+    # These public-safe values therefore come from repository/organization Actions
+    # variables; Cloudflare credentials remain isolated in protected environments.
+    env:
+      PUBLIC_FORMSPREE_CONTACT_URL: ${{ vars.PUBLIC_FORMSPREE_CONTACT_URL }}
+      PUBLIC_FORMSPREE_INQUIRY_URL: ${{ vars.PUBLIC_FORMSPREE_INQUIRY_URL }}
+      PUBLIC_CALENDLY_URL: ${{ vars.PUBLIC_CALENDLY_URL }}
+      PUBLIC_SOCIAL_INSTAGRAM_URL: ${{ vars.PUBLIC_SOCIAL_INSTAGRAM_URL }}
+      PUBLIC_SOCIAL_FACEBOOK_URL: ${{ vars.PUBLIC_SOCIAL_FACEBOOK_URL }}
+      PUBLIC_SOCIAL_YOUTUBE_URL: ${{ vars.PUBLIC_SOCIAL_YOUTUBE_URL }}
+      PUBLIC_SOCIAL_BEHANCE_URL: ${{ vars.PUBLIC_SOCIAL_BEHANCE_URL }}
+      PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Initialize diagnostic directories
+        shell: bash
+        run: mkdir -p "$TASK_DIR/raw/ci-build"
+
+      - name: Record and enforce toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --version | tee "$TASK_DIR/raw/ci-build/node-version.log"
+          pnpm --version | tee "$TASK_DIR/raw/ci-build/pnpm-version.log"
+          printf '%s\n' "${ImageOS:-unknown}" > "$TASK_DIR/raw/ci-build/runner-image-os.log"
+          printf '%s\n' "${ImageVersion:-unknown}" > "$TASK_DIR/raw/ci-build/runner-image-version.log"
+          test "$(node --version | cut -d. -f1)" = "v22"
+          test "$(pnpm --version)" = "$PNPM_VERSION"
+
+      - name: Install frozen candidate tooling
+        run: pnpm install --frozen-lockfile --prod=false
+
+      - name: Install pinned Chromium runtime
+        run: pnpm playwright install --with-deps chromium
+
+      - name: Verify CI promotion and finalization contracts
+        run: node scripts/check-ci-promotion.mjs
+
+      - name: Verify deterministic evidence assembly contracts
+        run: pnpm check:evidence-contracts
+
+      - name: Build clean candidate once
+        run: pnpm build
+
+      - name: Require source-managed Cloudflare Web Analytics in the candidate
+        run: node scripts/ci-check-manual-cloudflare-analytics.mjs --root dist --output "$TASK_DIR/raw/ci-build/manual-cloudflare-analytics.json"
+
+      - name: Verify the same candidate
+        run: pnpm check:launch
+
+      - name: Record and verify candidate identity
+        id: manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          artifact_sha256="$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('dist-manifest.json','utf8')).artifactSha256)")"
+          lockfile_sha256="$(sha256sum pnpm-lock.yaml | cut -d' ' -f1)"
+          test "$artifact_sha256" != ""
+          echo "artifact_sha256=$artifact_sha256" >> "$GITHUB_OUTPUT"
+          echo "lockfile_sha256=$lockfile_sha256" >> "$GITHUB_OUTPUT"
+          sha256sum dist-manifest.json > dist-manifest.json.sha256
+          node scripts/ci-verify-candidate.mjs \
+            --dist dist \
+            --manifest dist-manifest.json \
+            --lockfile pnpm-lock.yaml \
+            --expected-artifact "$artifact_sha256" \
+            --expected-commit "$GITHUB_SHA" \
+            --expected-ref "$GITHUB_REF" \
+            --expected-lockfile "$lockfile_sha256" \
+            --output "$TASK_DIR/raw/ci-build/candidate-verification.json"
+          CI_PNPM_VERSION="$PNPM_VERSION" \
+            node scripts/ci-write-build-context.mjs \
+              --output "$TASK_DIR/raw/ci-build/build-context.json"
+
+      - name: Upload immutable production candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: production-candidate-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 90
+          path: |
+            dist
+            dist-manifest.json
+            dist-manifest.json.sha256
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/ci-build/candidate-verification.json
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/ci-build/build-context.json
+
+      - name: Upload build and browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: candidate-diagnostics-${{ github.sha }}-${{ github.run_attempt }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/ci-build
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/playwright
+            dist-manifest.json
+            dist-manifest.json.sha256
+
+  deploy-preview:
+    if: needs.build-and-verify.result == 'success' && github.ref == 'refs/heads/main'
+    needs: build-and-verify
+    runs-on: ubuntu-24.04
+    environment: preview
+    env:
+      CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+      CLOUDFLARE_AUTOMATIC_HTML_INJECTION: ${{ vars.CLOUDFLARE_AUTOMATIC_HTML_INJECTION }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: production-candidate-${{ github.sha }}
+
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+
+      - name: Install frozen deployment tooling
+        run: pnpm install --frozen-lockfile --prod=false
+
+      - name: Enforce pinned Wrangler
+        shell: bash
+        run: |
+          set -euo pipefail
+          output="$(pnpm wrangler --version)"
+          printf '%s\n' "$output"
+          test "$(printf '%s\n' "$output" | tail -n 1)" = "$WRANGLER_VERSION"
+
+      - name: Install pinned Chromium for deployed-preview Lighthouse
+        run: pnpm playwright install --with-deps chromium
+
+      - name: Initialize preview diagnostics
+        shell: bash
+        run: mkdir -p "$TASK_DIR/raw/deployed-preview" "$TASK_DIR/raw/cloudflare-preview"
+
+      - name: Reject automatic edge HTML mutation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$CLOUDFLARE_AUTOMATIC_HTML_INJECTION" = "disabled"
+          printf '%s\n' \
+            "Cloudflare automatic HTML injection is declared disabled." \
+            "Any source-managed Cloudflare Web Analytics beacon must already be in dist." \
+            "check:deployed rejects every edge byte mutation." \
+            > "$TASK_DIR/raw/cloudflare-preview/html-mutation-policy.txt"
+
+      - name: Verify downloaded checksum before preview deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha256sum --check dist-manifest.json.sha256
+          node scripts/ci-verify-candidate.mjs \
+            --dist dist \
+            --manifest dist-manifest.json \
+            --lockfile pnpm-lock.yaml \
+            --expected-artifact "${{ needs.build-and-verify.outputs.artifact_sha256 }}" \
+            --expected-commit "$GITHUB_SHA" \
+            --expected-ref "$GITHUB_REF" \
+            --require-main \
+            --expected-lockfile "${{ needs.build-and-verify.outputs.lockfile_sha256 }}" \
+            --output "$TASK_DIR/raw/deployed-preview/candidate-verification.json"
+          node scripts/ci-check-manual-cloudflare-analytics.mjs \
+            --root dist \
+            --output "$TASK_DIR/raw/deployed-preview/manual-cloudflare-analytics.json"
+
+      - name: Deploy immutable preview artifact
+        id: deploy
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          branch="candidate-${GITHUB_SHA::12}"
+          log="$TASK_DIR/raw/cloudflare-preview/wrangler-deploy.log"
+          set +e
+          pnpm wrangler pages deploy dist \
+            --project-name "$CLOUDFLARE_PAGES_PROJECT" \
+            --branch "$branch" \
+            --commit-hash "$GITHUB_SHA" 2>&1 | tee "$log"
+          status=${PIPESTATUS[0]}
+          set -e
+          test "$status" = "0"
+          preview_url="$(grep -Eo 'https://[A-Za-z0-9.-]+\.pages\.dev' "$log" | tail -n 1)"
+          test "$preview_url" != ""
+          echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"
+          echo "deployment_branch=$branch" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve terminal immutable preview deployment
+        id: resolve
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          resolved=0
+          for attempt in {1..30}; do
+            if node scripts/ci-resolve-cloudflare-deployment.mjs \
+              --commit "$GITHUB_SHA" \
+              --branch "${{ steps.deploy.outputs.deployment_branch }}" \
+              --environment preview \
+              --expected-url "${{ steps.deploy.outputs.preview_url }}" \
+              --output "$TASK_DIR/raw/cloudflare-preview/deployment.json"; then
+              resolved=1
+              break
+            fi
+            sleep 2
+          done
+          test "$resolved" = "1"
+
+      - name: Prove deployed preview artifact parity
+        shell: bash
+        env:
+          DEPLOYED_BASE_URL: ${{ steps.resolve.outputs.deployment_url }}
+          DEPLOYED_ARTIFACT_DIR: ${{ env.TASK_DIR }}/raw/deployed-preview
+        run: |
+          set -euo pipefail
+          ready=0
+          for attempt in {1..30}; do
+            if curl --fail --silent "$DEPLOYED_BASE_URL/" >/dev/null; then
+              ready=1
+              break
+            fi
+            sleep 2
+          done
+          test "$ready" = "1"
+          pnpm check:deployed
+
+      - name: Capture and evaluate three mobile Lighthouse runs on deployed preview
+        shell: bash
+        env:
+          LIGHTHOUSE_BASE_URL: ${{ steps.resolve.outputs.deployment_url }}
+          LIGHTHOUSE_ARTIFACT_DIR: ${{ env.TASK_DIR }}/raw/deployed-preview/lighthouse
+          LIGHTHOUSE_STATUS_MATRIX: ${{ env.TASK_DIR }}/raw/deployed-preview/status-matrix.json
+        run: |
+          set -euo pipefail
+          export CHROME_PATH
+          CHROME_PATH="$(node -e "process.stdout.write(require('@playwright/test').chromium.executablePath())")"
+          test -x "$CHROME_PATH"
+          pnpm lighthouse:capture
+          pnpm lighthouse:summarize
+
+      - name: Seal candidate, artifact, preview matrix, and raw Lighthouse identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/ci-write-deployment-attestation.mjs \
+            --phase preview \
+            --candidate-run-id "$GITHUB_RUN_ID" \
+            --candidate-verification "$TASK_DIR/raw/deployed-preview/candidate-verification.json" \
+            --deployment "$TASK_DIR/raw/cloudflare-preview/deployment.json" \
+            --status-matrix "$TASK_DIR/raw/deployed-preview/status-matrix.json" \
+            --lighthouse-summary "$TASK_DIR/raw/deployed-preview/lighthouse/summary.json" \
+            --lighthouse-metadata "$TASK_DIR/raw/deployed-preview/lighthouse/run-metadata.json" \
+            --manual-analytics "$TASK_DIR/raw/deployed-preview/manual-cloudflare-analytics.json" \
+            --output candidate-attestation.json
+          cp candidate-attestation.json "$TASK_DIR/raw/deployed-preview/"
+
+      - name: Upload sealed candidate attestation
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: candidate-attestation-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 90
+          path: candidate-attestation.json
+
+      - name: Upload preview deployment diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: deployed-preview-proof-${{ github.sha }}-${{ github.run_attempt }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/deployed-preview
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/cloudflare-preview
+            candidate-attestation.json
+
+  promote-production:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'promote-production' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production
+    env:
+      CLOUDFLARE_PAGES_PROJECT: ${{ vars.CLOUDFLARE_PAGES_PROJECT }}
+      CLOUDFLARE_AUTOMATIC_HTML_INJECTION: ${{ vars.CLOUDFLARE_AUTOMATIC_HTML_INJECTION }}
+      CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id }}
+      CANDIDATE_COMMIT_SHA: ${{ inputs.candidate_commit_sha }}
+      EXPECTED_EVIDENCE_SHA256: ${{ inputs.prepromotion_evidence_sha256 }}
+      RELEASE_REVIEW_POLICY: ${{ vars.RELEASE_REVIEW_POLICY }}
+    steps:
+      - name: Checkout promotion evidence from main
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout selected candidate source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.candidate_commit_sha }}
+          path: candidate-source
+          fetch-depth: 1
+
+      - name: Guard main ref, candidate identity, ancestry, and evidence-only diff
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ github.event.repository.default_branch }}" = "main"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "${{ inputs.operation }}" = "promote-production"
+          test "$RELEASE_REVIEW_POLICY" = "independent-review-required"
+          [[ "$CANDIDATE_RUN_ID" =~ ^[1-9][0-9]*$ ]]
+          [[ "$CANDIDATE_COMMIT_SHA" =~ ^[a-f0-9]{40}$ ]]
+          [[ "$EXPECTED_EVIDENCE_SHA256" =~ ^[a-f0-9]{64}$ ]]
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git merge-base --is-ancestor "$CANDIDATE_COMMIT_SHA" "$GITHUB_SHA"
+          test "$(git -C candidate-source rev-parse HEAD)" = "$CANDIDATE_COMMIT_SHA"
+          test "$(git -C candidate-source rev-parse --abbrev-ref HEAD)" = "HEAD"
+          while IFS= read -r changed_path; do
+            case "$changed_path" in
+              "$TASK_DIR/evidence.json"|\
+              "$TASK_DIR/evidence.md"|\
+              "$TASK_DIR/verdict.json"|\
+              "$TASK_DIR/problems.md"|\
+              "$TASK_DIR/raw/deployed-preview/candidate-attestation.json"|\
+              "$TASK_DIR/raw/external/"*) ;;
+              *)
+                echo "Path is outside the promotion evidence allowlist: $changed_path" >&2
+                exit 1
+                ;;
+            esac
+          done < <(git diff --name-only "$CANDIDATE_COMMIT_SHA" "$GITHUB_SHA")
+
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+
+      - name: Install frozen deployment tooling
+        run: pnpm install --frozen-lockfile --prod=false
+
+      - name: Enforce pinned Wrangler
+        shell: bash
+        run: |
+          set -euo pipefail
+          output="$(pnpm wrangler --version)"
+          printf '%s\n' "$output"
+          test "$(printf '%s\n' "$output" | tail -n 1)" = "$WRANGLER_VERSION"
+
+      - name: Install pinned Chromium for production browser parity
+        run: pnpm playwright install --with-deps chromium
+
+      - name: Initialize production diagnostics
+        shell: bash
+        run: mkdir -p "$TASK_DIR/raw/deployed-production" "$TASK_DIR/raw/cloudflare-production" "$TASK_DIR/raw/promotion"
+
+      - name: Validate exact successful candidate workflow run
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          node scripts/ci-validate-candidate-run.mjs \
+            --run-id "$CANDIDATE_RUN_ID" \
+            --commit "$CANDIDATE_COMMIT_SHA" \
+            --repository "$GITHUB_REPOSITORY" \
+            --workflow-path "$WORKFLOW_PATH" \
+            --output "$TASK_DIR/raw/promotion/candidate-run-validation.json"
+
+      - name: Download immutable candidate from selected run
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: production-candidate-${{ inputs.candidate_commit_sha }}
+          path: candidate-download
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.candidate_run_id }}
+
+      - name: Download sealed preview attestation from selected run
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: candidate-attestation-${{ inputs.candidate_commit_sha }}
+          path: candidate-attestation-download
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.candidate_run_id }}
+
+      - name: Revalidate downloaded artifact before production
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd candidate-download && sha256sum --check dist-manifest.json.sha256)
+          artifact_sha256="$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('candidate-attestation-download/candidate-attestation.json','utf8')).artifact.sha256)")"
+          lockfile_sha256="$(node -e "process.stdout.write(JSON.parse(require('fs').readFileSync('candidate-attestation-download/candidate-attestation.json','utf8')).source.lockfileSha256)")"
+          node scripts/ci-verify-candidate.mjs \
+            --dist candidate-download/dist \
+            --manifest candidate-download/dist-manifest.json \
+            --lockfile candidate-source/pnpm-lock.yaml \
+            --expected-artifact "$artifact_sha256" \
+            --expected-commit "$CANDIDATE_COMMIT_SHA" \
+            --expected-ref refs/heads/main \
+            --require-main \
+            --expected-lockfile "$lockfile_sha256" \
+            --output "$TASK_DIR/raw/promotion/candidate-verification.json"
+          node scripts/ci-check-manual-cloudflare-analytics.mjs \
+            --root candidate-download/dist \
+            --output "$TASK_DIR/raw/promotion/manual-cloudflare-analytics.json"
+
+      - name: Fresh machine validation of candidate-bound pre-promotion evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/ci-validate-promotion-evidence.mjs \
+            --repo-root . \
+            --evidence "$TASK_DIR/evidence.json" \
+            --candidate-attestation candidate-attestation-download/candidate-attestation.json \
+            --expected-evidence-sha256 "$EXPECTED_EVIDENCE_SHA256" \
+            --expected-candidate-run-id "$CANDIDATE_RUN_ID" \
+            --output "$TASK_DIR/raw/promotion/evidence-validation.json"
+
+      - name: Require deterministic evidence summary and resolved blocker state
+        run: node scripts/render-task-evidence.mjs --evidence "$TASK_DIR/evidence.json" --output "$TASK_DIR/evidence.md" --problems "$TASK_DIR/problems.md" --check
+
+      - name: Reject unsafe or unreferenced external evidence
+        run: node scripts/ci-check-evidence-redaction.mjs --repo-root . --root "$TASK_DIR/raw/external"
+
+      - name: Reject automatic edge HTML mutation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$CLOUDFLARE_AUTOMATIC_HTML_INJECTION" = "disabled"
+          printf '%s\n' \
+            "Cloudflare automatic HTML injection is declared disabled." \
+            "Production byte parity fails if the edge injects or rewrites HTML." \
+            > "$TASK_DIR/raw/cloudflare-production/html-mutation-policy.txt"
+
+      - name: Promote exact candidate bytes to production
+        id: deploy
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          log="$TASK_DIR/raw/cloudflare-production/wrangler-deploy.log"
+          set +e
+          pnpm wrangler pages deploy candidate-download/dist \
+            --project-name "$CLOUDFLARE_PAGES_PROJECT" \
+            --branch main \
+            --commit-hash "$CANDIDATE_COMMIT_SHA" 2>&1 | tee "$log"
+          status=${PIPESTATUS[0]}
+          set -e
+          test "$status" = "0"
+          deployment_url="$(grep -Eo 'https://[A-Za-z0-9.-]+\.pages\.dev' "$log" | tail -n 1)"
+          test "$deployment_url" != ""
+          echo "deployment_url=$deployment_url" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve terminal immutable production deployment
+        id: resolve
+        shell: bash
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          resolved=0
+          for attempt in {1..30}; do
+            if node scripts/ci-resolve-cloudflare-deployment.mjs \
+              --commit "$CANDIDATE_COMMIT_SHA" \
+              --branch main \
+              --environment production \
+              --expected-url "${{ steps.deploy.outputs.deployment_url }}" \
+              --output "$TASK_DIR/raw/cloudflare-production/deployment.json"; then
+              resolved=1
+              break
+            fi
+            sleep 2
+          done
+          test "$resolved" = "1"
+
+      - name: Prove production serves exact candidate bytes and headers
+        shell: bash
+        env:
+          DEPLOYED_BASE_URL: https://jq33.design
+          DEPLOYED_ARTIFACT_DIR: ${{ env.TASK_DIR }}/raw/deployed-production
+          EXPECT_PRODUCTION: "1"
+        run: |
+          set -euo pipefail
+          ready=0
+          for attempt in {1..60}; do
+            if curl --fail --silent "$DEPLOYED_BASE_URL/" >/dev/null; then
+              ready=1
+              break
+            fi
+            sleep 2
+          done
+          test "$ready" = "1"
+          node candidate-source/scripts/check-deployed.mjs \
+            --root candidate-download/dist \
+            --output-dir "$DEPLOYED_ARTIFACT_DIR" \
+            --production
+
+      - name: Prove all HTTP, apex, www, and legacy redirects are one hop
+        run: node scripts/ci-check-canonical-hosts.mjs --output "$TASK_DIR/raw/deployed-production/canonical-host-matrix.json"
+
+      - name: Capture operational response-latency smoke (not AC10 CWV proof)
+        run: node scripts/ci-check-production-performance-smoke.mjs --attempts 3 --max-median-response-ms 2500 --output "$TASK_DIR/raw/deployed-production/performance-smoke.json"
+
+      - name: Capture production browser, privacy, and CWV-input parity
+        run: node scripts/ci-check-production-browser-parity.mjs --runs 3 --output "$TASK_DIR/raw/deployed-production/browser-parity.json"
+
+      - name: Seal production parity without claiming final completion
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/ci-write-deployment-attestation.mjs \
+            --phase production \
+            --production-run-id "$GITHUB_RUN_ID" \
+            --candidate-attestation candidate-attestation-download/candidate-attestation.json \
+            --evidence-validation "$TASK_DIR/raw/promotion/evidence-validation.json" \
+            --deployment "$TASK_DIR/raw/cloudflare-production/deployment.json" \
+            --status-matrix "$TASK_DIR/raw/deployed-production/status-matrix.json" \
+            --canonical-matrix "$TASK_DIR/raw/deployed-production/canonical-host-matrix.json" \
+            --performance-smoke "$TASK_DIR/raw/deployed-production/performance-smoke.json" \
+            --browser-parity "$TASK_DIR/raw/deployed-production/browser-parity.json" \
+            --output "$TASK_DIR/raw/deployed-production/production-parity-attestation.json"
+          cp "$TASK_DIR/raw/deployed-production/production-parity-attestation.json" production-parity-attestation.json
+          sha256sum production-parity-attestation.json > production-parity-attestation.json.sha256
+          node -e "const a=JSON.parse(require('fs').readFileSync('production-parity-attestation.json','utf8')); if(a.result!=='PRODUCTION_PARITY_PASS_FINALIZATION_REQUIRED'||a.finalVerifierRequired!==true) process.exit(1)"
+
+      - name: Upload immutable production parity for required finalization
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: production-parity-${{ inputs.candidate_commit_sha }}
+          if-no-files-found: error
+          retention-days: 90
+          path: |
+            production-parity-attestation.json
+            production-parity-attestation.json.sha256
+
+      - name: Upload production and promotion diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: deployed-production-proof-${{ inputs.candidate_commit_sha }}-${{ github.run_attempt }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/deployed-production
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/cloudflare-production
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/promotion
+
+  finalize-production:
+    if: github.event_name == 'workflow_dispatch' && inputs.operation == 'finalize-production' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production-finalization
+    env:
+      CANDIDATE_RUN_ID: ${{ inputs.candidate_run_id }}
+      CANDIDATE_COMMIT_SHA: ${{ inputs.candidate_commit_sha }}
+      PRODUCTION_RUN_ID: ${{ inputs.production_run_id }}
+      PRODUCTION_RUN_COMMIT_SHA: ${{ inputs.production_run_commit_sha }}
+      EXPECTED_PRODUCTION_PARITY_SHA256: ${{ inputs.production_parity_sha256 }}
+      EXPECTED_FINAL_EVIDENCE_SHA256: ${{ inputs.final_evidence_sha256 }}
+      RELEASE_REVIEW_POLICY: ${{ vars.RELEASE_REVIEW_POLICY }}
+    steps:
+      - name: Checkout final evidence from main
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Checkout selected candidate source
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ inputs.candidate_commit_sha }}
+          path: candidate-source
+          fetch-depth: 1
+
+      - name: Guard finalization identity, ancestry, and evidence-only diff before tooling
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "${{ github.event.repository.default_branch }}" = "main"
+          test "$GITHUB_REF" = "refs/heads/main"
+          test "${{ inputs.operation }}" = "finalize-production"
+          test "$RELEASE_REVIEW_POLICY" = "independent-review-required"
+          [[ "$CANDIDATE_RUN_ID" =~ ^[1-9][0-9]*$ ]]
+          [[ "$CANDIDATE_COMMIT_SHA" =~ ^[a-f0-9]{40}$ ]]
+          [[ "$PRODUCTION_RUN_ID" =~ ^[1-9][0-9]*$ ]]
+          [[ "$PRODUCTION_RUN_COMMIT_SHA" =~ ^[a-f0-9]{40}$ ]]
+          [[ "$EXPECTED_PRODUCTION_PARITY_SHA256" =~ ^[a-f0-9]{64}$ ]]
+          [[ "$EXPECTED_FINAL_EVIDENCE_SHA256" =~ ^[a-f0-9]{64}$ ]]
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git cat-file -e "$PRODUCTION_RUN_COMMIT_SHA^{commit}"
+          git merge-base --is-ancestor "$CANDIDATE_COMMIT_SHA" "$PRODUCTION_RUN_COMMIT_SHA"
+          git merge-base --is-ancestor "$PRODUCTION_RUN_COMMIT_SHA" "$GITHUB_SHA"
+          test "$(git -C candidate-source rev-parse HEAD)" = "$CANDIDATE_COMMIT_SHA"
+
+          # The selected promotion commit may add only the sealed pre-promotion
+          # evidence. This prevents a mismatched promotion-run commit from
+          # authorizing code or workflow changes.
+          while IFS= read -r changed_path; do
+            case "$changed_path" in
+              "$TASK_DIR/evidence.json"|\
+              "$TASK_DIR/evidence.md"|\
+              "$TASK_DIR/verdict.json"|\
+              "$TASK_DIR/problems.md"|\
+              "$TASK_DIR/raw/deployed-preview/candidate-attestation.json"|\
+              "$TASK_DIR/raw/external/"*) ;;
+              *)
+                echo "Path is outside the selected promotion evidence allowlist: $changed_path" >&2
+                exit 1
+                ;;
+            esac
+          done < <(git diff --name-only "$CANDIDATE_COMMIT_SHA" "$PRODUCTION_RUN_COMMIT_SHA")
+
+          # After production promotion, immutable candidate and external proof
+          # may not change. Only terminal production/finalization records are
+          # permitted in the current finalization commit.
+          while IFS= read -r changed_path; do
+            case "$changed_path" in
+              "$TASK_DIR/evidence.md"|\
+              "$TASK_DIR/final-evidence.json"|\
+              "$TASK_DIR/verdict.json"|\
+              "$TASK_DIR/problems.md"|\
+              "$TASK_DIR/raw/promotion/"*|\
+              "$TASK_DIR/raw/cloudflare-production/"*|\
+              "$TASK_DIR/raw/deployed-production/"*|\
+              "$TASK_DIR/raw/finalization/"*) ;;
+              *)
+                echo "Path is outside the finalization evidence allowlist: $changed_path" >&2
+                exit 1
+                ;;
+            esac
+          done < <(git diff --name-only "$PRODUCTION_RUN_COMMIT_SHA" "$GITHUB_SHA")
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+
+      - name: Validate exact terminal production-promotion workflow run
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$TASK_DIR/raw/finalization"
+          node scripts/ci-validate-candidate-run.mjs \
+            --run-id "$PRODUCTION_RUN_ID" \
+            --commit "$PRODUCTION_RUN_COMMIT_SHA" \
+            --repository "$GITHUB_REPOSITORY" \
+            --workflow-path "$WORKFLOW_PATH" \
+            --output "$TASK_DIR/raw/finalization/runtime-production-run-validation.json"
+
+      - name: Download immutable production parity from promotion run
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: production-parity-${{ inputs.candidate_commit_sha }}
+          path: production-attestation-download
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.production_run_id }}
+
+      - name: Verify downloaded production parity checksum and dispatch hash
+        shell: bash
+        run: |
+          set -euo pipefail
+          (cd production-attestation-download && sha256sum --check production-parity-attestation.json.sha256)
+          actual="$(sha256sum production-attestation-download/production-parity-attestation.json | cut -d' ' -f1)"
+          test "$actual" = "$EXPECTED_PRODUCTION_PARITY_SHA256"
+
+      - name: Revalidate redaction of immutable external evidence
+        run: node scripts/ci-check-evidence-redaction.mjs --repo-root . --root "$TASK_DIR/raw/external"
+
+      - name: Parse fresh final verifier and close AC1 through AC13
+        run: |
+          node scripts/create-final-evidence.mjs \
+            --check \
+            --production-attestation "$TASK_DIR/raw/deployed-production/production-parity-attestation.json" \
+            --candidate-run-id "$CANDIDATE_RUN_ID" \
+            --candidate-commit-sha "$CANDIDATE_COMMIT_SHA" \
+            --production-run-id "$PRODUCTION_RUN_ID" \
+            --production-run-commit-sha "$PRODUCTION_RUN_COMMIT_SHA" \
+            --fresh-production-run-validation "$TASK_DIR/raw/finalization/runtime-production-run-validation.json"
+          node scripts/render-task-evidence.mjs \
+            --evidence "$TASK_DIR/final-evidence.json" \
+            --output "$TASK_DIR/evidence.md" \
+            --problems "$TASK_DIR/problems.md" \
+            --check
+          node scripts/ci-finalize-production.mjs \
+            --repo-root . \
+            --final-evidence "$TASK_DIR/final-evidence.json" \
+            --production-attestation production-attestation-download/production-parity-attestation.json \
+            --expected-final-evidence-sha256 "$EXPECTED_FINAL_EVIDENCE_SHA256" \
+            --expected-production-attestation-sha256 "$EXPECTED_PRODUCTION_PARITY_SHA256" \
+            --expected-candidate-run-id "$CANDIDATE_RUN_ID" \
+            --expected-production-run-id "$PRODUCTION_RUN_ID" \
+            --output production-finalization-attestation.json
+
+      - name: Upload all-PASS production finalization attestation
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: production-finalization-${{ inputs.candidate_commit_sha }}
+          if-no-files-found: error
+          retention-days: 90
+          path: |
+            production-finalization-attestation.json
+            .agent/tasks/jq33-production-readiness-2026-07-29/raw/finalization

@@ -15,6 +15,4 @@
   window.JQ33.FORMSPREE_INQUIRY_URL = __FORMSPREE_INQUIRY_URL__;
   window.JQ33.FORM_FALLBACK_ENABLED = __FORM_FALLBACK_ENABLED__;
 
-  // Optional Google Analytics 4 measurement ID (e.g., G-XXXXXXXXXX).
-  window.JQ33.GA_MEASUREMENT_ID = __GA_MEASUREMENT_ID__;
 })();

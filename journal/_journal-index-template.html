@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" vid="0">
-  <head vid="1">
-    <meta charset="UTF-8" vid="2" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3" />
-    <title vid="4">Journal | Commercial Interior Design Insights (Montreal) | JQ33 DESIGN</title>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commercial Interior Design Journal | JQ33 DESIGN</title>
     <meta
       name="description"
-      content="Practical, taste-led insights on layout, lighting, finishes, and customer flow for commercial spaces in Montreal."
+      content="Practical Montreal commercial interior design notes on layout, lighting, finishes, customer flow, construction clarity, and better spatial decisions."
     />
     <link rel="canonical" href="https://jq33.design/journal/" />
 
@@ -16,44 +16,47 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta
       property="og:title"
-      content="Journal | Commercial Interior Design Insights (Montreal) | JQ33 DESIGN"
+      content="Commercial Interior Design Journal | JQ33 DESIGN"
     />
     <meta
       property="og:description"
-      content="Practical, taste-led insights on layout, lighting, finishes, and customer flow for commercial spaces in Montreal."
+      content="Practical Montreal commercial interior design notes on layout, lighting, finishes, customer flow, construction clarity, and better spatial decisions."
     />
     <meta property="og:url" content="https://jq33.design/journal/" />
     <meta
       property="og:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JQ33 DESIGN commercial interior design journal" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Journal | Commercial Interior Design Insights (Montreal) | JQ33 DESIGN"
+      content="Commercial Interior Design Journal | JQ33 DESIGN"
     />
     <meta
       name="twitter:description"
-      content="Practical, taste-led insights on layout, lighting, finishes, and customer flow for commercial spaces in Montreal."
+      content="Practical Montreal commercial interior design notes on layout, lighting, finishes, customer flow, construction clarity, and better spatial decisions."
     />
     <meta
       name="twitter:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Permanent+Marker&amp;display=swap"
-      rel="stylesheet"
-      vid="7"
-    />
-    <link rel="stylesheet" href="/assets/css/site.css" />
-    <style vid="8">
+    <meta name="twitter:image:alt" content="JQ33 DESIGN commercial interior design journal" />
+    <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
+    {{card_preload}}
+    <link rel="stylesheet" href="/tokens.css" data-jq33-critical />
+    <link rel="stylesheet" href="/assets/css/critical-shared.css" data-jq33-critical />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260717-lato" />
+    <style data-jq33-critical>
+      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -64,8 +67,7 @@
         width: 100%;
         min-height: 100vh;
         min-height: 100svh;
-        overflow-x: hidden;
-        overflow-y: auto;
+        overflow-x: clip;
         font-family: var(--font-sans);
         color: var(--cobalt);
         position: relative;
@@ -76,7 +78,7 @@
         z-index: 20;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: var(--space-xl);
         font-size: 0.75rem;
         font-weight: 500;
         letter-spacing: 0.5px;
@@ -89,13 +91,13 @@
 
       .label {
         text-transform: uppercase;
-        margin-bottom: 8px;
+        margin-bottom: var(--space-xs);
         opacity: 0.7;
         font-size: var(--fs-label);
       }
 
       .content-block {
-        margin-bottom: 3rem;
+        margin-bottom: var(--space-2xl);
       }
 
       a {
@@ -106,15 +108,16 @@
         cursor: pointer;
       }
 
-      a:hover {
-        color: #fff;
-        text-shadow: 0 0 10px var(--cobalt);
+      @media (hover: hover) and (pointer: fine) {
+        .sidebar a:hover {
+          color: var(--color-white);
+        }
       }
 
       .nav-link {
         font-weight: 600;
         font-size: 0.85rem;
-        padding: 4px 0;
+        padding: var(--space-1) 0;
       }
 
       .active-link {
@@ -125,27 +128,40 @@
 
       .work-container {
         position: relative;
-        width: min(1200px, 92vw);
+        width: min(1200px, calc(100vw - 48px));
         height: 100vh;
         height: 100svh;
         overflow-y: auto;
         margin: 0 auto;
-        padding: 180px 0 10vh;
+        padding: var(--space-45) 0 10vh;
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: clamp(var(--space-7), 5vh, var(--space-14));
         scrollbar-width: none;
         z-index: 5;
       }
 
       .journal-title {
         max-width: 28ch;
+        font-weight: 900;
+        letter-spacing: 0;
+      }
+
+      .journal-intro {
+        grid-column: 1 / -1;
+        margin-bottom: var(--space-md);
+      }
+
+      .journal-intro-copy {
+        max-width: 48ch;
+        margin-top: var(--space-3-2);
+        opacity: 0.8;
       }
 
       .work-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: clamp(var(--space-4-5), 3vw, var(--space-9));
       }
 
       .work-container::-webkit-scrollbar {
@@ -155,14 +171,16 @@
       .project-card {
         position: relative;
         aspect-ratio: 4/3;
-        background-color: #111;
+        background-color: var(--color-deep-charcoal);
         overflow: hidden;
-        border: 1px solid rgba(59, 65, 227, 0.2);
-        transition: border-color 0.4s ease;
+        border: 1px solid var(--color-white-a12);
+        transition: border-color var(--dur-lg) var(--ease-standard);
       }
 
-      .project-card:hover {
-        border-color: var(--cobalt);
+      @media (hover: hover) and (pointer: fine) {
+        .project-card:hover {
+          border-color: var(--cobalt);
+        }
       }
 
       .project-image {
@@ -170,13 +188,6 @@
         height: 100%;
         object-fit: cover;
         filter: grayscale(100%) brightness(0.6) contrast(1.2);
-        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-          filter 0.5s ease;
-      }
-
-      .project-card:hover .project-image {
-        transform: scale(1.05);
-        filter: grayscale(50%) brightness(0.7) contrast(1.1);
       }
 
       .project-overlay {
@@ -185,67 +196,44 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        padding: 30px;
+        padding: var(--space-7-5);
         background: linear-gradient(
           0deg,
-          rgba(0, 0, 0, 0.8) 0%,
-          rgba(0, 0, 0, 0) 50%
+          var(--color-black-a80) 0%,
+          var(--color-black-a00) 50%
         );
       }
 
       .project-title {
         font-size: var(--fs-h2);
-        line-height: 1.1;
-        margin-bottom: 8px;
+        line-height: 1.02;
+        font-weight: 900;
+        letter-spacing: 0;
+        margin-bottom: var(--space-xs);
         color: var(--cobalt);
-        transform: translateY(10px);
-        transition: transform 0.4s ease, color 0.4s ease;
-      }
-
-      .project-card:hover .project-title {
-        transform: translateY(0);
-        color: #fff;
       }
 
       .project-meta {
         font-size: 0.7rem;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        opacity: 0.6;
+        letter-spacing: 0.14em;
+        color: var(--color-white-a72);
+        opacity: 1;
       }
 
       .project-number {
         position: absolute;
-        top: 30px;
-        right: 30px;
+        top: var(--space-xl);
+        right: var(--space-xl);
         font-size: 0.7rem;
         font-weight: 600;
         color: var(--text-subtle);
         opacity: 1;
       }
 
-      .cursor-dot {
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--cobalt);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 999;
-        transform: translate(-50%, -50%);
-        transition: width 0.2s, height 0.2s, background-color 0.2s;
-      }
-
-      .cursor-hover {
-        background-color: var(--cobalt);
-        opacity: 0.5;
-        width: 40px;
-        height: 40px;
-      }
-
       @media (max-width: 1024px) {
         .work-grid {
-          grid-template-columns: 1fr;
+          grid-template-columns: minmax(0, 1fr);
         }
       }
 
@@ -255,18 +243,18 @@
         }
 
         .work-container {
-          width: min(1200px, 94vw);
+          width: calc(100% - 32px);
           height: auto;
           min-height: 100vh;
           min-height: 100svh;
           overflow: visible;
-          padding: 140px 0 80px;
+          padding: var(--space-31) 0 var(--space-18);
         }
       }
 
       @media (max-width: 640px) {
         .project-overlay {
-          padding: 18px;
+          padding: var(--space-4-5);
         }
 
         .project-meta {
@@ -277,16 +265,16 @@
           font-size: var(--fs-h2);
         }
 
-        .project-number,
-        .cursor-dot {
+        .project-number {
           display: none;
         }
       }
     </style>
   </head>
-  <body class="site-default-bg" vid="9">
-    <div class="bg-layer"></div>
-    <div class="grain" vid="10"></div>
+  <body class="site-default-bg">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="bg-layer" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
     <header class="header-nav" data-component="header-nav"></header>
 
@@ -297,13 +285,13 @@
       </div>
     </aside>
 
-    <main class="work-container" vid="20">
+    <main class="work-container" id="main-content">
       <div class="work-grid">
-        <section style="grid-column: 1 / -1; margin-bottom: 1rem">
+        <section class="journal-intro">
           <h1 class="journal-title">
             Journal: Design decisions that pay off
           </h1>
-          <p style="max-width: 64ch; opacity: 0.8; margin-top: 0.8rem">
+          <p class="journal-intro-copy">
             Short reads on the choices that make a space feel premium-and build smoothly.
           </p>
         </section>
@@ -313,34 +301,16 @@
       <footer class="site-footer" data-component="footer"></footer>
     </main>
 
-    <div class="cursor-dot" id="cursor" vid="63"></div>
-
-    <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/analytics.js"></script>
+    <script src="/assets/js/deferred-css.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/components/footer.js?v=20260716-1"></script>
     <script src="/assets/js/nav-drawer.js"></script>
-    <script vid="64">
-      const cursor = document.getElementById("cursor");
-      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    <script>
+      const canHover =
+        window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+        !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const container = document.querySelector(".work-container");
-
-      document.addEventListener("mousemove", (e) => {
-        if (!canHover) return;
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-      });
-
-      function hoverCursor() {
-        if (!canHover) return;
-        cursor.classList.add("cursor-hover");
-      }
-
-      function leaveCursor() {
-        if (!canHover) return;
-        cursor.classList.remove("cursor-hover");
-      }
 
       if (canHover && container) {
         container.addEventListener("scroll", () => {

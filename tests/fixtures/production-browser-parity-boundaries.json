@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "thresholds": {
+    "maxLcpMs": 2500,
+    "maxCls": 0.1,
+    "maxBlockingInputMs": 200
+  },
+  "cases": [
+    {
+      "id": "exact-boundaries-pass",
+      "expectedPass": true,
+      "runs": [
+        { "lcpMs": 2400, "cls": 0.09, "longTaskBlockingInputMs": 190 },
+        { "lcpMs": 2500, "cls": 0.1, "longTaskBlockingInputMs": 200 },
+        { "lcpMs": 2600, "cls": 0.11, "longTaskBlockingInputMs": 210 }
+      ],
+      "expectedRoundedMedians": {
+        "lcpMs": 2500,
+        "cls": 0.1,
+        "longTaskBlockingInputMs": 200,
+        "domContentLoadedMs": 0,
+        "loadEventMs": 0
+      }
+    },
+    {
+      "id": "just-over-lcp-fails-before-rounding",
+      "expectedPass": false,
+      "runs": [
+        { "lcpMs": 2499, "cls": 0.05, "longTaskBlockingInputMs": 100 },
+        { "lcpMs": 2500.004, "cls": 0.05, "longTaskBlockingInputMs": 100 },
+        { "lcpMs": 2600, "cls": 0.05, "longTaskBlockingInputMs": 100 }
+      ],
+      "expectedRoundedMedians": {
+        "lcpMs": 2500,
+        "cls": 0.05,
+        "longTaskBlockingInputMs": 100,
+        "domContentLoadedMs": 0,
+        "loadEventMs": 0
+      }
+    },
+    {
+      "id": "just-over-cls-fails-before-rounding",
+      "expectedPass": false,
+      "runs": [
+        { "lcpMs": 1500, "cls": 0.09, "longTaskBlockingInputMs": 100 },
+        { "lcpMs": 1500, "cls": 0.10004, "longTaskBlockingInputMs": 100 },
+        { "lcpMs": 1500, "cls": 0.2, "longTaskBlockingInputMs": 100 }
+      ],
+      "expectedRoundedMedians": {
+        "lcpMs": 1500,
+        "cls": 0.1,
+        "longTaskBlockingInputMs": 100,
+        "domContentLoadedMs": 0,
+        "loadEventMs": 0
+      }
+    },
+    {
+      "id": "just-over-blocking-input-fails-before-rounding",
+      "expectedPass": false,
+      "runs": [
+        { "lcpMs": 1500, "cls": 0.05, "longTaskBlockingInputMs": 199 },
+        { "lcpMs": 1500, "cls": 0.05, "longTaskBlockingInputMs": 200.004 },
+        { "lcpMs": 1500, "cls": 0.05, "longTaskBlockingInputMs": 300 }
+      ],
+      "expectedRoundedMedians": {
+        "lcpMs": 1500,
+        "cls": 0.05,
+        "longTaskBlockingInputMs": 200,
+        "domContentLoadedMs": 0,
+        "loadEventMs": 0
+      }
+    }
+  ]
+}

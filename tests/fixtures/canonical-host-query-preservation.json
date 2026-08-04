@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {
+      "id": "apex-preserves-query",
+      "source": "http://jq33.design/contact/?jq33_redirect_probe=apex-positive",
+      "status": 301,
+      "location": "https://jq33.design/contact/?jq33_redirect_probe=apex-positive",
+      "expectedTarget": "https://jq33.design/contact/?jq33_redirect_probe=apex-positive",
+      "expectedPass": true
+    },
+    {
+      "id": "www-preserves-query",
+      "source": "https://www.jq33.design/projects/?jq33_redirect_probe=www-positive",
+      "status": 301,
+      "location": "https://jq33.design/projects/?jq33_redirect_probe=www-positive",
+      "expectedTarget": "https://jq33.design/projects/?jq33_redirect_probe=www-positive",
+      "expectedPass": true
+    },
+    {
+      "id": "apex-dropped-query-fails",
+      "source": "http://jq33.design/inquiry/?jq33_redirect_probe=apex-negative",
+      "status": 301,
+      "location": "https://jq33.design/inquiry/",
+      "expectedTarget": "https://jq33.design/inquiry/?jq33_redirect_probe=apex-negative",
+      "expectedPass": false
+    },
+    {
+      "id": "www-mutated-query-fails",
+      "source": "http://www.jq33.design/terms/?jq33_redirect_probe=www-negative",
+      "status": 301,
+      "location": "https://jq33.design/terms/?jq33_redirect_probe=wrong-value",
+      "expectedTarget": "https://jq33.design/terms/?jq33_redirect_probe=www-negative",
+      "expectedPass": false
+    }
+  ]
+}

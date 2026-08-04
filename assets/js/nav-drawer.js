@@ -1,4 +1,27 @@
 (() => {
+  const bindSkipLinks = () => {
+    const links = document.querySelectorAll(".skip-link[href^='#']");
+    for (const link of links) {
+      if (!(link instanceof HTMLAnchorElement) || link.dataset.skipBound === "true") {
+        continue;
+      }
+
+      const targetSelector = link.getAttribute("href");
+      if (!targetSelector || targetSelector === "#") continue;
+      const target = document.querySelector(targetSelector);
+      if (!(target instanceof HTMLElement)) continue;
+
+      link.dataset.skipBound = "true";
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (!target.hasAttribute("tabindex")) target.setAttribute("tabindex", "-1");
+        target.scrollIntoView({ behavior: "auto", block: "start" });
+        target.focus({ preventScroll: true });
+        history.replaceState(null, "", targetSelector);
+      });
+    }
+  };
+
   const bindNav = () => {
     const toggle =
       document.querySelector("[data-nav-toggle]") ||
@@ -20,6 +43,7 @@
       toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
       overlay.setAttribute("aria-hidden", open ? "false" : "true");
       drawer.setAttribute("aria-hidden", open ? "false" : "true");
+      drawer.inert = !open;
     };
 
     let lastActive = null;
@@ -54,7 +78,39 @@
     overlay.addEventListener("click", closeNav);
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeNav();
+      if (e.key === "Escape") {
+        closeNav();
+        return;
+      }
+
+      if (e.key !== "Tab" || !isOpen()) return;
+
+      const focusable = [
+        ...drawer.querySelectorAll(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        ),
+      ].filter(
+        (element) =>
+          element instanceof HTMLElement &&
+          !element.hidden &&
+          element.getAttribute("aria-hidden") !== "true",
+      );
+
+      if (!focusable.length) {
+        e.preventDefault();
+        toggle.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
 
     drawer.addEventListener("click", (e) => {
@@ -66,9 +122,14 @@
     return true;
   };
 
+  bindSkipLinks();
+
   if (bindNav()) return;
 
-  const tryBind = () => bindNav();
+  const tryBind = () => {
+    bindSkipLinks();
+    return bindNav();
+  };
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", tryBind, { once: true });
@@ -83,4 +144,3 @@
     observer.observe(document.body, { childList: true, subtree: true });
   }
 })();
-
