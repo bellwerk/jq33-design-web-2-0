@@ -201,9 +201,13 @@ for (const file of files.filter(textFile)) {
       ) {
         failures.push(`${file.relativePath} contains a non-approved inline style block.`);
       } else {
+        // Browsers normalize inline element line endings before CSP hashing.
+        // Mirror that behavior so Windows CRLF artifacts cannot pass this
+        // check with a hash the browser will reject.
+        const browserVisibleStyle = inlineStyles[0][2].replace(/\r\n?/g, "\n");
         const cspHash = `'sha256-${crypto
           .createHash("sha256")
-          .update(inlineStyles[0][2], "utf8")
+          .update(browserVisibleStyle, "utf8")
           .digest("base64")}'`;
         if (!generatedHeaders.includes(cspHash)) {
           failures.push(

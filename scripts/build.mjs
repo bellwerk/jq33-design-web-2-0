@@ -721,8 +721,15 @@ for (const element of document.querySelectorAll('[data-jq33-on${eventName}="${ma
   }
 };
 
+// HTML parsing normalizes CRLF and lone CR line endings inside inline elements
+// to LF before CSP hashes are evaluated. Hash the browser-visible source so a
+// Windows checkout produces the same policy as Linux CI and the deployed page.
+const normalizeInlineCspSource = (value) => value.replace(/\r\n?/g, "\n");
 const sha256Source = (value) =>
-  `'sha256-${crypto.createHash("sha256").update(value, "utf8").digest("base64")}'`;
+  `'sha256-${crypto
+    .createHash("sha256")
+    .update(normalizeInlineCspSource(value), "utf8")
+    .digest("base64")}'`;
 
 const collectCspHashes = () => {
   const scriptHashes = new Set();
