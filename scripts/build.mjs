@@ -128,7 +128,7 @@ const copyFile = (relativePath) => {
   }
   const destination = path.join(distDir, relativePath);
   fs.mkdirSync(path.dirname(destination), { recursive: true });
-  fs.copyFileSync(source, destination);
+  fs.writeFileSync(destination, fs.readFileSync(source, "utf8").replace(/\r\n?/g, "\n"), "utf8");
 };
 
 const copyTree = ({ source, extensions, required }) => {

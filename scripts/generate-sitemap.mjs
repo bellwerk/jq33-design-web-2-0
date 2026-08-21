@@ -45,7 +45,7 @@ const sourceDate = (...relativePaths) => {
   if (dirty.status === 0 && !dirty.stdout.trim()) {
     const committed = spawnSync(
       "git",
-      ["log", "-1", "--format=%cs", "--", ...relativePaths],
+      ["show", "-s", "--format=%cs", "HEAD"],
       { cwd: rootDir, encoding: "utf8" },
     );
     const committedDate = committed.stdout.trim();
