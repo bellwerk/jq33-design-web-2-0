@@ -28,7 +28,7 @@ These values are embedded in the static artifact. Account credentials, API token
 
 ## Artifact boundary
 
-Only `dist/` is public. `wrangler.toml` points Pages at that directory, and `scripts/build.mjs` rebuilds it from an explicit allowlist. Source files, repository metadata, task evidence, templates, admin code, Pages Functions, and Supabase code are not deployment inputs.
+Only `dist/` is public. Cloudflare Pages is configured to publish that directory, and `scripts/build.mjs` rebuilds it from an explicit allowlist. Source files, repository metadata, task evidence, templates, admin code, Pages Functions, and Supabase code are not deployment inputs.
 
 Never deploy a fixture build. `pnpm build:test-fixtures` is only for local checks and deliberately embeds test endpoints.
 
