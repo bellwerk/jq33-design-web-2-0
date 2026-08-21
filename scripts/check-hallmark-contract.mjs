@@ -485,7 +485,12 @@ if (
   failures.push("Homepage noninteractive process rows must not imply clicks, and image grids must use minmax tracks.");
 }
 
-for (const label of ["01. Start timing", "02. Quote inputs", "03. Permits + stamps"]) {
+for (const label of [
+  "01. Quote inputs",
+  "02. Permits + stamps",
+  "03. Contractor workflow",
+  "04. Style clarity",
+]) {
   if (!home.includes(label)) failures.push(`Homepage FAQ is missing concise label: ${label}.`);
 }
 

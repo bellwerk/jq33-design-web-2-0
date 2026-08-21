@@ -68,13 +68,6 @@
           <div>+1 514 473 0075</div>
         </div>
       </div>
-      <div class="content-block">
-        <div class="label">Availability</div>
-        <div class="heavy-text footer-availability">
-          <div>Now booking: next 2–4 weeks</div>
-          <div>Fast-turnaround options: 7–14 days</div>
-        </div>
-      </div>
     </div>
 
     <div class="info-pillar pillar-right">
