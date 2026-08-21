@@ -71,6 +71,7 @@ const requiredExactFiles = new Set([
 const permittedScripts = new Set([
   "assets/js/leads.js",
   "assets/js/calendly.js",
+  "assets/js/cloudflare-analytics.js",
   "assets/js/deferred-css.js",
   "assets/js/nav-drawer.js",
   "assets/js/components/header-nav.js",
@@ -235,7 +236,7 @@ const htmlFiles = files.filter(
 const analyticsTokens = new Set();
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file.fullPath, "utf8");
-  const beaconTags = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*(["'])https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js\1[^>]*><\/script>/gi)];
+  const beaconTags = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*(["'])\/assets\/js\/cloudflare-analytics\.js\1[^>]*><\/script>/gi)];
 
   if (allowTestFixtures) {
     if (beaconTags.length) {
@@ -245,12 +246,15 @@ for (const file of htmlFiles) {
   }
 
   if (beaconTags.length !== 1) {
-    failures.push(`${file.relativePath} must contain exactly one source-managed Cloudflare Web Analytics beacon.`);
+    failures.push(`${file.relativePath} must contain exactly one source-managed Cloudflare Web Analytics loader.`);
     continue;
   }
   const tag = beaconTags[0][0];
   if (!/\bdefer(?:\s|>|=)/i.test(tag)) {
-    failures.push(`${file.relativePath} Cloudflare Web Analytics beacon must be deferred.`);
+    failures.push(`${file.relativePath} Cloudflare Web Analytics loader must be deferred.`);
+  }
+  if (!new RegExp(`\\bdata-beacon-src\\s*=\\s*(["'])${cloudflareBeaconUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\1`, "i").test(tag)) {
+    failures.push(`${file.relativePath} Cloudflare Web Analytics loader lacks the canonical beacon URL.`);
   }
   const dataMatch = /\bdata-cf-beacon\s*=\s*(["'])(.*?)\1/i.exec(tag);
   if (!dataMatch) {
@@ -273,6 +277,19 @@ for (const file of htmlFiles) {
 }
 if (!allowTestFixtures && analyticsTokens.size !== 1) {
   failures.push("All public HTML documents and 404 must use the same Cloudflare Web Analytics token.");
+}
+if (!allowTestFixtures) {
+  const loader = fs.readFileSync(
+    path.join(distRoot, "assets/js/cloudflare-analytics.js"),
+    "utf8",
+  );
+  if (
+    !/location\.hostname\s*===\s*["']jq33\.design["']/.test(loader) ||
+    !/beacon\.src\s*=\s*loader\.dataset\.beaconSrc/.test(loader) ||
+    !/beacon\.dataset\.cfBeacon\s*=\s*loader\.dataset\.cfBeacon/.test(loader)
+  ) {
+    failures.push("Cloudflare Web Analytics must be host-gated to jq33.design.");
+  }
 }
 
 const redirects = fs

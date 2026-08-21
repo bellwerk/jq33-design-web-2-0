@@ -44,6 +44,7 @@ const handAuthoredFiles = [
 const publicScriptFiles = [
   "assets/js/leads.js",
   "assets/js/calendly.js",
+  "assets/js/cloudflare-analytics.js",
   "assets/js/deferred-css.js",
   "assets/js/nav-drawer.js",
   "assets/js/components/header-nav.js",
@@ -399,19 +400,19 @@ const replaceBuildTokens = (integrations, profiles) => {
 
 const injectCloudflareAnalytics = (integrations) => {
   // Local fixture builds deliberately omit the remote beacon so browser tests
-  // cannot create analytics traffic. The exact production artifact must carry
-  // the dashboard-provided manual snippet; CI and production browser parity
-  // verify that it is present and that Pages automatic injection is disabled.
+  // cannot create analytics traffic. The production artifact carries the
+  // dashboard token, but its local loader starts the beacon only on jq33.design
+  // so branch previews remain free of third-party CORS errors.
   if (allowTestFixtures) return;
 
-  const beacon = `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${JSON.stringify(
+  const beacon = `<script defer src="/assets/js/cloudflare-analytics.js" data-beacon-src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${JSON.stringify(
     { token: integrations.cloudflareAnalyticsToken },
   )}'></script>`;
   const htmlFiles = walkFiles(distDir).filter((filePath) => filePath.endsWith(".html"));
 
   for (const filePath of htmlFiles) {
     let html = fs.readFileSync(filePath, "utf8");
-    if (/static\.cloudflareinsights\.com\/beacon\.min\.js/i.test(html)) {
+    if (/assets\/js\/cloudflare-analytics\.js/i.test(html)) {
       fail(
         `Cloudflare Web Analytics is already present before deterministic injection: ${normalizeRelative(
           path.relative(distDir, filePath),
