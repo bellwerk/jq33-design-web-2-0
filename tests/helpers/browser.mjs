@@ -188,8 +188,10 @@ export function expectPreActionRuntimeAudit(
   const expectedNotFoundConsoleErrors = expectedNotFoundDocumentUrl
     ? audit.consoleErrors.filter(
         (entry) =>
-          entry.text ===
-            "Failed to load resource: the server responded with a status of 404 (Not Found)" &&
+          [
+            "Failed to load resource: the server responded with a status of 404 (Not Found)",
+            "Failed to load resource: the server responded with a status of 404 ()",
+          ].includes(entry.text) &&
           entry.location?.url === expectedNotFoundDocumentUrl,
       )
     : [];
