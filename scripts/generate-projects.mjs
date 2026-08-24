@@ -22,6 +22,9 @@ const INDEX_META = {
   description:
     "Explore five self-initiated commercial interior concept studies, each using a distinct local illustrative board to examine a spatial question."
 };
+const INDEX_STUDY_FILENAME = "index-study-20260823.webp";
+const INDEX_STUDY_WIDTH = 1120;
+const INDEX_STUDY_HEIGHT = 1400;
 
 const dataPath = path.join(rootDir, "data", "projects.json");
 const projectTemplatePath = path.join(
@@ -91,6 +94,10 @@ const escapeHtml = (value) =>
 
 const toPublicPath = (filePath) => `/${filePath.replaceAll("\\", "/")}`;
 const toAbsoluteUrl = (filePath) => `${CANONICAL_ORIGIN}${toPublicPath(filePath)}`;
+const toIndexStudyPath = (project) =>
+  path.join("assets", "projects", project.slug, INDEX_STUDY_FILENAME);
+const toIndexStudyAlt = (project) =>
+  `AI-generated illustrative ${project.typology.toLowerCase()} visualization for the self-initiated ${project.title} study; not completed client work.`;
 
 const assertExactKeys = (value, expected, context) => {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -166,6 +173,23 @@ const validateLocalAsset = (project, key, expectedExtension) => {
   }
   if (key === "source") validateSvg(absolutePath, `${project.slug}.visual.${key}`);
   if (key === "og") validatePng(absolutePath, `${project.slug}.visual.${key}`);
+};
+
+const validateIndexStudyAsset = (project) => {
+  const relativePath = toIndexStudyPath(project);
+  const absolutePath = path.resolve(rootDir, relativePath);
+  const approvedDir = path.resolve(rootDir, "assets", "projects", project.slug);
+  if (!isWithin(absolutePath, approvedDir) || !fs.existsSync(absolutePath)) {
+    fail(`${project.slug} index study must resolve to an existing local asset`);
+  }
+  const bytes = fs.readFileSync(absolutePath);
+  if (
+    bytes.length < 12 ||
+    bytes.subarray(0, 4).toString("ascii") !== "RIFF" ||
+    bytes.subarray(8, 12).toString("ascii") !== "WEBP"
+  ) {
+    fail(`${project.slug} index study must be a valid WebP`);
+  }
 };
 
 const validateProject = (project, expectedSlug, index) => {
@@ -250,6 +274,7 @@ const validateProject = (project, expectedSlug, index) => {
 
   validateLocalAsset(project, "source", ".svg");
   validateLocalAsset(project, "og", ".png");
+  validateIndexStudyAsset(project);
 };
 
 const validateProvenance = (projects, templates) => {
@@ -345,34 +370,50 @@ const renderList = (items, className) =>
 
 const renderProjectCards = (projects) =>
   projects
-    .map((project) => {
+    .map((project, index) => {
       const route = `/projects/${project.slug}/`;
+      const projectCode = `P-${String(index + 1).padStart(2, "0")}`;
+      const indexStudyPath = toIndexStudyPath(project);
+      const indexStudyAlt = toIndexStudyAlt(project);
       return `
         <article class="project-card">
           <a class="project-item" href="${route}" aria-label="${escapeHtml(
-            `${project.title}. ${project.disclosure}`
+            `${project.title}. AI-generated illustrative concept visualization. ${project.disclosure}`
           )}">
             <img
               class="project-card__image"
-              src="${toPublicPath(project.visual.source)}"
-              alt="${escapeHtml(project.visual.alt)}"
-              width="${project.visual.width}"
-              height="${project.visual.height}"
+              src="${toPublicPath(indexStudyPath)}"
+              alt="${escapeHtml(indexStudyAlt)}"
+              width="${INDEX_STUDY_WIDTH}"
+              height="${INDEX_STUDY_HEIGHT}"
               loading="lazy"
               decoding="async"
             />
-            <span class="project-card__content">
-              <span class="project-card__type">${escapeHtml(
-                project.typology
-              )} · Self-initiated concept study</span>
-              <span class="project-title">${escapeHtml(project.title)}</span>
-              <span class="project-card__focus">${escapeHtml(
+            <div class="project-card__content">
+              <div class="project-card__heading">
+                <h2 class="project-title">${escapeHtml(project.title)}</h2>
+                <span class="project-card__code">${projectCode}</span>
+              </div>
+              <div class="project-card__tags">
+                <span class="project-card__tag project-card__type">${escapeHtml(
+                  project.typology
+                )}</span>
+                <span class="project-card__tag">AI visualization</span>
+              </div>
+              <p class="project-card__focus">${escapeHtml(
                 project.studyFocus
-              )}</span>
-              <span class="project-disclosure">${escapeHtml(
-                project.disclosure
-              )}</span>
-            </span>
+              )}</p>
+              <hr class="project-card__separator" aria-hidden="true" />
+              <div class="project-card__footer">
+                <div>
+                  <span class="project-card__status">Self-initiated study</span>
+                  <p class="project-disclosure">${escapeHtml(
+                    project.disclosure
+                  )}</p>
+                </div>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
           </a>
         </article>`;
     })
@@ -524,6 +565,8 @@ const generate = () => {
       meta_title: escapeHtml(INDEX_META.title),
       meta_description: escapeHtml(INDEX_META.description),
       og_image: toAbsoluteUrl(indexOg),
+      hero_image: toPublicPath(toIndexStudyPath(projects[0])),
+      hero_alt: escapeHtml(toIndexStudyAlt(projects[0])),
       project_list: renderProjectCards(projects),
       structured_data: jsonLd(renderIndexSchema(projects))
     },

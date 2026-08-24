@@ -1,6 +1,5 @@
 import crypto from "node:crypto";
 import { expect, test } from "@playwright/test";
-import sharp from "sharp";
 import {
   gotoNotFoundSettled,
   gotoSettled,
@@ -37,6 +36,20 @@ const actionSelector = [
   ".drawer-cta",
   "button[type='submit']",
 ].join(",");
+
+const homeHeroViewports = [
+  { width: 320, height: 812 },
+  { width: 375, height: 812 },
+  { width: 414, height: 896 },
+  { width: 768, height: 900 },
+  { width: 1440, height: 900 },
+];
+
+const shortHomeHeroViewports = [
+  { width: 320, height: 480 },
+  { width: 375, height: 568 },
+  { width: 1440, height: 320 },
+];
 
 async function gotoPublicDocument(page, documentCase) {
   if (documentCase.status === 404) {
@@ -203,7 +216,7 @@ for (const documentCase of publicDocumentCases) {
     ).toBe(false);
   });
 
-  test(`${documentCase.route} uses Permanent Marker headings and Lato UI`, async ({
+  test(`${documentCase.route} uses its approved heading and UI typography`, async ({
     page,
   }) => {
     await gotoPublicDocument(page, documentCase);
@@ -229,16 +242,37 @@ for (const documentCase of publicDocumentCases) {
           element: describe(element),
           fontFamily: getComputedStyle(element).fontFamily,
         }));
+      const isHomepageHeroType = (element) =>
+        document.body.classList.contains("is-home") &&
+        (Boolean(element.closest("#home")) ||
+          Boolean(element.closest("body.is-home > header.header-nav"))) &&
+        !element.closest(".brand-mark");
+      const isProjectsIndexUi = (element) =>
+        document.body.classList.contains("concept-index") &&
+        Boolean(element.closest(".concept-index"));
 
       const headings = [
         ...document.querySelectorAll("h1, h2, h3, h4, h5, h6, [role='heading']"),
       ];
       const displayMarks = [...document.querySelectorAll(".brand-mark")].filter(rendered);
       const ui = [...document.querySelectorAll(selector)].filter(rendered);
+      const heroCopy = [
+        ...document.querySelectorAll(
+          "#home .header-tagline, #home .header-subheadline, #home .info-pillar, #home .hero-action, body.is-home > header.header-nav",
+        ),
+      ].filter(rendered);
       return {
-        headings: fontRows(headings),
+        headings: fontRows(headings.filter((element) => !isHomepageHeroType(element))),
+        heroCopy: fontRows(heroCopy),
+        heroHeadings: fontRows(headings.filter(isHomepageHeroType)),
         displayMarks: fontRows(displayMarks),
-        ui: fontRows(ui),
+        projectsIndexUi: fontRows(ui.filter(isProjectsIndexUi)),
+        ui: fontRows(
+          ui.filter(
+            (element) =>
+              !isHomepageHeroType(element) && !isProjectsIndexUi(element),
+          ),
+        ),
       };
     }, controlSelector);
 
@@ -259,7 +293,21 @@ for (const documentCase of publicDocumentCases) {
     ).toEqual([]);
     expect(
       typography.ui.filter((entry) => !fontIncludes(entry.fontFamily, "Lato")),
-      "Body and interactive UI typography must compute to Lato",
+      "Non-home, non-Projects body and interactive UI typography must compute to Lato",
+    ).toEqual([]);
+    expect(
+      typography.projectsIndexUi.filter(
+        (entry) => !fontIncludes(entry.fontFamily, "Inter"),
+      ),
+      "Projects index navigation, microtype, metadata, and actions must compute to Inter",
+    ).toEqual([]);
+    expect(
+      typography.heroCopy.filter((entry) => !fontIncludes(entry.fontFamily, "Inter")),
+      "Homepage hero copy, navigation, metadata, and actions must compute to Inter",
+    ).toEqual([]);
+    expect(
+      typography.heroHeadings.filter((entry) => !fontIncludes(entry.fontFamily, "Inter")),
+      "Homepage hero headings must compute to Inter without changing other heading typography",
     ).toEqual([]);
   });
 
@@ -285,7 +333,7 @@ for (const documentCase of publicDocumentCases) {
     expect(exposedGrain).toEqual([]);
   });
 
-  test(`${documentCase.route} centers navigation and keeps CTA labels on one line`, async ({
+  test(`${documentCase.route} keeps intended navigation alignment and CTA labels on one line`, async ({
     page,
   }) => {
     for (const viewport of [
@@ -341,8 +389,8 @@ for (const documentCase of publicDocumentCases) {
       expect(navigationAndActions.headerRendered, "The global header must be rendered").toBe(true);
       expect(
         navigationAndActions.headerAlignItems,
-        `Header items must be vertically centred at ${viewport.width}px`,
-      ).toBe("center");
+        `Header items must keep their route-specific alignment at ${viewport.width}px`,
+      ).toBe(documentCase.route === "/" ? "flex-start" : "center");
       expect(
         navigationAndActions.wrapped,
         `CTA labels must remain on one line at ${viewport.width}px`,
@@ -351,15 +399,10 @@ for (const documentCase of publicDocumentCases) {
   });
 }
 
-test("homepage mobile navigation leaves the photographic hero unobstructed", async ({
+test("homepage hero CTAs stay in the lower region without colliding at parity viewports", async ({
   page,
 }) => {
-  for (const viewport of [
-    { width: 320, height: 800 },
-    { width: 375, height: 800 },
-    { width: 414, height: 800 },
-    { width: 768, height: 800 },
-  ]) {
+  for (const viewport of homeHeroViewports) {
     await page.setViewportSize(viewport);
     await gotoSettled(page, "/");
 
@@ -380,210 +423,536 @@ test("homepage mobile navigation leaves the photographic hero unobstructed", asy
         `${element.tagName.toLowerCase()}${element.id ? `#${element.id}` : ""}${
           element.classList.length ? `.${[...element.classList].join(".")}` : ""
         }`;
-      const navGroup = document.querySelector("header.header-nav .nav-group");
-      const toggle = document.querySelector("header.header-nav .nav-toggle");
+      const rect = (element) => {
+        const bounds = element.getBoundingClientRect();
+        return {
+          bottom: bounds.bottom,
+          height: bounds.height,
+          left: bounds.left,
+          right: bounds.right,
+          top: bounds.top,
+          width: bounds.width,
+        };
+      };
+      const intersects = (first, second) =>
+        Math.min(first.right, second.right) - Math.max(first.left, second.left) > 2 &&
+        Math.min(first.bottom, second.bottom) - Math.max(first.top, second.top) > 2;
+
+      const hero = document.querySelector("#home");
+      const actionsGroup = hero?.querySelector(".hero-actions");
+      const actions = [...(hero?.querySelectorAll(".hero-action") || [])].filter(rendered);
+      const navGroup = document.querySelector("body.is-home > header.header-nav .nav-group");
+      const toggle = document.querySelector("body.is-home > header.header-nav .nav-toggle");
       const headerControls = [
-        document.querySelector("header.header-nav .nav-item"),
-        toggle,
+        ...document.querySelectorAll(
+          "body.is-home > header.header-nav a[href], body.is-home > header.header-nav button",
+        ),
       ].filter(rendered);
-      const heroContent = [
-        document.querySelector("#home .header-tagline"),
-        document.querySelector("#home .header-subheadline"),
-        document.querySelector("#home .hero-actions"),
-        document.querySelector("#home .info-pillar.pillar-left"),
+      const nonActions = [
+        ...headerControls,
+        hero?.querySelector(".header-tagline"),
+        hero?.querySelector(".header-subheadline"),
+        hero?.querySelector(".brand-mark__text"),
+        ...hero.querySelectorAll(".info-pillar"),
       ].filter(rendered);
-      const overlaps = [];
-      for (const control of headerControls) {
-        const controlRect = control.getBoundingClientRect();
-        for (const content of heroContent) {
-          const contentRect = content.getBoundingClientRect();
-          const width =
-            Math.min(controlRect.right, contentRect.right) -
-            Math.max(controlRect.left, contentRect.left);
-          const height =
-            Math.min(controlRect.bottom, contentRect.bottom) -
-            Math.max(controlRect.top, contentRect.top);
-          if (width > 2 && height > 2) {
-            overlaps.push(`${describe(control)} <> ${describe(content)}`);
-          }
-        }
-      }
+      const actionCollisions = actions.flatMap((action) => {
+        const actionRect = rect(action);
+        return nonActions
+          .filter((element) => intersects(actionRect, rect(element)))
+          .map((element) => `${describe(action)} <> ${describe(element)}`);
+      });
+      const actionPairCollision =
+        actions.length === 2 && intersects(rect(actions[0]), rect(actions[1]));
+      const containedElements = [...actions, ...nonActions];
+      const offCanvas = containedElements
+        .filter((element) => {
+          const bounds = rect(element);
+          return bounds.left < -1 || bounds.right > innerWidth + 1;
+        })
+        .map(describe);
+      const heroRect = hero ? rect(hero) : null;
+      const groupRect = rendered(actionsGroup) ? rect(actionsGroup) : null;
+      const availability = [...(hero?.querySelectorAll(".pillar-left .content-block") || [])].find(
+        (block) => block.querySelector(".label")?.textContent.trim() === "Availability",
+      );
+      const rightPillar = hero?.querySelector(".pillar-right");
+
       return {
-        heroContentCount: heroContent.length,
-        navGroupDisplay: navGroup ? getComputedStyle(navGroup).display : "missing",
+        actionCollisions,
+        actionPairCollision,
+        actionRadii: actions.map((action) => getComputedStyle(action).borderRadius),
+        actions: actions.map((action) => ({
+          ...rect(action),
+          text: action.textContent.trim(),
+        })),
+        availabilityInDom: availability instanceof HTMLElement,
+        availabilityRendered: rendered(availability),
+        availabilityText: availability?.textContent.replace(/\s+/g, " ").trim() || "",
+        desktopGroupCentered:
+          heroRect && groupRect
+            ? Math.abs(groupRect.left + groupRect.width / 2 - (heroRect.left + heroRect.width / 2))
+            : Number.POSITIVE_INFINITY,
+        documentClientWidth: document.documentElement.clientWidth,
+        documentScrollWidth: document.documentElement.scrollWidth,
+        groupBottomGap:
+          heroRect && groupRect ? Math.min(heroRect.bottom, innerHeight) - groupRect.bottom : -1,
+        groupInLowerRegion:
+          heroRect && groupRect
+            ? groupRect.top + groupRect.height / 2 >= heroRect.top + heroRect.height / 2
+            : false,
+        groupRendered: rendered(actionsGroup),
+        navGroupRendered: rendered(navGroup),
         navGroupWidth: navGroup?.getBoundingClientRect().width ?? -1,
-        overlaps,
+        offCanvas,
+        rightPillarRendered: rendered(rightPillar),
         toggleDisplay: toggle ? getComputedStyle(toggle).display : "missing",
         toggleRendered: rendered(toggle),
       };
     });
 
-    expect(layout.navGroupDisplay, `Desktop nav must be hidden at ${viewport.width}px`).toBe(
-      "none",
+    const label = `${viewport.width}x${viewport.height}`;
+    const mobileNavigation = viewport.width <= 768;
+    expect(layout.documentScrollWidth, `Document must not overflow horizontally at ${label}`).toBeLessThanOrEqual(
+      layout.documentClientWidth + 1,
     );
-    expect(layout.navGroupWidth, `Hidden desktop nav must reserve no width at ${viewport.width}px`).toBe(
-      0,
-    );
+    expect(layout.groupRendered, `Hero CTA group must render at ${label}`).toBe(true);
+    expect(layout.actions.map((action) => action.text)).toEqual(["Book a call", "View projects"]);
     expect(
-      ["flex", "inline-flex"],
-      `Mobile menu must render as a flex control at ${viewport.width}px`,
-    ).toContain(layout.toggleDisplay);
-    expect(layout.toggleRendered, `Mobile menu must be visible at ${viewport.width}px`).toBe(true);
-    expect(layout.heroContentCount, "The required hero conversion content must remain rendered").toBe(
-      4,
-    );
-    expect(
-      layout.overlaps,
-      `Header controls must not overlap hero copy or actions at ${viewport.width}px`,
+      layout.actions.filter((action) => action.width < 44 || action.height < 44),
+      `Each hero CTA needs a 44px practical hit area at ${label}`,
     ).toEqual([]);
+    expect(layout.actionRadii, `Hero CTAs must stay square at ${label}`).toEqual(["0px", "0px"]);
+    expect(layout.groupInLowerRegion, `Hero CTA group must stay in the lower hero region at ${label}`).toBe(
+      true,
+    );
+    expect(layout.groupBottomGap, `Hero CTA group must keep viewport-safe bottom spacing at ${label}`).toBeGreaterThanOrEqual(
+      8,
+    );
+    expect(layout.actionPairCollision, `Hero CTAs must not overlap each other at ${label}`).toBe(false);
+    expect(
+      layout.actionCollisions,
+      `Hero CTAs must not collide with old-hero content or navigation at ${label}`,
+    ).toEqual([]);
+    expect(layout.offCanvas, `Visible hero elements must stay inside the viewport at ${label}`).toEqual([]);
+    expect(layout.availabilityInDom, `Availability must remain in the DOM at ${label}`).toBe(true);
+    expect(layout.availabilityText).toBe(
+      "Availability Now booking: Next 2-4 weeks Fast turnaround options (7-14 days)",
+    );
+    expect(layout.availabilityRendered, `Availability visibility must match the old breakpoint at ${label}`).toBe(
+      viewport.width >= 480,
+    );
+    expect(layout.rightPillarRendered, `Right metadata visibility must match the old breakpoint at ${label}`).toBe(
+      !mobileNavigation,
+    );
+    expect(layout.navGroupRendered, `Desktop navigation visibility must match the old breakpoint at ${label}`).toBe(
+      !mobileNavigation,
+    );
+    expect(layout.toggleRendered, `Mobile menu visibility must match the old breakpoint at ${label}`).toBe(
+      mobileNavigation,
+    );
+    if (mobileNavigation) {
+      expect(layout.navGroupWidth, `Hidden desktop nav must reserve no width at ${label}`).toBe(0);
+      expect(["flex", "inline-flex"], `Mobile menu must use a flex control at ${label}`).toContain(
+        layout.toggleDisplay,
+      );
+    } else {
+      expect(layout.desktopGroupCentered, `Desktop hero CTAs must be bottom-centered at ${label}`).toBeLessThanOrEqual(
+        1,
+      );
+    }
   }
 });
 
-test("homepage photo-backed copy uses readable 30px contrast surfaces", async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await gotoSettled(page, "/");
-
-  const surfaces = await page.evaluate(() => {
-    const parseColor = (value) => {
-      const channels = String(value).match(/[\d.]+/g)?.map(Number) || [];
-      return {
-        rgb: channels.slice(0, 3),
-        alpha: channels.length > 3 ? channels[3] : 1,
-      };
-    };
-    const linear = (channel) => {
-      const normalized = channel / 255;
-      return normalized <= 0.04045
-        ? normalized / 12.92
-        : ((normalized + 0.055) / 1.055) ** 2.4;
-    };
-    const luminance = (rgb) =>
-      0.2126 * linear(rgb[0]) + 0.7152 * linear(rgb[1]) + 0.0722 * linear(rgb[2]);
-    const contrast = (first, second) => {
-      const high = Math.max(luminance(first), luminance(second));
-      const low = Math.min(luminance(first), luminance(second));
-      return (high + 0.05) / (low + 0.05);
-    };
-    const minimumBackdropContrast = (foreground, background) => {
-      const foregroundColor = parseColor(foreground);
-      const backgroundColor = parseColor(background);
-      const ratios = [0, 255].map((backdrop) => {
-        const composited = backgroundColor.rgb.map(
-          (channel) =>
-            channel * backgroundColor.alpha + backdrop * (1 - backgroundColor.alpha),
-        );
-        return contrast(foregroundColor.rgb, composited);
-      });
-      return Math.min(...ratios);
-    };
-    const rendered = (element) => {
-      const style = getComputedStyle(element);
-      const rect = element.getBoundingClientRect();
-      return style.display !== "none" && rect.width > 1 && rect.height > 1;
-    };
-    return [
-      document.querySelector("#home .header-subheadline"),
-      ...document.querySelectorAll("#home .info-pillar"),
-    ]
-      .filter((element) => element instanceof HTMLElement && rendered(element))
-      .map((element) => {
-        const style = getComputedStyle(element);
-        return {
-          borderRadius: style.borderRadius,
-          contrast: minimumBackdropContrast(style.color, style.backgroundColor),
-          element: element.className,
-          backgroundColor: style.backgroundColor,
-        };
-      });
-  });
-
-  expect(surfaces.length, "Homepage contrast surfaces must be rendered").toBeGreaterThanOrEqual(3);
-  expect(
-    surfaces.filter((surface) => surface.borderRadius !== "30px"),
-    "Homepage photo-backed copy surfaces must use the approved 30px radius",
-  ).toEqual([]);
-  expect(
-    surfaces.filter((surface) => surface.contrast < 4.5),
-    "Photo-backed body copy must maintain at least 4.5:1 over black or white image crops",
-  ).toEqual([]);
-});
-
-test("homepage hero mark keeps a contrast-safe backing and restrained mobile accent footprint", async ({
+test("homepage hero remains collision-free and reachable at short viewport heights", async ({
   page,
 }) => {
-  for (const viewport of [
-    { width: 320, height: 800 },
-    { width: 375, height: 800 },
-    { width: 414, height: 800 },
-    { width: 481, height: 800 },
-    { width: 769, height: 800 },
-  ]) {
+  for (const viewport of shortHomeHeroViewports) {
     await page.setViewportSize(viewport);
     await gotoSettled(page, "/");
+    await page.locator("#home .hero-actions").scrollIntoViewIfNeeded();
 
-    const mark = page.locator("#home .brand-mark__text");
-    await expect(mark).toBeVisible();
-    const markContract = await mark.evaluate((element) => {
-      const style = getComputedStyle(element);
-      const channels = (value) => String(value).match(/[\d.]+/g)?.map(Number) || [];
-      const foreground = channels(style.color).slice(0, 3);
-      const backgroundChannels = channels(style.backgroundColor);
-      const background = backgroundChannels.slice(0, 3);
-      const alpha = backgroundChannels.length > 3 ? backgroundChannels[3] : 1;
-      const linear = (channel) => {
-        const normalized = channel / 255;
-        return normalized <= 0.04045
-          ? normalized / 12.92
-          : ((normalized + 0.055) / 1.055) ** 2.4;
+    const layout = await page.evaluate(() => {
+      const rendered = (element) => {
+        if (!(element instanceof HTMLElement)) return false;
+        const style = getComputedStyle(element);
+        const bounds = element.getBoundingClientRect();
+        return (
+          style.display !== "none" &&
+          style.visibility !== "hidden" &&
+          Number(style.opacity) > 0 &&
+          bounds.width > 1 &&
+          bounds.height > 1
+        );
       };
-      const luminance = (rgb) =>
-        0.2126 * linear(rgb[0]) + 0.7152 * linear(rgb[1]) + 0.0722 * linear(rgb[2]);
-      const contrast = (first, second) => {
-        const high = Math.max(luminance(first), luminance(second));
-        const low = Math.min(luminance(first), luminance(second));
-        return (high + 0.05) / (low + 0.05);
+      const rect = (element) => {
+        const bounds = element.getBoundingClientRect();
+        return {
+          bottom: bounds.bottom,
+          left: bounds.left,
+          right: bounds.right,
+          top: bounds.top,
+        };
       };
-      const minimumContrast = Math.min(
-        ...[0, 255].map((backdrop) =>
-          contrast(
-            foreground,
-            background.map((channel) => channel * alpha + backdrop * (1 - alpha)),
-          ),
-        ),
-      );
+      const intersects = (first, second) =>
+        Math.min(first.right, second.right) - Math.max(first.left, second.left) > 2 &&
+        Math.min(first.bottom, second.bottom) - Math.max(first.top, second.top) > 2;
+      const describe = (element) =>
+        `${element.tagName.toLowerCase()}${element.classList.length ? `.${[...element.classList].join(".")}` : ""}`;
+
+      const pageScroller = document.querySelector(".page");
+      const hero = document.querySelector("#home");
+      const actionsGroup = hero?.querySelector(".hero-actions");
+      const actions = [...(hero?.querySelectorAll(".hero-action") || [])].filter(rendered);
+      const preservedHeroContent = [
+        hero?.querySelector(".brand-mark__text"),
+        hero?.querySelector(".header-tagline"),
+        hero?.querySelector(".header-subheadline"),
+        ...hero.querySelectorAll(".info-pillar"),
+      ].filter(rendered);
+      const actionCollisions = actions.flatMap((action) => {
+        const actionRect = rect(action);
+        return preservedHeroContent
+          .filter((element) => intersects(actionRect, rect(element)))
+          .map((element) => `${describe(action)} <> ${describe(element)}`);
+      });
+      const heroRect = rect(hero);
+      const contentOutsideHero = [...actions, ...preservedHeroContent]
+        .filter((element) => {
+          const bounds = rect(element);
+          return (
+            bounds.left < heroRect.left - 1 ||
+            bounds.right > heroRect.right + 1 ||
+            bounds.top < heroRect.top - 1 ||
+            bounds.bottom > heroRect.bottom + 1
+          );
+        })
+        .map(describe);
+      const groupRect = rect(actionsGroup);
+
       return {
-        borderRadius: style.borderRadius,
-        fontSize: Number.parseFloat(style.fontSize),
-        minimumContrast,
+        actionCollisions,
+        actionPairCollision:
+          actions.length === 2 && intersects(rect(actions[0]), rect(actions[1])),
+        actionRadii: actions.map((action) => getComputedStyle(action).borderRadius),
+        contentOutsideHero,
+        groupInViewport: groupRect.top >= -1 && groupRect.bottom <= innerHeight + 1,
+        heroHeight: heroRect.bottom - heroRect.top,
+        pageScrollTop: pageScroller?.scrollTop ?? 0,
       };
     });
 
-    expect(markContract.borderRadius).toBe("20px");
-    expect(markContract.fontSize, `Hero mark is too large at ${viewport.width}px`).toBeLessThanOrEqual(
-      viewport.width <= 414 ? 32 : 64,
+    const label = `${viewport.width}x${viewport.height}`;
+    expect(layout.heroHeight, `Short-height hero must provide a scrollable canvas at ${label}`).toBeGreaterThan(
+      viewport.height,
     );
-    expect(
-      markContract.minimumContrast,
-      `Hero mark must keep at least 3:1 contrast over any photographic crop at ${viewport.width}px`,
-    ).toBeGreaterThanOrEqual(3);
+    expect(layout.pageScrollTop, `Hero CTA must be reachable by scrolling at ${label}`).toBeGreaterThan(0);
+    expect(layout.groupInViewport, `Hero CTA group must scroll fully into view at ${label}`).toBe(true);
+    expect(layout.actionRadii, `Hero CTAs must stay square at ${label}`).toEqual(["0px", "0px"]);
+    expect(layout.actionPairCollision, `Hero CTAs must not overlap each other at ${label}`).toBe(false);
+    expect(layout.actionCollisions, `Hero CTAs must not cover old-hero content at ${label}`).toEqual([]);
+    expect(layout.contentOutsideHero, `Required hero content must stay reachable inside the hero at ${label}`).toEqual(
+      [],
+    );
+  }
+});
 
-    const screenshot = await page.screenshot();
-    const { data, info } = await sharp(screenshot)
-      .removeAlpha()
-      .raw()
-      .toBuffer({ resolveWithObject: true });
-    let accentPixels = 0;
-    for (let offset = 0; offset < data.length; offset += info.channels) {
-      const red = data[offset];
-      const green = data[offset + 1];
-      const blue = data[offset + 2];
-      if (blue - red >= 24 && blue - green >= 18 && blue >= 90) accentPixels += 1;
+test("homepage hero keeps the old transparent cobalt photograph composition", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await gotoSettled(page, "/");
+
+  const composition = await page.evaluate(() => {
+    const transparent = (value) => {
+      const normalized = String(value).replace(/\s+/g, "").toLowerCase();
+      return (
+        normalized === "transparent" ||
+        normalized === "rgba(0,0,0,0)" ||
+        normalized.endsWith(",0)") ||
+        normalized.endsWith("/0)")
+      );
+    };
+    const surface = (element) => {
+      const style = getComputedStyle(element);
+      return {
+        backdropFilter: style.backdropFilter || style.webkitBackdropFilter || "none",
+        backgroundColor: style.backgroundColor,
+        borderRadius: style.borderRadius,
+        borderWidths: [
+          style.borderTopWidth,
+          style.borderRightWidth,
+          style.borderBottomWidth,
+          style.borderLeftWidth,
+        ].map(Number.parseFloat),
+        boxShadow: style.boxShadow,
+        color: style.color,
+        element: element.className,
+        padding: [style.paddingTop, style.paddingRight, style.paddingBottom, style.paddingLeft].map(
+          Number.parseFloat,
+        ),
+        transparent: transparent(style.backgroundColor),
+      };
+    };
+    const hero = document.querySelector("#home");
+    const photo = hero.querySelector(".bg-layer");
+    const image = photo.querySelector("img");
+    const photoStyle = getComputedStyle(photo);
+    const transform = new DOMMatrixReadOnly(photoStyle.transform);
+    const pseudo = ["::before", "::after"].map((selector) => {
+      const style = getComputedStyle(hero, selector);
+      return {
+        backgroundColor: style.backgroundColor,
+        backgroundImage: style.backgroundImage,
+        selector,
+        transparent: transparent(style.backgroundColor),
+      };
+    });
+    const normalize = (value) => value.replace(/\s+/g, " ").trim();
+    return {
+      desktopNavLinkColors: [
+        ...document.querySelectorAll("body.is-home > .header-nav .nav-link"),
+      ].map((link) => getComputedStyle(link).color),
+      grainBackground: getComputedStyle(hero.querySelector(".grain")).backgroundImage,
+      image: {
+        objectFit: getComputedStyle(image).objectFit,
+        objectPosition: getComputedStyle(image).objectPosition,
+      },
+      leftMetadata: normalize(hero.querySelector(".pillar-left").textContent),
+      photo: {
+        filter: photoStyle.filter,
+        opacity: Number(photoStyle.opacity),
+        scaleX: transform.a,
+        scaleY: transform.d,
+      },
+      pseudo,
+      rightMetadata: normalize(hero.querySelector(".pillar-right").textContent),
+      surfaces: [
+        hero.querySelector(".brand-mark__text"),
+        hero.querySelector(".header-tagline"),
+        hero.querySelector(".header-subheadline"),
+        ...hero.querySelectorAll(".info-pillar, .info-pillar .label"),
+      ].map(surface),
+    };
+  });
+
+  expect(composition.desktopNavLinkColors).toEqual(Array(4).fill("rgb(112, 117, 235)"));
+  expect(composition.photo.filter).toBe("grayscale(0.2) contrast(1.1)");
+  expect(composition.photo.opacity).toBeCloseTo(1, 2);
+  expect(composition.photo.scaleX).toBeCloseTo(1.07, 2);
+  expect(composition.photo.scaleY).toBeCloseTo(1.07, 2);
+  expect(composition.image.objectFit).toBe("cover");
+  expect(["center", "50% 50%"]).toContain(composition.image.objectPosition);
+  expect(composition.grainBackground).not.toBe("none");
+  expect(
+    composition.pseudo.filter(
+      (layer) => layer.backgroundImage !== "none" || !layer.transparent,
+    ),
+    "Homepage hero must not paint a pseudo-element gradient or scrim",
+  ).toEqual([]);
+  expect(
+    composition.surfaces.filter(
+      (surface) =>
+        !surface.transparent ||
+        surface.borderRadius !== "0px" ||
+        surface.borderWidths.some((width) => width !== 0) ||
+        surface.boxShadow !== "none" ||
+        surface.backdropFilter !== "none" ||
+        surface.padding.some((value) => value !== 0),
+    ),
+    "Old-hero cobalt copy must remain transparent without backing cards, borders, blur, padding, or shadows",
+  ).toEqual([]);
+  expect(
+    composition.surfaces.filter((surface) => surface.color !== "rgb(59, 65, 227)"),
+    "Old-hero copy must retain the cobalt treatment",
+  ).toEqual([]);
+  expect(composition.leftMetadata).toBe(
+    "Location Montreal, Quebec Enquiries hello@jq33.design +1 514 473 0075 Availability Now booking: Next 2-4 weeks Fast turnaround options (7-14 days)",
+  );
+  expect(composition.rightMetadata).toBe(
+    "Headquarters 2727 Saint-Patrick St. Montreal, Quebec H3K 0A8 Status Cafes · Salons · Clinics · Boutiques · Offices Layout + finishes + 3D visuals to decide fast",
+  );
+});
+
+test("homepage mark scale and subheadline measure match the old responsive hero", async ({ page }) => {
+  for (const viewport of homeHeroViewports) {
+    await page.setViewportSize(viewport);
+    await gotoSettled(page, "/");
+
+    const typography = await page.evaluate(() => {
+      const mark = document.querySelector("#home .brand-mark__text");
+      const markRotate = document.querySelector("#home .brand-mark__rotate");
+      const subheadline = document.querySelector("#home .header-subheadline");
+      const markStyle = getComputedStyle(mark);
+      const subheadlineStyle = getComputedStyle(subheadline);
+      const markRect = markRotate.getBoundingClientRect();
+      const subheadlineRect = subheadline.getBoundingClientRect();
+      const measure = document.createElement("span");
+      measure.style.cssText = "position:fixed;visibility:hidden;pointer-events:none";
+      measure.style.fontFamily = subheadlineStyle.fontFamily;
+      measure.style.fontSize = subheadlineStyle.fontSize;
+      measure.style.fontWeight = subheadlineStyle.fontWeight;
+      measure.style.width = innerWidth <= 480
+        ? "26ch"
+        : innerWidth <= 768
+          ? "min(84vw, 28ch)"
+          : "min(80vw, 42ch)";
+      document.body.append(measure);
+      const expectedMaxWidth = measure.getBoundingClientRect().width;
+      measure.remove();
+      return {
+        mark: {
+          backgroundColor: markStyle.backgroundColor,
+          borderRadius: markStyle.borderRadius,
+          boxShadow: markStyle.boxShadow,
+          centerX: markRect.left + markRect.width / 2,
+          centerY: markRect.top + markRect.height / 2,
+          color: markStyle.color,
+          fontFamily: markStyle.fontFamily,
+          fontSize: Number.parseFloat(markStyle.fontSize),
+          fontWeight: markStyle.fontWeight,
+          letterSpacing: Number.parseFloat(markStyle.letterSpacing),
+          lineHeight: Number.parseFloat(markStyle.lineHeight),
+          padding: [
+            markStyle.paddingTop,
+            markStyle.paddingRight,
+            markStyle.paddingBottom,
+            markStyle.paddingLeft,
+          ].map(Number.parseFloat),
+          textShadow: markStyle.textShadow,
+          textTransform: markStyle.textTransform,
+        },
+        subheadline: {
+          bottomGap: innerHeight - subheadlineRect.bottom,
+          fontSize: Number.parseFloat(subheadlineStyle.fontSize),
+          letterSpacing: Number.parseFloat(subheadlineStyle.letterSpacing),
+          lineHeight: Number.parseFloat(subheadlineStyle.lineHeight),
+          expectedMaxWidth,
+          maxWidth: Number.parseFloat(subheadlineStyle.maxWidth),
+          textAlign: subheadlineStyle.textAlign,
+          textTransform: subheadlineStyle.textTransform,
+          top: subheadlineRect.top,
+        },
+      };
+    });
+
+    const mobile = viewport.width <= 768;
+    const compact = viewport.width <= 480;
+    const expectedMarkFontSize = mobile
+      ? Math.min(176, Math.max(45, viewport.height * 0.112))
+      : Math.min(220, Math.max(56, viewport.height * 0.14));
+    const expectedSubheadlineFontSize = compact ? 13.12 : mobile ? 14.4 : 16;
+    const expectedSubheadlineLineHeight = compact ? 17.712 : mobile ? 19.44 : 20;
+    const expectedSubheadlineLetterSpacing = compact ? 0.5248 : mobile ? 0.576 : 1;
+    const label = `${viewport.width}x${viewport.height}`;
+
+    expect(typography.mark.fontFamily, `Hero mark font must remain Permanent Marker at ${label}`).toContain(
+      "Permanent Marker",
+    );
+    expect(typography.mark.fontSize, `Hero mark size must match the old scale at ${label}`).toBeCloseTo(
+      expectedMarkFontSize,
+      1,
+    );
+    expect(typography.mark.lineHeight, `Hero mark line height must match the old scale at ${label}`).toBeCloseTo(
+      expectedMarkFontSize * 0.9,
+      1,
+    );
+    expect(typography.mark.letterSpacing, `Hero mark tracking must match the old scale at ${label}`).toBeCloseTo(
+      expectedMarkFontSize * 0.01,
+      1,
+    );
+    expect(typography.mark.centerX, `Hero mark must stay horizontally centered at ${label}`).toBeCloseTo(
+      viewport.width / 2,
+      0,
+    );
+    expect(typography.mark.centerY, `Hero mark must stay vertically centered at ${label}`).toBeCloseTo(
+      viewport.height / 2,
+      0,
+    );
+    expect(typography.mark.color).toBe("rgb(59, 65, 227)");
+    expect(typography.mark.fontWeight).toBe("400");
+    expect(typography.mark.textTransform).toBe("none");
+    expect(typography.mark.backgroundColor).toBe("rgba(0, 0, 0, 0)");
+    expect(typography.mark.borderRadius).toBe("0px");
+    expect(typography.mark.boxShadow).toBe("none");
+    expect(typography.mark.padding).toEqual([0, 0, 0, 0]);
+    expect(typography.mark.textShadow).toContain("20px");
+
+    expect(typography.subheadline.maxWidth, `Subheadline measure must match the old breakpoint at ${label}`).toBeCloseTo(
+      typography.subheadline.expectedMaxWidth,
+      0,
+    );
+    expect(typography.subheadline.fontSize).toBeCloseTo(expectedSubheadlineFontSize, 1);
+    expect(typography.subheadline.lineHeight).toBeCloseTo(expectedSubheadlineLineHeight, 1);
+    expect(typography.subheadline.letterSpacing).toBeCloseTo(
+      expectedSubheadlineLetterSpacing,
+      1,
+    );
+    expect(typography.subheadline.textTransform).toBe("uppercase");
+    expect(typography.subheadline.textAlign).toBe(mobile ? "left" : "center");
+    if (compact) expect(typography.subheadline.top).toBeCloseTo(203.2, 0);
+    else if (mobile) expect(typography.subheadline.top).toBeCloseTo(219.6, 0);
+    else expect(typography.subheadline.bottomGap).toBeCloseTo(80, 0);
+  }
+});
+
+test("homepage hero links preserve behavior and stay square in every supported state", async ({
+  page,
+}) => {
+  for (const viewport of homeHeroViewports) {
+    await page.setViewportSize(viewport);
+    await gotoSettled(page, "/");
+
+    const primary = page.locator("#home .hero-action--primary");
+    const secondary = page.locator("#home .hero-action--secondary");
+    await expect(primary).toHaveCount(1);
+    await expect(secondary).toHaveCount(1);
+    await expect(primary).toBeVisible();
+    await expect(secondary).toBeVisible();
+
+    const primaryContract = await primary.evaluate((element) => ({
+      hook: element.hasAttribute("data-calendly-cta"),
+      href: element.href,
+      rel: element.rel.split(/\s+/).filter(Boolean),
+      target: element.target,
+    }));
+    const secondaryUrl = new URL(await secondary.getAttribute("href"), page.url());
+    expect(new URL(primaryContract.href).hostname).toMatch(/^(?:www\.)?calendly\.com$/);
+    expect(primaryContract.hook).toBe(true);
+    expect(primaryContract.target).toBe("_blank");
+    expect(primaryContract.rel).toEqual(expect.arrayContaining(["noopener", "noreferrer"]));
+    expect(secondaryUrl.pathname).toBe("/projects/");
+
+    const client = await page.context().newCDPSession(page);
+    await client.send("DOM.enable");
+    await client.send("CSS.enable");
+    const { root } = await client.send("DOM.getDocument");
+    for (const [selector, locator] of [
+      ["#home .hero-action--primary", primary],
+      ["#home .hero-action--secondary", secondary],
+    ]) {
+      const { nodeId } = await client.send("DOM.querySelector", {
+        nodeId: root.nodeId,
+        selector,
+      });
+      expect(nodeId, `${selector} must resolve through the browser DOM`).toBeGreaterThan(0);
+      const radii = {
+        default: await locator.evaluate((element) => getComputedStyle(element).borderRadius),
+      };
+      for (const pseudo of ["hover", "focus-visible", "active", "visited"]) {
+        await client.send("CSS.forcePseudoState", {
+          forcedPseudoClasses: [pseudo],
+          nodeId,
+        });
+        radii[pseudo] = await locator.evaluate((element) => getComputedStyle(element).borderRadius);
+      }
+      await client.send("CSS.forcePseudoState", { forcedPseudoClasses: [], nodeId });
+      await locator.evaluate((element) => element.setAttribute("aria-disabled", "true"));
+      radii.ariaDisabled = await locator.evaluate((element) => getComputedStyle(element).borderRadius);
+      await locator.evaluate((element) => element.removeAttribute("aria-disabled"));
+      expect(
+        Object.entries(radii).filter(([, radius]) => radius !== "0px"),
+        `${selector} must stay square in every state at ${viewport.width}x${viewport.height}`,
+      ).toEqual([]);
     }
-    const accentRatio = accentPixels / (info.width * info.height);
-    expect(
-      accentRatio,
-      `Cobalt should occupy no more than 5.1% of the mobile viewport at ${viewport.width}px`,
-    ).toBeLessThanOrEqual(0.051);
+    await client.detach();
   }
 });
 

@@ -39,6 +39,34 @@ const collectCssRules = (filePath, source) =>
     })),
   );
 
+const cssValues = (body, property) =>
+  [...body.matchAll(new RegExp(`(?:^|;)\\s*${property}\\s*:\\s*([^;]+)`, "gi"))].map(
+    (match) => match[1].trim(),
+  );
+
+const hasHeroBackingSurface = (body) => {
+  const paintedBackground = cssValues(
+    body,
+    "background(?:-color|-image)?",
+  ).some((value) => !/^(?:none|transparent)(?:\s*!important)?$/i.test(value));
+  const visibleBorder = cssValues(body, "border(?:-[a-z-]+)?").some(
+    (value) => !/^(?:0(?:px)?|none|transparent)(?:\s*!important)?$/i.test(value),
+  );
+  const rounded = cssValues(body, "border-radius").some(
+    (value) => !/^0(?:px)?(?:\s*!important)?$/i.test(value),
+  );
+  const shadowed = cssValues(body, "box-shadow").some(
+    (value) => !/^none(?:\s*!important)?$/i.test(value),
+  );
+  const blurred = cssValues(body, "(?:-webkit-)?backdrop-filter").some(
+    (value) => !/^none(?:\s*!important)?$/i.test(value),
+  );
+  const padded = cssValues(body, "padding(?:-[a-z-]+)?").some(
+    (value) => !/^(?:0(?:px)?)(?:\s*!important)?$/i.test(value),
+  );
+  return paintedBackground || visibleBorder || rounded || shadowed || blurred || padded;
+};
+
 const findUngatedHoverSelectors = (css) => {
   const failures = [];
   const stack = [];
@@ -123,8 +151,14 @@ for (const filePath of sourceFiles) {
     failures.push(`${relativePath} animates width instead of transform/opacity.`);
   }
 
-  if (/family=Inter(?=[:&"'])|font-family\s*[:=]\s*["']?Inter/i.test(source)) {
-    failures.push(`${relativePath} still loads or declares the retired Inter typeface.`);
+  const remoteInter = /family=Inter(?=[:&"'])|@import[^;]*\bInter\b/i.test(source);
+  const rawInterSource = relativePath === "tokens.css"
+    ? source
+        .replace(/@font-face\s*\{[^{}]*font-family\s*:\s*["']Inter["'][^{}]*\}/gi, "")
+        .replace(/--font-hero\s*:\s*["']Inter["']\s*,\s*var\(--font-body\)\s*;/gi, "")
+    : source;
+  if (remoteInter || /font-family\s*[:=]\s*["']?Inter/i.test(rawInterSource)) {
+    failures.push(`${relativePath} loads or declares Inter outside the self-hosted homepage hero token.`);
   }
 
   if (
@@ -154,13 +188,18 @@ for (const filePath of sourceFiles) {
 
   if (path.extname(filePath) === ".html") {
     extractCssSources(filePath, source).forEach((css, index) => {
+      const isProjectsIndex = [
+        path.join("projects", "_projects-index-template.html"),
+        path.join("projects", "index.html"),
+      ].includes(relativePath);
+      const stampPattern = isProjectsIndex
+        ? /^\s*\/\*\s*Hallmark\s+·\s+genre:\s*editorial\s+·\s+macrostructure:\s*Portfolio Grid\s+·\s+user override:\s*mandatory circular marquee overlap\s*\*\//i
+        : /^\s*\/\*\s*Hallmark\s+·\s+macrostructure:\s*Photographic\s+·\s+tone:\s*atmospheric editorial\s+·\s+anchor hue:\s*cobalt\s*\*\//i;
       if (
-        !/^\s*\/\*\s*Hallmark\s+·\s+macrostructure:\s*Photographic\s+·\s+tone:\s*atmospheric editorial\s+·\s+anchor hue:\s*cobalt\s*\*\//i.test(
-          css,
-        )
+        !stampPattern.test(css)
       ) {
         failures.push(
-          `${relativePath} inline style block ${index + 1} must begin with the Hallmark macrostructure stamp.`,
+          `${relativePath} inline style block ${index + 1} must begin with its approved Hallmark macrostructure stamp.`,
         );
       }
     });
@@ -192,9 +231,24 @@ if (
 ) {
   failures.push("The display typography token must resolve to Permanent Marker.");
 }
+if (!/--font-hero\s*:\s*["']Inter["']\s*,\s*var\(--font-body\)/i.test(tokensCss)) {
+  failures.push("The homepage hero typography token must use the self-hosted Inter family with the body fallback.");
+}
 const fontFaces = [...tokensCss.matchAll(/@font-face\s*\{([\s\S]*?)\}/gi)].map(
   (match) => match[1],
 );
+const heroFontFace = fontFaces.find((face) =>
+  /font-family\s*:\s*["']Inter["']/i.test(face),
+);
+if (
+  !heroFontFace ||
+  !/src\s*:\s*url\(["']?(?:\.\/|\/)assets\/fonts\/inter\/inter-latin-400-900\.woff2["']?\)\s*format\(["']woff2["']\)/i.test(
+    heroFontFace,
+  ) ||
+  !/font-weight\s*:\s*400\s+900/i.test(heroFontFace)
+) {
+  failures.push("The homepage hero must load its local variable Inter font without a remote dependency.");
+}
 if (
   !fontFaces.length ||
   fontFaces.some((face) => !/font-display\s*:\s*swap/i.test(face))
@@ -365,33 +419,58 @@ if (
 ) {
   failures.push("Homepage FAQ hover feedback must change color only.");
 }
-const homeBrandSurfaceRules = homeRules.filter(({ selector }) =>
+const homePhotoRules = homeRules.filter(({ selector }) =>
+  /(?:^|,)\s*\.panel--home\s+\.bg-layer\s*(?:,|$)/i.test(selector),
+);
+if (
+  !homePhotoRules.some(({ body }) =>
+    /filter\s*:\s*grayscale\(20%\)\s+contrast\(110%\)/i.test(body),
+  ) ||
+  !homeRules.some(
+    ({ selector, body }) =>
+      /(?:^|,)\s*\.bg-layer\s*>\s*img\s*(?:,|$)/i.test(selector) &&
+      /object-fit\s*:\s*cover/i.test(body) &&
+      /object-position\s*:\s*center/i.test(body),
+  )
+) {
+  failures.push("Homepage hero photograph must keep the old centered cover crop and grayscale/contrast filter.");
+}
+const homeOverlayRules = homeRules.filter(({ selector }) =>
+  /(?:^|,)\s*\.panel--home::(?:before|after)\s*(?:,|$)/i.test(selector),
+);
+if (homeOverlayRules.some(({ body }) => hasHeroBackingSurface(body))) {
+  failures.push("Homepage hero must not add a gradient, scrim, or painted pseudo-element overlay.");
+}
+
+const homeMarkRules = homeRules.filter(({ selector }) =>
+  /(?:^|,)\s*\.panel--home\s+\.brand-mark\s*(?:,|$)/i.test(selector),
+);
+const homeMarkTextRules = homeRules.filter(({ selector }) =>
   /(?:^|,)\s*\.panel--home\s+\.brand-mark__text\s*(?:,|$)/i.test(selector),
 );
 if (
-  !homeBrandSurfaceRules.length ||
-  !homeBrandSurfaceRules.some(
+  !homeMarkRules.some(
     ({ body }) =>
-      /color\s*:\s*var\(--color-cobalt-deep\)/i.test(body) &&
-      /background\s*:\s*var\(--color-white-a88\)/i.test(body) &&
-      /border-radius\s*:\s*var\(--radius-card\)/i.test(body),
-  )
+      /font-size\s*:\s*clamp\(56px,\s*14vh,\s*220px\)/i.test(body) &&
+      /line-height\s*:\s*0\.9(?:0+)?\s*;/i.test(body) &&
+      /color\s*:\s*var\(--cobalt\)/i.test(body),
+  ) ||
+  !homeMarkRules.some(
+    ({ body }) =>
+      /text-shadow\s*:\s*0\s+0\s+20px\s+(?:rgba\(59,\s*65,\s*227,\s*0\.2\)|rgb\(59\s+65\s+227\s*\/\s*20%\)|var\(--color-cobalt-a20\))/i.test(
+        body,
+      ),
+  ) ||
+  homeMarkTextRules.some(({ body }) => hasHeroBackingSurface(body))
 ) {
-  failures.push("Homepage hero mark must retain its deterministic contrast-safe backing.");
+  failures.push("Homepage hero mark must keep the old large transparent cobalt treatment without a backing card.");
 }
 if (
-  !/@media\s*\(\s*max-width\s*:\s*480px\s*\)\s*\{[\s\S]{0,500}?\.panel--home\s+\.brand-mark\s*\{[^}]*font-size\s*:\s*clamp\(30px,\s*4vh,\s*32px\)/is.test(
+  !/@media\s*\(\s*max-width\s*:\s*768px\s*\)\s*\{[\s\S]{0,1800}?\.panel--home\s+\.brand-mark\s*\{[^}]*font-size\s*:\s*clamp\(45px,\s*11\.2vh,\s*176px\)/is.test(
     home,
   )
 ) {
-  failures.push("Homepage mobile hero mark must keep its reduced accent footprint.");
-}
-if (
-  !/@media\s*\(\s*min-width\s*:\s*769px\s*\)\s*and\s*\(\s*max-width\s*:\s*900px\s*\)\s*\{[\s\S]{0,300}?\.panel--home\s+\.brand-mark\s*\{[^}]*font-size\s*:\s*clamp\(58px,\s*8vh,\s*64px\)/is.test(
-    home,
-  )
-) {
-  failures.push("Homepage tablet hero mark must not jump above the restrained accent footprint.");
+  failures.push("Homepage hero mark must retain the old 11.2vh mobile and tablet scale.");
 }
 const sectionIds = ["home", "selected-work", "how", "pricing", "faq", "work"];
 let previousPosition = -1;
@@ -408,8 +487,42 @@ for (const id of sectionIds) {
 if (/id=["']atelier["']|panel--atelier/i.test(home)) {
   failures.push("index.html still contains the redundant Atelier section or CSS.");
 }
-if (!/class=["']hero-actions["'][\s\S]*?>Book a call<[^>]*[\s\S]*?>View projects</i.test(home)) {
-  failures.push("Homepage hero must expose Book a call and View projects actions.");
+const homeSection = home.match(/<section\b[^>]*\bid=["']home["'][^>]*>([\s\S]*?)<\/section>/i)?.[1] || "";
+const heroActionTags = [...homeSection.matchAll(/<a\b[^>]*\bclass=["'][^"']*\bhero-action\b[^"']*["'][^>]*>[\s\S]*?<\/a>/gi)].map(
+  (match) => match[0],
+);
+const primaryHeroAction = heroActionTags.find((tag) => /\bhero-action--primary\b/i.test(tag));
+const secondaryHeroAction = heroActionTags.find((tag) => /\bhero-action--secondary\b/i.test(tag));
+if (
+  heroActionTags.length !== 2 ||
+  !primaryHeroAction ||
+  !/>\s*Book a call\s*<\/a>/i.test(primaryHeroAction) ||
+  !/\bdata-calendly-cta(?:\s|=|>)/i.test(primaryHeroAction) ||
+  !/\btarget=["']_blank["']/i.test(primaryHeroAction) ||
+  !/\brel=["'][^"']*\bnoopener\b[^"']*\bnoreferrer\b[^"']*["']/i.test(primaryHeroAction) ||
+  !secondaryHeroAction ||
+  !/\bhref=["']\/projects\/["']/i.test(secondaryHeroAction) ||
+  !/>\s*View projects\s*<\/a>/i.test(secondaryHeroAction)
+) {
+  failures.push("Homepage hero must preserve exactly the Book a call and View projects links and their integration attributes.");
+}
+const homeHeroActionRadiusRules = homeRules.filter(
+  ({ selector, body }) =>
+    /\.panel--home\s+\.hero-action\b/i.test(selector) && /border-radius\s*:/i.test(body),
+);
+if (
+  !homeHeroActionRadiusRules.some(
+    ({ selector, body }) =>
+      /\.panel--home\s+\.hero-action\b/i.test(selector) &&
+      /border-radius\s*:\s*0(?:px)?\s*!important/i.test(body),
+  ) ||
+  homeHeroActionRadiusRules.some(({ body }) =>
+    cssValues(body, "border-radius").some(
+      (value) => !/^0(?:px)?(?:\s*!important)?$/i.test(value),
+    ),
+  )
+) {
+  failures.push("Homepage hero actions must keep square corners without a competing home-specific radius rule.");
 }
 if (!/selected-project--feature[\s\S]*selected-supporting/i.test(home)) {
   failures.push("Selected Work must contain one dominant feature and supporting projects.");
@@ -428,6 +541,15 @@ const homeMobileNavHidden = extractCssSources("index.html", home).some((css) =>
 if (!homeMobileNavHidden) {
   failures.push("Homepage mobile CSS must explicitly hide the high-specificity desktop nav group.");
 }
+if (
+  !homeRules.some(
+    ({ selector, body }) =>
+      /(?:^|,)\s*body\.is-home\s*>\s*\.header-nav\s*(?:,|$)/i.test(selector) &&
+      /align-items\s*:\s*flex-start/i.test(body),
+  )
+) {
+  failures.push("Homepage header must retain the old top-aligned navigation composition.");
+}
 const homeSubheadlineRules = homeRules.filter(({ selector }) =>
   /(?:^|,)\s*\.panel--home\s+\.header-subheadline\s*(?:,|$)/i.test(selector),
 );
@@ -436,32 +558,38 @@ const homeSubheadlineMeasureRules = homeSubheadlineRules.filter(({ body }) =>
 );
 if (
   !homeSubheadlineMeasureRules.length ||
-  homeSubheadlineMeasureRules.some(({ body }) => !/max-width\s*:[^;]*45ch/i.test(body))
-) {
-  failures.push("Homepage subheadline prose measure must remain at least 45ch at every breakpoint.");
-}
-if (
-  !homeSubheadlineRules.some(
-    ({ body }) =>
-      /color\s*:\s*var\(--color-ink\)/i.test(body) &&
-      /background\s*:\s*var\(--color-white-a88\)/i.test(body) &&
-      /text-shadow\s*:\s*none/i.test(body),
+  !homeSubheadlineMeasureRules.some(({ body }) =>
+    /max-width\s*:\s*min\(80vw,\s*42ch\)/i.test(body),
+  ) ||
+  !/@media\s*\(\s*max-width\s*:\s*768px\s*\)\s*\{[\s\S]{0,2400}?\.panel--home\s+\.header-subheadline\s*\{[^}]*max-width\s*:\s*min\(84vw,\s*28ch\)/is.test(
+    home,
+  ) ||
+  !/@media\s*\(\s*max-width\s*:\s*480px\s*\)\s*\{[\s\S]{0,1600}?\.panel--home\s+\.header-subheadline\s*\{[^}]*max-width\s*:\s*26ch/is.test(
+    home,
   )
 ) {
-  failures.push("Homepage subheadline must retain its readable light contrast surface.");
+  failures.push("Homepage subheadline must keep the old 42ch, 28ch, and 26ch responsive measures.");
+}
+if (
+  !homeSubheadlineRules.some(({ body }) => /color\s*:\s*var\(--cobalt\)/i.test(body)) ||
+  homeSubheadlineRules.some(({ body }) => hasHeroBackingSurface(body))
+) {
+  failures.push("Homepage subheadline must remain cobalt on the photograph without a backing surface.");
 }
 const homeInfoPillarRules = homeRules.filter(({ selector }) =>
   /(?:^|,)\s*\.panel--home\s+\.info-pillar\s*(?:,|$)/i.test(selector),
 );
-if (
-  !homeInfoPillarRules.some(
-    ({ body }) =>
-      /color\s*:\s*var\(--color-ink\)/i.test(body) &&
-      /background\s*:\s*var\(--color-white-a88\)/i.test(body) &&
-      /text-shadow\s*:\s*none/i.test(body),
-  )
-) {
-  failures.push("Homepage information pillars must retain readable light contrast surfaces.");
+if (homeInfoPillarRules.some(({ body }) => hasHeroBackingSurface(body))) {
+  failures.push("Homepage information pillars must remain transparent without cards, borders, blur, or shadows.");
+}
+for (const content of [
+  "Now booking: Next 2-4 weeks",
+  "Fast turnaround options (7-14 days)",
+  "2727 Saint-Patrick St.",
+  "Cafes · Salons · Clinics · Boutiques · Offices",
+  "Layout + finishes + 3D visuals to decide fast",
+]) {
+  if (!homeSection.includes(content)) failures.push(`Homepage old-hero metadata is missing: ${content}`);
 }
 if (
   !/\.selected-header\s*\{[^}]*grid-template-columns\s*:\s*minmax\(0,\s*1fr\)/is.test(

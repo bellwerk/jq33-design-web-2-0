@@ -96,77 +96,325 @@
   ]
 }
     </script>
-    <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/inter/inter-latin-400-900.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="/tokens.css" />
     <link rel="stylesheet" href="/assets/css/site.css?v=20260729-concepts" />
     <style>
-      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
+      /* Hallmark · genre: editorial · macrostructure: Portfolio Grid · user override: mandatory circular marquee overlap */
+      /* Hallmark · studied-DNA · source: user-supplied Group 2.png · studied: yes · DNA-source: image · hero: H6/E8 generated illustrative photography · feature: F6 3+2 portfolio grid · nav: N6 transparent reference masthead · footer: Ft4 compact shared colophon */
+      /* Hallmark · JQ33 override: charcoal shared grain / var(--color-cobalt) / Permanent Marker display / Inter microtype */
+      /* Hallmark · variation knobs: H6 circle + lower-left overlay · F6 ratio=4/5,density=3+2,micro-action=View · N6 issue=none,wordmark=logo,rule=none · Ft4 family=sans,layout=log-style,includes=studio contacts */
+      /* Hallmark · motion: one image/title settle + underline/arrow feedback; no image zoom */
+      /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 */
+      /* Hallmark · contrast: pass · slop: pass · honest: pass · chrome: pass · tokens: pass · responsive: pass · icons: pass · mobile: pass */
+      html {
+        max-width: 100%;
+        overflow-x: clip;
+        scroll-padding-top: var(--space-16);
+      }
+
       .concept-index {
+        --concept-gutter: clamp(var(--space-md), 1.6vw, var(--space-6-4));
+        position: relative;
+        isolation: isolate;
         min-height: 100svh;
-        background: var(--color-deep-charcoal);
+        max-width: 100%;
+        overflow-x: clip;
+        background: var(--bg-2);
+        color: var(--color-warm-paper);
+        font-family: var(--font-hero);
+      }
+
+      .concept-index::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: var(--color-deep-charcoal-a22);
+      }
+
+      .concept-index > .grain {
+        opacity: 0.94;
+      }
+
+      .concept-index .skip-link {
+        font-family: var(--font-hero);
+      }
+
+      .concept-index > .header-nav {
+        position: absolute;
+        inset: 0 0 auto;
+        z-index: 40;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        min-height: 0;
+        padding: clamp(var(--space-lg), 2.35vw, var(--space-10)) var(--concept-gutter) 0;
+        border: 0;
+        background: transparent;
+      }
+
+      .concept-index > .header-nav::after {
+        content: "Index [05]";
+        grid-column: 3;
+        grid-row: 1;
+        align-self: start;
+        justify-self: end;
+        padding-top: var(--space-sm);
+        color: var(--color-cobalt-bright);
+        font-family: var(--font-hero);
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        line-height: 1;
+        text-transform: uppercase;
+      }
+
+      .concept-index > .header-nav .nav-item {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+        justify-self: start;
+        min-height: 44px;
+        flex-direction: row;
+        align-items: flex-start;
+      }
+
+      .concept-index > .header-nav .nav-logo {
+        width: clamp(4.5rem, 6vw, 5.5rem);
+        margin: 0;
+      }
+
+      .concept-index > .header-nav .nav-item .label {
+        display: none;
+      }
+
+      .concept-index > .header-nav .nav-link {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        color: var(--color-cobalt-bright);
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .concept-index > .header-nav nav {
+        grid-column: 2;
+        grid-row: 1;
+        align-self: start;
+        justify-self: center;
+      }
+
+      .concept-index > .header-nav .nav-group {
+        align-items: center;
+        margin: 0;
+        gap: clamp(var(--space-lg), 3vw, var(--space-10));
+      }
+
+      .concept-index > .header-nav .nav-link::after {
+        background: var(--color-cobalt-soft);
+      }
+
+      .concept-index > .header-nav .nav-toggle {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+        display: none;
+        color: var(--color-cobalt-bright);
+      }
+
+      .concept-index .nav-drawer {
+        max-width: 100vw;
+        box-sizing: border-box;
       }
 
       .concept-index__main {
         position: relative;
         z-index: 15;
-        width: min(1200px, calc(100% - 2rem));
-        margin: 0 auto;
-        padding: clamp(var(--space-34), 15vw, var(--space-48)) 0 var(--space-20);
+        width: 100%;
+        margin: 0;
+        padding: 0;
       }
 
       .concept-index__intro {
         display: grid;
         grid-template-columns: minmax(0, 1fr);
-        gap: var(--space-5);
-        align-items: start;
-        padding-bottom: clamp(var(--space-2xl), 8vw, var(--space-24));
+        gap: 0;
+        box-sizing: border-box;
+        width: 100%;
+        min-width: 0;
+        margin: 0 auto;
+        padding: 0 var(--concept-gutter);
+      }
+
+      .concept-index__hero-stage {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: stretch;
+        min-height: clamp(40rem, 54vw, 50rem);
+      }
+
+      .concept-index__hero-visual {
+        position: relative;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+        justify-self: center;
+        width: min(46vw, 45rem);
+        aspect-ratio: 1;
+        margin: clamp(var(--space-20), 7.2vw, var(--space-28)) 0 0;
+        overflow: clip;
+        border: 0;
+        border-radius: 50%;
+        background: var(--color-cobalt);
+        isolation: isolate;
+        animation: concept-index-image-fade 320ms var(--ease-out) both;
+      }
+
+      .concept-index__hero-image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 52%;
+        filter: grayscale(1) contrast(1.22);
+        mix-blend-mode: multiply;
+      }
+
+      .concept-index__title {
+        position: relative;
+        z-index: 2;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: end;
+        justify-self: start;
+        max-width: none;
+        margin: 0;
+        padding-bottom: clamp(var(--space-xl), 3.2vw, var(--space-13));
+        color: var(--color-cobalt);
+        font-family: var(--font-display) !important;
+        font-size: clamp(5rem, 11.8vw, 11rem);
+        font-weight: 400;
+        line-height: 0.82;
+        letter-spacing: -0.045em;
+        overflow-wrap: normal;
+        animation: concept-index-settle 220ms 40ms var(--ease-out) both;
+      }
+
+      .concept-index__title-line {
+        display: block;
+        width: max-content;
+        max-width: 100%;
+        white-space: nowrap;
+      }
+
+      .concept-index__title-line:last-child {
+        margin-left: 0;
+      }
+
+      @keyframes concept-index-image-fade {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes concept-index-settle {
+        from {
+          opacity: 0;
+          transform: translateY(var(--space-md));
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .concept-index__intro-meta {
+        display: none;
       }
 
       .concept-index__eyebrow,
       .project-card__type,
+      .project-card__code,
+      .project-card__status,
       .project-disclosure {
         display: block;
-        color: var(--color-cobalt-soft);
-        font-size: 0.72rem;
+        color: var(--color-cobalt-bright);
+        font-size: 0.58rem;
         font-weight: 700;
-        letter-spacing: 0.1em;
-        line-height: 1.45;
+        letter-spacing: 0.08em;
+        line-height: 1.35;
         text-transform: uppercase;
-      }
-
-      .concept-index__title {
-        max-width: 10ch;
-        margin: var(--space-sm) 0 0;
-        color: var(--color-warm-paper);
       }
 
       .concept-index__copy {
         max-width: 52ch;
         margin: 0;
         color: var(--color-warm-paper-a72);
+        font-size: clamp(1rem, 1.8vw, 1.25rem);
+        line-height: 1.55;
+      }
+
+      .concept-index__intro-meta .project-disclosure {
+        max-width: 62ch;
+        margin: 0;
+        color: var(--color-warm-paper-a62);
+      }
+
+      .concept-index__boundary {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-sm);
+        width: calc(100% - (var(--concept-gutter) * 2));
+        margin: 0 auto;
+        padding: var(--space-sm) 0 var(--space-xs);
+        border-bottom: 1px solid var(--color-cobalt-a45);
+        color: var(--color-cobalt-bright);
+        font-size: 0.56rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        line-height: 1.4;
+        text-transform: uppercase;
+      }
+
+      .concept-index__boundary span:last-child {
+        text-align: right;
       }
 
       .project-list {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: clamp(var(--space-md), 2.5vw, var(--space-xl));
+        grid-template-columns: minmax(0, 1fr);
+        gap: clamp(var(--space-20), 6.5vw, var(--space-28)) clamp(var(--space-sm), 1.1vw, var(--space-lg));
+        width: calc(100% - (var(--concept-gutter) * 2));
+        margin: 0 auto;
+        padding: var(--space-lg) 0 clamp(var(--space-20), 6vw, var(--space-24));
       }
 
-      .project-card {
+      .concept-index .project-card {
+        position: relative;
         min-width: 0;
-        overflow: clip;
-        border: 1px solid var(--color-cobalt-soft-a28);
-        border-radius: 20px;
-        background: var(--color-charcoal);
-      }
-
-      .project-card:first-child {
-        grid-column: 1 / -1;
+        overflow: visible;
+        border: 0;
+        border-radius: 0 !important;
+        background: transparent;
+        isolation: isolate;
       }
 
       .project-item {
+        position: relative;
         display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-sm);
+        align-content: start;
         height: 100%;
         color: var(--color-warm-paper);
         text-decoration: none;
@@ -176,69 +424,571 @@
         display: block;
         width: 100%;
         height: auto;
-        aspect-ratio: 1200 / 630;
+        aspect-ratio: 4 / 5;
         object-fit: cover;
-        background: var(--color-warm-paper);
+        background: var(--color-deep-surface);
+        border-radius: 0 !important;
+        filter: grayscale(1) contrast(1.12) brightness(0.94);
       }
 
       .project-card__content {
         display: grid;
-        gap: var(--space-3-6);
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-sm);
         align-content: start;
-        padding: clamp(var(--space-5), 3vw, var(--space-xl));
+        min-width: 0;
+        padding: 0;
+      }
+
+      .project-card__heading {
+        display: flex;
+        gap: var(--space-md);
+        align-items: start;
+        justify-content: space-between;
+        min-width: 0;
       }
 
       .project-title {
+        min-width: 0;
+        margin: 0;
+        color: var(--color-cobalt-bright);
+        font-family: var(--font-display) !important;
+        font-size: clamp(1.1rem, 1.55vw, 1.35rem);
+        font-weight: 400;
+        line-height: 1.05;
+        letter-spacing: -0.025em;
+        overflow-wrap: break-word;
+      }
+
+      .project-card__code {
+        flex: 0 0 auto;
+        padding-top: var(--space-1);
+        color: var(--color-cobalt-bright);
+      }
+
+      .project-card__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-1);
+      }
+
+      .project-card__tag {
+        display: inline-flex;
+        min-height: 24px;
+        align-items: center;
+        padding: var(--space-1) var(--space-xs);
+        border: 1px solid var(--color-cobalt-a45);
+        border-radius: var(--radius-control);
+        color: var(--color-cobalt-bright);
+        font-size: 0.55rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .project-card__tag:first-child {
+        border-color: var(--color-cobalt);
+        background: var(--color-cobalt);
         color: var(--color-warm-paper);
-        font-size: clamp(1.8rem, 4vw, 3.5rem);
-        line-height: 1;
       }
 
       .project-card__focus {
-        max-width: 58ch;
-        color: var(--color-warm-paper-a72);
-        line-height: 1.6;
+        display: none;
       }
 
-      .project-disclosure {
-        color: var(--color-warm-paper-a62);
+      .project-card__separator {
+        height: 1px;
+        border: 0;
+        margin: var(--space-xs) 0 0;
+        background: var(--color-cobalt-a45);
+      }
+
+      .project-card__footer {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 44px;
+        gap: var(--space-md);
+        align-items: end;
+      }
+
+      .project-card__status {
+        margin-bottom: var(--space-1);
+      }
+
+      .concept-index .project-disclosure {
+        margin: 0;
+        color: var(--color-warm-paper-a62) !important;
+        font-size: 0.56rem !important;
+        letter-spacing: 0.06em;
+      }
+
+      .project-card__arrow {
+        display: inline-flex;
+        width: 44px;
+        min-height: 44px;
+        align-items: center;
+        justify-content: flex-end;
+        border: 0;
+        border-radius: 0;
+        color: var(--color-cobalt-bright);
+        font-size: 0.9rem;
+        transition: transform var(--dur-sm) var(--ease-out);
       }
 
       .project-item:focus-visible {
         outline: 3px solid var(--color-cobalt-soft);
-        outline-offset: -6px;
-        border-radius: 20px;
+        outline-offset: 4px;
+        border-radius: 0;
       }
 
       @media (hover: hover) and (pointer: fine) {
-        .project-card__image {
-          transition: transform var(--dur-lg) var(--ease-standard);
+        .project-item:hover .project-card__arrow {
+          transform: translate(var(--space-1), calc(var(--space-1) * -1));
         }
 
-        .project-item:hover .project-card__image {
-          transform: scale(1.015);
+        .concept-index__cta-link:hover {
+          background: var(--bg-2);
+          color: var(--color-cobalt-bright);
         }
       }
 
-      @media (max-width: 760px) {
-        .concept-index__main {
-          width: min(100% - 2rem, 40rem);
-          padding-top: var(--space-30);
+      .project-item:focus-visible .project-card__arrow {
+        transform: translate(var(--space-1), calc(var(--space-1) * -1));
+      }
+
+      .project-item:active .project-card__arrow {
+        transform: none;
+      }
+
+      .concept-index__cta {
+        min-height: 18rem;
+        background: var(--color-cobalt);
+        color: var(--color-warm-paper);
+      }
+
+      .concept-index__cta-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xl);
+        width: calc(100% - (var(--concept-gutter) * 2));
+        min-height: 18rem;
+        margin: 0 auto;
+        padding: clamp(var(--space-10), 3.6vw, var(--space-14)) 0;
+        box-sizing: border-box;
+      }
+
+      .concept-index__cta-title {
+        max-width: 14ch;
+        margin: 0;
+        color: var(--color-warm-paper);
+        font-family: var(--font-display) !important;
+        font-size: clamp(3.75rem, 6.4vw, 6.75rem);
+        font-weight: 400;
+        line-height: 0.86;
+        letter-spacing: -0.04em;
+        overflow-wrap: normal;
+      }
+
+      .concept-index__cta-copy {
+        max-width: none;
+        margin: 0;
+        padding-bottom: var(--space-xs);
+        border-bottom: 1px solid var(--color-warm-paper-a62);
+        color: var(--color-warm-paper);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+
+      .concept-index__cta-support {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: var(--space-xl);
+        align-content: stretch;
+      }
+
+      .concept-index__cta-actions {
+        display: grid;
+        gap: var(--space-xs);
+        align-self: end;
+        justify-items: end;
+      }
+
+      .concept-index__cta-count,
+      .concept-index__cta-link {
+        display: inline-flex;
+        width: min(100%, 14rem);
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-xs) var(--space-lg);
+        border: 1px solid var(--color-warm-paper);
+        border-radius: var(--radius-control);
+        box-sizing: border-box;
+        font-size: 0.7rem;
+        font-weight: 800;
+      }
+
+      .concept-index__cta-link {
+        background: var(--color-warm-paper);
+        color: var(--color-cobalt-deep);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .concept-index__cta-count {
+        color: var(--color-warm-paper);
+      }
+
+      .concept-index__cta-link:active {
+        background: var(--bg-2);
+        color: var(--color-cobalt-bright);
+      }
+
+      .concept-index__cta-link:focus-visible {
+        outline: 3px solid var(--bg-2);
+        outline-offset: 4px;
+      }
+
+      .concept-index__methodology {
+        width: calc(100% - (var(--concept-gutter) * 2));
+        margin: 0 auto;
+        padding: clamp(var(--space-32-5), 12vw, var(--space-48)) 0 clamp(var(--space-28), 9vw, var(--space-40));
+      }
+
+      .concept-index__methodology-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-md);
+        align-items: end;
+        margin-bottom: var(--space-lg);
+        padding-bottom: var(--space-xs);
+        border-bottom: 1px solid var(--color-cobalt-a45);
+      }
+
+      .concept-index__methodology-title {
+        max-width: none;
+        margin: 0;
+        color: var(--color-cobalt-bright);
+        font-family: var(--font-display) !important;
+        font-size: clamp(1rem, 1.4vw, 1.3rem);
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .concept-index__methodology-meta {
+        color: var(--color-cobalt-bright);
+        font-size: 0.56rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .concept-index__methodology-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-2xl) clamp(var(--space-md), 3vw, var(--space-2xl));
+      }
+
+      .concept-index__methodology-card {
+        min-width: 0;
+        min-height: 11rem;
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .concept-index__methodology-index {
+        display: block;
+        margin-bottom: var(--space-lg);
+        color: var(--color-warm-paper-a62);
+        font-size: 0.55rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .concept-index__methodology-card h3 {
+        margin: 0 0 var(--space-sm);
+        color: var(--color-cobalt-bright);
+        font-family: var(--font-display) !important;
+        font-size: clamp(1.05rem, 1.45vw, 1.28rem);
+        font-weight: 400;
+        line-height: 1.1;
+      }
+
+      .concept-index__methodology-card p {
+        max-width: 45ch;
+        margin: 0;
+        padding-bottom: var(--space-lg);
+        border-bottom: 1px solid var(--color-warm-paper-a62);
+        color: var(--color-warm-paper-a72);
+        font-size: 0.76rem;
+        line-height: 1.4;
+      }
+
+      .concept-index .site-footer {
+        width: calc(100% - (var(--concept-gutter) * 2));
+        min-height: 11rem;
+        margin: 0 auto;
+        padding: var(--space-2xl) 0 var(--space-lg);
+        border-top: 1px solid var(--color-cobalt-a45);
+        grid-template-columns: minmax(7rem, 0.34fr) minmax(11rem, 0.46fr) minmax(0, 1.2fr);
+        grid-template-rows: auto;
+        gap: var(--space-md) var(--space-xl);
+        color: var(--color-warm-paper);
+      }
+
+      .concept-index .site-footer::before {
+        content: "";
+        grid-column: 1;
+        grid-row: 1;
+        display: block;
+        align-self: end;
+        width: clamp(4.75rem, 6vw, 5.75rem);
+        aspect-ratio: 1;
+        background: url("/assets/logo/logo%20purple%20svg.svg") center / contain no-repeat;
+      }
+
+      .concept-index .site-footer .info-pillar,
+      .concept-index .site-footer .info-pillar.pillar-right {
+        padding: 0;
+        border: 0;
+        border-radius: 0 !important;
+        background: transparent;
+        color: var(--color-warm-paper);
+        gap: var(--space-sm);
+      }
+
+      .concept-index .site-footer .pillar-left {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .concept-index .site-footer .pillar-right {
+        grid-column: 3;
+        grid-row: 1;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-sm) var(--space-lg);
+      }
+
+      .concept-index .site-footer .pillar-right > .content-block:last-child {
+        grid-column: 3;
+      }
+
+      .concept-index .site-footer .footer-hq {
+        margin-right: 0;
+      }
+
+      .concept-index .site-footer .label {
+        padding: 0;
+        background: transparent;
+        color: var(--color-cobalt-bright);
+        font-size: 0.55rem;
+        letter-spacing: 0.06em;
+      }
+
+      .concept-index .site-footer .heavy-text {
+        color: var(--color-warm-paper-a72);
+        font-size: 0.7rem;
+        line-height: 1.35;
+      }
+
+      .concept-index .site-footer .footer-nav a,
+      .concept-index .site-footer .footer-legal a {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        padding: var(--space-xs) var(--space-sm);
+        border: 0;
+        border-radius: 0;
+        color: var(--color-cobalt-bright);
+        font-size: 0.6rem;
+      }
+
+      .concept-index .site-footer .social-links a {
+        width: 44px;
+        min-height: 44px;
+        flex-basis: 44px;
+        border: 1px solid var(--color-cobalt-a45);
+        border-radius: var(--radius-control);
+        background: transparent;
+        color: var(--color-cobalt-bright);
+      }
+
+      .concept-index .site-footer .footer-legal {
+        align-items: center;
+        color: var(--color-warm-paper-a62);
+        font-size: 0.56rem;
+      }
+
+      @media (min-width: 40rem) {
+        .project-list {
+          grid-template-columns: repeat(2,minmax(0,1fr));
         }
 
-        .concept-index__intro,
+        .concept-index .project-card:last-child:nth-child(odd) {
+          grid-column: 1 / -1;
+          width: calc(50% - (var(--space-sm) / 2));
+          justify-self: center;
+        }
+
+      }
+
+      @media (min-width: 80rem) {
         .project-list {
+          grid-template-columns: repeat(6,minmax(0,1fr));
+        }
+
+        .concept-index .project-card {
+          grid-column: span 2;
+        }
+
+        .concept-index .project-card:nth-child(n + 4) {
+          grid-column: span 3;
+          width: auto;
+        }
+
+        .concept-index .project-card:last-child:nth-child(odd) {
+          grid-column: span 3;
+          width: auto;
+          justify-self: stretch;
+        }
+      }
+
+      @media (min-width: 40rem) {
+        .concept-index__methodology-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 60rem) {
+        .concept-index__cta-inner {
+          grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+          align-items: end;
+        }
+
+        .concept-index__methodology-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 48rem) {
+        .concept-index > .header-nav {
+          grid-template-columns: minmax(0, 1fr) auto;
+          min-height: 0;
+          padding-top: var(--space-md);
+        }
+
+        .concept-index > .header-nav::after {
+          display: none;
+        }
+
+        .concept-index > .header-nav nav {
+          display: none;
+        }
+
+        .concept-index > .header-nav .nav-toggle {
+          grid-column: 2;
+          display: inline-grid;
+          align-self: start;
+          min-width: 44px;
+          min-height: 44px;
+        }
+
+        .concept-index > .header-nav .nav-logo {
+          width: clamp(3.75rem, 15vw, 4.75rem);
+        }
+
+        .concept-index__hero-stage {
+          min-height: clamp(25rem, 124vw, 43rem);
+        }
+
+        .concept-index__hero-visual {
+          width: min(88vw, 34rem);
+          margin-top: clamp(var(--space-20), 17vw, var(--space-28));
+        }
+
+        .concept-index__title {
+          max-width: none;
+          padding-bottom: clamp(var(--space-md), 4vw, var(--space-xl));
+          font-size: clamp(3.35rem, 16.8vw, 8rem);
+          line-height: 0.84;
+          letter-spacing: -0.04em;
+        }
+
+        .concept-index__cta,
+        .concept-index__cta-inner {
+          min-height: auto;
+        }
+
+        .concept-index__cta-title {
+          font-size: clamp(3.1rem, 14.5vw, 5.5rem);
+        }
+
+        .concept-index__cta-actions {
+          justify-items: stretch;
+        }
+
+        .concept-index__cta-count,
+        .concept-index__cta-link {
+          width: 100%;
+        }
+
+        .concept-index__methodology-header {
           grid-template-columns: minmax(0, 1fr);
         }
 
-        .project-card:first-child {
-          grid-column: auto;
+        .concept-index__methodology-meta {
+          display: none;
+        }
+
+        .concept-index .site-footer {
+          grid-template-columns: minmax(0, 1fr);
+          grid-template-rows: auto;
+        }
+
+        .concept-index .site-footer::before,
+        .concept-index .site-footer .pillar-left,
+        .concept-index .site-footer .pillar-right {
+          grid-column: 1;
+          grid-row: auto;
+        }
+
+        .concept-index .site-footer .pillar-right {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .concept-index .site-footer .pillar-right > .content-block:last-child {
+          grid-column: 1;
+        }
+      }
+
+      @media (max-width: 30rem) {
+        .concept-index__boundary {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .concept-index__boundary span:last-child {
+          text-align: left;
+        }
+
+        .project-list {
+          row-gap: var(--space-20);
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .project-card__image {
+        .concept-index__hero-visual,
+        .concept-index__title,
+        .concept-index .project-card__arrow,
+        .concept-index > .header-nav .nav-link::after {
+          animation: none;
           transition: none;
+          transform: none !important;
         }
       }
     </style>
@@ -246,16 +996,29 @@
   <body class="site-default-bg concept-index">
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="header-nav" data-component="header-nav"></header>
+    <div class="grain" aria-hidden="true"></div>
 
     <main class="concept-index__main" id="main-content">
       <section class="concept-index__intro" aria-labelledby="concept-index-title">
-        <div>
-          <span class="concept-index__eyebrow">Self-initiated spatial research</span>
+        <div class="concept-index__hero-stage">
+          <figure class="concept-index__hero-visual">
+            <img
+              class="concept-index__hero-image"
+              src="/assets/projects/bruton-place-iv/index-study-20260823.webp"
+              alt="AI-generated illustrative office visualization for the self-initiated Bruton Place IV study; not completed client work."
+              width="1120"
+              height="1400"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </figure>
           <h1 class="concept-index__title" id="concept-index-title">
-            Concept studies
+            <span class="concept-index__title-line">Concept</span>
+            <span class="concept-index__title-line">studies<span aria-hidden="true">_</span></span>
           </h1>
         </div>
-        <div>
+        <div class="concept-index__intro-meta">
           <p class="concept-index__copy">
             Five speculative commercial interior studies used to investigate
             circulation, program, atmosphere, and material direction. None is
@@ -267,110 +1030,235 @@
         </div>
       </section>
 
+      <div class="concept-index__boundary">
+        <span>Selected studies · AI-generated illustrative visualizations · no completed client work</span>
+        <span>Index 01—05</span>
+      </div>
+
       <section class="project-list" aria-label="Self-initiated concept studies">
 
         <article class="project-card">
-          <a class="project-item" href="/projects/bruton-place-iv/" aria-label="Bruton Place IV. Self-initiated concept study; illustrative visual; not completed client work.">
+          <a class="project-item" href="/projects/bruton-place-iv/" aria-label="Bruton Place IV. AI-generated illustrative concept visualization. Self-initiated concept study; illustrative visual; not completed client work.">
             <img
               class="project-card__image"
-              src="/assets/projects/bruton-place-iv/concept-board.svg"
-              alt="Illustrative office concept board for the self-initiated Bruton Place IV study, showing a linear plan and material zones."
-              width="1200"
-              height="630"
+              src="/assets/projects/bruton-place-iv/index-study-20260823.webp"
+              alt="AI-generated illustrative office visualization for the self-initiated Bruton Place IV study; not completed client work."
+              width="1120"
+              height="1400"
               loading="lazy"
               decoding="async"
             />
-            <span class="project-card__content">
-              <span class="project-card__type">Office · Self-initiated concept study</span>
-              <span class="project-title">Bruton Place IV</span>
-              <span class="project-card__focus">A compact reception and work floor organized around a clear arrival axis, focused work settings, and shared project space.</span>
-              <span class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</span>
-            </span>
+            <div class="project-card__content">
+              <div class="project-card__heading">
+                <h2 class="project-title">Bruton Place IV</h2>
+                <span class="project-card__code">P-01</span>
+              </div>
+              <div class="project-card__tags">
+                <span class="project-card__tag project-card__type">Office</span>
+                <span class="project-card__tag">AI visualization</span>
+              </div>
+              <p class="project-card__focus">A compact reception and work floor organized around a clear arrival axis, focused work settings, and shared project space.</p>
+              <hr class="project-card__separator" aria-hidden="true" />
+              <div class="project-card__footer">
+                <div>
+                  <span class="project-card__status">Self-initiated study</span>
+                  <p class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</p>
+                </div>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
           </a>
         </article>
         <article class="project-card">
-          <a class="project-item" href="/projects/ethereal-gallery/" aria-label="Ethereal Gallery. Self-initiated concept study; illustrative visual; not completed client work.">
+          <a class="project-item" href="/projects/ethereal-gallery/" aria-label="Ethereal Gallery. AI-generated illustrative concept visualization. Self-initiated concept study; illustrative visual; not completed client work.">
             <img
               class="project-card__image"
-              src="/assets/projects/ethereal-gallery/concept-board.svg"
-              alt="Illustrative retail concept board for the self-initiated Ethereal Gallery study, showing plinths and a looping route."
-              width="1200"
-              height="630"
+              src="/assets/projects/ethereal-gallery/index-study-20260823.webp"
+              alt="AI-generated illustrative retail visualization for the self-initiated Ethereal Gallery study; not completed client work."
+              width="1120"
+              height="1400"
               loading="lazy"
               decoding="async"
             />
-            <span class="project-card__content">
-              <span class="project-card__type">Retail · Self-initiated concept study</span>
-              <span class="project-title">Ethereal Gallery</span>
-              <span class="project-card__focus">A quiet retail gallery that tests flexible display planes, measured pauses, and a legible path through a changing product edit.</span>
-              <span class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</span>
-            </span>
+            <div class="project-card__content">
+              <div class="project-card__heading">
+                <h2 class="project-title">Ethereal Gallery</h2>
+                <span class="project-card__code">P-02</span>
+              </div>
+              <div class="project-card__tags">
+                <span class="project-card__tag project-card__type">Retail</span>
+                <span class="project-card__tag">AI visualization</span>
+              </div>
+              <p class="project-card__focus">A quiet retail gallery that tests flexible display planes, measured pauses, and a legible path through a changing product edit.</p>
+              <hr class="project-card__separator" aria-hidden="true" />
+              <div class="project-card__footer">
+                <div>
+                  <span class="project-card__status">Self-initiated study</span>
+                  <p class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</p>
+                </div>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
           </a>
         </article>
         <article class="project-card">
-          <a class="project-item" href="/projects/obsidian-lounge/" aria-label="Obsidian Lounge. Self-initiated concept study; illustrative visual; not completed client work.">
+          <a class="project-item" href="/projects/obsidian-lounge/" aria-label="Obsidian Lounge. AI-generated illustrative concept visualization. Self-initiated concept study; illustrative visual; not completed client work.">
             <img
               class="project-card__image"
-              src="/assets/projects/obsidian-lounge/concept-board.svg"
-              alt="Illustrative lounge concept board for the self-initiated Obsidian Lounge study, showing an oval bar and seating islands."
-              width="1200"
-              height="630"
+              src="/assets/projects/obsidian-lounge/index-study-20260823.webp"
+              alt="AI-generated illustrative lounge visualization for the self-initiated Obsidian Lounge study; not completed client work."
+              width="1120"
+              height="1400"
               loading="lazy"
               decoding="async"
             />
-            <span class="project-card__content">
-              <span class="project-card__type">Lounge · Self-initiated concept study</span>
-              <span class="project-title">Obsidian Lounge</span>
-              <span class="project-card__focus">An intimate hospitality lounge testing low-light orientation, varied seating clusters, and a central service element.</span>
-              <span class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</span>
-            </span>
+            <div class="project-card__content">
+              <div class="project-card__heading">
+                <h2 class="project-title">Obsidian Lounge</h2>
+                <span class="project-card__code">P-03</span>
+              </div>
+              <div class="project-card__tags">
+                <span class="project-card__tag project-card__type">Lounge</span>
+                <span class="project-card__tag">AI visualization</span>
+              </div>
+              <p class="project-card__focus">An intimate hospitality lounge testing low-light orientation, varied seating clusters, and a central service element.</p>
+              <hr class="project-card__separator" aria-hidden="true" />
+              <div class="project-card__footer">
+                <div>
+                  <span class="project-card__status">Self-initiated study</span>
+                  <p class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</p>
+                </div>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
           </a>
         </article>
         <article class="project-card">
-          <a class="project-item" href="/projects/vortex-showroom/" aria-label="Vortex Showroom. Self-initiated concept study; illustrative visual; not completed client work.">
+          <a class="project-item" href="/projects/vortex-showroom/" aria-label="Vortex Showroom. AI-generated illustrative concept visualization. Self-initiated concept study; illustrative visual; not completed client work.">
             <img
               class="project-card__image"
-              src="/assets/projects/vortex-showroom/concept-board.svg"
-              alt="Illustrative showroom concept board for the self-initiated Vortex Showroom study, showing a radial demo loop."
-              width="1200"
-              height="630"
+              src="/assets/projects/vortex-showroom/index-study-20260823.webp"
+              alt="AI-generated illustrative showroom visualization for the self-initiated Vortex Showroom study; not completed client work."
+              width="1120"
+              height="1400"
               loading="lazy"
               decoding="async"
             />
-            <span class="project-card__content">
-              <span class="project-card__type">Showroom · Self-initiated concept study</span>
-              <span class="project-title">Vortex Showroom</span>
-              <span class="project-card__focus">A product showroom organized as a paced demonstration loop with a strong arrival marker and adaptable perimeter bays.</span>
-              <span class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</span>
-            </span>
+            <div class="project-card__content">
+              <div class="project-card__heading">
+                <h2 class="project-title">Vortex Showroom</h2>
+                <span class="project-card__code">P-04</span>
+              </div>
+              <div class="project-card__tags">
+                <span class="project-card__tag project-card__type">Showroom</span>
+                <span class="project-card__tag">AI visualization</span>
+              </div>
+              <p class="project-card__focus">A product showroom organized as a paced demonstration loop with a strong arrival marker and adaptable perimeter bays.</p>
+              <hr class="project-card__separator" aria-hidden="true" />
+              <div class="project-card__footer">
+                <div>
+                  <span class="project-card__status">Self-initiated study</span>
+                  <p class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</p>
+                </div>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
           </a>
         </article>
         <article class="project-card">
-          <a class="project-item" href="/projects/canvas-studios/" aria-label="Canvas Studios. Self-initiated concept study; illustrative visual; not completed client work.">
+          <a class="project-item" href="/projects/canvas-studios/" aria-label="Canvas Studios. AI-generated illustrative concept visualization. Self-initiated concept study; illustrative visual; not completed client work.">
             <img
               class="project-card__image"
-              src="/assets/projects/canvas-studios/concept-board.svg"
-              alt="Illustrative salon concept board for the self-initiated Canvas Studios study, showing mirror stations and a service spine."
-              width="1200"
-              height="630"
+              src="/assets/projects/canvas-studios/index-study-20260823.webp"
+              alt="AI-generated illustrative salon visualization for the self-initiated Canvas Studios study; not completed client work."
+              width="1120"
+              height="1400"
               loading="lazy"
               decoding="async"
             />
-            <span class="project-card__content">
-              <span class="project-card__type">Salon · Self-initiated concept study</span>
-              <span class="project-title">Canvas Studios</span>
-              <span class="project-card__focus">A salon program that studies station rhythm, shared preparation zones, and a calm progression from arrival to service.</span>
-              <span class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</span>
-            </span>
+            <div class="project-card__content">
+              <div class="project-card__heading">
+                <h2 class="project-title">Canvas Studios</h2>
+                <span class="project-card__code">P-05</span>
+              </div>
+              <div class="project-card__tags">
+                <span class="project-card__tag project-card__type">Salon</span>
+                <span class="project-card__tag">AI visualization</span>
+              </div>
+              <p class="project-card__focus">A salon program that studies station rhythm, shared preparation zones, and a calm progression from arrival to service.</p>
+              <hr class="project-card__separator" aria-hidden="true" />
+              <div class="project-card__footer">
+                <div>
+                  <span class="project-card__status">Self-initiated study</span>
+                  <p class="project-disclosure">Self-initiated concept study; illustrative visual; not completed client work.</p>
+                </div>
+                <span class="project-card__arrow" aria-hidden="true">↗</span>
+              </div>
+            </div>
           </a>
         </article>
+      </section>
+
+      <section class="concept-index__cta" aria-labelledby="concept-index-cta-title">
+        <div class="concept-index__cta-inner">
+          <div>
+            <h2 class="concept-index__cta-title" id="concept-index-cta-title">
+              Commercial<br />space thinking<span aria-hidden="true">_</span>
+            </h2>
+          </div>
+          <div class="concept-index__cta-support">
+            <p class="concept-index__cta-copy">
+              Review your space, business type, goals, timeline, and budget
+              range so the scope is clear.
+            </p>
+            <div class="concept-index__cta-actions">
+              <span class="concept-index__cta-count">05 studies</span>
+              <a class="concept-index__cta-link" href="/inquiry/">Send an inquiry&nbsp;↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="concept-index__methodology" aria-labelledby="concept-index-methodology-title">
+        <header class="concept-index__methodology-header">
+          <h2 class="concept-index__methodology-title" id="concept-index-methodology-title">
+            Technical specifications
+          </h2>
+          <span class="concept-index__methodology-meta">JQ33 methodology index</span>
+        </header>
+        <div class="concept-index__methodology-grid">
+          <article class="concept-index__methodology-card">
+            <span class="concept-index__methodology-index">01 / Layout clarity</span>
+            <h3>Flow-first planning</h3>
+            <p>
+              Customer movement, staff efficiency, and better use of every
+              square foot mapped before a single finish is selected.
+            </p>
+          </article>
+          <article class="concept-index__methodology-card">
+            <span class="concept-index__methodology-index">02 / Finish direction</span>
+            <h3>Durable + premium palette</h3>
+            <p>
+              Materials selected for daily wear, easy maintenance, and a
+              visual identity that reads well in photos.
+            </p>
+          </article>
+          <article class="concept-index__methodology-card">
+            <span class="concept-index__methodology-index">03 / Decision-making visuals</span>
+            <h3>3D views that decide fast</h3>
+            <p>
+              Perspectives that help you approve faster, align contractors,
+              and avoid costly surprises.
+            </p>
+          </article>
+        </div>
       </section>
 
       <footer class="site-footer" data-component="footer"></footer>
     </main>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js?v=20260729-concepts"></script>
+    <script src="/assets/js/components/footer.js?v=20260823-projects-variant"></script>
     <script src="/assets/js/nav-drawer.js"></script>
   </body>
 </html>

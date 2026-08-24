@@ -17,7 +17,6 @@ const testFixtureValues = {
   PUBLIC_FORMSPREE_CONTACT_URL: "https://formspree.io/f/jq33-contact-fixture",
   PUBLIC_FORMSPREE_INQUIRY_URL: "https://formspree.io/f/jq33-inquiry-fixture",
   PUBLIC_CALENDLY_URL: "https://calendly.com/jq33-design/jq33-test-fixture",
-  PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN: "00000000000000000000000000000000",
 };
 
 if (allowTestFixtures) {
@@ -44,7 +43,6 @@ const handAuthoredFiles = [
 const publicScriptFiles = [
   "assets/js/leads.js",
   "assets/js/calendly.js",
-  "assets/js/cloudflare-analytics.js",
   "assets/js/deferred-css.js",
   "assets/js/nav-drawer.js",
   "assets/js/components/header-nav.js",
@@ -192,9 +190,6 @@ const validateIntegrations = () => {
   const contact = parseRequiredUrl("PUBLIC_FORMSPREE_CONTACT_URL");
   const inquiry = parseRequiredUrl("PUBLIC_FORMSPREE_INQUIRY_URL");
   const calendly = parseRequiredUrl("PUBLIC_CALENDLY_URL");
-  const cloudflareAnalyticsToken = String(
-    process.env.PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN || "",
-  ).trim();
 
   const validFormspree = (url) =>
     url.protocol === "https:" &&
@@ -221,21 +216,11 @@ const validateIntegrations = () => {
   if (contact.href === inquiry.href) {
     fail("Contact and Inquiry must use distinct Formspree endpoints.");
   }
-  if (!/^[a-f0-9]{32}$/i.test(cloudflareAnalyticsToken)) {
-    fail(
-      "PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN must be the 32-character public token from the Cloudflare Web Analytics manual snippet.",
-    );
-  }
-  if (!allowTestFixtures && /^0+$/.test(cloudflareAnalyticsToken)) {
-    fail("PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN may not be a test placeholder in a production build.");
-  }
-
   return {
     contact: contact.href,
     inquiry: inquiry.href,
     calendly: calendly.href,
     formActionOrigin: contact.origin,
-    cloudflareAnalyticsToken,
   };
 };
 
@@ -345,19 +330,16 @@ const createProductionFontSubsets = async () => {
   }
 
   const source = fs.readFileSync(publicFontPath);
-  const homeSubset = await subsetFont(source, " JQ3DESIGNesign", {
-    targetFormat: "woff2",
-  });
   fs.writeFileSync(
     path.join(path.dirname(publicFontPath), "permanent-marker-home.woff2"),
-    homeSubset,
+    source,
   );
   const subset = await subsetFont(source, glyphText, {
     targetFormat: "woff2",
   });
   fs.writeFileSync(publicFontPath, subset);
   console.log(
-    `Subset Permanent Marker for production (${source.length} -> ${subset.length} bytes; home mark ${homeSubset.length} bytes).`,
+    `Subset shared Permanent Marker for production (${source.length} -> ${subset.length} bytes; exact homepage copy ${source.length} bytes).`,
   );
 };
 
@@ -395,39 +377,6 @@ const replaceBuildTokens = (integrations, profiles) => {
   }
   if (remainingTokens.length) {
     fail(`Unresolved build tokens remain in: ${remainingTokens.join(", ")}`);
-  }
-};
-
-const injectCloudflareAnalytics = (integrations) => {
-  // Local fixture builds deliberately omit the remote beacon so browser tests
-  // cannot create analytics traffic. The production artifact carries the
-  // dashboard token, but its local loader starts the beacon only on jq33.design
-  // so branch previews remain free of third-party CORS errors.
-  if (allowTestFixtures) return;
-
-  const beacon = `<script defer src="/assets/js/cloudflare-analytics.js" data-beacon-src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${JSON.stringify(
-    { token: integrations.cloudflareAnalyticsToken },
-  )}'></script>`;
-  const htmlFiles = walkFiles(distDir).filter((filePath) => filePath.endsWith(".html"));
-
-  for (const filePath of htmlFiles) {
-    let html = fs.readFileSync(filePath, "utf8");
-    if (/assets\/js\/cloudflare-analytics\.js/i.test(html)) {
-      fail(
-        `Cloudflare Web Analytics is already present before deterministic injection: ${normalizeRelative(
-          path.relative(distDir, filePath),
-        )}`,
-      );
-    }
-    if (!/<\/body>/i.test(html)) {
-      fail(
-        `Cannot inject Cloudflare Web Analytics because </body> is missing: ${normalizeRelative(
-          path.relative(distDir, filePath),
-        )}`,
-      );
-    }
-    html = html.replace(/<\/body>/i, `  ${beacon}\n  </body>`);
-    fs.writeFileSync(filePath, html, "utf8");
   }
 };
 
@@ -803,6 +752,7 @@ try {
   for (const relativePath of handAuthoredFiles) copyFile(relativePath);
   copyFile("assets/css/site.css");
   copyFile("assets/css/critical-shared.css");
+  copyFile("assets/css/home-font.css");
   for (const relativePath of publicScriptFiles) copyFile(relativePath);
   for (const assetTree of publicAssetTrees) copyTree(assetTree);
 
@@ -812,7 +762,6 @@ try {
   run("scripts/generate-sitemap.mjs");
 
   replaceBuildTokens(integrations, profiles);
-  injectCloudflareAnalytics(integrations);
   await createProductionFontSubsets();
   await externalizeInlineAssets();
   pruneUnreferencedAssets();

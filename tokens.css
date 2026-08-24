@@ -46,20 +46,19 @@
 }
 
 @font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/assets/fonts/inter/inter-latin-400-900.woff2") format("woff2");
+}
+
+@font-face {
   font-family: "Permanent Marker";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url("/assets/fonts/permanent-marker/permanent-marker-400.woff2")
-    format("woff2");
-}
-
-@font-face {
-  font-family: "Permanent Marker Home";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("/assets/fonts/permanent-marker/permanent-marker-home.woff2")
     format("woff2");
 }
 
@@ -102,9 +101,10 @@
   --font-heading: "Permanent Marker", "Permanent Marker Metric Fallback",
     "Lato", "Lato Metric Fallback", cursive;
   --font-sans: var(--font-body);
+  --font-hero: "Inter", var(--font-body);
   --font-display: var(--font-heading);
   --font-brand: var(--font-heading);
-  --font-home-mark: "Permanent Marker Home", var(--font-heading);
+  --font-home-mark: var(--font-heading);
 
   --fs-body: 1rem;
   --lh-body: 1.6;

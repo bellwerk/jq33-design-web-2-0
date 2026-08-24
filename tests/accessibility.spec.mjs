@@ -7,10 +7,10 @@ import {
 } from "./helpers/browser.mjs";
 import { notFoundRoute, publicRoutes } from "./helpers/site.mjs";
 
+const axeTags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
+
 async function expectNoBlockingAxeViolations(page, testInfo, attachmentName) {
-  const results = await new AxeBuilder({ page })
-    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
-    .analyze();
+  const results = await new AxeBuilder({ page }).withTags(axeTags).analyze();
   const blocking = results.violations.filter((violation) =>
     ["serious", "critical"].includes(violation.impact),
   );

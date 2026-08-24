@@ -38,7 +38,6 @@ const manifestTargetValue = argumentValue("--write-manifest", "");
 const manifestTarget = manifestTargetValue ? path.resolve(manifestTargetValue) : "";
 const allowTestFixtures = process.argv.includes("--allow-test-fixtures");
 const failures = [];
-const cloudflareBeaconUrl = "https://static.cloudflareinsights.com/beacon.min.js";
 const normalized = (value) => value.split(path.sep).join("/");
 const inlineCriticalStyleDocuments = new Set([
   "index.html",
@@ -71,7 +70,6 @@ const requiredExactFiles = new Set([
 const permittedScripts = new Set([
   "assets/js/leads.js",
   "assets/js/calendly.js",
-  "assets/js/cloudflare-analytics.js",
   "assets/js/deferred-css.js",
   "assets/js/nav-drawer.js",
   "assets/js/components/header-nav.js",
@@ -233,62 +231,16 @@ for (const file of files.filter(textFile)) {
 const htmlFiles = files.filter(
   (file) => path.posix.extname(file.relativePath).toLowerCase() === ".html",
 );
-const analyticsTokens = new Set();
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file.fullPath, "utf8");
-  const beaconTags = [...html.matchAll(/<script\b[^>]*\bsrc\s*=\s*(["'])\/assets\/js\/cloudflare-analytics\.js\1[^>]*><\/script>/gi)];
-
-  if (allowTestFixtures) {
-    if (beaconTags.length) {
-      failures.push(`${file.relativePath} must not emit analytics traffic in a test-fixture build.`);
-    }
-    continue;
-  }
-
-  if (beaconTags.length !== 1) {
-    failures.push(`${file.relativePath} must contain exactly one source-managed Cloudflare Web Analytics loader.`);
-    continue;
-  }
-  const tag = beaconTags[0][0];
-  if (!/\bdefer(?:\s|>|=)/i.test(tag)) {
-    failures.push(`${file.relativePath} Cloudflare Web Analytics loader must be deferred.`);
-  }
-  if (!new RegExp(`\\bdata-beacon-src\\s*=\\s*(["'])${cloudflareBeaconUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\1`, "i").test(tag)) {
-    failures.push(`${file.relativePath} Cloudflare Web Analytics loader lacks the canonical beacon URL.`);
-  }
-  const dataMatch = /\bdata-cf-beacon\s*=\s*(["'])(.*?)\1/i.exec(tag);
-  if (!dataMatch) {
-    failures.push(`${file.relativePath} Cloudflare Web Analytics beacon lacks data-cf-beacon.`);
-    continue;
-  }
-  let config;
-  try {
-    config = JSON.parse(dataMatch[2].replace(/&quot;/g, '"'));
-  } catch (error) {
-    failures.push(`${file.relativePath} has invalid data-cf-beacon JSON: ${error.message}`);
-    continue;
-  }
-  const token = String(config?.token || "");
-  if (!/^[a-f0-9]{32}$/i.test(token) || /^0+$/.test(token)) {
-    failures.push(`${file.relativePath} has a missing or placeholder Cloudflare Web Analytics token.`);
-  } else {
-    analyticsTokens.add(token);
-  }
-}
-if (!allowTestFixtures && analyticsTokens.size !== 1) {
-  failures.push("All public HTML documents and 404 must use the same Cloudflare Web Analytics token.");
-}
-if (!allowTestFixtures) {
-  const loader = fs.readFileSync(
-    path.join(distRoot, "assets/js/cloudflare-analytics.js"),
-    "utf8",
-  );
   if (
-    !/location\.hostname\s*===\s*["']jq33\.design["']/.test(loader) ||
-    !/beacon\.src\s*=\s*loader\.dataset\.beaconSrc/.test(loader) ||
-    !/beacon\.dataset\.cfBeacon\s*=\s*loader\.dataset\.cfBeacon/.test(loader)
+    /\/assets\/js\/cloudflare-analytics\.js/i.test(html) ||
+    /https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js/i.test(html) ||
+    /\bdata-cf-beacon\s*=/i.test(html)
   ) {
-    failures.push("Cloudflare Web Analytics must be host-gated to jq33.design.");
+    failures.push(
+      `${file.relativePath} must not contain source-managed Cloudflare Web Analytics; Cloudflare automatic injection is authoritative.`,
+    );
   }
 }
 
@@ -337,10 +289,7 @@ const checkReference = (reference, file, kind) => {
     if (url.origin === canonicalOrigin) {
       pathname = url.pathname;
     } else {
-      if (
-        ["src", "data-img", "css-url"].includes(kind) &&
-        !/^https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js$/i.test(value)
-      ) {
+      if (["src", "data-img", "css-url"].includes(kind)) {
         failures.push(`${file.relativePath} uses a remote ${kind} resource: ${value}`);
       }
       return;
