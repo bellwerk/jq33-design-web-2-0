@@ -418,11 +418,12 @@ header.header-nav .nav-toggle-bars span {
   font-family: var(--font-sans);
   font-style: normal;
   line-height: 1.2;
-  opacity: 0;
+  opacity: 1;
+  transform: translateX(100%);
   visibility: hidden;
   pointer-events: none;
   transition:
-    opacity var(--dur-lg) var(--ease-out),
+    transform var(--dur-lg) var(--ease-out),
     visibility 0s linear var(--dur-lg);
 }
 
@@ -535,11 +536,18 @@ header.header-nav .nav-toggle-bars span {
   color: var(--color-warm-paper);
 }
 
-body.is-nav-open .nav-overlay,
-body.is-nav-open .nav-drawer {
+body.is-nav-open .nav-overlay {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
+}
+
+body.is-nav-open .nav-drawer {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
 }
 
 .btn,
