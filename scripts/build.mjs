@@ -784,6 +784,9 @@ const writeHeaders = (integrations) => {
     .replaceAll("{{CSP_STYLE_HASHES}}", styleHashes)
     .replaceAll("{{FORM_ACTION_ORIGIN}}", integrations.formActionOrigin)
     .replace("font-src 'self';", "font-src 'self' data:;");
+  if (!/(?:^|;)\s*font-src\s+'self'\s+data:\s*;/i.test(output)) {
+    fail("Generated _headers must allow only self and data: homepage font sources.");
+  }
   if (/{{[^{}\r\n]+}}/.test(output)) {
     fail("_headers contains an unresolved build token.");
   }

@@ -20,6 +20,14 @@
 - **Smallest second correction:** embed the already-generated `permanent-marker-home.woff2` subset as a data URL in the homepage critical CSS and remove only its redundant external preload. This keeps the exact approved glyph bytes and typography while removing the remaining font request; pruning may then omit the unreferenced external subset from `dist/`. Explicitly add `data:` only to `font-src` in the generated CSP and its exact production-health contract; all style execution remains same-origin or hash-authorized.
 - **Required rerun:** rebuild and verify the exact correction with the pinned toolchain, deploy a new immutable native-Git preview, and rerun byte parity, the complete browser suite, and all 42 mobile Lighthouse captures. Preserve this failed set unchanged.
 
+## 2026-08-26 first pinned verification attempt for the embedded-font commit
+
+- **Exact commit:** `dbc0b79ea2de9af160dfc79837c1a8c0ab613b8e` in a detached clean worktree using Node `22.23.2`, pnpm `11.13.0`, a frozen install, and sealed production integration values.
+- **Passing portion:** the strict 111-file build, artifact validation, frontend/static/security/SEO checks, and 308 browser tests passed before the attempt terminated.
+- **Retained failure:** `/journal/reduction-as-creation/` at `414x800` could not begin navigation because Chromium returned `net::ERR_NO_BUFFER_SPACE`. This was an infrastructure transport failure rather than an assertion or candidate-response failure, but the suite is not PASS and must not be waived as a flake.
+- **Review hardening:** independent review found no preview blocker and one non-blocking fail-closed gap: the generated CSP replacement was not asserted locally. Add an exact `font-src 'self' data:` assertion in both the build and distribution checker before the next sealed attempt.
+- **Required rerun:** commit the smallest two-check hardening, create a new detached clean worktree, and rerun the entire pinned strict verifier. Completion requires all 309 browser records to finalize successfully with no retry or unexpected result.
+
 Overall verdict: **UNKNOWN** at exact commit `1523a086618c5dea365477032b6ac73a7a867862`. AC1 and AC5 are PASS; no criterion currently FAILS. The following eight criteria remain UNKNOWN because their required deployed, human, provider, approval, promotion, production, or durability proof cannot be established locally.
 
 ## AC2 — Non-visual performance closure

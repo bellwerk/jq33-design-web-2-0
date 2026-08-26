@@ -504,6 +504,9 @@ for (const directive of [
     failures.push(`_headers CSP is missing ${directive}.`);
   }
 }
+if (!/(?:^|;)\s*font-src\s+'self'\s+data:\s*;/i.test(csp)) {
+  failures.push("_headers font-src must allow exactly self and data: for the embedded homepage font.");
+}
 if (/'unsafe-inline'|'unsafe-eval'/i.test(csp)) {
   failures.push("_headers CSP may not contain unsafe-inline or unsafe-eval.");
 }
