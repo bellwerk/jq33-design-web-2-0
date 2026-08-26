@@ -1,5 +1,16 @@
 # JQ33 production launch closure — unresolved verification gates
 
+## 2026-08-26 immutable-preview Lighthouse failure and corrective rerun
+
+- **Exact preview:** commit `69b9685575eb1b5cd227ec21d077157ec8978356`, deployment `3c2acf26-db28-4be7-881e-687555d84248`, immutable host `3c2acf26.jq33-design-website.pages.dev`.
+- **Passing deployed gates:** the 140-record HTTP/byte/source-isolation matrix, production-health monitor logic, and the complete 308-test browser suite passed with zero byte mismatches or browser failures.
+- **AC2 failure:** the first 42-report Lighthouse set failed the frozen threshold. Homepage median LCP was `2913.8415ms`; `/commercial-interior-design-montreal/` median CLS was `0.1380135593855402`; and every route scored SEO `69` because Cloudflare injected `x-robots-tag: noindex` on the immutable preview deployment.
+- **Reproduction:** summarize the retained raw reports from the first immutable preview and inspect `is-crawlable`, `lcp-breakdown-insight`, and `layout-shifts`. The homepage LCP candidate is `#brand-mark-text`; the service-page shift is the hero action group after the public Lato and Permanent Marker faces load.
+- **Expected vs actual:** expected median LCP at or below `2500ms`, CLS at or below `0.1`, and SEO at or above `95`; the observed medians and platform header do not meet those limits.
+- **Smallest source correction:** give each already-preloaded Permanent Marker subset a route-specific font-family name and bind only its intended hero text to that name. This removes ambiguous same-family face selection without changing glyph bytes, typography, assets, dependencies, copy, or layout. Add route-local Lato preloads only if a corrective three-run capture still attributes residual CLS to those faces.
+- **Platform constraint:** the Pages preview `noindex` header is not emitted by the sealed artifact. Do not weaken the site's production crawl controls or falsify the Lighthouse result. The SEO preview threshold remains unresolved unless a Cloudflare-supported immutable hostname without the injected preview header is authorized and proven.
+- **Required rerun:** rebuild with the pinned strict toolchain; run local targeted performance diagnostics, the complete local verifier, a fresh native Pages preview, and the entire deployed 42-report Lighthouse set. Preserve this failed set and all corrective results.
+
 Overall verdict: **UNKNOWN** at exact commit `1523a086618c5dea365477032b6ac73a7a867862`. AC1 and AC5 are PASS; no criterion currently FAILS. The following eight criteria remain UNKNOWN because their required deployed, human, provider, approval, promotion, production, or durability proof cannot be established locally.
 
 ## AC2 — Non-visual performance closure

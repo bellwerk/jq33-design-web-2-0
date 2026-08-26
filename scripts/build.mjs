@@ -514,7 +514,7 @@ const externalizeInlineAssets = async () => {
         /(<style\b[^>]*\bdata-jq33-critical\b[^>]*>)/i,
         `$1
 @font-face {
-  font-family: "Permanent Marker";
+  font-family: "Permanent Marker Commercial H1";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -809,6 +809,16 @@ try {
   copyFile("assets/css/site.css");
   copyFile("assets/css/critical-shared.css");
   copyFile("assets/css/home-font.css");
+  const homeFontCssPath = path.join(distDir, "assets/css/home-font.css");
+  const homeFontCss = fs.readFileSync(homeFontCssPath, "utf8");
+  const routeScopedHomeFontCss = homeFontCss.replace(
+    'font-family: "Permanent Marker";',
+    'font-family: "Permanent Marker Home";',
+  );
+  if (routeScopedHomeFontCss === homeFontCss) {
+    fail("Homepage subset font family could not be scoped unambiguously.");
+  }
+  fs.writeFileSync(homeFontCssPath, normalizeTextLineEndings(routeScopedHomeFontCss), "utf8");
   for (const relativePath of publicScriptFiles) copyFile(relativePath);
   for (const assetTree of publicAssetTrees) copyTree(assetTree);
 

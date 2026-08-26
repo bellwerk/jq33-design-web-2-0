@@ -277,12 +277,22 @@ const commercialHtml = fs.readFileSync(
   path.join(distRoot, "commercial-interior-design-montreal/index.html"),
   "utf8",
 );
-for (const [relativePath, html] of [
-  ["assets/fonts/permanent-marker/permanent-marker-home.woff2", homeHtml],
-  [
-    "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
-    commercialHtml,
-  ],
+for (const { relativePath, html, family, binding } of [
+  {
+    relativePath: "assets/fonts/permanent-marker/permanent-marker-home.woff2",
+    html: homeHtml,
+    family: "Permanent Marker Home",
+    binding:
+      /\.panel--home\s+\.brand-mark\s*\{[^}]*font-family:\s*var\(--font-home-mark\)/i,
+  },
+  {
+    relativePath:
+      "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
+    html: commercialHtml,
+    family: "Permanent Marker Commercial H1",
+    binding:
+      /h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"/i,
+  },
 ]) {
   if (!fileSet.has(relativePath)) failures.push(`Missing performance font subset: ${relativePath}`);
   if (!html.includes(`/${relativePath}`)) {
@@ -293,6 +303,15 @@ for (const [relativePath, html] of [
   )?.[1];
   if (!criticalCss?.includes(`/${relativePath}`)) {
     failures.push(`${relativePath} must be declared in the route's critical CSS bundle.`);
+  }
+  if (
+    !criticalCss?.includes(`font-family: "${family}"`) &&
+    !criticalCss?.includes(`font-family:${family}`)
+  ) {
+    failures.push(`${relativePath} must use the unambiguous ${family} font family.`);
+  }
+  if (!binding.test(criticalCss || "")) {
+    failures.push(`${relativePath} must be bound only to its intended critical hero text.`);
   }
 }
 const sharedMarkerFont = path.join(
