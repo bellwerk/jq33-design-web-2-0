@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "taskId": "jq33-production-launch-closure-2026-08-26",
+  "checkedAt": "2026-08-26T21:54:36.3027088Z",
+  "phase": "PREVIEW_NOT_DEPLOYED",
+  "source": {
+    "branch": "codex/jq33-production-readiness-2026-07-29",
+    "commit": "1523a086618c5dea365477032b6ac73a7a867862",
+    "startingRevision": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+    "releasePathCount": 38,
+    "currentTaskPathCountAtCommit": 33,
+    "unexpectedCommittedPathCount": 0
+  },
+  "toolchain": {
+    "node": "22.23.2",
+    "pnpm": "11.13.0",
+    "frozenInstall": "PASS"
+  },
+  "suppliedCleanWorktreeProof": {
+    "crlf": {
+      "commit": "1523a086618c5dea365477032b6ac73a7a867862",
+      "gitStatusClean": true,
+      "lineEndingProbe": "projects/_projects-index-template.html",
+      "crByteCount": 927,
+      "strictNonFixtureBuild": "PASS",
+      "sourceDirty": false,
+      "sourceChangeCount": 0,
+      "fileCount": 112,
+      "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+      "sourceTreeSha256": "23dc80b86add7dee9c51ca73b653e41ecd606d4372b17b7164da0b6eadc07f3d"
+    },
+    "lf": {
+      "commit": "1523a086618c5dea365477032b6ac73a7a867862",
+      "gitStatusClean": true,
+      "lineEndingProbe": "projects/_projects-index-template.html",
+      "crByteCount": 0,
+      "strictNonFixtureBuild": "PASS",
+      "sourceDirty": false,
+      "sourceChangeCount": 0,
+      "fileCount": 112,
+      "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+      "sourceTreeSha256": "f21851943595829937b38d8773564d2c8e70550838425c7acfbfa49f2ec45368"
+    },
+    "determinism": {
+      "artifactHashesEqual": true,
+      "manifestEntryDifferences": 0,
+      "note": "Manifest file bytes differ only in source identity and timestamps; all 112 artifact entries and the sealed artifact hash are identical."
+    }
+  },
+  "exactLfFullVerification": {
+    "result": "PASS",
+    "sanitizedReporterSha256": "0232812721b5513926f39e4e4961037afa44e0f99b6d537542f1f33aad6e8ab4",
+    "sourceCommit": "1523a086618c5dea365477032b6ac73a7a867862",
+    "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+    "artifactSourceRevision": "1523a086618c5dea365477032b6ac73a7a867862",
+    "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
+    "workers": 2,
+    "durationMs": 200634.426,
+    "tests": {
+      "total": 308,
+      "passed": 308,
+      "failed": 0,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "retriedResults": 0,
+      "topLevelErrors": 0
+    },
+    "metadataAndRedaction": "PASS",
+    "portableRecord": true
+  },
+  "freshVerifierReruns": {
+    "frozenInstall": "PASS",
+    "frontendLinksImagesStatic": "PASS",
+    "productionAudit": "PASS_NO_KNOWN_VULNERABILITIES",
+    "completeHighSeverityAudit": "PASS_NO_KNOWN_VULNERABILITIES",
+    "productionHealthSelfTest": "PASS",
+    "evidenceContractSelfTests": "PASS",
+    "dist": {
+      "result": "PASS",
+      "fileCount": 112,
+      "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+      "sourceRevision": "1523a086618c5dea365477032b6ac73a7a867862",
+      "sourceDirty": false,
+      "sourceChangeCount": 0
+    },
+    "targetedBrowser": {
+      "result": "PASS",
+      "sourceCommit": "1523a086618c5dea365477032b6ac73a7a867862",
+      "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+      "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
+      "workers": 1,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "retriedResults": 0,
+      "tests": [
+        "open navigation drawer has zero serious or critical axe violations",
+        "shared navigation is identical across every public route at 375px",
+        "navigation drawer traps focus, closes on Escape, and restores focus"
+      ]
+    }
+  },
+  "proofBoundaries": {
+    "localFixtureAndBrowserProof": "PASS for local loopback browser behavior with controlled test network/form behavior; it is not provider or deployed-runtime proof.",
+    "immutablePreviewProof": "ABSENT",
+    "productionProof": "ABSENT",
+    "providerHumanApprovalProof": "ABSENT"
+  },
+  "redaction": {
+    "providerValuesIncluded": false,
+    "absoluteMachinePathsIncluded": false,
+    "personalAccountDataIncluded": false
+  }
+}

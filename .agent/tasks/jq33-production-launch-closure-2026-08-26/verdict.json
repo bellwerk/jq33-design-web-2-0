@@ -1,235 +1,85 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "taskId": "jq33-production-launch-closure-2026-08-26",
-  "checkedAt": "2026-08-26T21:07:38.4679337Z",
+  "checkedAt": "2026-08-26T21:54:36.3027088Z",
+  "verifierRole": "fresh-independent-prepreview-verifier",
   "overallVerdict": "UNKNOWN",
   "overallStatus": "PREVIEW_NOT_DEPLOYED",
   "completionClaimAllowed": false,
   "productionReady": false,
   "promotionAllowed": false,
-  "summary": {
-    "pass": 2,
-    "fail": 0,
-    "unknown": 8,
-    "total": 10
-  },
+  "summary": {"pass": 2, "fail": 0, "unknown": 8, "total": 10},
   "candidateBinding": {
     "branch": "codex/jq33-production-readiness-2026-07-29",
-    "head": "bba145dd89af1242a5766cb00845fc06186b8a8b",
-    "originMain": "0ea97e083c9b681ecba7f1fd45dc73f9cafed7fb",
-    "verifiedPreVerdictIndexSnapshot": {
-      "stagedPathCount": 64,
-      "stagedReleasePathCount": 38,
-      "stagedCurrentTaskArtifactPathCount": 26,
-      "unexpectedStagedPathCount": 0,
-      "priorTaskStagedPathCount": 0,
-      "unstagedProductionPathCount": 0,
-      "note": "This is the stable index independently inspected before the verifier outputs were packaged."
-    },
-    "expectedPackagedCandidateIndex": {
-      "stagedPathCount": 71,
-      "stagedReleasePathCount": 38,
-      "stagedCurrentTaskArtifactPathCount": 33,
-      "verifierOutputPathCountAdded": 5,
-      "proofCorrectionPathCountAdded": 2,
-      "unexpectedStagedPathCount": 0,
-      "priorTaskStagedPathCount": 0,
-      "note": "Packaging the five verifier outputs and two staged-index correction proofs adds seven current-task paths without changing release bytes."
-    },
-    "verifiedPackagedCandidateIndex": {
-      "stagedPathCount": 71,
-      "stagedReleasePathCount": 38,
-      "stagedCurrentTaskArtifactPathCount": 33,
-      "unexpectedStagedPathCount": 0,
-      "priorTaskStagedPathCount": 0,
-      "unstagedReleasePathCount": 0,
-      "inventoryEntriesChecked": 76,
-      "inventoryMismatchCount": 0,
-      "note": "Fresh corrective verification recomputed both 38-entry inventories from the actual staged Git blobs and parsed all current task JSON."
-    },
-    "priorTaskPacketMismatchCount": 0,
+    "head": "1523a086618c5dea365477032b6ac73a7a867862",
+    "requiredHeadMatched": true,
+    "startingRevision": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+    "releasePathsAtCommit": 38,
+    "currentTaskPathsAtCommit": 33,
+    "unexpectedCommittedPaths": 0,
     "artifactFileCount": 112,
-    "artifactSha256": "b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6",
-    "sourceTreeSha256": "a3206e45f895eaf23375c37f4dfed056be2f5f50c302a92ecac9a2e82edbeecb",
+    "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
     "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
-    "committed": false,
     "previewDeployed": false,
     "productionPromoted": false
   },
   "environment": {
     "node": "22.23.2",
     "pnpm": "11.13.0",
-    "verificationScope": "isolated local current-tree pre-preview",
+    "verificationScope": "exact clean-worktree local pre-preview plus current compact evidence",
     "externalMutationPerformed": false,
     "integrationValuesPersistedOrReported": false
   },
   "criteria": [
-    {
-      "id": "AC1",
-      "text": "Candidate integrity and preservation",
-      "status": "PASS",
-      "reason": "The final packaged staged index contains exactly 38 of 38 allowlisted release paths plus 33 current-task packet/evidence paths, with no unstaged release, unexpected, or prior-task paths. Both release inventories match all 76 staged-blob entries, and all 20 prior task packets reproduce their frozen canonical byte aggregates with zero mismatches."
-    },
-    {
-      "id": "AC2",
-      "text": "Non-visual performance closure",
-      "status": "UNKNOWN",
-      "reason": "Static font, responsive-image, metadata, and performance checks pass locally, but the required immutable-preview Lighthouse route-by-profile matrix is absent."
-    },
-    {
-      "id": "AC3",
-      "text": "Strict build contract and dependency hygiene",
-      "status": "UNKNOWN",
-      "localStatus": "PASS_LOCAL_STRICT_BUILD_AND_AUDITS",
-      "reason": "The strict non-fixture build, dist checks, exclusion checks, negative toolchain guards, and both audits pass locally. Genuine deployed 404 behavior for excluded paths cannot be proven before an immutable preview exists."
-    },
-    {
-      "id": "AC4",
-      "text": "Minimal release and runtime safeguards",
-      "status": "UNKNOWN",
-      "reason": "Workflow/static safeguards and production-health self-tests pass, including the corrected local Wrangler fingerprint probe. Required branch protection and a successful production monitor run are not proven."
-    },
-    {
-      "id": "AC5",
-      "text": "Pinned local release gate",
-      "status": "PASS",
-      "reason": "Pinned Node 22.23.2 and pnpm 11.13.0 checks pass on the current candidate: frozen install, strict build, all static checks, both audits, negative toolchain guards, production-health self-test, 308 of 308 current full browser tests, and a fresh 22 of 22 targeted browser rerun."
-    },
-    {
-      "id": "AC6",
-      "text": "Exact immutable preview",
-      "status": "UNKNOWN",
-      "reason": "The candidate remains an uncommitted staged state at the frozen HEAD, and no immutable Cloudflare Pages preview for its exact commit exists."
-    },
-    {
-      "id": "AC7",
-      "text": "Human, provider, and preview conversion proof",
-      "status": "UNKNOWN",
-      "reason": "Required human zoom/device/NVDA checks, provider-side confirmation, approved synthetic submissions, and preview conversion evidence are absent."
-    },
-    {
-      "id": "AC8",
-      "text": "Controlled promotion through PR #1",
-      "status": "UNKNOWN",
-      "reason": "PR #1 remains draft and the prerequisite all-PASS preview evidence, approval, rollback record, and controlled promotion are absent."
-    },
-    {
-      "id": "AC9",
-      "text": "Production, DNS, mail, analytics, and search closure",
-      "status": "UNKNOWN",
-      "reason": "No authorized production promotion occurred, so production health, DNS/mail, analytics, search, rollback-window, and post-production checks are unproven."
-    },
-    {
-      "id": "AC10",
-      "text": "Durable independent all-PASS closure",
-      "status": "UNKNOWN",
-      "reason": "AC2 through AC4 and AC6 through AC9 are not PASS, and no durable evidence-only PR plus successful recurring monitor evidence exists."
-    }
+    {"id": "AC1", "text": "Candidate integrity and preservation", "status": "PASS", "reason": "The exact commit is bound to the frozen start and contains only 38 allowlisted release paths plus 33 current-task paths; baseline candidate and prior-packet proof remains intact, with no unexpected committed path."},
+    {"id": "AC2", "text": "Non-visual performance closure", "status": "UNKNOWN", "localStatus": "PASS_STATIC_IMPLEMENTATION", "reason": "The frozen criterion requires a fresh immutable-preview Lighthouse matrix; none exists for this commit."},
+    {"id": "AC3", "text": "Strict build contract and dependency hygiene", "status": "UNKNOWN", "localStatus": "PASS_STRICT_BUILD_AUDITS_AND_ARTIFACT", "reason": "Pinned strict builds, artifact isolation, and both audits pass, but genuine preview HTTP 404/source-isolation behavior is not locally provable."},
+    {"id": "AC4", "text": "Minimal release and runtime safeguards", "status": "UNKNOWN", "localStatus": "PASS_WORKFLOW_AND_SELF_TESTS", "reason": "Workflow/static safeguards and health self-tests pass; protected main and a successful real production monitor run are absent."},
+    {"id": "AC5", "text": "Pinned local release gate", "status": "PASS", "reason": "Exact CRLF/LF deterministic strict builds, 308/308 full browser results, fresh 3/3 axe/navigation/focus coverage, static suites, both audits, health self-test, and evidence-contract self-tests pass without skip, retry, flake, unexpected result, or waiver."},
+    {"id": "AC6", "text": "Exact immutable preview", "status": "UNKNOWN", "reason": "No native immutable Cloudflare Pages preview, deployment ID, immutable URL, or deployed test matrix is bound to the exact commit."},
+    {"id": "AC7", "text": "Human, provider, and preview conversion proof", "status": "UNKNOWN", "reason": "Approval-gated Chrome/NVDA, provider readback, preview form delivery, and Calendly-open proof is absent."},
+    {"id": "AC8", "text": "Controlled promotion through PR #1", "status": "UNKNOWN", "reason": "AC2 through AC7 are not all PASS; rollback target, immediate approval, PR merge, and automatic production deployment are absent."},
+    {"id": "AC9", "text": "Production, DNS, mail, analytics, and search closure", "status": "UNKNOWN", "reason": "No authorized production promotion occurred, so production, DNS/mail, analytics, form, monitoring, and Search Console gates are unproven."},
+    {"id": "AC10", "text": "Durable independent all-PASS closure", "status": "UNKNOWN", "reason": "The matrix is 2 PASS, 0 FAIL, and 8 UNKNOWN; final evidence-only PR and active production monitoring proof do not exist."}
   ],
   "freshChecks": [
-    {
-      "check": "pinned frozen install",
-      "result": "PASS"
-    },
-    {
-      "check": "strict non-fixture build and current artifact manifest",
-      "result": "PASS",
-      "artifactSha256": "b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6",
-      "files": 112
-    },
-    {
-      "check": "frontend, links, images, and static suites",
-      "result": "PASS"
-    },
-    {
-      "check": "production and high-severity dependency audits",
-      "result": "PASS"
-    },
-    {
-      "check": "Node and pnpm negative version guards",
-      "result": "PASS"
-    },
-    {
-      "check": "production-health self-test",
-      "result": "PASS"
-    },
-    {
-      "check": "current full browser result integrity",
-      "result": "PASS",
-      "passed": 308,
-      "failed": 0,
-      "retries": 0
-    },
-    {
-      "check": "fresh targeted browser rerun",
-      "result": "PASS",
-      "passed": 22,
-      "failed": 0
-    },
-    {
-      "check": "prior task packet canonical byte recomputation",
-      "result": "PASS",
-      "packets": 20,
-      "mismatches": 0
-    },
-    {
-      "check": "release-only staged whitespace check",
-      "result": "PASS",
-      "releasePaths": 38
-    },
-    {
-      "check": "final corrected packaged staged-index integrity",
-      "result": "PASS",
-      "stagedPaths": 71,
-      "releasePaths": 38,
-      "currentTaskArtifactPaths": 33,
-      "priorTaskPaths": 0,
-      "unexpectedPaths": 0,
-      "unstagedReleasePaths": 0,
-      "inventoryEntriesChecked": 76,
-      "inventoryMismatches": 0,
-      "parsedCurrentTaskJsonFiles": 22
-    }
+    {"check": "required exact HEAD", "result": "PASS", "head": "1523a086618c5dea365477032b6ac73a7a867862"},
+    {"check": "clean CRLF and LF strict non-fixture builds", "result": "PASS", "files": 112, "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096", "manifestEntryDifferences": 0},
+    {"check": "exact LF full browser reporter", "result": "PASS", "sanitizedReporterSha256": "0232812721b5513926f39e4e4961037afa44e0f99b6d537542f1f33aad6e8ab4", "passed": 308, "failed": 0, "skipped": 0, "unexpected": 0, "flaky": 0, "retriedResults": 0},
+    {"check": "fresh targeted drawer axe/navigation/focus", "result": "PASS", "passed": 3, "failed": 0},
+    {"check": "frontend, links, images, strict static checks", "result": "PASS"},
+    {"check": "production and complete high-severity dependency audits", "result": "PASS_NO_KNOWN_VULNERABILITIES"},
+    {"check": "production-health self-test", "result": "PASS"},
+    {"check": "evidence-contract self-tests", "result": "PASS"},
+    {"check": "current task JSON parse", "result": "PASS"}
   ],
-  "preservedFailures": [
-    {
-      "check": "local Wrangler production-health initial attempt",
-      "result": "FAIL",
-      "classification": "implementation defect corrected before this verdict",
-      "detail": "The original query-string navigation marker was stripped from built HTML. The retained first failure is followed by a passing rerun using the stable build-injected release fingerprint."
-    },
-    {
-      "check": "first verifier frontend scan",
-      "result": "FAIL",
-      "classification": "verifier setup contamination corrected without source changes",
-      "detail": "A superseded Playwright HTML report was placed inside the isolated source copy and was scanned as source. Moving verifier output to a sibling directory made the same current-tree check pass."
-    }
-  ],
-  "evidenceIntegrity": {
-    "distManifestSha256": "cf6c3aee01371eef1bb0b65725ef93e511a4622f516026d41f5d142e403d6ea9",
-    "fullBrowserSanitizedResultSha256": "327456afdda7fe7171bda90896cd5f0f625aa5d70bee42d26b56508027edee06",
-    "strictPrecommitAttemptSha256": "8d9b68cd14c8962c978c3a4ebad078b1ce125680362dd7ac371f10b521782267",
-    "localHealthInitialFailureSha256": "c1b4ed8bad9f171511e377ccc459689cd89e93a436f9a486e06af0510e832bd3",
-    "localHealthCorrectivePassSha256": "787f3fe38b43ebea40ea93c7d7a9578a8de931e343fe3f6a466eded885f28d5b",
-    "priorPacketRecomputationSha256": "a2377940b8ad1bd197b8e95aa845ca00309d50e5c92aa214503f85ac457a9b3c",
-    "releaseInventorySha256": "47521085e8b7b205512a6d42bf573f307d965a116153a8c058d3513b2f22119a",
-    "verifierReleaseInventorySha256": "a25d336b7069e980460142c4ef1b62a6342d890c7e052fddcc6fe5c3a2e6fa9e"
+  "preservedFailure": {
+    "sourceCommit": "4ba02ca8bb96f1de9b497bdd7091083ead41cbdd",
+    "test": "open navigation drawer has zero serious or critical axe violations",
+    "result": "FAIL_CORRECTED_AND_REVERIFIED",
+    "contrastRatios": [2.92, 4.33],
+    "requiredRatio": 4.5,
+    "rootCause": "drawer parent opacity animation",
+    "correctionCommit": "1523a086618c5dea365477032b6ac73a7a867862",
+    "correctionPaths": ["assets/css/critical-shared.css", "assets/css/site.css"]
   },
-  "reviewedArtifacts": [
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/spec.md",
+  "durableRawProof": [
+    {"path": "raw/verifier-prepreview/exact-1523a08-local-proof.json", "sha256": "e8c184a5eb82845793a55d4e9770a0fc72170d183f2e52b4391b13a99927319f"},
+    {"path": "raw/verifier-prepreview/drawer-contrast-failure-and-correction.json", "sha256": "2f5127be28c3ef59592dd95adb89b17af5579d7400dc8ffe6f9f73f4aef8b17d"}
+  ],
+  "proofBoundary": {
+    "localFixtureAndBrowser": "PASS_LOCAL_ONLY",
+    "immutablePreview": "ABSENT",
+    "production": "ABSENT",
+    "humanProviderApprovals": "ABSENT"
+  },
+  "verifierChangedPaths": [
     ".agent/tasks/jq33-production-launch-closure-2026-08-26/evidence.md",
     ".agent/tasks/jq33-production-launch-closure-2026-08-26/evidence.json",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/baseline/prior-task-packets-postimplementation-hashes.json",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/baseline/postimplementation-release-inventory.json",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/verifier-prepreview/fresh-checks.json",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/verifier-prepreview/current-release-inventory.json",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/local/playwright-precommit-attempt-03/results.sanitized.json",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/portable/production-health-wrangler-local.txt",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/portable/production-health-wrangler-local-attempt-02.txt",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/portable/staged-release-inventory-index-mismatch.txt",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/portable/staged-release-inventory-index-correction.txt",
-    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/operations/github-state-prepreview.json"
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/verdict.json",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/problems.md",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/verifier-prepreview/exact-1523a08-local-proof.json",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/verifier-prepreview/drawer-contrast-failure-and-correction.json"
   ],
-  "verificationBoundary": "No commit, push, preview, provider mutation, form submission, production promotion, DNS or mail mutation, search submission, or external monitoring run was performed.",
-  "decision": "UNKNOWN: local candidate gates are sound, but external and promotion-dependent acceptance criteria remain unproven. Do not claim completion or promote."
+  "productionCodeModifiedByVerifier": false
 }

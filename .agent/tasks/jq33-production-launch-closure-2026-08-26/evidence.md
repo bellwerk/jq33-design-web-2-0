@@ -1,64 +1,68 @@
-# JQ33 production launch closure — evidence ledger
+# JQ33 production launch closure — exact-commit evidence ledger
 
-Updated: 2026-08-26T21:00:27Z
+Updated: 2026-08-26T21:54:36.3027088Z
+
 Phase: pre-preview verification
+
 Frozen spec: `spec.md`
 
-This ledger is intentionally open. It distinguishes locally proven release
-facts from immutable-preview, provider, human-accessibility, merge, production,
-DNS, mail, analytics, search, and final-durability gates that cannot yet be
-claimed.
+Exact source commit: `1523a086618c5dea365477032b6ac73a7a867862`
 
-## Current result
+Overall verdict: **UNKNOWN**. AC1 and AC5 are PASS; AC2–AC4 and AC6–AC10 remain UNKNOWN. There are no current FAIL criteria, but completion and promotion are not allowed.
 
-| AC | State | Current evidence |
+## Acceptance-criterion matrix
+
+| AC | Verdict | Current proof |
 | --- | --- | --- |
-| AC1 | PASS | Starting branch/commits and the exact predecessor 26-file navigation binding were captured before implementation. The predecessor inventory matched all 26 bytes/hashes. All 20 prior packets reproduce their frozen canonical byte aggregates with zero mismatches. Both release inventories are now explicitly bound to `git show :path` bytes: 76/76 entries match the 38 staged release blobs. The retained initial mismatch was CRLF normalization in `admin/portfolio/index.html`; no release byte changed. The next explicit-path package is expected to contain 71 paths: 38 release plus 33 current-task proof paths, with zero prior-task or unexpected paths. |
-| AC2 | UNKNOWN | The four identified LCP causes have minimal static corrections: exact 2,628-byte homepage and 4,016-byte commercial font subsets, ten Projects 480/768 derivatives, six Journal 768 derivatives, responsive contracts, and selective priority. Static checks pass; the required 42 fresh immutable-preview Lighthouse captures do not exist yet. |
-| AC3 | UNKNOWN (local PASS) | Node 22.23.2 and pnpm 11.13.0 are exact and fail closed. Frozen install passed. The strict non-fixture build used redacted, distinct direct Formspree values and a direct Calendly event. Both audits report no known vulnerability. The corrected 112-file artifact hash is `b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6`. Automatic Cloudflare Analytics remains the documented contract. Exact-preview source-isolation HTTP proof is still required. |
-| AC4 | UNKNOWN | Verification-only Release Gate and hourly standard-library Production Smoke workflows are implemented; pinned action SHAs and monitor negative self-tests pass. GitHub has the three required public build secret names. `main` protection and a successful production monitor run must wait for the pushed checks/current production correction. |
-| AC5 | PASS | The exact corrected tree passed all static gates and 308/308 Chromium tests, including every public route, six required widths, continuous 320–1920 px overflow coverage, navigation parity, keyboard/focus, axe, form states, reduced motion, runtime/console/network boundaries, and metadata redaction. Its Cloudflare Pages local-emulation health matrix also passed after preserving and correcting the first fingerprint failure. Project/Journal generation is byte deterministic and matches eight checked-in generated pages. A fresh independent verifier reproduced the strict artifact, parsed the 308/308 run, and passed a fresh 22/22 targeted rerun. |
-| AC6 | UNKNOWN | No fresh commit-bound Cloudflare preview exists. The retired `675c8d95` preview is used only as a public source for already-authorized integration values and cannot satisfy this gate. |
-| AC7 | UNKNOWN | Genuine Chrome 200% zoom, Windows NVDA, provider-account readbacks, preview submissions, and Calendly-open evidence remain approval/access gated. No form was submitted. |
-| AC8 | UNKNOWN | PR #1 remains open and draft. No rollback target or immediate merge approval has been recorded. |
-| AC9 | UNKNOWN | Production, custom-domain, production-form, analytics, DNS/mail/DMARC, and Search Console work has not been promoted. The initial production health failure is retained. |
-| AC10 | UNKNOWN | This is a live pre-preview packet, not the final all-PASS independent verdict or evidence-only PR. |
+| AC1 | PASS | Relative to frozen start `bba145d…`, the exact commit contains 38 allowlisted release paths and 33 current-task paths, with zero unexpected committed paths. The frozen candidate and prior-packet byte bindings remain intact. |
+| AC2 | UNKNOWN | Static performance implementation checks pass. The required immutable-preview three-run Lighthouse matrix for every public route is absent. |
+| AC3 | UNKNOWN | Pinned strict non-fixture builds, 112-file artifact isolation, and both audits pass locally. Genuine deployed preview 404/source-isolation proof is absent. |
+| AC4 | UNKNOWN | Release/runtime workflow review, production-health self-test, and evidence-contract self-tests pass. Protected `main` and a successful real production monitor run are not proven. |
+| AC5 | PASS | Exact clean-worktree CRLF/LF builds are deterministic; the exact LF full browser run passed 308/308 with no skip, retry, flaky, unexpected result, or error; fresh axe/navigation/focus correction coverage passed 3/3. |
+| AC6 | UNKNOWN | No native immutable Cloudflare Pages preview is bound to `1523a08…`. |
+| AC7 | UNKNOWN | Genuine 200% Chrome, NVDA, provider-account, approved preview-form, and Calendly-open proof is absent. |
+| AC8 | UNKNOWN | Prerequisite preview gates, rollback target, immediate merge approval, PR #1 promotion, and automatic deployment are absent. |
+| AC9 | UNKNOWN | Production, custom-domain, DNS/mail/DMARC, analytics, form, monitor, and Search Console closure is absent. |
+| AC10 | UNKNOWN | Eight ACs remain UNKNOWN; no final evidence-only PR or active production-monitor proof exists. |
 
-## Retained raw evidence
+## Supplied clean-worktree proof
 
-- `raw/baseline/candidate-binding.json`
-- `raw/baseline/prior-task-packets.json`
-- `raw/baseline/prior-task-packets-postimplementation-hashes.json`
-- `raw/baseline/postimplementation-release-inventory.json`
-- `raw/portable/staged-release-inventory-index-mismatch.txt`
-- `raw/portable/staged-release-inventory-index-correction.txt`
-- `raw/portable/toolchain-install-audit-selftest.txt`
-- `raw/portable/toolchain-guard-negative.txt`
-- `raw/portable/toolchain-guard-negative-pnpm.txt`
-- `raw/local/release-safeguards-review-findings.md`
-- `raw/portable/release-safeguards-review-rerun.txt`
-- `raw/portable/pinned-strict-verify-precommit.txt`
-- `raw/portable/pinned-strict-verify-precommit-attempt-02.txt`
-- `raw/portable/pinned-strict-verify-precommit-attempt-03.txt`
-- `raw/local/playwright-precommit-attempt-03/results.sanitized.json`
-- `raw/portable/production-health-wrangler-local.txt`
-- `raw/portable/production-health-wrangler-local-attempt-02.txt`
-- `raw/portable/generator-determinism-and-source-parity.txt`
-- `raw/local/dist-manifest-precommit-dirty-source.json`
-- `raw/performance/asset-optimization-contract.json`
-- `raw/operations/github-state-prepreview.json`
-- `raw/operations/production-health-initial.txt`
-- `raw/operations/social-build-inputs-redacted.json`
-- `raw/verifier-prepreview/current-release-inventory.json`
-- `raw/verifier-prepreview/fresh-checks.json`
-- `verdict.json`
-- `problems.md`
+I independently inspected the two supplied clean worktrees at the exact commit. Both used Node `22.23.2`, pnpm `11.13.0`, frozen installs, and strict non-fixture builds. The CRLF checkout's `projects/_projects-index-template.html` contains 927 CR bytes; the LF checkout contains zero. Both manifests report `sourceDirty=false`, `sourceChangeCount=0`, 112 artifact files, identical file-entry arrays with zero differences, and artifact SHA-256:
 
-The earlier strict runs and the initial local health failure are retained
-separately from the exact-tree corrective rerun. Neither
-is clean-commit or deployed-byte proof; that evidence must be rebuilt after the
-release candidate is committed. The current independent verdict is therefore
-`UNKNOWN` with AC1 and AC5 PASS, zero FAIL criteria, and eight deployment- or
-approval-dependent UNKNOWN criteria. The release inventories now describe the
-actual staged Git blobs rather than worktree line endings; the preserved
-mismatch and corrective PASS do not change any criterion status.
+`f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096`
+
+The exact LF sanitized reporter is bound to the same source/artifact plus browser-harness SHA-256 `6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a`. Its own SHA-256 is `0232812721b5513926f39e4e4961037afa44e0f99b6d537542f1f33aad6e8ab4`; it records 308/308 passed with two workers, zero skipped/unexpected/flaky/retried results, and zero top-level errors. Metadata/redaction checks pass.
+
+## Preserved failure and smallest correction
+
+The pre-fix exact clean LF browser run at `4ba02ca8bb96f1de9b497bdd7091083ead41cbdd` retained one serious axe `color-contrast` failure while the drawer was in motion:
+
+- Mobile Projects link: 2.92:1, required 4.5:1.
+- Drawer Calendly CTA: 4.33:1, required 4.5:1.
+
+The root cause was opacity animation on the drawer parent, which blended both foreground and background colors during sampling. Commit `1523a086618c5dea365477032b6ac73a7a867862` makes the drawer opaque and animates `translateX` in only `assets/css/critical-shared.css` and `assets/css/site.css`. The fresh pinned verifier rerun passed drawer axe contrast, cross-route 375px navigation parity, and focus trap/Escape/focus restoration 3/3; the exact full rerun passed 308/308.
+
+## Fresh verifier reruns
+
+Under the pinned toolchain, the verifier reran and passed:
+
+- frozen install;
+- frontend, links, images, and strict static artifact checks;
+- production and complete high-severity audits, each with no known vulnerability;
+- production-health self-test;
+- all evidence-contract self-tests;
+- targeted drawer axe/navigation/focus tests (3/3).
+
+## Proof boundaries
+
+- **Local fixture/browser proof:** PASS locally. Browser tests use loopback and controlled test network/form behavior; they do not prove provider receipt or deployed runtime.
+- **Immutable preview proof:** absent. No preview ID, immutable URL, deployed-byte parity, HTTP matrix, browser matrix, or Lighthouse matrix exists for this commit.
+- **Production proof:** absent. No authorized promotion or current production/DNS/mail/analytics/search/monitor proof exists.
+- **Human/provider approval proof:** absent. No approval-gated form submissions or provider mutation occurred.
+
+## Durable raw verifier records
+
+- `raw/verifier-prepreview/exact-1523a08-local-proof.json` — SHA-256 `e8c184a5eb82845793a55d4e9770a0fc72170d183f2e52b4391b13a99927319f`
+- `raw/verifier-prepreview/drawer-contrast-failure-and-correction.json` — SHA-256 `2f5127be28c3ef59592dd95adb89b17af5579d7400dc8ffe6f9f73f4aef8b17d`
+
+Both compact records exclude provider values, personal account data, and absolute machine paths.

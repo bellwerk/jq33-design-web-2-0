@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "taskId": "jq33-production-launch-closure-2026-08-26",
+  "checkedAt": "2026-08-26T21:54:36.3027088Z",
+  "preservedFailure": {
+    "sourceCommit": "4ba02ca8bb96f1de9b497bdd7091083ead41cbdd",
+    "artifactSha256": "1df50b27eb733b34c75c464884d1430e6f15e0ebeca7a74b17469d002c46ba25",
+    "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
+    "suite": "exact clean LF full browser run",
+    "passed": 307,
+    "failed": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0,
+    "failedTest": "open navigation drawer has zero serious or critical axe violations",
+    "axeRule": "color-contrast",
+    "impact": "serious",
+    "violations": [
+      {
+        "target": "mobile Projects navigation link",
+        "contrastRatio": 2.92,
+        "requiredRatio": 4.5
+      },
+      {
+        "target": "drawer Calendly call-to-action",
+        "contrastRatio": 4.33,
+        "requiredRatio": 4.5
+      }
+    ],
+    "diagnosis": "Animating opacity on the entire drawer blended all foreground and background colors during the axe sampling window, reducing effective contrast."
+  },
+  "correction": {
+    "sourceCommit": "1523a086618c5dea365477032b6ac73a7a867862",
+    "changedProductionPaths": [
+      "assets/css/critical-shared.css",
+      "assets/css/site.css"
+    ],
+    "implementation": "Keep the drawer opaque and animate translateX between 100% and 0 while retaining visibility and pointer-event gating.",
+    "smallestRobustFix": true,
+    "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+    "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
+    "freshTargetedRerun": {
+      "result": "PASS",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "retriedResults": 0,
+      "coverage": [
+        "drawer axe contrast",
+        "cross-route navigation parity at 375px",
+        "focus trap, Escape close, and focus restoration"
+      ]
+    },
+    "exactLfFullRerun": {
+      "result": "PASS",
+      "sanitizedReporterSha256": "0232812721b5513926f39e4e4961037afa44e0f99b6d537542f1f33aad6e8ab4",
+      "passed": 308,
+      "failed": 0,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0,
+      "retriedResults": 0
+    }
+  },
+  "redaction": {
+    "providerValuesIncluded": false,
+    "absoluteMachinePathsIncluded": false,
+    "personalAccountDataIncluded": false
+  }
+}
