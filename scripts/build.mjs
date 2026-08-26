@@ -391,11 +391,12 @@ const createProductionFontSubsets = async () => {
   }
   const homeGlyphText = " JQ33Design";
   const commercialH1GlyphText = " Commercial Interior Design in Montreal";
+  const homeInterSubsetText = `${homeInterGlyphText}${homeInterGlyphText.toUpperCase()}`;
   const [homeSubset, commercialH1Subset, subset, homeInterSubset] = await Promise.all([
     subsetFont(source, homeGlyphText, { targetFormat: "woff2" }),
     subsetFont(source, commercialH1GlyphText, { targetFormat: "woff2" }),
     subsetFont(source, glyphText, { targetFormat: "woff2" }),
-    subsetFont(interSource, homeInterGlyphText, { targetFormat: "woff2" }),
+    subsetFont(interSource, homeInterSubsetText, { targetFormat: "woff2" }),
   ]);
   fs.writeFileSync(
     path.join(path.dirname(publicFontPath), "permanent-marker-home.woff2"),
@@ -406,8 +407,11 @@ const createProductionFontSubsets = async () => {
     path.join(path.dirname(interFontPath), "inter-home-hero.woff2"),
     homeInterSubset,
   );
-  if (homeInterSubset.length >= interSource.length) {
-    fail("Homepage Inter subset must be smaller than the shared variable font.");
+  if (homeInterSubset.length > 22_000 || homeInterSubset.length * 2 >= interSource.length) {
+    fail("Homepage Inter subset must remain at most 22 KB and under half the shared variable font.");
+  }
+  if (commercialH1Subset.length > 5_000) {
+    fail("Commercial H1 subset must remain at most 5 KB before inlining.");
   }
   console.log(
     `Subset production fonts (Permanent Marker ${source.length} -> shared ${subset.length}, homepage ${homeSubset.length}, commercial H1 ${commercialH1Subset.length}; Inter ${interSource.length} -> homepage ${homeInterSubset.length} bytes).`,

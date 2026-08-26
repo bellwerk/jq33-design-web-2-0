@@ -1665,6 +1665,29 @@ test("critical route fonts use exact subsets without redundant requests", async 
       ),
     };
   });
+  const cdp = await page.context().newCDPSession(page);
+  await Promise.all([cdp.send("DOM.enable"), cdp.send("CSS.enable")]);
+  const { root } = await cdp.send("DOM.getDocument");
+  const platformFontProof = {};
+  for (const selector of [
+    "#home .header-tagline",
+    "#home .header-subheadline",
+    "#home .hero-action--primary",
+    "#home .hero-action--secondary",
+    "#home .pillar-left .label",
+    "#home .pillar-right .label",
+  ]) {
+    const { nodeId } = await cdp.send("DOM.querySelector", {
+      nodeId: root.nodeId,
+      selector,
+    });
+    const { fonts } = await cdp.send("CSS.getPlatformFontsForNode", { nodeId });
+    platformFontProof[selector] = fonts.map(({ familyName, glyphCount }) => ({
+      familyName,
+      glyphCount,
+    }));
+  }
+  await cdp.detach();
 
   expect(fontProof.loaded).toBe(true);
   expect(fontProof.family).toContain("Permanent Marker Home");
@@ -1673,6 +1696,13 @@ test("critical route fonts use exact subsets without redundant requests", async 
   expect(fontProof.interFamily).toContain("JQ33 Home Inter");
   expect(fontProof.homeInterRequests).toHaveLength(1);
   expect(fontProof.fullInterRequests).toEqual([]);
+  for (const [selector, fonts] of Object.entries(platformFontProof)) {
+    expect(fonts, `${selector} must render at least one glyph`).not.toEqual([]);
+    expect(
+      fonts.filter(({ familyName, glyphCount }) => glyphCount > 0 && !/inter/i.test(familyName)),
+      `${selector} must not fall back outside the exact Inter subset`,
+    ).toEqual([]);
+  }
 
   await gotoSettled(page, "/commercial-interior-design-montreal/");
   const commercialFontProof = await page.evaluate(async () => {

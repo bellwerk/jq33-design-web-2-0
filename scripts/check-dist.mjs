@@ -318,8 +318,12 @@ if (!fileSet.has(homeInterRelativePath)) {
   if (homeInterBytes.subarray(0, 4).toString("ascii") !== "wOF2") {
     failures.push("Homepage Inter subset must contain valid WOFF2 bytes.");
   }
-  if (!fs.existsSync(sharedInterPath) || homeInterBytes.length >= fs.statSync(sharedInterPath).size) {
-    failures.push("Homepage Inter subset must be smaller than the shared variable font.");
+  if (
+    !fs.existsSync(sharedInterPath) ||
+    homeInterBytes.length > 22_000 ||
+    homeInterBytes.length * 2 >= fs.statSync(sharedInterPath).size
+  ) {
+    failures.push("Homepage Inter subset must remain at most 22 KB and under half the shared variable font.");
   }
 }
 if (
@@ -384,18 +388,15 @@ if (!commercialFontData) {
   if (decodedCommercialFont.subarray(0, 4).toString("ascii") !== "wOF2") {
     failures.push("Embedded commercial H1 subset must contain valid WOFF2 bytes.");
   }
-  if (decodedCommercialFont.length >= fs.statSync(path.join(
-    distRoot,
-    "assets/fonts/permanent-marker/permanent-marker-400.woff2",
-  )).size) {
-    failures.push("Embedded commercial H1 subset must be smaller than the shared Permanent Marker subset.");
+  if (decodedCommercialFont.length > 5_000) {
+    failures.push("Embedded commercial H1 subset must remain at most 5 KB.");
   }
 }
 if (!/font-display:\s*swap/i.test(commercialFontFace || "")) {
   failures.push("Embedded commercial H1 subset must retain font-display swap.");
 }
-if (!/h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"/i.test(commercialCriticalCss || "")) {
-  failures.push(`${commercialRelativePath} must be bound only to its intended critical hero text.`);
+if (!/h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"[^;}]*!important/i.test(commercialCriticalCss || "")) {
+  failures.push(`${commercialRelativePath} must be cascade-bound only to its intended critical hero text.`);
 }
 const projectsHtml = fs.readFileSync(path.join(distRoot, "projects/index.html"), "utf8");
 const projectHero = imageTagsWithClass(projectsHtml, "concept-index__hero-image");
