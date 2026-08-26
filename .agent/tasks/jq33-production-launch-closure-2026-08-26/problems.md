@@ -11,6 +11,15 @@
 - **Platform constraint:** the Pages preview `noindex` header is not emitted by the sealed artifact. Do not weaken the site's production crawl controls or falsify the Lighthouse result. The SEO preview threshold remains unresolved unless a Cloudflare-supported immutable hostname without the injected preview header is authorized and proven.
 - **Required rerun:** rebuild with the pinned strict toolchain; run local targeted performance diagnostics, the complete local verifier, a fresh native Pages preview, and the entire deployed 42-report Lighthouse set. Preserve this failed set and all corrective results.
 
+## 2026-08-26 replacement-preview residual homepage LCP
+
+- **Exact preview:** commit `cd15d3e0c8e91cdfeca925f06b85139d11df10d9`, deployment `a320c324-0ed4-44c1-b915-9d45029739b0`, immutable host `a320c324.jq33-design-website.pages.dev`.
+- **Passing corrective evidence:** exact deployed/local byte parity passed `134/134`, the 140-record deployed matrix and 12-record health check passed with zero failures, the full deployed browser suite passed `308/308`, the service-page median CLS corrected from `0.1380135593855402` to `0`, and every non-home route met the frozen performance, LCP, CLS, and TBT budgets.
+- **Residual AC2 failure:** the replacement 42-report Lighthouse set measured homepage median LCP at `2820.5862ms`; its LCP element remains `#brand-mark-text`. The three homepage LCP values were `2962.9105ms`, `2792.666ms`, and `2820.5862ms`.
+- **Platform constraint preserved:** every preview route still scores SEO `69` solely because Cloudflare injects `x-robots-tag: noindex` on preview hosts. The sealed artifact does not emit that header, and the production crawl policy must not be weakened to falsify preview evidence.
+- **Smallest second correction:** embed the already-generated `permanent-marker-home.woff2` subset as a data URL in the homepage critical CSS and remove only its redundant external preload. This keeps the exact approved glyph bytes and typography while removing the remaining font request; pruning may then omit the unreferenced external subset from `dist/`. Explicitly add `data:` only to `font-src` in the generated CSP and its exact production-health contract; all style execution remains same-origin or hash-authorized.
+- **Required rerun:** rebuild and verify the exact correction with the pinned toolchain, deploy a new immutable native-Git preview, and rerun byte parity, the complete browser suite, and all 42 mobile Lighthouse captures. Preserve this failed set unchanged.
+
 Overall verdict: **UNKNOWN** at exact commit `1523a086618c5dea365477032b6ac73a7a867862`. AC1 and AC5 are PASS; no criterion currently FAILS. The following eight criteria remain UNKNOWN because their required deployed, human, provider, approval, promotion, production, or durability proof cannot be established locally.
 
 ## AC2 — Non-visual performance closure

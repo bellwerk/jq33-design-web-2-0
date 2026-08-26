@@ -1638,6 +1638,26 @@ test("homepage mark scale and subheadline measure match the old responsive hero"
   }
 });
 
+test("homepage mark uses the embedded critical subset without a font request", async ({ page }) => {
+  await gotoSettled(page, "/");
+  const fontProof = await page.evaluate(async () => {
+    await document.fonts.ready;
+    const mark = document.querySelector("#brand-mark-text");
+    return {
+      loaded: document.fonts.check('400 48px "Permanent Marker Home"', "JQ33 Design"),
+      family: getComputedStyle(mark).fontFamily,
+      externalRequests: performance
+        .getEntriesByType("resource")
+        .map((entry) => entry.name)
+        .filter((url) => url.includes("permanent-marker-home.woff2")),
+    };
+  });
+
+  expect(fontProof.loaded).toBe(true);
+  expect(fontProof.family).toContain("Permanent Marker Home");
+  expect(fontProof.externalRequests).toEqual([]);
+});
+
 test("homepage hero links preserve behavior and stay square in every supported state", async ({
   page,
 }) => {

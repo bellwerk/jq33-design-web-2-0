@@ -373,6 +373,20 @@ const createProductionFontSubsets = async () => {
   console.log(
     `Subset Permanent Marker for production (${source.length} -> shared ${subset.length}, homepage ${homeSubset.length}, commercial H1 ${commercialH1Subset.length} bytes).`,
   );
+  return { homeSubset };
+};
+
+const inlineHomepageFontSubset = (homeSubset) => {
+  const homeFontCssPath = path.join(distDir, "assets", "css", "home-font.css");
+  const css = fs.readFileSync(homeFontCssPath, "utf8");
+  const inlined = css.replace(
+    /url\(\s*(["']?)\/assets\/fonts\/permanent-marker\/permanent-marker-home\.woff2\1\s*\)/i,
+    `url("data:font/woff2;base64,${homeSubset.toString("base64")}")`,
+  );
+  if (inlined === css) {
+    fail("Homepage subset font URL could not be embedded in critical CSS.");
+  }
+  fs.writeFileSync(homeFontCssPath, normalizeTextLineEndings(inlined), "utf8");
 };
 
 const escapeForJavaScriptString = (value) =>
@@ -768,7 +782,8 @@ const writeHeaders = (integrations) => {
     .readFileSync(templatePath, "utf8")
     .replaceAll("{{CSP_SCRIPT_HASHES}}", scriptHashes)
     .replaceAll("{{CSP_STYLE_HASHES}}", styleHashes)
-    .replaceAll("{{FORM_ACTION_ORIGIN}}", integrations.formActionOrigin);
+    .replaceAll("{{FORM_ACTION_ORIGIN}}", integrations.formActionOrigin)
+    .replace("font-src 'self';", "font-src 'self' data:;");
   if (/{{[^{}\r\n]+}}/.test(output)) {
     fail("_headers contains an unresolved build token.");
   }
@@ -828,7 +843,8 @@ try {
   run("scripts/generate-sitemap.mjs");
 
   replaceBuildTokens(integrations, profiles);
-  await createProductionFontSubsets();
+  const { homeSubset } = await createProductionFontSubsets();
+  inlineHomepageFontSubset(homeSubset);
   await externalizeInlineAssets();
   pruneUnreferencedAssets();
   assertConfiguredUrlsOnly(integrations);

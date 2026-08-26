@@ -273,55 +273,67 @@ for (const file of htmlFiles) {
 }
 
 const homeHtml = fs.readFileSync(path.join(distRoot, "index.html"), "utf8");
+const homeCriticalCss = /<style\b[^>]*data-jq33-critical-bundle[^>]*>([\s\S]*?)<\/style>/i.exec(
+  homeHtml,
+)?.[1];
+const homeFontData = /src:\s*url\(["']?data:font\/woff2;base64,([A-Za-z0-9+/=]+)["']?\)\s*format\(["']woff2["']\)/i.exec(
+  homeCriticalCss || "",
+)?.[1];
+if (!homeFontData) {
+  failures.push("Homepage critical CSS must embed its WOFF2 hero subset as a data URL.");
+} else {
+  const decodedHomeFont = Buffer.from(homeFontData, "base64");
+  if (decodedHomeFont.subarray(0, 4).toString("ascii") !== "wOF2") {
+    failures.push("Embedded homepage font subset must contain valid WOFF2 bytes.");
+  }
+  if (decodedHomeFont.length >= fs.statSync(path.join(
+    distRoot,
+    "assets/fonts/permanent-marker/permanent-marker-400.woff2",
+  )).size) {
+    failures.push("Embedded homepage font subset must be smaller than the shared Permanent Marker subset.");
+  }
+}
+if (!homeCriticalCss?.includes('font-family: "Permanent Marker Home"')) {
+  failures.push("Embedded homepage subset must use the unambiguous Permanent Marker Home family.");
+}
+if (!/\.panel--home\s+\.brand-mark\s*\{[^}]*font-family:\s*var\(--font-home-mark\)/i.test(homeCriticalCss || "")) {
+  failures.push("Embedded homepage subset must be bound only to the intended brand mark.");
+}
+if (homeHtml.includes("/assets/fonts/permanent-marker/permanent-marker-home.woff2")) {
+  failures.push("Homepage must not retain an external request for its embedded hero font subset.");
+}
+if (fileSet.has("assets/fonts/permanent-marker/permanent-marker-home.woff2")) {
+  failures.push("The unreferenced external homepage font subset must be pruned from dist.");
+}
+
 const commercialHtml = fs.readFileSync(
   path.join(distRoot, "commercial-interior-design-montreal/index.html"),
   "utf8",
 );
-for (const { relativePath, html, family, binding } of [
-  {
-    relativePath: "assets/fonts/permanent-marker/permanent-marker-home.woff2",
-    html: homeHtml,
-    family: "Permanent Marker Home",
-    binding:
-      /\.panel--home\s+\.brand-mark\s*\{[^}]*font-family:\s*var\(--font-home-mark\)/i,
-  },
-  {
-    relativePath:
-      "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
-    html: commercialHtml,
-    family: "Permanent Marker Commercial H1",
-    binding:
-      /h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"/i,
-  },
-]) {
-  if (!fileSet.has(relativePath)) failures.push(`Missing performance font subset: ${relativePath}`);
-  if (!html.includes(`/${relativePath}`)) {
-    failures.push(`${relativePath} must be preloaded and declared by its critical route.`);
-  }
-  const criticalCss = /<style\b[^>]*data-jq33-critical-bundle[^>]*>([\s\S]*?)<\/style>/i.exec(
-    html,
-  )?.[1];
-  if (!criticalCss?.includes(`/${relativePath}`)) {
-    failures.push(`${relativePath} must be declared in the route's critical CSS bundle.`);
-  }
-  if (
-    !criticalCss?.includes(`font-family: "${family}"`) &&
-    !criticalCss?.includes(`font-family:${family}`)
-  ) {
-    failures.push(`${relativePath} must use the unambiguous ${family} font family.`);
-  }
-  if (!binding.test(criticalCss || "")) {
-    failures.push(`${relativePath} must be bound only to its intended critical hero text.`);
-  }
+const commercialRelativePath =
+  "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2";
+const commercialCriticalCss =
+  /<style\b[^>]*data-jq33-critical-bundle[^>]*>([\s\S]*?)<\/style>/i.exec(commercialHtml)?.[1];
+if (!fileSet.has(commercialRelativePath)) {
+  failures.push(`Missing performance font subset: ${commercialRelativePath}`);
+}
+if (!commercialHtml.includes(`/${commercialRelativePath}`)) {
+  failures.push(`${commercialRelativePath} must be preloaded and declared by its critical route.`);
+}
+if (!commercialCriticalCss?.includes(`/${commercialRelativePath}`)) {
+  failures.push(`${commercialRelativePath} must be declared in the route's critical CSS bundle.`);
+}
+if (!/font-family:\s*["']?Permanent Marker Commercial H1["']?\s*;/i.test(commercialCriticalCss || "")) {
+  failures.push(`${commercialRelativePath} must use the unambiguous Permanent Marker Commercial H1 font family.`);
+}
+if (!/h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"/i.test(commercialCriticalCss || "")) {
+  failures.push(`${commercialRelativePath} must be bound only to its intended critical hero text.`);
 }
 const sharedMarkerFont = path.join(
   distRoot,
   "assets/fonts/permanent-marker/permanent-marker-400.woff2",
 );
-for (const relativePath of [
-  "assets/fonts/permanent-marker/permanent-marker-home.woff2",
-  "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
-]) {
+for (const relativePath of ["assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2"]) {
   const subsetPath = path.join(distRoot, relativePath);
   if (
     fs.existsSync(subsetPath) &&

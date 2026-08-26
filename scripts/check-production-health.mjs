@@ -66,7 +66,7 @@ const securityFailures = (record, label, secure = true) => {
     ["frame-ancestors", ["'none'"]],
     ["form-action", ["https://formspree.io"]],
     ["img-src", ["'self'", "data:"]],
-    ["font-src", ["'self'"]],
+    ["font-src", ["'self'", "data:"]],
     ["connect-src", ["'self'", "https://formspree.io", "https://cloudflareinsights.com"]],
     ["frame-src", ["'none'"]],
     ["media-src", ["'none'"]],
@@ -198,7 +198,7 @@ const validateSnapshot = (snapshot) => {
 
 const selfTest = () => {
   const headers = {
-    "content-security-policy": "default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action https://formspree.io; script-src 'self' 'unsafe-hashes' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-hashes'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io https://cloudflareinsights.com; frame-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests",
+    "content-security-policy": "default-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action https://formspree.io; script-src 'self' 'unsafe-hashes' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-hashes'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://formspree.io https://cloudflareinsights.com; frame-src 'none'; media-src 'none'; worker-src 'none'; manifest-src 'self'; upgrade-insecure-requests",
     "strict-transport-security": "max-age=31536000; includeSubDomains",
     "x-frame-options": "DENY",
     "x-content-type-options": "nosniff",
