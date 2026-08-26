@@ -190,6 +190,9 @@ const generatedHeaders = fs.readFileSync(path.join(distRoot, "_headers"), "utf8"
 
 for (const file of files.filter(textFile)) {
   const content = fs.readFileSync(file.fullPath, "utf8");
+  if (/\r/.test(content)) {
+    failures.push(`${file.relativePath} contains non-canonical CR line endings.`);
+  }
   if (!allowTestFixtures && /\bjq33-(?:contact|inquiry|test)-fixture\b/i.test(content)) {
     failures.push(`${file.relativePath} contains a local QA integration fixture.`);
   }

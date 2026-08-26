@@ -116,6 +116,7 @@ const fail = (message) => {
 };
 
 const normalizeRelative = (value) => value.split(path.sep).join("/");
+const normalizeTextLineEndings = (value) => value.replace(/\r\n?/g, "\n");
 
 const assertExactDistPath = () => {
   const expected = path.resolve(rootDir, "dist");
@@ -146,7 +147,11 @@ const copyFile = (relativePath) => {
   }
   const destination = path.join(distDir, relativePath);
   fs.mkdirSync(path.dirname(destination), { recursive: true });
-  fs.writeFileSync(destination, fs.readFileSync(source, "utf8").replace(/\r\n?/g, "\n"), "utf8");
+  fs.writeFileSync(
+    destination,
+    normalizeTextLineEndings(fs.readFileSync(source, "utf8")),
+    "utf8",
+  );
 };
 
 const copyTree = ({ source, extensions, required }) => {
@@ -387,7 +392,7 @@ const replaceBuildTokens = (integrations, profiles) => {
 
   for (const filePath of walkFiles(distDir)) {
     if (!textExtensions.has(path.extname(filePath).toLowerCase())) continue;
-    let content = fs.readFileSync(filePath, "utf8");
+    let content = normalizeTextLineEndings(fs.readFileSync(filePath, "utf8"));
     for (const [token, value] of replacements) {
       content = content.replaceAll(token, value);
     }
@@ -767,7 +772,11 @@ const writeHeaders = (integrations) => {
   if (/{{[^{}\r\n]+}}/.test(output)) {
     fail("_headers contains an unresolved build token.");
   }
-  fs.writeFileSync(path.join(distDir, "_headers"), output, "utf8");
+  fs.writeFileSync(
+    path.join(distDir, "_headers"),
+    normalizeTextLineEndings(output),
+    "utf8",
+  );
 };
 
 const assertConfiguredUrlsOnly = (integrations) => {
