@@ -50,7 +50,19 @@ const sources = [
   ].map(([sourceSlug, routeSlug]) => ({
     source: `assets/journal/cards/${sourceSlug}.webp`,
     prefix: `journal-${routeSlug}`,
-    widths: [640, 960, 1280],
+    widths: [640, 768, 960, 1280],
+    quality: 76,
+  })),
+  ...[
+    "bruton-place-iv",
+    "ethereal-gallery",
+    "obsidian-lounge",
+    "vortex-showroom",
+    "canvas-studios",
+  ].map((slug) => ({
+    source: `assets/projects/${slug}/index-study-20260823.webp`,
+    prefix: `project-${slug}-index-study`,
+    widths: [480, 768],
     quality: 76,
   })),
 ];

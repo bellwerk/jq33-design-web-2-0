@@ -15,6 +15,15 @@ const projectSlugs = [
   "vortex-showroom",
   "canvas-studios",
 ];
+const releaseFingerprint = "20260826-production-launch-closure-nav-1";
+const journalCardSlugs = [
+  "reduction-as-creation",
+  "lighting-that-sells",
+  "the-customer-path",
+  "durable-premium-materials",
+  "small-shop-big-impact",
+  "spend-where-it-shows",
+];
 const publicRoutes = [
   "/",
   "/commercial-interior-design-montreal/",
@@ -231,8 +240,24 @@ for (const file of files.filter(textFile)) {
 const htmlFiles = files.filter(
   (file) => path.posix.extname(file.relativePath).toLowerCase() === ".html",
 );
+const getHtmlAttribute = (tag, name) => {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = new RegExp(
+    `(?:^|\\s)${escaped}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'=<>]+))`,
+    "i",
+  ).exec(tag);
+  return match ? match[1] ?? match[2] ?? match[3] ?? "" : "";
+};
+const imageTagsWithClass = (html, className) =>
+  [...html.matchAll(/<img\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => getHtmlAttribute(tag, "class").split(/\s+/).includes(className));
+
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file.fullPath, "utf8");
+  if (!html.includes(`<meta name="jq33-release" content="${releaseFingerprint}">`)) {
+    failures.push(`${file.relativePath} is missing the exact release fingerprint.`);
+  }
   if (
     /\/assets\/js\/cloudflare-analytics\.js/i.test(html) ||
     /https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js/i.test(html) ||
@@ -241,6 +266,106 @@ for (const file of htmlFiles) {
     failures.push(
       `${file.relativePath} must not contain source-managed Cloudflare Web Analytics; Cloudflare automatic injection is authoritative.`,
     );
+  }
+}
+
+const homeHtml = fs.readFileSync(path.join(distRoot, "index.html"), "utf8");
+const commercialHtml = fs.readFileSync(
+  path.join(distRoot, "commercial-interior-design-montreal/index.html"),
+  "utf8",
+);
+for (const [relativePath, html] of [
+  ["assets/fonts/permanent-marker/permanent-marker-home.woff2", homeHtml],
+  [
+    "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
+    commercialHtml,
+  ],
+]) {
+  if (!fileSet.has(relativePath)) failures.push(`Missing performance font subset: ${relativePath}`);
+  if (!html.includes(`/${relativePath}`)) {
+    failures.push(`${relativePath} must be preloaded and declared by its critical route.`);
+  }
+  const criticalCss = /<style\b[^>]*data-jq33-critical-bundle[^>]*>([\s\S]*?)<\/style>/i.exec(
+    html,
+  )?.[1];
+  if (!criticalCss?.includes(`/${relativePath}`)) {
+    failures.push(`${relativePath} must be declared in the route's critical CSS bundle.`);
+  }
+}
+const sharedMarkerFont = path.join(
+  distRoot,
+  "assets/fonts/permanent-marker/permanent-marker-400.woff2",
+);
+for (const relativePath of [
+  "assets/fonts/permanent-marker/permanent-marker-home.woff2",
+  "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
+]) {
+  const subsetPath = path.join(distRoot, relativePath);
+  if (
+    fs.existsSync(subsetPath) &&
+    fs.existsSync(sharedMarkerFont) &&
+    fs.statSync(subsetPath).size >= fs.statSync(sharedMarkerFont).size
+  ) {
+    failures.push(`${relativePath} must be smaller than the shared Permanent Marker subset.`);
+  }
+}
+
+const projectsHtml = fs.readFileSync(path.join(distRoot, "projects/index.html"), "utf8");
+const projectHero = imageTagsWithClass(projectsHtml, "concept-index__hero-image");
+const projectCards = imageTagsWithClass(projectsHtml, "project-card__image");
+if (projectHero.length !== 1 || projectCards.length !== projectSlugs.length) {
+  failures.push("Projects index must contain one responsive hero and five responsive study cards.");
+}
+for (const [index, slug] of projectSlugs.entries()) {
+  for (const width of [480, 768]) {
+    const relativePath = `assets/generated/images/project-${slug}-index-study-${width}.webp`;
+    if (!fileSet.has(relativePath)) failures.push(`Missing responsive project image: ${relativePath}`);
+    const cardSrcset = getHtmlAttribute(projectCards[index] || "", "srcset");
+    if (!cardSrcset.includes(`/${relativePath} ${width}w`)) {
+      failures.push(`Project card ${slug} is missing its ${width}w responsive candidate.`);
+    }
+  }
+  if (!getHtmlAttribute(projectCards[index] || "", "sizes")) {
+    failures.push(`Project card ${slug} is missing an accurate sizes contract.`);
+  }
+  const expectedLoading = index === 0 ? "eager" : "lazy";
+  const expectedPriority = index === 0 ? "high" : "low";
+  if (
+    getHtmlAttribute(projectCards[index] || "", "loading") !== expectedLoading ||
+    getHtmlAttribute(projectCards[index] || "", "fetchpriority") !== expectedPriority
+  ) {
+    failures.push(
+      `Project card ${slug} must use loading=${expectedLoading} and fetchpriority=${expectedPriority}.`,
+    );
+  }
+}
+for (const width of [480, 768]) {
+  if (
+    !getHtmlAttribute(projectHero[0] || "", "srcset").includes(
+      `/assets/generated/images/project-bruton-place-iv-index-study-${width}.webp ${width}w`,
+    )
+  ) {
+    failures.push(`Projects hero is missing its ${width}w responsive candidate.`);
+  }
+}
+if (
+  !getHtmlAttribute(projectHero[0] || "", "sizes") ||
+  getHtmlAttribute(projectHero[0] || "", "loading") !== "eager" ||
+  getHtmlAttribute(projectHero[0] || "", "fetchpriority") !== "high"
+) {
+  failures.push("Projects hero must declare responsive sizes and eager/high loading priority.");
+}
+
+const journalHtml = fs.readFileSync(path.join(distRoot, "journal/index.html"), "utf8");
+const journalCards = imageTagsWithClass(journalHtml, "project-image");
+if (journalCards.length !== journalCardSlugs.length) {
+  failures.push("Journal index must contain six responsive card images.");
+}
+for (const [index, slug] of journalCardSlugs.entries()) {
+  const relativePath = `assets/generated/images/journal-${slug}-768.webp`;
+  if (!fileSet.has(relativePath)) failures.push(`Missing responsive journal image: ${relativePath}`);
+  if (!getHtmlAttribute(journalCards[index] || "", "srcset").includes(`/${relativePath} 768w`)) {
+    failures.push(`Journal card ${slug} is missing its 768w responsive candidate.`);
   }
 }
 
@@ -496,6 +621,7 @@ const sourceExactFiles = [
   "_headers",
   "assets/css/site.css",
   "assets/css/critical-shared.css",
+  "assets/css/home-font.css",
   "assets/js/leads.js",
   "assets/js/calendly.js",
   "assets/js/deferred-css.js",

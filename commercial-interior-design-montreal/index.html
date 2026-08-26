@@ -106,7 +106,7 @@
       }
     </script>
 
-    <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2" as="font" type="font/woff2" crossorigin />
     <link
       rel="preload"
       as="image"
@@ -115,9 +115,9 @@
       imagesizes="(max-width: 720px) 150svh, 100vw"
       fetchpriority="high"
     />
-    <link rel="stylesheet" href="/tokens.css" data-jq33-critical />
-    <link rel="stylesheet" href="/assets/css/critical-shared.css" data-jq33-critical />
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260717-lato" />
+    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" data-jq33-critical />
+    <link rel="stylesheet" href="/assets/css/critical-shared.css?v=20260824-global-nav-final-2" data-jq33-critical />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
     <style data-jq33-critical>
       /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       *,
@@ -300,22 +300,6 @@
         font-size: 0.7rem;
         letter-spacing: 0.16em;
         text-transform: uppercase;
-      }
-
-      header.header-nav {
-        position: absolute;
-        background: transparent !important;
-        backdrop-filter: none;
-      }
-
-      header.header-nav .nav-group {
-        gap: var(--space-8-8);
-      }
-
-      header.header-nav .nav-link {
-        color: var(--color-white-a92);
-        font-size: 0.95rem;
-        font-weight: 600;
       }
 
       @media (max-width: 1100px) {
@@ -894,50 +878,6 @@
         border-radius: 0;
       }
 
-      header.header-nav .nav-link::after {
-        content: none;
-      }
-
-      header.header-nav a {
-        text-decoration: none;
-      }
-
-      header.header-nav {
-        position: absolute;
-        background: transparent !important;
-        backdrop-filter: none;
-      }
-
-      header.header-nav .nav-group {
-        gap: var(--space-8-8);
-      }
-
-      header.header-nav .nav-link {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: var(--color-white-a92);
-        transition: color var(--dur-sm) var(--ease-out);
-      }
-
-      header.header-nav .nav-link--emphasis {
-        padding: var(--space-1-4) var(--space-2-8);
-        border: 1px solid var(--color-white-a20);
-        background: var(--color-white-a06);
-      }
-
-      header.header-nav .nav-link--cta {
-        padding: var(--space-1-8) var(--space-3-6);
-        border: 1px solid var(--color-cobalt-a60);
-        background: var(--color-accent);
-        color: var(--color-accent-ink);
-        box-shadow: 0 16px 32px var(--color-cobalt-a24);
-      }
-
-      header.header-nav .nav-link--emphasis,
-      header.header-nav .nav-link--cta {
-        border-radius: 0;
-      }
-
       @media (hover: hover) and (pointer: fine) {
         .btn-primary:hover {
           background: var(--cobalt-base-hover);
@@ -951,13 +891,6 @@
           border-color: var(--border-strong);
         }
 
-        header.header-nav .nav-link:hover {
-          color: var(--color-white);
-        }
-
-        header.header-nav .nav-link--cta:hover {
-          background: var(--cobalt-base-hover);
-        }
       }
 
       @media (max-width: 1100px) {
@@ -1460,53 +1393,6 @@
     <script src="/assets/js/nav-drawer.js"></script>
     <script>
       (() => {
-        const navItems = [
-          { label: "Projects", href: "/projects/" },
-          { label: "Process", href: "#process" },
-          { label: "Journal", href: "/journal/" },
-          { label: "FAQ", href: "#faq" },
-          {
-            label: "Inquiry",
-            href: "/inquiry/",
-            className: "nav-link--emphasis",
-          },
-          {
-            label: "Book a Call",
-            href: "{{CALENDLY_URL}}",
-            className: "nav-link--cta",
-            attrs: { "data-calendly-cta": "" },
-          },
-        ];
-
-        const buildAttrs = (attrs = {}) =>
-          Object.entries(attrs)
-            .map(([key, value]) => (value === "" ? key : `${key}="${value}"`))
-            .join(" ");
-
-        const buildNav = () => {
-          const navGroup = document.querySelector("header.header-nav .nav-group");
-          if (navGroup) {
-            navGroup.innerHTML = navItems
-              .map((item) => {
-                const attrs = buildAttrs(item.attrs);
-                const className = `nav-link${item.className ? ` ${item.className}` : ""}`;
-                return `<li><a href="${item.href}" class="${className}" ${attrs}>${item.label}</a></li>`;
-              })
-              .join("");
-          }
-
-          const drawerNav = document.querySelector("#site-nav-drawer nav");
-          if (drawerNav) {
-            drawerNav.innerHTML = navItems
-              .filter((item) => item.label !== "Book a Call")
-              .map((item) => {
-                const attrs = buildAttrs(item.attrs);
-                return `<a href="${item.href}" ${attrs}>${item.label}</a>`;
-              })
-              .join("");
-          }
-        };
-
         const buildFooter = () => {
           const footer = document.querySelector(".site-footer");
           if (!footer || footer.querySelector(".footer-summary")) return;
@@ -1529,16 +1415,6 @@
           }
         };
 
-        const tryBuild = (attempts = 0) => {
-          if (attempts > 12) return;
-          const ready = document.querySelector("header.header-nav .nav-group");
-          if (ready) {
-            buildNav();
-            return;
-          }
-          setTimeout(() => tryBuild(attempts + 1), 80);
-        };
-
         const tryBuildFooter = (attempts = 0) => {
           if (attempts > 12) return;
           const ready = document.querySelector(".site-footer");
@@ -1549,13 +1425,11 @@
           setTimeout(() => tryBuildFooter(attempts + 1), 80);
         };
 
-        tryBuild();
         tryBuildFooter();
         if (document.readyState === "loading") {
           document.addEventListener(
             "DOMContentLoaded",
             () => {
-              tryBuild();
               tryBuildFooter();
             },
             { once: true }

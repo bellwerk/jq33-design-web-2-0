@@ -13,6 +13,25 @@ const rootDir = path.resolve(__dirname, "..");
 const distDir = path.join(rootDir, "dist");
 const allowTestFixtures = process.argv.includes("--allow-test-fixtures");
 const canonicalOrigin = "https://jq33.design";
+const releaseFingerprint = "20260826-production-launch-closure-nav-1";
+const requiredToolchain = {
+  node: "22.23.2",
+  pnpm: "11.13.0",
+};
+const pnpmVersion = /(?:^|\s)pnpm\/([^\s]+)/.exec(
+  process.env.npm_config_user_agent || "",
+)?.[1];
+
+if (process.versions.node !== requiredToolchain.node) {
+  throw new Error(
+    `Strict build requires Node ${requiredToolchain.node}; received ${process.versions.node}.`,
+  );
+}
+if (pnpmVersion !== requiredToolchain.pnpm) {
+  throw new Error(
+    `Strict build requires pnpm ${requiredToolchain.pnpm}; received ${pnpmVersion || "unknown"}.`,
+  );
+}
 const testFixtureValues = {
   PUBLIC_FORMSPREE_CONTACT_URL: "https://formspree.io/f/jq33-contact-fixture",
   PUBLIC_FORMSPREE_INQUIRY_URL: "https://formspree.io/f/jq33-inquiry-fixture",
@@ -330,16 +349,24 @@ const createProductionFontSubsets = async () => {
   }
 
   const source = fs.readFileSync(publicFontPath);
+  const homeGlyphText = " JQ33Design";
+  const commercialH1GlyphText = " Commercial Interior Design in Montreal";
+  const [homeSubset, commercialH1Subset, subset] = await Promise.all([
+    subsetFont(source, homeGlyphText, { targetFormat: "woff2" }),
+    subsetFont(source, commercialH1GlyphText, { targetFormat: "woff2" }),
+    subsetFont(source, glyphText, { targetFormat: "woff2" }),
+  ]);
   fs.writeFileSync(
     path.join(path.dirname(publicFontPath), "permanent-marker-home.woff2"),
-    source,
+    homeSubset,
   );
-  const subset = await subsetFont(source, glyphText, {
-    targetFormat: "woff2",
-  });
+  fs.writeFileSync(
+    path.join(path.dirname(publicFontPath), "permanent-marker-commercial-h1.woff2"),
+    commercialH1Subset,
+  );
   fs.writeFileSync(publicFontPath, subset);
   console.log(
-    `Subset shared Permanent Marker for production (${source.length} -> ${subset.length} bytes; exact homepage copy ${source.length} bytes).`,
+    `Subset Permanent Marker for production (${source.length} -> shared ${subset.length}, homepage ${homeSubset.length}, commercial H1 ${commercialH1Subset.length} bytes).`,
   );
 };
 
@@ -477,6 +504,20 @@ const externalizeInlineAssets = async () => {
         return `url(${quote}${absolute}${quote})`;
       });
     let html = fs.readFileSync(filePath, "utf8");
+    if (documentPath === "/commercial-interior-design-montreal/index.html") {
+      html = html.replace(
+        /(<style\b[^>]*\bdata-jq33-critical\b[^>]*>)/i,
+        `$1
+@font-face {
+  font-family: "Permanent Marker";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2") format("woff2");
+  unicode-range: U+0020, U+0043, U+0044, U+0049, U+004D, U+0061, U+0063, U+0065, U+0067, U+0069, U+006C, U+006D, U+006E, U+006F, U+0072, U+0073, U+0074;
+}`,
+      );
+    }
     html = html.replace(/\svid\s*=\s*(["'])[^"']*\1/gi, "");
     html = html.replace(
       /<style\b([^>]*)>([\s\S]*?)<\/style>/gi,
@@ -650,6 +691,12 @@ for (const element of document.querySelectorAll('[data-jq33-on${eventName}="${ma
       if (/\b(?:defer|async)\b/i.test(attributes)) return tag;
       return `<script defer${attributes}>`;
     });
+    if (!html.includes(releaseFingerprint)) {
+      html = html.replace(
+        /<\/head>/i,
+        `<meta name="jq33-release" content="${releaseFingerprint}">\n</head>`,
+      );
+    }
     html = await minifyHtml(html, {
       caseSensitive: true,
       collapseBooleanAttributes: true,

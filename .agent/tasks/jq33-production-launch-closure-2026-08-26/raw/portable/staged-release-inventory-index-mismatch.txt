@@ -1,0 +1,20 @@
+JQ33 staged release inventory integrity check - retained initial failure
+Checked at: 2026-08-26T20:59:33.538Z
+Byte source: git index blobs via git show :path
+Inventories checked:
+- raw/baseline/postimplementation-release-inventory.json
+- raw/verifier-prepreview/current-release-inventory.json
+
+Result: FAIL
+Each inventory contained 38 expected allowlisted release entries. Each had one
+mismatch against the staged Git blob:
+
+path: admin/portfolio/index.html
+recorded worktree bytes: 8876
+recorded worktree sha256: 8970925e8eda1846b664c4f5408cb00ae6f1fa27899d520065769fff809f1524
+actual index bytes: 8621
+actual index sha256: eeabbed4e62695f770ecb420e323286f3a3df55234173477958aa1282bb9dac9
+
+The 255-byte delta is line-ending normalization: the worktree has 255 CRLF
+pairs while the Git index stores all 288 line endings as LF. No release file
+was changed by this proof correction.

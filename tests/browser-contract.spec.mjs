@@ -51,12 +51,736 @@ const shortHomeHeroViewports = [
   { width: 1440, height: 320 },
 ];
 
+const navigationViewports = [320, 375, 390, 414, 768, 1280, 1440].map((width) => ({
+  width,
+  height: 900,
+}));
+
+const canonicalNavigationLinks = [
+  { text: "Projects", href: "/projects/" },
+  { text: "Journal", href: "/journal/" },
+  { text: "Inquiry", href: "/inquiry/" },
+  { text: "Contact", href: "/contact/" },
+];
+
+const navigationColor = "rgb(84, 39, 225)";
+
+const navigationStyleProperties = {
+  drawer: [
+    "position",
+    "top",
+    "right",
+    "bottom",
+    "left",
+    "transform",
+    "display",
+    "flexDirection",
+    "alignItems",
+    "justifyContent",
+    "gap",
+    "width",
+    "maxWidth",
+    "height",
+    "minHeight",
+    "maxHeight",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "boxSizing",
+    "borderTopWidth",
+    "borderRightWidth",
+    "borderBottomWidth",
+    "borderLeftWidth",
+    "borderTopStyle",
+    "borderRightStyle",
+    "borderBottomStyle",
+    "borderLeftStyle",
+    "borderTopColor",
+    "borderRightColor",
+    "borderBottomColor",
+    "borderLeftColor",
+    "borderRadius",
+    "backgroundColor",
+    "backgroundImage",
+    "backdropFilter",
+    "opacity",
+    "visibility",
+    "pointerEvents",
+    "zIndex",
+    "fontFamily",
+  ],
+  group: [
+    "display",
+    "flexDirection",
+    "flexWrap",
+    "alignItems",
+    "justifyContent",
+    "gap",
+    "rowGap",
+    "columnGap",
+    "width",
+    "maxWidth",
+    "height",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "boxSizing",
+    "borderTopWidth",
+    "borderRightWidth",
+    "borderBottomWidth",
+    "borderLeftWidth",
+    "listStyleType",
+  ],
+  header: [
+    "position",
+    "top",
+    "right",
+    "bottom",
+    "left",
+    "transform",
+    "display",
+    "flexDirection",
+    "alignItems",
+    "justifyContent",
+    "gap",
+    "width",
+    "maxWidth",
+    "height",
+    "minHeight",
+    "maxHeight",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "boxSizing",
+    "borderTopWidth",
+    "borderRightWidth",
+    "borderBottomWidth",
+    "borderLeftWidth",
+    "borderTopStyle",
+    "borderRightStyle",
+    "borderBottomStyle",
+    "borderLeftStyle",
+    "borderTopColor",
+    "borderRightColor",
+    "borderBottomColor",
+    "borderLeftColor",
+    "borderRadius",
+    "backgroundColor",
+    "backgroundImage",
+    "backdropFilter",
+    "opacity",
+    "zIndex",
+    "fontFamily",
+  ],
+  label: [
+    "display",
+    "visibility",
+    "fontFamily",
+    "fontSize",
+    "fontWeight",
+    "lineHeight",
+    "letterSpacing",
+    "textTransform",
+    "color",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "textDecorationLine",
+  ],
+  link: [
+    "display",
+    "position",
+    "fontFamily",
+    "fontSize",
+    "fontWeight",
+    "lineHeight",
+    "letterSpacing",
+    "textTransform",
+    "whiteSpace",
+    "color",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "borderTopWidth",
+    "borderRightWidth",
+    "borderBottomWidth",
+    "borderLeftWidth",
+    "borderTopStyle",
+    "borderRightStyle",
+    "borderBottomStyle",
+    "borderLeftStyle",
+    "borderTopColor",
+    "borderRightColor",
+    "borderBottomColor",
+    "borderLeftColor",
+    "textDecorationLine",
+    "textDecorationStyle",
+    "boxShadow",
+    "backgroundColor",
+    "backgroundImage",
+    "outlineStyle",
+    "outlineWidth",
+    "outlineColor",
+    "outlineOffset",
+    "opacity",
+  ],
+  logo: [
+    "display",
+    "width",
+    "minWidth",
+    "maxWidth",
+    "height",
+    "minHeight",
+    "maxHeight",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "boxSizing",
+    "objectFit",
+  ],
+  overlay: [
+    "position",
+    "top",
+    "right",
+    "bottom",
+    "left",
+    "display",
+    "width",
+    "height",
+    "backgroundColor",
+    "backgroundImage",
+    "backdropFilter",
+    "opacity",
+    "visibility",
+    "pointerEvents",
+    "zIndex",
+  ],
+  toggle: [
+    "display",
+    "visibility",
+    "position",
+    "width",
+    "minWidth",
+    "maxWidth",
+    "height",
+    "minHeight",
+    "maxHeight",
+    "paddingTop",
+    "paddingRight",
+    "paddingBottom",
+    "paddingLeft",
+    "marginTop",
+    "marginRight",
+    "marginBottom",
+    "marginLeft",
+    "boxSizing",
+    "borderTopWidth",
+    "borderRightWidth",
+    "borderBottomWidth",
+    "borderLeftWidth",
+    "borderTopStyle",
+    "borderRightStyle",
+    "borderBottomStyle",
+    "borderLeftStyle",
+    "borderRadius",
+    "backgroundColor",
+    "backgroundImage",
+    "color",
+    "transform",
+    "opacity",
+  ],
+};
+
 async function gotoPublicDocument(page, documentCase) {
   if (documentCase.status === 404) {
     await gotoNotFoundSettled(page, documentCase.route);
     return;
   }
   await gotoSettled(page, documentCase.route);
+}
+
+async function captureNavigationElementState(locator) {
+  return locator.evaluate((element, properties) => {
+    const style = getComputedStyle(element);
+    const pseudo = (name) => {
+      const computed = getComputedStyle(element, name);
+      return {
+        backgroundColor: computed.backgroundColor,
+        backgroundImage: computed.backgroundImage,
+        borderBottomStyle: computed.borderBottomStyle,
+        borderBottomWidth: computed.borderBottomWidth,
+        boxShadow: computed.boxShadow,
+        content: computed.content,
+        display: computed.display,
+        height: computed.height,
+        transform: computed.transform,
+        width: computed.width,
+      };
+    };
+    return {
+      pseudoAfter: pseudo("::after"),
+      pseudoBefore: pseudo("::before"),
+      style: Object.fromEntries(properties.map((property) => [property, style[property]])),
+    };
+  }, navigationStyleProperties.link);
+}
+
+async function captureNavigationInteractionStates(page, locator, { exactColor = false } = {}) {
+  const states = {};
+  states.normal = await captureNavigationElementState(locator);
+
+  await locator.hover();
+  states.hover = await captureNavigationElementState(locator);
+
+  await page.keyboard.press("Tab");
+  await locator.focus();
+  await expect(locator).toBeFocused();
+  states.focus = await captureNavigationElementState(locator);
+
+  const box = await locator.boundingBox();
+  expect(box, "Navigation control must expose a rendered pointer target").not.toBeNull();
+  await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+  await page.mouse.down();
+  states.active = await captureNavigationElementState(locator);
+  await page.mouse.move(0, 0);
+  await page.mouse.up();
+
+  await page.evaluate(() => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  });
+
+  states.current = await locator.evaluate(
+    (element, properties) => {
+      const previous = element.getAttribute("aria-current");
+      element.setAttribute("aria-current", "page");
+      const style = getComputedStyle(element);
+      const pseudo = (name) => {
+        const computed = getComputedStyle(element, name);
+        return {
+          backgroundColor: computed.backgroundColor,
+          backgroundImage: computed.backgroundImage,
+          borderBottomStyle: computed.borderBottomStyle,
+          borderBottomWidth: computed.borderBottomWidth,
+          boxShadow: computed.boxShadow,
+          content: computed.content,
+          display: computed.display,
+          height: computed.height,
+          transform: computed.transform,
+          width: computed.width,
+        };
+      };
+      const captured = {
+        pseudoAfter: pseudo("::after"),
+        pseudoBefore: pseudo("::before"),
+        style: Object.fromEntries(properties.map((property) => [property, style[property]])),
+      };
+      if (previous === null) element.removeAttribute("aria-current");
+      else element.setAttribute("aria-current", previous);
+      return captured;
+    },
+    navigationStyleProperties.link,
+  );
+
+  for (const [state, captured] of Object.entries(states)) {
+    const style = captured.style;
+    expect(style.textDecorationLine, `${state} navigation text must not be underlined`).toBe(
+      "none",
+    );
+    const bottomBorderIsIsolated =
+      style.borderBottomWidth !== "0px" &&
+      !["Top", "Right", "Left"].every(
+        (side) =>
+          style[`border${side}Width`] === style.borderBottomWidth &&
+          style[`border${side}Style`] === style.borderBottomStyle &&
+          style[`border${side}Color`] === style.borderBottomColor,
+      );
+    expect(
+      bottomBorderIsIsolated,
+      `${state} navigation text must not draw an isolated bottom-border underline`,
+    ).toBe(false);
+    if (exactColor) {
+      expect(style.boxShadow, `${state} primary navigation text must not draw a shadow underline`).toBe(
+        "none",
+      );
+    }
+    expect(style.backgroundImage, `${state} navigation text must not draw a gradient underline`).toBe(
+      "none",
+    );
+    for (const [name, pseudo] of [
+      ["before", captured.pseudoBefore],
+      ["after", captured.pseudoAfter],
+    ]) {
+      expect(
+        ["none", "normal"],
+        `${state} navigation text must not draw a ::${name} line`,
+      ).toContain(pseudo.content);
+    }
+    if (exactColor) {
+      expect(style.color, `${state} primary navigation color must be #5427E1`).toBe(
+        navigationColor,
+      );
+      expect(style.fontFamily.toLowerCase(), `${state} primary navigation must use Lato`).toContain(
+        "lato",
+      );
+    }
+  }
+
+  expect(states.focus.style.outlineStyle, "Keyboard focus must remain visible without an underline").not.toBe(
+    "none",
+  );
+  expect(
+    Number.parseFloat(states.focus.style.outlineWidth),
+    "Keyboard focus outline must remain at least 2px",
+  ).toBeGreaterThanOrEqual(2);
+
+  return states;
+}
+
+async function captureNavigationContract(page, viewport) {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+
+  const structure = await page.evaluate((properties) => {
+    const header = document.querySelector('header.header-nav[data-component="header-nav"]');
+    const home = header?.querySelector("a.nav-item");
+    const logo = header?.querySelector(".nav-logo");
+    const label = header?.querySelector(".nav-item .label");
+    const primary = header?.querySelector('nav[aria-label="Primary"]');
+    const group = header?.querySelector(".nav-group");
+    const toggle = header?.querySelector(".nav-toggle");
+    const toggleBars = toggle?.querySelector(".nav-toggle-bars");
+    const overlay = document.querySelector(".nav-overlay[data-nav-overlay]");
+    const drawer = document.querySelector("#site-nav-drawer.nav-drawer");
+    const drawerTitle = drawer?.querySelector(".drawer-title");
+    const drawerNav = drawer?.querySelector('nav[aria-label="Mobile"]');
+    const style = (element, names) => {
+      const computed = getComputedStyle(element);
+      return Object.fromEntries(names.map((name) => [name, computed[name]]));
+    };
+    const rect = (element) => {
+      const bounds = element.getBoundingClientRect();
+      return {
+        height: bounds.height,
+        width: bounds.width,
+        x: bounds.x,
+        y: bounds.y,
+      };
+    };
+    const links = (root, selector) =>
+      [...root.querySelectorAll(selector)].map((link) => ({
+        href: new URL(link.href).pathname,
+        text: link.textContent.replace(/\s+/g, " ").trim(),
+      }));
+
+    return {
+      counts: {
+        drawer: document.querySelectorAll("#site-nav-drawer.nav-drawer").length,
+        header: document.querySelectorAll(
+          'header.header-nav[data-component="header-nav"]',
+        ).length,
+        home: header?.querySelectorAll("a.nav-item").length ?? 0,
+        overlay: document.querySelectorAll(".nav-overlay[data-nav-overlay]").length,
+        primary: header?.querySelectorAll('nav[aria-label="Primary"]').length ?? 0,
+        toggle: header?.querySelectorAll("button.nav-toggle[data-nav-toggle]").length ?? 0,
+      },
+      drawer: {
+        ariaHidden: drawer?.getAttribute("aria-hidden"),
+        inert: drawer?.inert,
+        links: drawer ? links(drawerNav, ":scope > a") : [],
+        rect: rect(drawer),
+        style: style(drawer, properties.drawer),
+        title: {
+          style: style(drawerTitle, properties.label),
+          text: drawerTitle?.textContent.trim(),
+        },
+      },
+      group: {
+        rect: rect(group),
+        style: style(group, properties.group),
+      },
+      header: {
+        rect: rect(header),
+        style: style(header, properties.header),
+      },
+      home: {
+        accessibleName: home?.getAttribute("aria-label"),
+        href: home ? new URL(home.href).pathname : "",
+        label: label?.textContent.trim(),
+        labelRect: rect(label),
+        labelStyle: style(label, properties.label),
+        linkAfterContent: getComputedStyle(home, "::after").content,
+        linkBeforeContent: getComputedStyle(home, "::before").content,
+        linkStyle: style(home, properties.link),
+        logoAlt: logo?.getAttribute("alt"),
+        logoRect: rect(logo),
+        logoSrc: logo ? new URL(logo.src).pathname : "",
+        logoStyle: style(logo, properties.logo),
+      },
+      links: links(primary, ".nav-link"),
+      overflow: {
+        clientWidth: document.documentElement.clientWidth,
+        scrollWidth: Math.max(
+          document.documentElement.scrollWidth,
+          document.body?.scrollWidth || 0,
+        ),
+      },
+      overlay: {
+        rect: rect(overlay),
+        style: style(overlay, properties.overlay),
+      },
+      toggle: {
+        ariaControls: toggle?.getAttribute("aria-controls"),
+        ariaExpanded: toggle?.getAttribute("aria-expanded"),
+        ariaLabel: toggle?.getAttribute("aria-label"),
+        bars: {
+          items: [...toggleBars.querySelectorAll(":scope > span")].map((bar) => ({
+            rect: rect(bar),
+            style: style(bar, ["backgroundColor", "display", "height", "width"]),
+          })),
+          rect: rect(toggleBars),
+          style: style(toggleBars, [
+            "display",
+            "flexDirection",
+            "justifyContent",
+            "height",
+            "transform",
+            "width",
+          ]),
+        },
+        rect: rect(toggle),
+        style: style(toggle, properties.toggle),
+      },
+      tokens: {
+        color: getComputedStyle(document.documentElement)
+          .getPropertyValue("--color-nav")
+          .trim(),
+        surface: getComputedStyle(document.documentElement)
+          .getPropertyValue("--color-nav-surface")
+          .trim(),
+      },
+    };
+  }, navigationStyleProperties);
+
+  expect(structure.counts).toEqual({
+    drawer: 1,
+    header: 1,
+    home: 1,
+    overlay: 1,
+    primary: 1,
+    toggle: 1,
+  });
+  expect(structure.home).toMatchObject({
+    accessibleName: "JQ33 DESIGN Home",
+    href: "/",
+    label: "JQ33 DESIGN",
+    logoAlt: "JQ33 DESIGN",
+    logoSrc: "/assets/logo/logo%20purple%20svg.svg",
+  });
+  expect(structure.links).toEqual(canonicalNavigationLinks);
+  expect(structure.drawer.links).toEqual(canonicalNavigationLinks);
+  expect(structure.header.style.position).toBe("fixed");
+  expect(structure.header.style.alignItems).toBe("center");
+  expect(structure.header.style.fontFamily.toLowerCase()).toContain("lato");
+  expect(structure.home.labelStyle.color).toBe(navigationColor);
+  expect(structure.home.labelStyle.fontFamily.toLowerCase()).toContain("lato");
+  expect(structure.home.labelStyle.display).not.toBe("none");
+  expect(structure.home.labelStyle.visibility).not.toBe("hidden");
+  expect(structure.home.linkStyle.textDecorationLine).toBe("none");
+  expect(structure.home.linkStyle.borderBottomWidth).toBe("0px");
+  expect(structure.home.linkStyle.boxShadow).toBe("none");
+  expect(structure.home.linkStyle.backgroundImage).toBe("none");
+  expect(["none", "normal"]).toContain(structure.home.linkBeforeContent);
+  expect(["none", "normal"]).toContain(structure.home.linkAfterContent);
+  expect(structure.drawer.title.text).toBe("Menu");
+  expect(structure.drawer.title.style.color).toBe(navigationColor);
+  expect(structure.drawer.title.style.fontFamily.toLowerCase()).toContain("lato");
+  expect(structure.tokens.color.toLowerCase()).toBe("#5427e1");
+  expect(structure.tokens.surface).not.toBe("");
+  expect(structure.header.style.backgroundColor).toBe("rgb(246, 245, 240)");
+  expect(structure.overflow.scrollWidth).toBeLessThanOrEqual(structure.overflow.clientWidth + 1);
+
+  const mobile = viewport.width <= 768;
+  const primaryLinks = page.locator(
+    mobile ? "#site-nav-drawer nav[aria-label='Mobile'] > a" : "header.header-nav .nav-link",
+  );
+  const primaryLinkCount = await primaryLinks.count();
+  expect(primaryLinkCount).toBe(canonicalNavigationLinks.length);
+
+  let open = null;
+  if (mobile) {
+    expect(["flex", "inline-flex"]).toContain(structure.toggle.style.display);
+    expect(structure.toggle.rect.width).toBeGreaterThanOrEqual(44);
+    expect(structure.toggle.rect.height).toBeGreaterThanOrEqual(44);
+    expect(structure.toggle.style.color).toBe(navigationColor);
+    expect(structure.toggle.bars.items).toHaveLength(3);
+    expect(
+      structure.toggle.bars.items.map((bar) => bar.style.backgroundColor),
+    ).toEqual(Array(3).fill(navigationColor));
+    expect(structure.group.style.display).toBe("none");
+    expect(structure.toggle.ariaControls).toBe("site-nav-drawer");
+    expect(structure.toggle.ariaExpanded).toBe("false");
+    expect(structure.drawer.ariaHidden).toBe("true");
+    expect(structure.drawer.inert).toBe(true);
+
+    await page.locator("header.header-nav .nav-toggle").click();
+    await expect(page.locator("body")).toHaveClass(/\bis-nav-open\b/);
+    await expect(primaryLinks.first()).toBeFocused();
+    open = await page.evaluate((properties) => {
+      const drawer = document.querySelector("#site-nav-drawer");
+      const overlay = document.querySelector(".nav-overlay[data-nav-overlay]");
+      const toggle = document.querySelector("header.header-nav .nav-toggle");
+      const style = (element, names) => {
+        const computed = getComputedStyle(element);
+        return Object.fromEntries(names.map((name) => [name, computed[name]]));
+      };
+      const rect = (element) => {
+        const bounds = element.getBoundingClientRect();
+        return { height: bounds.height, width: bounds.width, x: bounds.x, y: bounds.y };
+      };
+      return {
+        bodyOpen: document.body.classList.contains("is-nav-open"),
+        drawer: {
+          ariaHidden: drawer.getAttribute("aria-hidden"),
+          inert: drawer.inert,
+          rect: rect(drawer),
+          style: style(drawer, properties.drawer),
+        },
+        overlay: {
+          ariaHidden: overlay.getAttribute("aria-hidden"),
+          rect: rect(overlay),
+          style: style(overlay, properties.overlay),
+        },
+        toggle: {
+          ariaExpanded: toggle.getAttribute("aria-expanded"),
+          ariaLabel: toggle.getAttribute("aria-label"),
+          style: style(toggle, properties.toggle),
+        },
+      };
+    }, navigationStyleProperties);
+    expect(open).toMatchObject({
+      bodyOpen: true,
+      drawer: { ariaHidden: "false", inert: false },
+      overlay: { ariaHidden: "false" },
+      toggle: { ariaExpanded: "true", ariaLabel: "Close menu" },
+    });
+    expect(open.drawer.style.fontFamily.toLowerCase()).toContain("lato");
+  } else {
+    expect(structure.group.style.display).toBe("flex");
+    expect(structure.toggle.style.display).toBe("none");
+    expect(structure.drawer.ariaHidden).toBe("true");
+    expect(structure.drawer.inert).toBe(true);
+  }
+
+  await page.evaluate(() => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  });
+  const primaryStates = [];
+  for (let index = 0; index < primaryLinkCount; index += 1) {
+    const states = await captureNavigationInteractionStates(page, primaryLinks.nth(index), {
+      exactColor: true,
+    });
+    if (!mobile) {
+      expect(states.normal.style.fontSize).toBe("12.48px");
+      expect(states.normal.style.fontWeight).toBe("600");
+      expect(states.normal.style.letterSpacing).toBe("1px");
+      expect(states.normal.style.textTransform).toBe("uppercase");
+    }
+    primaryStates.push(states);
+  }
+
+  const ctaStates = [];
+  if (mobile) {
+    const ctas = page.locator("#site-nav-drawer .drawer-ctas a");
+    expect(await ctas.count()).toBe(2);
+    for (let index = 0; index < (await ctas.count()); index += 1) {
+      ctaStates.push(await captureNavigationInteractionStates(page, ctas.nth(index)));
+    }
+    await ctas.last().focus();
+    await page.keyboard.press("Tab");
+    await expect(primaryLinks.first()).toBeFocused();
+    await page.keyboard.press("Shift+Tab");
+    await expect(ctas.last()).toBeFocused();
+    await page.keyboard.press("Escape");
+    await expect(page.locator("body")).not.toHaveClass(/\bis-nav-open\b/);
+    await expect(page.locator("header.header-nav .nav-toggle")).toBeFocused();
+  }
+
+  return { ctaStates, open, primaryStates, structure };
+}
+
+function expectRectWithinTolerance(actual, expected, label) {
+  for (const property of ["x", "y", "width", "height"]) {
+    expect(
+      Math.abs(actual[property] - expected[property]),
+      `${label} ${property} must remain within 0.5 CSS px`,
+    ).toBeLessThanOrEqual(0.5);
+  }
+}
+
+function expectNavigationMatchesCanonical(actual, canonical, label) {
+  for (const path of [
+    ["structure", "header", "rect"],
+    ["structure", "group", "rect"],
+    ["structure", "home", "logoRect"],
+    ["structure", "home", "labelRect"],
+    ["structure", "toggle", "rect"],
+    ["structure", "toggle", "bars", "rect"],
+    ["structure", "drawer", "rect"],
+    ["structure", "overlay", "rect"],
+  ]) {
+    const actualRect = path.reduce((value, key) => value[key], actual);
+    const canonicalRect = path.reduce((value, key) => value[key], canonical);
+    expectRectWithinTolerance(actualRect, canonicalRect, `${label} ${path.slice(1, -1).join(".")}`);
+  }
+  if (actual.open && canonical.open) {
+    expectRectWithinTolerance(actual.open.drawer.rect, canonical.open.drawer.rect, `${label} open drawer`);
+    expectRectWithinTolerance(actual.open.overlay.rect, canonical.open.overlay.rect, `${label} open overlay`);
+  }
+  for (let index = 0; index < actual.structure.toggle.bars.items.length; index += 1) {
+    expectRectWithinTolerance(
+      actual.structure.toggle.bars.items[index].rect,
+      canonical.structure.toggle.bars.items[index].rect,
+      `${label} toggle bar ${index + 1}`,
+    );
+  }
+
+  const withoutRects = (value) => JSON.parse(
+    JSON.stringify(value, (key, nested) => (
+      key === "tokens" || key === "rect" || key.endsWith("Rect") ? undefined : nested
+    )),
+  );
+  expect(withoutRects(actual), `${label} shared navigation presentation must be identical`).toEqual(
+    withoutRects(canonical),
+  );
 }
 
 function fontIncludes(actual, expected) {
@@ -244,12 +968,12 @@ for (const documentCase of publicDocumentCases) {
         }));
       const isHomepageHeroType = (element) =>
         document.body.classList.contains("is-home") &&
-        (Boolean(element.closest("#home")) ||
-          Boolean(element.closest("body.is-home > header.header-nav"))) &&
+        Boolean(element.closest("#home")) &&
         !element.closest(".brand-mark");
       const isProjectsIndexUi = (element) =>
         document.body.classList.contains("concept-index") &&
-        Boolean(element.closest(".concept-index"));
+        Boolean(element.closest(".concept-index")) &&
+        !element.closest("header.header-nav, #site-nav-drawer, .nav-overlay");
 
       const headings = [
         ...document.querySelectorAll("h1, h2, h3, h4, h5, h6, [role='heading']"),
@@ -258,7 +982,7 @@ for (const documentCase of publicDocumentCases) {
       const ui = [...document.querySelectorAll(selector)].filter(rendered);
       const heroCopy = [
         ...document.querySelectorAll(
-          "#home .header-tagline, #home .header-subheadline, #home .info-pillar, #home .hero-action, body.is-home > header.header-nav",
+          "#home .header-tagline, #home .header-subheadline, #home .info-pillar, #home .hero-action",
         ),
       ].filter(rendered);
       return {
@@ -293,17 +1017,17 @@ for (const documentCase of publicDocumentCases) {
     ).toEqual([]);
     expect(
       typography.ui.filter((entry) => !fontIncludes(entry.fontFamily, "Lato")),
-      "Non-home, non-Projects body and interactive UI typography must compute to Lato",
+      "Body UI and shared navigation chrome outside approved hero/Projects content must compute to Lato",
     ).toEqual([]);
     expect(
       typography.projectsIndexUi.filter(
         (entry) => !fontIncludes(entry.fontFamily, "Inter"),
       ),
-      "Projects index navigation, microtype, metadata, and actions must compute to Inter",
+      "Projects index content UI, metadata, and actions must compute to Inter",
     ).toEqual([]);
     expect(
       typography.heroCopy.filter((entry) => !fontIncludes(entry.fontFamily, "Inter")),
-      "Homepage hero copy, navigation, metadata, and actions must compute to Inter",
+      "Homepage hero copy, metadata, and actions must compute to Inter",
     ).toEqual([]);
     expect(
       typography.heroHeadings.filter((entry) => !fontIncludes(entry.fontFamily, "Inter")),
@@ -389,12 +1113,33 @@ for (const documentCase of publicDocumentCases) {
       expect(navigationAndActions.headerRendered, "The global header must be rendered").toBe(true);
       expect(
         navigationAndActions.headerAlignItems,
-        `Header items must keep their route-specific alignment at ${viewport.width}px`,
-      ).toBe(documentCase.route === "/" ? "flex-start" : "center");
+        `Header items must use the shared centered alignment at ${viewport.width}px`,
+      ).toBe("center");
       expect(
         navigationAndActions.wrapped,
         `CTA labels must remain on one line at ${viewport.width}px`,
       ).toEqual([]);
+    }
+  });
+}
+
+for (const viewport of navigationViewports) {
+  test(`shared navigation is identical across every public route at ${viewport.width}px`, async ({
+    page,
+  }) => {
+    test.setTimeout(150_000);
+    await page.setViewportSize(viewport);
+    await gotoSettled(page, "/contact/");
+    const canonical = await captureNavigationContract(page, viewport);
+
+    for (const documentCase of publicDocumentCases) {
+      await gotoPublicDocument(page, documentCase);
+      const actual = await captureNavigationContract(page, viewport);
+      expectNavigationMatchesCanonical(
+        actual,
+        canonical,
+        `${documentCase.route} at ${viewport.width}px`,
+      );
     }
   });
 }
@@ -733,7 +1478,7 @@ test("homepage hero keeps the old transparent cobalt photograph composition", as
     };
   });
 
-  expect(composition.desktopNavLinkColors).toEqual(Array(4).fill("rgb(112, 117, 235)"));
+  expect(composition.desktopNavLinkColors).toEqual(Array(4).fill(navigationColor));
   expect(composition.photo.filter).toBe("grayscale(0.2) contrast(1.1)");
   expect(composition.photo.opacity).toBeCloseTo(1, 2);
   expect(composition.photo.scaleX).toBeCloseTo(1.07, 2);

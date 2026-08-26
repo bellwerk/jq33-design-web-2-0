@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "taskId": "jq33-production-launch-closure-2026-08-26",
+  "updatedAt": "2026-08-26T21:00:27Z",
+  "phase": "PREVIEW_NOT_DEPLOYED",
+  "startingRevision": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+  "currentRevision": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+  "stagingBinding": {
+    "releasePaths": 38,
+    "currentTaskArtifactPaths": 33,
+    "priorTaskPaths": 0,
+    "unexpectedPaths": 0
+  },
+  "indexIntegrityCorrection": {
+    "byteSource": "git index blobs via git show :path",
+    "inventoriesChecked": 2,
+    "entriesChecked": 76,
+    "mismatchesAfterCorrection": 0,
+    "packagedPathCountBeforeCorrectionProof": 69,
+    "correctionProofPathsAdded": 2,
+    "expectedNextPackagedPathCount": 71,
+    "expectedReleasePaths": 38,
+    "expectedCurrentTaskArtifactPaths": 33,
+    "expectedPriorTaskPaths": 0,
+    "expectedUnexpectedPaths": 0,
+    "baselineInventorySha256": "47521085e8b7b205512a6d42bf573f307d965a116153a8c058d3513b2f22119a",
+    "verifierInventorySha256": "a25d336b7069e980460142c4ef1b62a6342d890c7e052fddcc6fe5c3a2e6fa9e",
+    "initialMismatchEvidence": "raw/portable/staged-release-inventory-index-mismatch.txt",
+    "correctivePassEvidence": "raw/portable/staged-release-inventory-index-correction.txt"
+  },
+  "localArtifact": {
+    "sourceDirty": true,
+    "fileCount": 112,
+    "sha256": "b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6"
+  },
+  "criteria": {
+    "AC1": {
+      "status": "PASS",
+      "evidence": [
+        "raw/baseline/candidate-binding.json",
+        "raw/baseline/prior-task-packets.json",
+        "raw/baseline/prior-task-packets-postimplementation-hashes.json",
+        "raw/baseline/postimplementation-release-inventory.json",
+        "raw/verifier-prepreview/current-release-inventory.json",
+        "raw/portable/staged-release-inventory-index-mismatch.txt",
+        "raw/portable/staged-release-inventory-index-correction.txt"
+      ]
+    },
+    "AC2": {
+      "status": "UNKNOWN",
+      "reason": "Fresh immutable-preview Lighthouse matrix is required.",
+      "evidence": ["raw/performance/asset-optimization-contract.json"]
+    },
+    "AC3": {
+      "status": "UNKNOWN",
+      "localStatus": "PASS",
+      "reason": "Exact-preview source-isolation HTTP proof is still required.",
+      "evidence": [
+        "raw/portable/toolchain-install-audit-selftest.txt",
+        "raw/portable/toolchain-guard-negative.txt",
+        "raw/portable/toolchain-guard-negative-pnpm.txt",
+        "raw/portable/pinned-strict-verify-precommit.txt",
+        "raw/portable/pinned-strict-verify-precommit-attempt-02.txt",
+        "raw/portable/pinned-strict-verify-precommit-attempt-03.txt",
+        "raw/local/dist-manifest-precommit-dirty-source.json"
+      ]
+    },
+    "AC4": {
+      "status": "UNKNOWN",
+      "reason": "Workflow implementation passes locally; branch protection and a successful production monitor run remain external gates.",
+      "evidence": [
+        "raw/local/release-safeguards-review-findings.md",
+        "raw/portable/release-safeguards-review-rerun.txt",
+        "raw/operations/github-state-prepreview.json"
+      ]
+    },
+    "AC5": {
+      "status": "PASS",
+      "scope": "INDEPENDENTLY_VERIFIED_PREVIEW_NOT_DEPLOYED",
+      "browser": {"passed": 308, "failed": 0, "flaky": 0},
+      "evidence": [
+        "raw/portable/pinned-strict-verify-precommit-attempt-03.txt",
+        "raw/local/playwright-precommit-attempt-03/results.sanitized.json",
+        "raw/portable/generator-determinism-and-source-parity.txt",
+        "raw/portable/production-health-wrangler-local.txt",
+        "raw/portable/production-health-wrangler-local-attempt-02.txt",
+        "raw/verifier-prepreview/current-release-inventory.json",
+        "raw/verifier-prepreview/fresh-checks.json",
+        "verdict.json"
+      ]
+    },
+    "AC6": {"status": "UNKNOWN", "reason": "Fresh immutable preview not yet deployed."},
+    "AC7": {"status": "UNKNOWN", "reason": "Human, provider, and action-time-approved preview conversion proof remains gated."},
+    "AC8": {"status": "UNKNOWN", "reason": "PR #1 remains draft and merge approval has not been requested."},
+    "AC9": {"status": "UNKNOWN", "reason": "Production, DNS/mail, analytics, and search gates have not run."},
+    "AC10": {"status": "UNKNOWN", "reason": "Final durable all-PASS verification is not yet possible."}
+  },
+  "overall": "UNKNOWN",
+  "independentVerdict": {
+    "overall": "UNKNOWN",
+    "pass": 2,
+    "fail": 0,
+    "unknown": 8,
+    "path": "verdict.json"
+  },
+  "formSubmissionsCreated": 0,
+  "deploymentMutationPerformed": false,
+  "productionPromotionAuthorized": false
+}

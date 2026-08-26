@@ -1,0 +1,45 @@
+{
+  "capturedAt": "2026-08-26T20:22:28.7175827Z",
+  "repository": {
+    "defaultBranchRef": {
+      "name": "main"
+    },
+    "nameWithOwner": "bellwerk/jq33-design-web-2-0",
+    "url": "https://github.com/bellwerk/jq33-design-web-2-0"
+  },
+  "pullRequest": {
+    "number": 1,
+    "state": "OPEN",
+    "isDraft": true,
+    "headRefName": "codex/jq33-production-readiness-2026-07-29",
+    "baseRefName": "main",
+    "headRefOid": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+    "url": "https://github.com/bellwerk/jq33-design-web-2-0/pull/1",
+    "checks": [
+      {
+        "name": "Cloudflare Pages",
+        "status": "COMPLETED",
+        "conclusion": "SUCCESS",
+        "workflowName": ""
+      }
+    ]
+  },
+  "requiredPublicBuildSecretNames": [
+    {
+      "name": "PUBLIC_CALENDLY_URL",
+      "updatedAt": "2026-08-26T20:01:09Z"
+    },
+    {
+      "name": "PUBLIC_FORMSPREE_CONTACT_URL",
+      "updatedAt": "2026-08-26T20:01:08Z"
+    },
+    {
+      "name": "PUBLIC_FORMSPREE_INQUIRY_URL",
+      "updatedAt": "2026-08-26T20:01:08Z"
+    }
+  ],
+  "branchProtectionReadSucceeded": false,
+  "branchProtectionRaw": {
+    "redactedMessage": "gh: Branch not protected (HTTP 404) {\"message\":\"Branch not protected\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-branch-protection\",\"status\":\"404\"}"
+  }
+}

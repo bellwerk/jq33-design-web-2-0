@@ -25,6 +25,11 @@ const INDEX_META = {
 const INDEX_STUDY_FILENAME = "index-study-20260823.webp";
 const INDEX_STUDY_WIDTH = 1120;
 const INDEX_STUDY_HEIGHT = 1400;
+const INDEX_STUDY_VARIANT_WIDTHS = [480, 768];
+const INDEX_STUDY_HERO_SIZES =
+  "(max-width: 48rem) min(88vw, 34rem), min(46vw, 45rem)";
+const INDEX_STUDY_CARD_SIZES =
+  "(max-width: 39.99rem) calc(100vw - 2rem), (max-width: 79.99rem) calc(50vw - 1.5rem), calc(33.333vw - 1.5rem)";
 
 const dataPath = path.join(rootDir, "data", "projects.json");
 const projectTemplatePath = path.join(
@@ -96,6 +101,15 @@ const toPublicPath = (filePath) => `/${filePath.replaceAll("\\", "/")}`;
 const toAbsoluteUrl = (filePath) => `${CANONICAL_ORIGIN}${toPublicPath(filePath)}`;
 const toIndexStudyPath = (project) =>
   path.join("assets", "projects", project.slug, INDEX_STUDY_FILENAME);
+const toIndexStudyVariantPath = (project, width) =>
+  `assets/generated/images/project-${project.slug}-index-study-${width}.webp`;
+const toIndexStudySrcset = (project) =>
+  [
+    ...INDEX_STUDY_VARIANT_WIDTHS.map(
+      (width) => `${toPublicPath(toIndexStudyVariantPath(project, width))} ${width}w`
+    ),
+    `${toPublicPath(toIndexStudyPath(project))} ${INDEX_STUDY_WIDTH}w`
+  ].join(", ");
 const toIndexStudyAlt = (project) =>
   `AI-generated illustrative ${project.typology.toLowerCase()} visualization for the self-initiated ${project.title} study; not completed client work.`;
 
@@ -375,6 +389,8 @@ const renderProjectCards = (projects) =>
       const projectCode = `P-${String(index + 1).padStart(2, "0")}`;
       const indexStudyPath = toIndexStudyPath(project);
       const indexStudyAlt = toIndexStudyAlt(project);
+      const loading = index === 0 ? "eager" : "lazy";
+      const fetchPriority = index === 0 ? "high" : "low";
       return `
         <article class="project-card">
           <a class="project-item" href="${route}" aria-label="${escapeHtml(
@@ -382,11 +398,14 @@ const renderProjectCards = (projects) =>
           )}">
             <img
               class="project-card__image"
-              src="${toPublicPath(indexStudyPath)}"
+              src="${toPublicPath(toIndexStudyVariantPath(project, 768))}"
+              srcset="${toIndexStudySrcset(project)}"
+              sizes="${INDEX_STUDY_CARD_SIZES}"
               alt="${escapeHtml(indexStudyAlt)}"
               width="${INDEX_STUDY_WIDTH}"
               height="${INDEX_STUDY_HEIGHT}"
-              loading="lazy"
+              loading="${loading}"
+              fetchpriority="${fetchPriority}"
               decoding="async"
             />
             <div class="project-card__content">
@@ -565,7 +584,9 @@ const generate = () => {
       meta_title: escapeHtml(INDEX_META.title),
       meta_description: escapeHtml(INDEX_META.description),
       og_image: toAbsoluteUrl(indexOg),
-      hero_image: toPublicPath(toIndexStudyPath(projects[0])),
+      hero_image: toPublicPath(toIndexStudyVariantPath(projects[0], 768)),
+      hero_srcset: toIndexStudySrcset(projects[0]),
+      hero_sizes: INDEX_STUDY_HERO_SIZES,
       hero_alt: escapeHtml(toIndexStudyAlt(projects[0])),
       project_list: renderProjectCards(projects),
       structured_data: jsonLd(renderIndexSchema(projects))

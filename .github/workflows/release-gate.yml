@@ -1,0 +1,45 @@
+name: Release Gate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Release Gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PUBLIC_FORMSPREE_CONTACT_URL: ${{ secrets.PUBLIC_FORMSPREE_CONTACT_URL }}
+      PUBLIC_FORMSPREE_INQUIRY_URL: ${{ secrets.PUBLIC_FORMSPREE_INQUIRY_URL }}
+      PUBLIC_CALENDLY_URL: ${{ secrets.PUBLIC_CALENDLY_URL }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: 22.23.2
+      - name: Activate pinned pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@11.13.0 --activate
+      - name: Install frozen dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Audit build toolchain
+        run: |
+          pnpm audit --prod
+          pnpm audit --audit-level high
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Verify release candidate
+        run: pnpm verify
+      - name: Verify production monitor
+        run: pnpm check:production-health:self-test

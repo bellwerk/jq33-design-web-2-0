@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-26T19:51:48.1493297Z",
+  "branch": "codex/jq33-production-readiness-2026-07-29",
+  "startingHead": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+  "startingOriginMain": "0ea97e083c9b681ecba7f1fd45dc73f9cafed7fb",
+  "changedTrackedFileCount": 26,
+  "predecessorBinding": ".agent/tasks/jq33-global-nav-uniformity-2026-08-24/raw/current-tree-hashes-opaque-final.json",
+  "predecessorBindingSha256": "6e07ed660492e507d08048784eada20508955fc203f96abe5bb10c5067974f6e",
+  "currentBindingMatches": true,
+  "mismatches": []
+}

@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-08-26T20:23:17.2037218Z",
+  "sourceOrigin": "https://675c8d95.jq33-design-website.pages.dev",
+  "records": [
+    {
+      "name": "PUBLIC_SOCIAL_INSTAGRAM_URL",
+      "present": false
+    },
+    {
+      "name": "PUBLIC_SOCIAL_FACEBOOK_URL",
+      "present": false
+    },
+    {
+      "name": "PUBLIC_SOCIAL_YOUTUBE_URL",
+      "present": false
+    },
+    {
+      "name": "PUBLIC_SOCIAL_BEHANCE_URL",
+      "present": false
+    }
+  ]
+}

@@ -20,11 +20,13 @@ Set these public build-time values in both Preview and Production:
 - `PUBLIC_FORMSPREE_CONTACT_URL`
 - `PUBLIC_FORMSPREE_INQUIRY_URL`
 - `PUBLIC_CALENDLY_URL`
-- `PUBLIC_CLOUDFLARE_WEB_ANALYTICS_TOKEN`
 
 Contact and Inquiry must use different direct Formspree endpoints. Calendly must use a direct published event URL. Leave every `PUBLIC_SOCIAL_*` value empty unless the owner has confirmed that public profile.
 
 These values are embedded in the static artifact. Account credentials, API tokens, session cookies, inbox addresses, and populated environment files must never be committed or included in evidence.
+
+Cloudflare Web Analytics uses Pages automatic injection. Do not configure a
+public analytics token or add a source-managed beacon.
 
 ## Artifact boundary
 
@@ -66,6 +68,39 @@ Never deploy a fixture build. `pnpm build:test-fixtures` is only for local check
 
 7. Smoke-test both forms once, verify Calendly and analytics, and submit `https://jq33.design/sitemap.xml` in Search Console.
 
+## Verification and monitoring
+
+The `Release Gate` GitHub workflow verifies pull requests and `main`; it never
+deploys. Store the three public integration values above as GitHub repository
+secrets with the same names so the workflow can run the strict build without
+printing them. Protect `main` with pull requests, at least one approving review,
+strictly up-to-date `Release Gate` and `Cloudflare Pages` checks, conversation
+resolution, and force-push/deletion prevention. Keep administrator enforcement
+off so a repository administrator can perform only the documented,
+owner-approved emergency rollback. Retain a redacted provider-settings capture
+and API readback in the active release task.
+
+The `Production Smoke` workflow checks `https://jq33.design` hourly and may be
+run manually. It validates key routes, the Projects route, canonical redirects,
+real 404s, security headers, forms' static endpoint contract, and representative
+source/admin isolation paths. It never submits a form. The repository owner is
+the incident owner and must keep GitHub Actions failure notifications and
+Cloudflare Pages production-deployment failure notifications enabled.
+
+On a monitor or deployment failure:
+
+1. Confirm the failed URL and the exact production deployment in Cloudflare.
+2. Run `pnpm check:production-health` and the production deployed checker.
+3. If a frozen rollback trigger is present, obtain immediate owner approval and
+   roll back to the recorded deployment; otherwise make the smallest fix through
+   the normal preview and pull-request path.
+4. Repeat the affected production checks and retain the failure and recovery
+   evidence in the active release task.
+
 ## Rollback
 
-Before merging, record the active successful production deployment ID. If the homepage fails, portfolio routing loops, CSP blocks required site behavior, both forms fail globally, or server errors persist, use the Cloudflare Pages dashboard to roll back to that deployment and repeat the affected smoke checks.
+Before merging, record the active successful production deployment ID. Frozen
+rollback triggers are: the homepage is unavailable, portfolio routing loops,
+CSP blocks required site behavior, both forms fail globally, or persistent
+server errors affect public routes. Roll back only after immediate owner
+approval, then repeat the affected smoke checks.

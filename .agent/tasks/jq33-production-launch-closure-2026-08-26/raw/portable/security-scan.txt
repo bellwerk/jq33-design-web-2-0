@@ -1,0 +1,2 @@
+$ node scripts/check-security.mjs --root dist
+Security and privacy static validation passed.

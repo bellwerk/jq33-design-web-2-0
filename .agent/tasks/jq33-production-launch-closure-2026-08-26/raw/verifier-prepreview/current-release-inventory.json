@@ -1,0 +1,378 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-26T20:43:17.6196419Z",
+  "branch": "codex/jq33-production-readiness-2026-07-29",
+  "head": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+  "expectedReleaseFileCount": 38,
+  "actualReleaseFileCount": 38,
+  "stagedReleaseFileCount": 38,
+  "unstagedReleaseFileCount": 0,
+  "stagedUnexpectedPathCount": 0,
+  "missingExpectedPaths": [],
+  "unexpectedReleasePaths": [],
+  "allowlistResult": "PASS",
+  "currentTaskPacketAllowed": true,
+  "unrelatedUntrackedWorkPresentAndUnstaged": true,
+  "supersedes": "raw/baseline/postimplementation-release-inventory.json after the allowlisted release-fingerprint correction",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 666,
+      "sha256": "3f6c0bff8da90150909498efc0b6e1bd6c3a03ac97f10499189ee4044eefac74",
+      "acceptanceCriteria": [
+        "AC3"
+      ],
+      "staged": true
+    },
+    {
+      "path": ".github/workflows/production-smoke.yml",
+      "bytes": 614,
+      "sha256": "4bdfeb0902c3f33a308db5b650e45dc02797df39becefef0bcc579cb120649eb",
+      "acceptanceCriteria": [
+        "AC4"
+      ],
+      "staged": true
+    },
+    {
+      "path": ".github/workflows/release-gate.yml",
+      "bytes": 1327,
+      "sha256": "17072a4ff1ea6bee23184d21e0909310cb35512740cb4063e94c9db06cc47cf7",
+      "acceptanceCriteria": [
+        "AC4"
+      ],
+      "staged": true
+    },
+    {
+      "path": "404.html",
+      "bytes": 10922,
+      "sha256": "5d66ff2da44df286dbb91daef58bc55a47d8f045d8ef33f8f97a376d3977c14e",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "admin/portfolio/index.html",
+      "bytes": 8621,
+      "sha256": "eeabbed4e62695f770ecb420e323286f3a3df55234173477958aa1282bb9dac9",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "assets/css/critical-shared.css",
+      "bytes": 12700,
+      "sha256": "f2c7344f22931ce6cb2571bf1db1d3379d4cde7274be9ee712684a4ac4fa2876",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "assets/css/site.css",
+      "bytes": 35299,
+      "sha256": "ab15a6bf84fb6f7fb78590081b60ce1bfcc03d02bc5917b69fcfce6ed9a9d94f",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "commercial-interior-design-montreal/index.html",
+      "bytes": 43869,
+      "sha256": "9d4bb7405bcf475eda44c98d6ae45715dfdfbe60d5e727d2090324c0234fd111",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC2"
+      ],
+      "staged": true
+    },
+    {
+      "path": "contact/index.html",
+      "bytes": 16368,
+      "sha256": "1fdf42dc47376f8dce36957778bbe9d23a160ef22b59ecf8e96a0b735e8820c7",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "DEPLOYMENT.md",
+      "bytes": 4894,
+      "sha256": "1fcf0de8776a28fd26c115f09c0b0e1fd5a3df203459b68bbb7a876da90c098d",
+      "acceptanceCriteria": [
+        "AC3",
+        "AC4"
+      ],
+      "staged": true
+    },
+    {
+      "path": "index.html",
+      "bytes": 86271,
+      "sha256": "1ddee18ca07538b7daad00325e86d250740a65468f38fb756a75391f85054094",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC2"
+      ],
+      "staged": true
+    },
+    {
+      "path": "inquiry/index.html",
+      "bytes": 17908,
+      "sha256": "4bacb6d5c3c453532f96786f11b8110b4d79cb6a0ae8c48a027737a97b6ef57f",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "journal/_journal-index-template.html",
+      "bytes": 9606,
+      "sha256": "0ec9313300cb6a6b3f491552ab961f904caec8594b1a3391ee007c796dc81338",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC2"
+      ],
+      "staged": true
+    },
+    {
+      "path": "journal/_journal-template.html",
+      "bytes": 13537,
+      "sha256": "6f7996d6dabf246bc4dfe95da37e142338efda3412cf44be3a6d04fee4b36828",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "journal/index.html",
+      "bytes": 16419,
+      "sha256": "bf0004057f111627329000057e622d71ae9a68c11d15659a9c6e1f7be2eccab3",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC2"
+      ],
+      "staged": true
+    },
+    {
+      "path": "journal/reduction-as-creation/index.html",
+      "bytes": 15651,
+      "sha256": "982202c4e416655e667edcc2358f76a35f472840eab38b7566bc72c365008f6e",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "package.json",
+      "bytes": 4139,
+      "sha256": "d331b16f9663a1fdf3e74b336880bbc9d7f518a0bd267839757483d3f90aa6f1",
+      "acceptanceCriteria": [
+        "AC3",
+        "AC4"
+      ],
+      "staged": true
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "bytes": 87827,
+      "sha256": "d4e6b5a71318551c146c5ebea5412f76edde9021357561f299bbbe8b3ce36211",
+      "acceptanceCriteria": [
+        "AC3"
+      ],
+      "staged": true
+    },
+    {
+      "path": "privacy/index.html",
+      "bytes": 7080,
+      "sha256": "4164e7989e9747d55628311a37bbe23a6c2d4cee429773ae65563abe9149637f",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/_project-template.html",
+      "bytes": 4834,
+      "sha256": "9594f4834346262d32a8a5b9885eef44070dc759ccc6319d0e3f7f13a4073e65",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/_projects-index-template.html",
+      "bytes": 28469,
+      "sha256": "ca7e2598d4d7690fef0fff31626708e38943675431f44d78285d3792e3804479",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC2"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/bruton-place-iv/index.html",
+      "bytes": 8795,
+      "sha256": "6198a233188c59b1efb39d569eae73328e4d321e76411ef578e3cc275a4f6912",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/canvas-studios/index.html",
+      "bytes": 8762,
+      "sha256": "df08d7b53992137676332269fb4bcc7fa4aac95f073097b549b8236a1e849065",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/ethereal-gallery/index.html",
+      "bytes": 8986,
+      "sha256": "d8c9a4faf12cdff0974fa33f8c08445a7135ddb1e2c5d8be6ecec8cbdea86e59",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/index.html",
+      "bytes": 42777,
+      "sha256": "ca2debfba859a5aec7c5ffdc57c4d0ca0556eeb9b1e96afff6f1c36c13ec0c0d",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC2"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/obsidian-lounge/index.html",
+      "bytes": 8883,
+      "sha256": "87453ac837e87081549f5a1c05dd80e62e472f883e7171470afbd59f153282a9",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/project.html",
+      "bytes": 8842,
+      "sha256": "4ed1cbbc171d2955f2922945aeff34abd74f8484ef61e62bbdca83217485995f",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "projects/vortex-showroom/index.html",
+      "bytes": 8897,
+      "sha256": "163a07ff5d239b4da4db8bf05b46df16fbd542153172623a6873f657c743abc0",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "scripts/build.mjs",
+      "bytes": 29625,
+      "sha256": "7fd35c0629493a977318e7bc93981aee7b7b874104ad5197c7f48c01e7ccd486",
+      "acceptanceCriteria": [
+        "AC2",
+        "AC3"
+      ],
+      "staged": true
+    },
+    {
+      "path": "scripts/check-dist.mjs",
+      "bytes": 27764,
+      "sha256": "5f74345298abdecdb52be7937da1d5c9c7e5b34fee3a6788861a44f0c252ba55",
+      "acceptanceCriteria": [
+        "AC2",
+        "AC3"
+      ],
+      "staged": true
+    },
+    {
+      "path": "scripts/check-hallmark-contract.mjs",
+      "bytes": 42701,
+      "sha256": "84f4a085cc13720d3c3fdc24cdec94da07d80934a6cd83cd3cf39b9967198e84",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC5"
+      ],
+      "staged": true
+    },
+    {
+      "path": "scripts/check-production-health.mjs",
+      "bytes": 12494,
+      "sha256": "028feb497f6fc0923720b2fe174b869f29c1eb61ab04d810c351507dc1d20605",
+      "acceptanceCriteria": [
+        "AC4"
+      ],
+      "staged": true
+    },
+    {
+      "path": "scripts/generate-journal.mjs",
+      "bytes": 10282,
+      "sha256": "48e1c16c0401b52b229841a3bfa05355c0faec134e278979888f1f65a8db1ba7",
+      "acceptanceCriteria": [
+        "AC2",
+        "AC5"
+      ],
+      "staged": true
+    },
+    {
+      "path": "scripts/generate-projects.mjs",
+      "bytes": 22156,
+      "sha256": "399f02c3b903e1644e47a49f65a38268014412a9236bf7e7143b24cdde5e78f6",
+      "acceptanceCriteria": [
+        "AC2",
+        "AC5"
+      ],
+      "staged": true
+    },
+    {
+      "path": "scripts/generate-responsive-images.mjs",
+      "bytes": 4095,
+      "sha256": "a1f97a7ddebbfaa318143911c38842576db73a4775dd22169a98ef54fc059e93",
+      "acceptanceCriteria": [
+        "AC2",
+        "AC5"
+      ],
+      "staged": true
+    },
+    {
+      "path": "terms/index.html",
+      "bytes": 7298,
+      "sha256": "cd57ebef84e742885c7d629d85247b747e2b65ca59e6be3975f075731cf51f17",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    },
+    {
+      "path": "tests/browser-contract.spec.mjs",
+      "bytes": 76511,
+      "sha256": "f2fa3de03f733e4e03216f94fbd7774ada1e0ecb78d6469f661f68e4b50e82a4",
+      "acceptanceCriteria": [
+        "AC1",
+        "AC5"
+      ],
+      "staged": true
+    },
+    {
+      "path": "tokens.css",
+      "bytes": 12320,
+      "sha256": "16dffd8bccf67d256a9db0881a35532d46bd01239100b47f1992975fc436c486",
+      "acceptanceCriteria": [
+        "AC1"
+      ],
+      "staged": true
+    }
+  ],
+  "byteSource": "git index blobs via git show :path",
+  "indexBoundAt": "2026-08-26T20:59:33.538Z"
+}

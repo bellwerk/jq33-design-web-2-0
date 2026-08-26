@@ -16,7 +16,7 @@ const dataPath = path.join(rootDir, "data", "posts.json");
 const postTemplatePath = path.join(rootDir, "journal", "_journal-template.html");
 const indexTemplatePath = path.join(rootDir, "journal", "_journal-index-template.html");
 const defaultOgImage = `${canonicalOrigin}/og/jq33-design-commercial-interior-montreal.png`;
-const journalCardWidths = [640, 960, 1280];
+const journalCardWidths = [640, 768, 960, 1280];
 const journalCardSizes =
   "(max-width: 900px) calc(100vw - 32px), (max-width: 1024px) calc(100vw - 48px), 580px";
 

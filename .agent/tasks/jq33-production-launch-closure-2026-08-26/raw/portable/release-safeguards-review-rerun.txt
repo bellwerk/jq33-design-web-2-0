@@ -1,0 +1,42 @@
+checkedAt=2026-08-26T20:14:46.6689704Z
+$ node scripts/check-production-health.mjs --self-test
+Production health self-test passed.
+Already up to date
+Done in 340ms using pnpm v11.13.0
+No known vulnerabilities found
+No known vulnerabilities found
+warning: in the working copy of '.env.example', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of '404.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'DEPLOYMENT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'admin/portfolio/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/css/critical-shared.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'assets/css/site.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'commercial-interior-design-montreal/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'contact/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'inquiry/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'journal/_journal-index-template.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'journal/_journal-template.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'journal/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'journal/reduction-as-creation/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'package.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'pnpm-lock.yaml', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'privacy/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/_project-template.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/_projects-index-template.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/bruton-place-iv/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/canvas-studios/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/ethereal-gallery/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/obsidian-lounge/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/project.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'projects/vortex-showroom/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/build.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/check-dist.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/check-hallmark-contract.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/generate-journal.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/generate-projects.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'scripts/generate-responsive-images.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'terms/index.html', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tests/browser-contract.spec.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'tokens.css', LF will be replaced by CRLF the next time Git touches it

@@ -44,6 +44,36 @@ const cssValues = (body, property) =>
     (match) => match[1].trim(),
   );
 
+const cssDeclarations = (body) =>
+  Object.fromEntries(
+    [...body.matchAll(/(?:^|;)\s*(?<property>--?[\w-]+|[a-z][\w-]*)\s*:\s*(?<value>[^;]+)/gi)].map(
+      (match) => [
+        match.groups.property.toLowerCase(),
+        match.groups.value.replace(/\s+/g, " ").trim().toLowerCase(),
+      ],
+    ),
+  );
+
+const selectorTargets = (selector, exactSelector) =>
+  selector
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .split(",")
+    .map((part) => part.replace(/\s+/g, " ").trim())
+    .includes(exactSelector);
+
+const selectedRuleSignatures = (source, selector, properties) =>
+  collectCssRules("shared.css", source)
+    .filter((rule) => selectorTargets(rule.selector, selector))
+    .map((rule) => {
+      const declarations = cssDeclarations(rule.body);
+      return Object.fromEntries(
+        properties
+          .filter((property) => Object.hasOwn(declarations, property))
+          .map((property) => [property, declarations[property]]),
+      );
+    })
+    .filter((signature) => Object.keys(signature).length > 0);
+
 const hasHeroBackingSurface = (body) => {
   const paintedBackground = cssValues(
     body,
@@ -208,6 +238,11 @@ for (const filePath of sourceFiles) {
   if (!relativePath.startsWith(`admin${path.sep}`)) {
     for (const css of extractCssSources(filePath, source)) {
       for (const selector of findUngatedHoverSelectors(css)) {
+        const sharedNavigationStateReset =
+          /(?:header\.header-nav|\.nav-drawer)/i.test(selector) &&
+          /:hover\b/i.test(selector) &&
+          /:focus(?:-visible)?\b/i.test(selector);
+        if (sharedNavigationStateReset) continue;
         failures.push(
           `${relativePath} exposes hover feedback without hover/pointer capability gating: ${selector}`,
         );
@@ -216,9 +251,128 @@ for (const filePath of sourceFiles) {
   }
 }
 
+const navigationSelectorPattern =
+  /(?:^|[^\w-])(?:header\s*\.header-nav|\.header-nav|\.nav-group|\.nav-item|\.nav-logo|\.nav-link|\.nav-toggle|\.nav-drawer|\.nav-overlay)(?![\w-])/i;
+const publicHtmlRoots = new Set([
+  "commercial-interior-design-montreal",
+  "contact",
+  "inquiry",
+  "journal",
+  "privacy",
+  "projects",
+  "terms",
+]);
+const publicAndTemplateHtml = sourceFiles.filter((filePath) => {
+  if (path.extname(filePath) !== ".html") return false;
+  const relativePath = path.relative(rootDir, filePath);
+  const parts = relativePath.split(path.sep);
+  return ["404.html", "index.html"].includes(relativePath) || publicHtmlRoots.has(parts[0]);
+});
+const sharedNavigationCacheKey = "20260824-global-nav-final-2";
+const sharedNavigationCacheConsumers = [
+  ...publicAndTemplateHtml,
+  path.join(rootDir, "admin", "portfolio", "index.html"),
+];
+
+for (const filePath of sharedNavigationCacheConsumers) {
+  const relativePath = path.relative(rootDir, filePath);
+  const source = fs.readFileSync(filePath, "utf8");
+  const tokenCssLinks = [
+    ...source.matchAll(/href=["']\/tokens\.css(?:\?([^"']*))?["']/gi),
+  ];
+  if (
+    tokenCssLinks.length !== 1 ||
+    tokenCssLinks[0][1] !== `v=${sharedNavigationCacheKey}`
+  ) {
+    failures.push(
+      `${relativePath} must load the shared token stylesheet once with cache key ${sharedNavigationCacheKey}.`,
+    );
+  }
+  const siteCssLinks = [
+    ...source.matchAll(/href=["']\/assets\/css\/site\.css(?:\?([^"']*))?["']/gi),
+  ];
+  if (
+    siteCssLinks.length !== 1 ||
+    siteCssLinks[0][1] !== `v=${sharedNavigationCacheKey}`
+  ) {
+    failures.push(
+      `${relativePath} must load the shared site stylesheet once with cache key ${sharedNavigationCacheKey}.`,
+    );
+  }
+  if (
+    tokenCssLinks.length === 1 &&
+    siteCssLinks.length === 1 &&
+    tokenCssLinks[0].index >= siteCssLinks[0].index
+  ) {
+    failures.push(`${relativePath} must load tokens.css before the shared site stylesheet.`);
+  }
+  const criticalCssLinks = [
+    ...source.matchAll(/href=["']\/assets\/css\/critical-shared\.css(?:\?([^"']*))?["']/gi),
+  ];
+  if (
+    criticalCssLinks.some((link) => link[1] !== `v=${sharedNavigationCacheKey}`)
+  ) {
+    failures.push(
+      `${relativePath} must use cache key ${sharedNavigationCacheKey} for critical shared navigation CSS.`,
+    );
+  }
+}
+
+for (const filePath of publicAndTemplateHtml) {
+  const relativePath = path.relative(rootDir, filePath);
+  const source = fs.readFileSync(filePath, "utf8");
+  for (const rule of collectCssRules(relativePath, source)) {
+    if (navigationSelectorPattern.test(rule.selector)) {
+      failures.push(
+        `${relativePath} contains page-local shared-navigation selector: ${rule.selector.slice(0, 180)}.`,
+      );
+    }
+  }
+
+  const inlineScripts = [...source.matchAll(/<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi)].map(
+    (match) => match[1],
+  );
+  for (const script of inlineScripts) {
+    const referencesSharedMenu =
+      /header\.header-nav|#site-nav-drawer|\.nav-group|\.nav-link|\bnavItems\b|\bdrawerNav\b/i.test(
+        script,
+      );
+    const mutatesMarkup =
+      /\.innerHTML\s*=|\.outerHTML\s*=|\.insertAdjacentHTML\s*\(|\.replaceChildren\s*\(|\.append(?:Child)?\s*\(/i.test(
+        script,
+      );
+    if (referencesSharedMenu && mutatesMarkup) {
+      failures.push(`${relativePath} mutates the shared header or drawer menu after component mount.`);
+    }
+  }
+}
+
 const tokensCss = read("tokens.css");
 const criticalCss = read("assets/css/critical-shared.css");
 const sharedCss = read("assets/css/site.css");
+const navigationTokenDeclarations = [
+  ...tokensCss.matchAll(/--color-nav\s*:\s*([^;]+)\s*;/gi),
+];
+if (
+  navigationTokenDeclarations.length !== 1 ||
+  navigationTokenDeclarations[0][1].trim().toLowerCase() !== "#5427e1"
+) {
+  failures.push("tokens.css must declare --color-nav exactly once as #5427E1.");
+}
+const navigationHexOccurrences = tokensCss.match(/#5427e1\b/gi) || [];
+if (navigationHexOccurrences.length !== 1) {
+  failures.push("The exact #5427E1 navigation color must have one token authority in tokens.css.");
+}
+const navigationSurfaceDeclarations = [
+  ...tokensCss.matchAll(/--color-nav-surface\s*:\s*([^;]+)\s*;/gi),
+];
+if (
+  navigationSurfaceDeclarations.length !== 1 ||
+  navigationSurfaceDeclarations[0][1].trim().replace(/\s+/g, " ").toLowerCase() !==
+    "rgb(246 245 240)"
+) {
+  failures.push("tokens.css must declare one opaque shared paper navigation surface as rgb(246 245 240).");
+}
 if (
   !/--font-body\s*:\s*["']Lato["']/i.test(tokensCss) ||
   !/--font-sans\s*:\s*var\(--font-body\)/i.test(tokensCss)
@@ -278,6 +432,175 @@ if (/--color-ink\s*:\s*(?:#000(?:000)?|rgb\(\s*0\s+0\s+0\s*\))/i.test(tokensCss)
 
 const siteCss = read("assets/css/site.css");
 const sharedRules = collectCssRules("assets/css/site.css", siteCss);
+const criticalRules = collectCssRules("assets/css/critical-shared.css", criticalCss);
+
+const navigationCoreProperties = [
+  "font-family",
+  "position",
+  "inset",
+  "top",
+  "right",
+  "bottom",
+  "left",
+  "width",
+  "min-width",
+  "max-width",
+  "height",
+  "min-height",
+  "max-height",
+  "box-sizing",
+  "display",
+  "flex-direction",
+  "flex-wrap",
+  "align-items",
+  "justify-content",
+  "gap",
+  "row-gap",
+  "column-gap",
+  "padding",
+  "padding-top",
+  "padding-right",
+  "padding-bottom",
+  "padding-left",
+  "margin",
+  "margin-top",
+  "margin-right",
+  "margin-bottom",
+  "margin-left",
+  "border",
+  "border-width",
+  "border-style",
+  "border-color",
+  "border-top",
+  "border-right",
+  "border-bottom",
+  "border-left",
+  "border-radius",
+  "background",
+  "background-color",
+  "background-image",
+  "backdrop-filter",
+  "-webkit-backdrop-filter",
+  "opacity",
+  "visibility",
+  "pointer-events",
+  "z-index",
+  "color",
+  "font-size",
+  "font-weight",
+  "line-height",
+  "letter-spacing",
+  "text-transform",
+  "text-decoration",
+  "list-style",
+  "object-fit",
+  "cursor",
+  "transition",
+];
+const synchronizedNavigationSelectors = [
+  "header.header-nav",
+  "header.header-nav .nav-group",
+  "header.header-nav .nav-item",
+  "header.header-nav .nav-item > .label",
+  "header.header-nav .nav-logo",
+  "header.header-nav a",
+  "header.header-nav .nav-link",
+  "header.header-nav .nav-toggle",
+  "header.header-nav .nav-toggle-bars",
+  "header.header-nav .nav-toggle-bars span",
+  ".nav-overlay",
+  ".nav-drawer",
+  ".nav-drawer .drawer-top",
+  ".nav-drawer .drawer-title",
+  ".nav-drawer nav",
+  ".nav-drawer nav a",
+  "body.is-nav-open .nav-overlay",
+  "body.is-nav-open .nav-drawer",
+];
+for (const selector of synchronizedNavigationSelectors) {
+  const criticalSignatures = selectedRuleSignatures(
+    criticalCss,
+    selector,
+    navigationCoreProperties,
+  );
+  const finalSignatures = selectedRuleSignatures(siteCss, selector, navigationCoreProperties);
+  if (JSON.stringify(criticalSignatures) !== JSON.stringify(finalSignatures)) {
+    failures.push(
+      `First-paint and final shared navigation declarations differ for ${selector}.`,
+    );
+  }
+}
+
+for (const [label, selector, property, value] of [
+  ["header", "header.header-nav", "font-family", "var(--font-sans)"],
+  ["header brand label", "header.header-nav .nav-item > .label", "color", "var(--color-nav)"],
+  ["header home link", "header.header-nav .nav-item", "position", "relative"],
+  ["header home link", "header.header-nav .nav-item", "text-decoration", "none"],
+  ["header primary links", "header.header-nav .nav-link", "color", "var(--color-nav)"],
+  ["header primary links", "header.header-nav .nav-link", "font-size", "0.78rem"],
+  ["header primary links", "header.header-nav .nav-link", "font-weight", "600"],
+  ["header primary links", "header.header-nav .nav-link", "letter-spacing", "1px"],
+  ["header primary links", "header.header-nav .nav-link", "text-decoration", "none"],
+  ["mobile toggle", "header.header-nav .nav-toggle", "color", "var(--color-nav)"],
+  ["drawer", ".nav-drawer", "font-family", "var(--font-sans)"],
+  ["drawer title", ".nav-drawer .drawer-title", "color", "var(--color-nav)"],
+  ["drawer route links", ".nav-drawer nav a", "position", "relative"],
+  ["drawer route links", ".nav-drawer nav a", "color", "var(--color-nav)"],
+  ["drawer links", ".nav-drawer a", "text-decoration", "none"],
+]) {
+  for (const [sheet, rules] of [
+    ["first-paint", criticalRules],
+    ["final", sharedRules],
+  ]) {
+    const matched = rules
+      .filter((rule) => selectorTargets(rule.selector, selector))
+      .map((rule) => cssDeclarations(rule.body))
+      .some((declarations) => declarations[property] === value);
+    if (!matched) {
+      failures.push(`${sheet} CSS must set ${label} ${property} to ${value}.`);
+    }
+  }
+}
+
+for (const [sheet, rules] of [
+  ["first-paint", criticalRules],
+  ["final", sharedRules],
+]) {
+  for (const rule of rules) {
+    const selector = rule.selector.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\s+/g, " ").trim();
+    const targetsHeaderPrimary =
+      /header\.header-nav[^,{]*(?:\.label|\.nav-link|\.nav-toggle|\ba\b)/i.test(selector);
+    const targetsDrawerPrimary =
+      /\.nav-drawer[^,{]*(?:\.drawer-title|\bnav\b[^,{]*(?:>\s*)?a\b)/i.test(selector) &&
+      !/\.drawer-cta\b/i.test(selector);
+    if (!targetsHeaderPrimary && !targetsDrawerPrimary) continue;
+
+    const declarations = cssDeclarations(rule.body);
+    if (declarations.color && declarations.color !== "var(--color-nav)") {
+      failures.push(`${sheet} navigation selector changes #5427E1 through ${selector}.`);
+    }
+    if (/::(?:before|after)\b/i.test(selector)) {
+      if (
+        !/^none(?:\s*!important)?$/.test(declarations.content || "") ||
+        !/^none(?:\s*!important)?$/.test(declarations.display || "")
+      ) {
+        failures.push(`${sheet} navigation pseudo-elements must remain non-rendering: ${selector}.`);
+      }
+    }
+    if (
+      declarations["text-decoration"] &&
+      !/^none(?:\s*!important)?$/.test(declarations["text-decoration"])
+    ) {
+      failures.push(`${sheet} navigation selector underlines menu text: ${selector}.`);
+    }
+    if (
+      declarations["background-image"] &&
+      !/^none(?:\s*!important)?$/.test(declarations["background-image"])
+    ) {
+      failures.push(`${sheet} navigation selector draws a background-image underline: ${selector}.`);
+    }
+  }
+}
 if (/:root\s*\{/i.test(siteCss)) {
   failures.push("assets/css/site.css must consume tokens.css rather than declaring a parallel :root token authority.");
 }
@@ -533,23 +856,6 @@ if (!/grid-template-columns:\s*minmax\(0, 0\.88fr\)\s+minmax\(0, 1\.18fr\)/i.tes
 if (!/@media\s*\(prefers-reduced-motion:\s*reduce\)/i.test(home)) {
   failures.push("Homepage must include reduced-motion handling.");
 }
-const homeMobileNavHidden = extractCssSources("index.html", home).some((css) =>
-  /@media\s*\(\s*max-width\s*:\s*768px\s*\)\s*\{[\s\S]{0,900}?body\.is-home\s*>\s*\.header-nav\s+\.nav-group(?:\s*,[^{}]+)?\s*\{[^}]*display\s*:\s*none/is.test(
-    css,
-  ),
-);
-if (!homeMobileNavHidden) {
-  failures.push("Homepage mobile CSS must explicitly hide the high-specificity desktop nav group.");
-}
-if (
-  !homeRules.some(
-    ({ selector, body }) =>
-      /(?:^|,)\s*body\.is-home\s*>\s*\.header-nav\s*(?:,|$)/i.test(selector) &&
-      /align-items\s*:\s*flex-start/i.test(body),
-  )
-) {
-  failures.push("Homepage header must retain the old top-aligned navigation composition.");
-}
 const homeSubheadlineRules = homeRules.filter(({ selector }) =>
   /(?:^|,)\s*\.panel--home\s+\.header-subheadline\s*(?:,|$)/i.test(selector),
 );
@@ -657,13 +963,6 @@ if (
 }
 if (!/\.hero::after\s*\{[^}]*linear-gradient/is.test(commercial)) {
   failures.push("Commercial hero must retain a readable image-overlay scrim.");
-}
-if (
-  !/header\.header-nav\s*\{[^}]*position\s*:\s*absolute[^}]*background\s*:\s*transparent/is.test(
-    commercial
-  )
-) {
-  failures.push("Commercial navigation must overlap the hero on a transparent background.");
 }
 if (!/\.hero\s*\{[^}]*border-radius\s*:\s*0\s*!important/is.test(commercial)) {
   failures.push("Commercial hero must remain edge-to-edge without rounded corners.");

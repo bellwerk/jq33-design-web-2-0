@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-08-26T19:51:48.1493297Z",
+  "startingHead": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+  "packetCount": 20,
+  "packets": [
+    {"path":".agent/tasks/frontend-system-audit","fileCount":17,"bytes":5526382,"aggregateSha256":"95bb7dc0d386a9b331fa9632c691cb4658d1c6dd2fbce37764b68dd3d39f6e56"},
+    {"path":".agent/tasks/frontend-system-remediation","fileCount":9,"bytes":2245687,"aggregateSha256":"c07ac8e07b9fba0ca44281a2766e9ab727d6e86fdf4f253bd0ab2f858650a126"},
+    {"path":".agent/tasks/frontend-visual-polish","fileCount":12,"bytes":6450195,"aggregateSha256":"14bb0b209986697c3ae018b2c7bc5061ff744c76c286405310eafb5cb614e2ce"},
+    {"path":".agent/tasks/frontend-visual-precision-pass","fileCount":16,"bytes":3712224,"aggregateSha256":"0fbeac1cef3b5d2483fb7b93f228fa8f18933c6f1844887a34da9fcbc5f11979"},
+    {"path":".agent/tasks/jq33-analytics-auto-mode-2026-08-23","fileCount":11,"bytes":6690849,"aggregateSha256":"0b3369b547b8a2e838dbf213af3af5184b7d8e4e958b6ebc661e901953dbfc13"},
+    {"path":".agent/tasks/jq33-deployed-404-console-compat-2026-08-23","fileCount":336,"bytes":174005090,"aggregateSha256":"5926ea5b6fc023391a4876801a205304d4e0f43bff5fdf8c501f402a160d4096"},
+    {"path":".agent/tasks/jq33-global-nav-uniformity-2026-08-24","fileCount":455,"bytes":1308618552,"aggregateSha256":"31615488de13cb4e1ee592677075ef2fa8b6c3395fe61b5f2d51c8f2c8872847"},
+    {"path":".agent/tasks/jq33-home-hero-parity-2026-08-23","fileCount":1224,"bytes":353390619,"aggregateSha256":"44b001f42523c7493c9077d87df8b6ea0a78a889720f29feb3c1eb5b7e05b9a5"},
+    {"path":".agent/tasks/jq33-live-hallmark-remediation-2026-07-16","fileCount":40,"bytes":6489232,"aggregateSha256":"724a7e20dbf03ca1b9ca86e5ffb8cf23b26574b5ed4c0bfbc534ff7bf4b0ba5d"},
+    {"path":".agent/tasks/jq33-production-finalization-2026-08-23","fileCount":368,"bytes":199758333,"aggregateSha256":"a7ab63e640ee743105c0a8ad1725ddad85b960a7ab8391215c4cffc6215e2635"},
+    {"path":".agent/tasks/jq33-production-launch-2026-08-19","fileCount":179,"bytes":50592589,"aggregateSha256":"91b4c2e5d1d859e0ef1cb5aaa90756854d730abe73cdb555c7673bb7691b0ac7"},
+    {"path":".agent/tasks/jq33-production-readiness-2026-07-29","fileCount":1899,"bytes":832854070,"aggregateSha256":"7ee35ae281d18de9741427242b65c2f37708723eba8646ef11046e17f268869a"},
+    {"path":".agent/tasks/jq33-projects-exact-reference-2026-08-23","fileCount":452,"bytes":72288319,"aggregateSha256":"44b6df8ff303ad9bebc26f393eaa31beca6125acfc7a6ddb35ed7756a99ef457"},
+    {"path":".agent/tasks/jq33-projects-nav-parity-2026-08-24","fileCount":283,"bytes":155663387,"aggregateSha256":"dbbd127b46da31846fe019159cc6d5601d4d57d22888be789a4607e79a0a844b"},
+    {"path":".agent/tasks/jq33-projects-page-restyle-2026-08-23","fileCount":781,"bytes":364528469,"aggregateSha256":"9d87c295c6cf432d4ffa53318a830d6a136ac2d05e9f6aa25c3f17c88482cefb"},
+    {"path":".agent/tasks/jq33-projects-reference-fidelity-pass-2026-08-23","fileCount":505,"bytes":281165344,"aggregateSha256":"c25a21e33a4be41d3c5b27e5848e52e834693b1eddbb134173ca92c88d05a5b7"},
+    {"path":".agent/tasks/jq33-projects-variant-layout-2026-08-23","fileCount":537,"bytes":213282203,"aggregateSha256":"83a28d9e3aebaf0705fa634d615f6fdc48502997ac4c60666738b0b3ab22d469"},
+    {"path":".agent/tasks/launch-setup-2026-05-24","fileCount":8,"bytes":8404,"aggregateSha256":"b67ab9c6b745e2592b3daf84a28b3e4a5d914f3fe64ddfe23f43a558b2610c44"},
+    {"path":".agent/tasks/prod-readiness-audit-2026-04-21","fileCount":10,"bytes":21375,"aggregateSha256":"8a097900cbcef2772aa96b866dc6532b114a8c69fddf2d22d5aa7f4eecb559c3"},
+    {"path":".agent/tasks/supabase-function-env-fallback-2026-06-05","fileCount":4,"bytes":2997,"aggregateSha256":"b1a72e49630da8b47840a1b44e7132a1cbdd2860a5dd43fca4e507a7c78ee80e"}
+  ]
+}
