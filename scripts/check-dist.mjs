@@ -306,6 +306,54 @@ if (fileSet.has("assets/fonts/permanent-marker/permanent-marker-home.woff2")) {
   failures.push("The unreferenced external homepage font subset must be pruned from dist.");
 }
 
+const homeInterRelativePath = "assets/fonts/inter/inter-home-hero.woff2";
+const sharedInterRelativePath = "assets/fonts/inter/inter-latin-400-900.woff2";
+const homeInterPath = path.join(distRoot, homeInterRelativePath);
+const sharedInterPath = path.join(distRoot, sharedInterRelativePath);
+const sourceInterPath = path.join(repositoryRoot, sharedInterRelativePath);
+if (!fileSet.has(homeInterRelativePath)) {
+  failures.push(`Missing homepage Inter subset: ${homeInterRelativePath}`);
+} else {
+  const homeInterBytes = fs.readFileSync(homeInterPath);
+  if (homeInterBytes.subarray(0, 4).toString("ascii") !== "wOF2") {
+    failures.push("Homepage Inter subset must contain valid WOFF2 bytes.");
+  }
+  if (!fs.existsSync(sharedInterPath) || homeInterBytes.length >= fs.statSync(sharedInterPath).size) {
+    failures.push("Homepage Inter subset must be smaller than the shared variable font.");
+  }
+}
+if (
+  !fs.existsSync(sharedInterPath) ||
+  !fs.existsSync(sourceInterPath) ||
+  !fs.readFileSync(sharedInterPath).equals(fs.readFileSync(sourceInterPath))
+) {
+  failures.push("The shared Inter font must remain byte-identical to its repository source.");
+}
+const homeFontPreloads = [...homeHtml.matchAll(/<link\b[^>]*>/gi)]
+  .map((match) => match[0])
+  .filter(
+    (tag) =>
+      getHtmlAttribute(tag, "rel").toLowerCase().split(/\s+/).includes("preload") &&
+      getHtmlAttribute(tag, "as").toLowerCase() === "font",
+  )
+  .map((tag) => getHtmlAttribute(tag, "href"));
+if (homeFontPreloads.length !== 1 || homeFontPreloads[0] !== `/${homeInterRelativePath}`) {
+  failures.push("Homepage must preload exactly its route-scoped Inter subset.");
+}
+if (
+  !/@font-face\s*\{[^}]*font-family:\s*["']?JQ33 Home Inter["']?\s*;[^}]*font-weight:\s*400\s+900\s*;[^}]*font-display:\s*swap\s*;[^}]*\/assets\/fonts\/inter\/inter-home-hero\.woff2/i.test(
+    homeCriticalCss || "",
+  )
+) {
+  failures.push("Homepage critical CSS must declare its route-scoped variable Inter subset.");
+}
+if (!/\.panel--home\s*\{[^}]*--font-hero:\s*["']JQ33 Home Inter["'],\s*var\(--font-body\)/i.test(homeCriticalCss || "")) {
+  failures.push("Homepage route subset must be bound only to the static home panel hero typography.");
+}
+if (homeFontPreloads.includes(`/${sharedInterRelativePath}`)) {
+  failures.push("Homepage must not preload the full shared Inter font.");
+}
+
 const commercialHtml = fs.readFileSync(
   path.join(distRoot, "commercial-interior-design-montreal/index.html"),
   "utf8",
@@ -314,36 +362,41 @@ const commercialRelativePath =
   "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2";
 const commercialCriticalCss =
   /<style\b[^>]*data-jq33-critical-bundle[^>]*>([\s\S]*?)<\/style>/i.exec(commercialHtml)?.[1];
-if (!fileSet.has(commercialRelativePath)) {
-  failures.push(`Missing performance font subset: ${commercialRelativePath}`);
+if (fileSet.has(commercialRelativePath)) {
+  failures.push(`The inlined commercial H1 subset must be pruned from dist: ${commercialRelativePath}`);
 }
-if (!commercialHtml.includes(`/${commercialRelativePath}`)) {
-  failures.push(`${commercialRelativePath} must be preloaded and declared by its critical route.`);
-}
-if (!commercialCriticalCss?.includes(`/${commercialRelativePath}`)) {
-  failures.push(`${commercialRelativePath} must be declared in the route's critical CSS bundle.`);
+if (commercialHtml.includes(`/${commercialRelativePath}`)) {
+  failures.push("Commercial route must not retain an external H1 font request or preload.");
 }
 if (!/font-family:\s*["']?Permanent Marker Commercial H1["']?\s*;/i.test(commercialCriticalCss || "")) {
   failures.push(`${commercialRelativePath} must use the unambiguous Permanent Marker Commercial H1 font family.`);
 }
+const commercialFontFace = /@font-face\s*\{(?=[^}]*font-family:\s*["']?Permanent Marker Commercial H1["']?\s*;)([^}]*)\}/i.exec(
+  commercialCriticalCss || "",
+)?.[1];
+const commercialFontData = /src:\s*url\(["']?data:font\/woff2;base64,([A-Za-z0-9+/=]+)["']?\)\s*format\(["']woff2["']\)/i.exec(
+  commercialFontFace || "",
+)?.[1];
+if (!commercialFontData) {
+  failures.push("Commercial H1 critical CSS must embed its route subset as a data URL.");
+} else {
+  const decodedCommercialFont = Buffer.from(commercialFontData, "base64");
+  if (decodedCommercialFont.subarray(0, 4).toString("ascii") !== "wOF2") {
+    failures.push("Embedded commercial H1 subset must contain valid WOFF2 bytes.");
+  }
+  if (decodedCommercialFont.length >= fs.statSync(path.join(
+    distRoot,
+    "assets/fonts/permanent-marker/permanent-marker-400.woff2",
+  )).size) {
+    failures.push("Embedded commercial H1 subset must be smaller than the shared Permanent Marker subset.");
+  }
+}
+if (!/font-display:\s*swap/i.test(commercialFontFace || "")) {
+  failures.push("Embedded commercial H1 subset must retain font-display swap.");
+}
 if (!/h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"/i.test(commercialCriticalCss || "")) {
   failures.push(`${commercialRelativePath} must be bound only to its intended critical hero text.`);
 }
-const sharedMarkerFont = path.join(
-  distRoot,
-  "assets/fonts/permanent-marker/permanent-marker-400.woff2",
-);
-for (const relativePath of ["assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2"]) {
-  const subsetPath = path.join(distRoot, relativePath);
-  if (
-    fs.existsSync(subsetPath) &&
-    fs.existsSync(sharedMarkerFont) &&
-    fs.statSync(subsetPath).size >= fs.statSync(sharedMarkerFont).size
-  ) {
-    failures.push(`${relativePath} must be smaller than the shared Permanent Marker subset.`);
-  }
-}
-
 const projectsHtml = fs.readFileSync(path.join(distRoot, "projects/index.html"), "utf8");
 const projectHero = imageTagsWithClass(projectsHtml, "concept-index__hero-image");
 const projectCards = imageTagsWithClass(projectsHtml, "project-card__image");

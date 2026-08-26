@@ -332,6 +332,16 @@ const createProductionFontSubsets = async () => {
   if (!fs.existsSync(publicFontPath)) {
     fail("Permanent Marker source font is missing from the distribution.");
   }
+  const interFontPath = path.join(
+    distDir,
+    "assets",
+    "fonts",
+    "inter",
+    "inter-latin-400-900.woff2",
+  );
+  if (!fs.existsSync(interFontPath)) {
+    fail("Inter variable source font is missing from the distribution.");
+  }
 
   const glyphText =
     " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u2014";
@@ -354,26 +364,55 @@ const createProductionFontSubsets = async () => {
   }
 
   const source = fs.readFileSync(publicFontPath);
+  const interSource = fs.readFileSync(interFontPath);
+  const homeHtml = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
+  const homePanelMatch = /<section\b[^>]*\bid=(?:"home"|'home')[^>]*>([\s\S]*?)<\/section>/i.exec(
+    homeHtml,
+  );
+  if (!homePanelMatch) {
+    fail("Homepage Inter subset could not bind to the static #home panel.");
+  }
+  const homeInterGlyphText = homePanelMatch[1]
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&#x([0-9a-f]+);/gi, (_match, value) =>
+      String.fromCodePoint(Number.parseInt(value, 16)),
+    )
+    .replace(/&#([0-9]+);/g, (_match, value) =>
+      String.fromCodePoint(Number.parseInt(value, 10)),
+    )
+    .replaceAll("&nbsp;", " ")
+    .replaceAll("&amp;", "&")
+    .replaceAll("&lt;", "<")
+    .replaceAll("&gt;", ">")
+    .replaceAll("&quot;", '"')
+    .replaceAll("&apos;", "'");
+  if (/&[a-z][a-z0-9]+;/i.test(homeInterGlyphText)) {
+    fail("Homepage Inter subset encountered an unsupported named HTML entity.");
+  }
   const homeGlyphText = " JQ33Design";
   const commercialH1GlyphText = " Commercial Interior Design in Montreal";
-  const [homeSubset, commercialH1Subset, subset] = await Promise.all([
+  const [homeSubset, commercialH1Subset, subset, homeInterSubset] = await Promise.all([
     subsetFont(source, homeGlyphText, { targetFormat: "woff2" }),
     subsetFont(source, commercialH1GlyphText, { targetFormat: "woff2" }),
     subsetFont(source, glyphText, { targetFormat: "woff2" }),
+    subsetFont(interSource, homeInterGlyphText, { targetFormat: "woff2" }),
   ]);
   fs.writeFileSync(
     path.join(path.dirname(publicFontPath), "permanent-marker-home.woff2"),
     homeSubset,
   );
-  fs.writeFileSync(
-    path.join(path.dirname(publicFontPath), "permanent-marker-commercial-h1.woff2"),
-    commercialH1Subset,
-  );
   fs.writeFileSync(publicFontPath, subset);
-  console.log(
-    `Subset Permanent Marker for production (${source.length} -> shared ${subset.length}, homepage ${homeSubset.length}, commercial H1 ${commercialH1Subset.length} bytes).`,
+  fs.writeFileSync(
+    path.join(path.dirname(interFontPath), "inter-home-hero.woff2"),
+    homeInterSubset,
   );
-  return { homeSubset };
+  if (homeInterSubset.length >= interSource.length) {
+    fail("Homepage Inter subset must be smaller than the shared variable font.");
+  }
+  console.log(
+    `Subset production fonts (Permanent Marker ${source.length} -> shared ${subset.length}, homepage ${homeSubset.length}, commercial H1 ${commercialH1Subset.length}; Inter ${interSource.length} -> homepage ${homeInterSubset.length} bytes).`,
+  );
+  return { homeSubset, commercialH1Subset };
 };
 
 const inlineHomepageFontSubset = (homeSubset) => {
@@ -489,7 +528,7 @@ const pruneUnreferencedAssets = () => {
   removeEmptyDirectories(distDir);
 };
 
-const externalizeInlineAssets = async () => {
+const externalizeInlineAssets = async ({ commercialH1Subset }) => {
   const generatedRoot = path.join(distDir, "assets", "generated");
   const writeGenerated = (extension, content) => {
     const optimizedContent =
@@ -523,7 +562,37 @@ const externalizeInlineAssets = async () => {
         return `url(${quote}${absolute}${quote})`;
       });
     let html = fs.readFileSync(filePath, "utf8");
+    if (documentPath === "/index.html") {
+      const fullInterPath = "/assets/fonts/inter/inter-latin-400-900.woff2";
+      const homeInterPath = "/assets/fonts/inter/inter-home-hero.woff2";
+      const expectedHomePreload = `<link rel="preload" href="${homeInterPath}" as="font" type="font/woff2" crossorigin />`;
+      if (!html.includes(expectedHomePreload) || html.includes(`href="${fullInterPath}" as="font"`)) {
+        fail("Homepage must preload only its route-scoped Inter subset.");
+      }
+      html = html.replace(
+        /(<style\b[^>]*\bdata-jq33-critical\b[^>]*>)/i,
+        `$1
+@font-face {
+  font-family: "JQ33 Home Inter";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("${homeInterPath}") format("woff2");
+}
+.panel--home {
+  --font-hero: "JQ33 Home Inter", var(--font-body);
+}`,
+      );
+      if (!html.includes('font-family: "JQ33 Home Inter"')) {
+        fail("Homepage Inter subset could not be injected into critical CSS.");
+      }
+    }
     if (documentPath === "/commercial-interior-design-montreal/index.html") {
+      const commercialFontPath =
+        "/assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2";
+      if (html.includes(commercialFontPath)) {
+        fail("Commercial H1 source must not retain an external subset URL or preload.");
+      }
       html = html.replace(
         /(<style\b[^>]*\bdata-jq33-critical\b[^>]*>)/i,
         `$1
@@ -532,7 +601,7 @@ const externalizeInlineAssets = async () => {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("/assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2") format("woff2");
+  src: url("data:font/woff2;base64,${commercialH1Subset.toString("base64")}") format("woff2");
   unicode-range: U+0020, U+0043, U+0044, U+0049, U+004D, U+0061, U+0063, U+0065, U+0067, U+0069, U+006C, U+006D, U+006E, U+006F, U+0072, U+0073, U+0074;
 }`,
       );
@@ -846,9 +915,9 @@ try {
   run("scripts/generate-sitemap.mjs");
 
   replaceBuildTokens(integrations, profiles);
-  const { homeSubset } = await createProductionFontSubsets();
+  const { homeSubset, commercialH1Subset } = await createProductionFontSubsets();
   inlineHomepageFontSubset(homeSubset);
-  await externalizeInlineAssets();
+  await externalizeInlineAssets({ commercialH1Subset });
   pruneUnreferencedAssets();
   assertConfiguredUrlsOnly(integrations);
   writeHeaders(integrations);

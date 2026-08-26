@@ -1638,24 +1638,62 @@ test("homepage mark scale and subheadline measure match the old responsive hero"
   }
 });
 
-test("homepage mark uses the embedded critical subset without a font request", async ({ page }) => {
+test("critical route fonts use exact subsets without redundant requests", async ({ page }) => {
   await gotoSettled(page, "/");
   const fontProof = await page.evaluate(async () => {
     await document.fonts.ready;
     const mark = document.querySelector("#brand-mark-text");
+    const tagline = document.querySelector("#home .header-tagline");
+    const fontRequests = performance
+      .getEntriesByType("resource")
+      .map((entry) => entry.name)
+      .filter((url) => url.includes("/assets/fonts/"));
     return {
       loaded: document.fonts.check('400 48px "Permanent Marker Home"', "JQ33 Design"),
       family: getComputedStyle(mark).fontFamily,
-      externalRequests: performance
-        .getEntriesByType("resource")
-        .map((entry) => entry.name)
-        .filter((url) => url.includes("permanent-marker-home.woff2")),
+      externalRequests: fontRequests.filter((url) =>
+        url.includes("permanent-marker-home.woff2"),
+      ),
+      interLoaded: document.fonts.check(
+        '700 16px "JQ33 Home Inter"',
+        "COMMERCIAL INTERIOR DESIGN MONTREAL",
+      ),
+      interFamily: getComputedStyle(tagline).fontFamily,
+      homeInterRequests: fontRequests.filter((url) => url.includes("inter-home-hero.woff2")),
+      fullInterRequests: fontRequests.filter((url) =>
+        url.includes("inter-latin-400-900.woff2"),
+      ),
     };
   });
 
   expect(fontProof.loaded).toBe(true);
   expect(fontProof.family).toContain("Permanent Marker Home");
   expect(fontProof.externalRequests).toEqual([]);
+  expect(fontProof.interLoaded).toBe(true);
+  expect(fontProof.interFamily).toContain("JQ33 Home Inter");
+  expect(fontProof.homeInterRequests).toHaveLength(1);
+  expect(fontProof.fullInterRequests).toEqual([]);
+
+  await gotoSettled(page, "/commercial-interior-design-montreal/");
+  const commercialFontProof = await page.evaluate(async () => {
+    await document.fonts.ready;
+    const heading = document.querySelector("main h1");
+    return {
+      loaded: document.fonts.check(
+        '400 48px "Permanent Marker Commercial H1"',
+        "Commercial Interior Design in Montreal",
+      ),
+      family: getComputedStyle(heading).fontFamily,
+      externalRequests: performance
+        .getEntriesByType("resource")
+        .map((entry) => entry.name)
+        .filter((url) => url.includes("permanent-marker-commercial-h1.woff2")),
+    };
+  });
+
+  expect(commercialFontProof.loaded).toBe(true);
+  expect(commercialFontProof.family).toContain("Permanent Marker Commercial H1");
+  expect(commercialFontProof.externalRequests).toEqual([]);
 });
 
 test("homepage hero links preserve behavior and stay square in every supported state", async ({
