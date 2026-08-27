@@ -254,3 +254,127 @@ waiting for action-time approval.
 6. Obtain AC8 approval, merge through native Git, and verify AC9.
 7. Assemble current evidence, run an independent verifier/fixer loop until all
    criteria PASS, and make the evidence durable under AC10.
+
+## Owner-authorized refreeze — 2026-08-27
+
+This section appends to, and does not rewrite, the frozen 2026-08-26 text
+above. The pre-refreeze specification was 13,074 bytes with SHA-256
+`99bcb684587fb8ecb6a8d1b042f36d53badba225c86318e2912af87b25e72f56`.
+All earlier acceptance criteria, constraints, approval gates, and historical
+task-packet immutability requirements remain in force. From this refreeze
+forward, task evidence and completion must cover AC1–AC11; references above to
+AC1–AC10 remain preserved historical wording and do not waive AC11.
+
+### Owner authorization and source binding
+
+On 2026-08-27, the owner requested:
+
+> [https://2247a1a6.jq33-design-website.pages.dev/projects/](https://2247a1a6.jq33-design-website.pages.dev/projects/)
+> let's use this page's footer as a standard footer thought-out the website,
+> also please, make the necessary text changes so it will benefit the SEO
+
+This authorizes one restrained shared-footer normalization and the narrowly
+related, evidence-backed SEO copy corrections defined by AC11. It does not
+authorize a broader redesign, new factual/marketing claims, legal-text edits,
+keyword stuffing, route additions, or changes to the approvals carried into
+this task.
+
+The immutable footer reference is bound to:
+
+- source commit `364614b583dabc110913ef2b631d41652a0027d6`;
+- Cloudflare Pages deployment
+  `2247a1a6-b53a-42db-b430-f32962e85511`;
+- immutable URL
+  `https://2247a1a6.jq33-design-website.pages.dev/projects/`;
+- retrieved Projects response: 17,543 bytes, SHA-256
+  `d1e0551c1e5c0b5cfd5b78ecd45227b438965f8a1682738befc3be3ebf7c71e4`;
+- retrieved built footer component response: 4,773 bytes, SHA-256
+  `80ff3157da4d2d3f0c48ceae01f20ea262c49f3d11b0f76145f3ac0f282f9347`.
+
+The release candidate at refreeze remains branch
+`codex/jq33-production-readiness-2026-07-29` at
+`0ce0e023b50bb0d4146fad2e116b91fcb18122bf`. These bindings identify the
+approved reference and the implementation baseline; a mutable branch alias or
+later preview cannot silently redefine the footer.
+
+### Refrozen allowlist extension
+
+Only the following paths are newly authorized by this refreeze:
+
+- `assets/js/components/footer.js`;
+- `.hallmark/log.json`;
+- `scripts/check-seo.mjs`, only if required to enforce the approved Projects
+  title or Contact H1/intro contract.
+
+The existing allowlist already covers `assets/css/site.css`, `tokens.css`, the
+relevant public route and generator-template files, `scripts/build.mjs`,
+`scripts/check-dist.mjs`, `scripts/generate-projects.mjs`,
+`scripts/check-hallmark-contract.mjs`, and `tests/browser-contract.spec.mjs`.
+No other path is authorized. In particular, this refreeze does not authorize
+changes to earlier task packets or new dependencies, assets, routes, public
+services, APIs, deployment systems, or analytics implementations.
+
+### AC11 — Uniform Ft4 footer and restrained SEO copy
+
+- Use the bound Projects-page `Ft4` compact shared colophon as the exact footer
+  standard on all 14 indexable routes in `sitemap.xml` and on the genuine
+  `404.html` response. After `assets/js/components/footer.js` mounts, every
+  route has the same normalized footer DOM text, link labels, destinations, and
+  hrefs; route-specific footer summaries or route-scoped footer appearances are
+  absent.
+- Match the bound reference's shared geometry, padding, borders, logo treatment,
+  and colors. The colophon uses transparent square pillars, three columns on
+  desktop and one column on mobile. Its interactive targets are at least 44 by
+  44 CSS pixels. Footer labels and links do not wrap unexpectedly, underline,
+  clip, overlap, or create horizontal overflow at widths 320, 375, 414, 768,
+  1280, and 1440 CSS pixels.
+- Use concise, descriptive, honest footer labels that help people and search
+  engines understand the existing destinations without adding keywords merely
+  for ranking. The footer may describe only services, location, contact routes,
+  projects, journal, and legal destinations already substantiated by the
+  approved site content.
+- Correct the Projects document title and the Contact H1/intro only when the
+  repository's existing approved content provides direct evidence for the new
+  wording. Preserve the current page purpose and one-H1 hierarchy. Do not add a
+  new claim, location, service, package promise, testimonial, superlative, or
+  legal interpretation; do not change Privacy or Terms copy.
+- Keep the shared footer component as the single DOM source and shared CSS as
+  the single visual source. Generated Projects output must remain deterministic
+  and match its checked-in template/output contract. Do not solve parity with
+  duplicated route-local footer markup or page-scoped CSS overrides.
+- Run the complete pinned strict build and `pnpm verify`, deterministic
+  generation checks, distribution/source-isolation checks, SEO and Hallmark
+  contracts, and the full browser suite. Browser proof must compare the mounted
+  footer DOM/hrefs and computed geometry/style across all 14 indexable routes
+  plus the real 404 at every required width, including keyboard focus, 44-pixel
+  target size, wrapping, underline, and horizontal-overflow assertions. Any
+  non-PASS result follows the existing smallest-fix and fresh-verification loop.
+
+### Refreeze assumptions, constraints, and non-goals
+
+- “Throughout the website” means the 14 canonical indexable routes currently
+  listed in `sitemap.xml` plus the genuine public 404; admin/source-only paths
+  remain unpublished and are not footer consumers.
+- “Benefit the SEO” means clarity and accurate destination/page descriptions,
+  not ranking guarantees or net-new claims. Only the footer labels, Projects
+  title, and Contact H1/intro are in scope.
+- The immutable Projects footer is the visual and structural baseline, while
+  accessibility requirements in AC11 may add semantics or target space without
+  changing its recognizable composition.
+- AC11 changes are release bytes. Therefore any existing local, preview,
+  Lighthouse, human, provider, or deployment proof affected by those bytes must
+  be rerun and rebound to the resulting commit; historical proof remains
+  retained but cannot satisfy the changed candidate.
+
+### AC11 verification plan
+
+1. Hash and inspect the bound reference, then inventory every intended changed
+   path against the refrozen allowlist.
+2. Regenerate Projects twice and require byte-identical output.
+3. Run the pinned strict build, complete `pnpm verify`, audits, source-isolation,
+   SEO, Hallmark, and distribution checks.
+4. Run the full browser matrix on every canonical route and the genuine 404 at
+   all six required widths, comparing mounted footer DOM/hrefs and computed
+   layout/style plus accessibility, focus, wrapping, underline, and overflow.
+5. Recreate immutable-preview and later production proof under the existing
+   AC6–AC10 approval and deployment sequence before AC11 may be marked PASS.

@@ -56,6 +56,22 @@ const navigationViewports = [320, 375, 390, 414, 768, 1280, 1440].map((width) =>
   height: 900,
 }));
 
+const footerViewports = [320, 375, 414, 768, 1280, 1440].map((width) => ({
+  width,
+  height: 900,
+}));
+
+const canonicalFooterLinks = [
+  { text: "Concept studies", href: "/projects/" },
+  {
+    text: "Commercial interior design",
+    href: "/commercial-interior-design-montreal/",
+  },
+  { text: "Design journal", href: "/journal/" },
+  { text: "Project inquiry", href: "/inquiry/" },
+  { text: "Contact", href: "/contact/" },
+];
+
 const canonicalNavigationLinks = [
   { text: "Projects", href: "/projects/" },
   { text: "Journal", href: "/journal/" },
@@ -327,6 +343,263 @@ async function gotoPublicDocument(page, documentCase) {
     return;
   }
   await gotoSettled(page, documentCase.route);
+}
+
+async function captureFooterContract(page) {
+  await page.waitForFunction(() => {
+    const footer = document.querySelector('footer.site-footer[data-component="footer"]');
+    return footer && footer.querySelectorAll("a[href]").length >= 8;
+  });
+  if (await page.locator("script[data-jq33-font-intent]").count()) {
+    await page.keyboard.press("Tab");
+    await page.waitForFunction(() => {
+      const stylesheet = document.querySelector('link[data-jq33-font-only]');
+      return stylesheet instanceof HTMLLinkElement && Boolean(stylesheet.sheet);
+    });
+  }
+  await page.evaluate(() => document.fonts.ready);
+
+  const structure = await page.evaluate(() => {
+    const footer = document.querySelector('footer.site-footer[data-component="footer"]');
+    const left = footer.querySelector(".info-pillar.pillar-left");
+    const right = footer.querySelector(".info-pillar.pillar-right");
+    const rightBlocks = [...right.querySelectorAll(":scope > .content-block")];
+    const labels = [...footer.querySelectorAll(".label")];
+    const anchors = [...footer.querySelectorAll("a[href]")];
+    const rootBounds = footer.getBoundingClientRect();
+    const round = (value) => Math.round(value * 100) / 100;
+    const rect = (element) => {
+      const bounds = element.getBoundingClientRect();
+      return {
+        height: round(bounds.height),
+        relativeX: round(bounds.x - rootBounds.x),
+        relativeY: round(bounds.y - rootBounds.y),
+        width: round(bounds.width),
+      };
+    };
+    const style = (element, properties, pseudo = null) => {
+      const computed = getComputedStyle(element, pseudo);
+      return Object.fromEntries(properties.map((property) => [property, computed[property]]));
+    };
+    const rootStyle = style(footer, [
+      "borderTopColor",
+      "borderTopStyle",
+      "borderTopWidth",
+      "backgroundColor",
+      "backgroundImage",
+      "boxSizing",
+      "color",
+      "columnGap",
+      "display",
+      "fontFamily",
+      "gridTemplateColumns",
+      "gridTemplateRows",
+      "marginBottom",
+      "marginLeft",
+      "marginRight",
+      "marginTop",
+      "minHeight",
+      "paddingBottom",
+      "paddingLeft",
+      "paddingRight",
+      "paddingTop",
+      "rowGap",
+    ]);
+    const pillarStyle = (element) => style(element, [
+      "backgroundColor",
+      "borderBottomWidth",
+      "borderLeftWidth",
+      "borderRadius",
+      "borderRightWidth",
+      "borderTopWidth",
+      "color",
+      "display",
+      "gridTemplateColumns",
+      "paddingBottom",
+      "paddingLeft",
+      "paddingRight",
+      "paddingTop",
+    ]);
+
+    return {
+      counts: {
+        footer: document.querySelectorAll('footer.site-footer[data-component="footer"]').length,
+        left: footer.querySelectorAll(".info-pillar.pillar-left").length,
+        right: footer.querySelectorAll(".info-pillar.pillar-right").length,
+        summaries: footer.querySelectorAll(".footer-summary").length,
+      },
+      className: footer.className,
+      html: footer.innerHTML.replace(/\s+/g, " ").trim(),
+      labels: labels.map((label) => ({
+        rect: rect(label),
+        style: style(label, ["color", "fontSize", "letterSpacing", "whiteSpace"]),
+        text: label.textContent.replace(/\s+/g, " ").trim(),
+      })),
+      links: anchors.map((anchor) => ({
+        clientWidth: anchor.clientWidth,
+        href: anchor.getAttribute("href"),
+        rect: rect(anchor),
+        scrollWidth: anchor.scrollWidth,
+        style: style(anchor, ["textDecorationLine", "whiteSpace"]),
+        text: anchor.textContent.replace(/\s+/g, " ").trim(),
+      })),
+      navLinks: [...footer.querySelectorAll(".footer-nav a")].map((anchor) => ({
+        href: anchor.getAttribute("href"),
+        text: anchor.textContent.replace(/\s+/g, " ").trim(),
+      })),
+      overflow: {
+        body: document.body.scrollWidth - document.body.clientWidth,
+        document: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        footer: footer.scrollWidth - footer.clientWidth,
+      },
+      pillars: {
+        left: { rect: rect(left), style: pillarStyle(left) },
+        right: { rect: rect(right), style: pillarStyle(right) },
+      },
+      rightBlocks: rightBlocks.map(rect),
+      pseudo: style(footer, [
+        "backgroundImage",
+        "content",
+        "display",
+        "gridColumnStart",
+        "gridRowStart",
+        "height",
+        "width",
+      ], "::before"),
+      root: {
+        rect: {
+          height: round(rootBounds.height),
+          width: round(rootBounds.width),
+          x: round(rootBounds.x),
+        },
+        style: rootStyle,
+      },
+      viewportWidth: window.innerWidth,
+    };
+  });
+
+  const firstNavLink = page.locator(".site-footer .footer-nav a").first();
+  await firstNavLink.focus();
+  await expect(firstNavLink).toBeFocused();
+  const focus = await firstNavLink.evaluate((element) => {
+    const computed = getComputedStyle(element);
+    return {
+      outlineStyle: computed.outlineStyle,
+      outlineWidth: computed.outlineWidth,
+      textDecorationLine: computed.textDecorationLine,
+    };
+  });
+
+  return { focus, structure };
+}
+
+function expectFooterContract(captured, label) {
+  const { focus, structure } = captured;
+  expect(structure.counts, `${label} must mount exactly one unmodified shared footer`).toEqual({
+    footer: 1,
+    left: 1,
+    right: 1,
+    summaries: 0,
+  });
+  expect(structure.className, `${label} footer root must use the one shared class`).toBe("site-footer");
+  expect(structure.navLinks, `${label} must use the approved descriptive footer destinations`).toEqual(
+    canonicalFooterLinks,
+  );
+  expect(structure.root.style.borderTopStyle, `${label} footer must keep its top rule`).toBe("solid");
+  expect(structure.root.style.borderTopWidth, `${label} footer rule must be one pixel`).toBe("1px");
+  expect(structure.root.style.backgroundColor, `${label} footer must use the JQ33 dark surface`).toBe(
+    "rgb(26, 26, 26)",
+  );
+  expect(structure.root.style.backgroundImage, `${label} footer must carry the JQ33 grain`).toMatch(
+    /data:image\/svg\+xml/i,
+  );
+  expect(structure.root.style.color, `${label} footer must use warm-paper text`).toBe("rgb(246, 245, 240)");
+  expect(structure.root.style.fontFamily.toLowerCase(), `${label} footer must use JQ33 sans typography`).toContain(
+    "lato",
+  );
+  const expectedGutter = Math.min(24, Math.max(16, structure.viewportWidth * 0.016));
+  expect(structure.root.rect.x, `${label} footer must use the shared viewport gutter`).toBeCloseTo(
+    expectedGutter,
+    1,
+  );
+  expect(structure.root.rect.width, `${label} footer must use the shared viewport width`).toBeCloseTo(
+    structure.viewportWidth - expectedGutter * 2,
+    1,
+  );
+  expect(
+    structure.root.rect.x + structure.root.rect.width,
+    `${label} footer must remain inside the viewport`,
+  ).toBeLessThanOrEqual(structure.viewportWidth + 0.5);
+  const expectedColumns = structure.viewportWidth <= 768 ? 1 : 3;
+  const trackCount = (value) =>
+    (value.match(/minmax\([^)]*\)|[^\s]+/g) || []).length;
+  expect(
+    trackCount(structure.root.style.gridTemplateColumns),
+    `${label} footer must use ${expectedColumns} root column${expectedColumns === 1 ? "" : "s"}`,
+  ).toBe(expectedColumns);
+  expect(
+    trackCount(structure.pillars.right.style.gridTemplateColumns),
+    `${label} footer detail block must use ${expectedColumns} column${expectedColumns === 1 ? "" : "s"}`,
+  ).toBe(expectedColumns);
+  expect(structure.pillars.right.style.display, `${label} footer detail block must compute to grid`).toBe(
+    "grid",
+  );
+  expect(
+    new Set(structure.rightBlocks.map((block) => block.relativeX)).size,
+    `${label} footer detail blocks must occupy ${expectedColumns} distinct column${expectedColumns === 1 ? "" : "s"}`,
+  ).toBe(expectedColumns);
+  expect(structure.pseudo.content, `${label} footer must render its logo pseudo-element`).not.toBe("none");
+  expect(
+    structure.pseudo.backgroundImage,
+    `${label} footer must use the approved cobalt logo asset`,
+  ).toMatch(/logo(?:%20| )purple(?:%20| )svg\.svg/i);
+  for (const [name, pillar] of Object.entries(structure.pillars)) {
+    expect(pillar.style.backgroundColor, `${label} ${name} pillar must remain transparent`).toBe(
+      "rgba(0, 0, 0, 0)",
+    );
+    expect(pillar.style.borderRadius, `${label} ${name} pillar must remain square`).toBe("0px");
+    for (const side of ["Top", "Right", "Bottom", "Left"]) {
+      expect(pillar.style[`border${side}Width`], `${label} ${name} pillar must remain unboxed`).toBe(
+        "0px",
+      );
+      expect(pillar.style[`padding${side}`], `${label} ${name} pillar must remain unboxed`).toBe(
+        "0px",
+      );
+    }
+  }
+  for (const footerLabel of structure.labels) {
+    expect(footerLabel.style.color, `${label} footer labels must use bright cobalt`).toBe(
+      "rgb(112, 117, 235)",
+    );
+    expect(footerLabel.style.whiteSpace, `${label} footer labels must not wrap`).toBe("nowrap");
+  }
+  for (const link of structure.links) {
+    expect(link.rect.width, `${label} ${link.text || link.href} target must be at least 44px wide`).toBeGreaterThanOrEqual(
+      44,
+    );
+    expect(link.rect.height, `${label} ${link.text || link.href} target must be at least 44px tall`).toBeGreaterThanOrEqual(
+      44,
+    );
+    expect(link.style.whiteSpace, `${label} ${link.text || link.href} must stay on one line`).toBe(
+      "nowrap",
+    );
+    expect(link.style.textDecorationLine, `${label} ${link.text || link.href} must not be underlined`).toBe(
+      "none",
+    );
+    expect(link.scrollWidth, `${label} ${link.text || link.href} must not clip`).toBeLessThanOrEqual(
+      link.clientWidth,
+    );
+  }
+  expect(structure.overflow, `${label} footer must not create horizontal overflow`).toEqual({
+    body: 0,
+    document: 0,
+    footer: 0,
+  });
+  expect(focus.outlineStyle, `${label} footer keyboard focus must remain visible`).not.toBe("none");
+  expect(Number.parseFloat(focus.outlineWidth), `${label} footer focus outline must be at least 2px`).toBeGreaterThanOrEqual(
+    2,
+  );
+  expect(focus.textDecorationLine, `${label} focused footer links must not be underlined`).toBe("none");
 }
 
 async function captureNavigationElementState(locator) {
@@ -774,9 +1047,15 @@ function expectNavigationMatchesCanonical(actual, canonical, label) {
   }
 
   const withoutRects = (value) => JSON.parse(
-    JSON.stringify(value, (key, nested) => (
-      key === "tokens" || key === "rect" || key.endsWith("Rect") ? undefined : nested
-    )),
+    JSON.stringify(value, (key, nested) => {
+      if (key === "tokens" || key === "rect" || key.endsWith("Rect")) return undefined;
+      if (key === "fontFamily" && typeof nested === "string") {
+        // These aliases are exact Lato subsets; the dedicated CDP font contract
+        // proves the rendered face while this comparison stays presentation-led.
+        return nested.replace(/^"JQ33 (?:Home|Commercial) Critical Lato"/, "Lato");
+      }
+      return nested;
+    }),
   );
   expect(withoutRects(actual), `${label} shared navigation presentation must be identical`).toEqual(
     withoutRects(canonical),
@@ -973,7 +1252,7 @@ for (const documentCase of publicDocumentCases) {
       const isProjectsIndexUi = (element) =>
         document.body.classList.contains("concept-index") &&
         Boolean(element.closest(".concept-index")) &&
-        !element.closest("header.header-nav, #site-nav-drawer, .nav-overlay");
+        !element.closest("header.header-nav, #site-nav-drawer, .nav-overlay, .site-footer");
 
       const headings = [
         ...document.querySelectorAll("h1, h2, h3, h4, h5, h6, [role='heading']"),
@@ -1139,6 +1418,28 @@ for (const viewport of navigationViewports) {
         actual,
         canonical,
         `${documentCase.route} at ${viewport.width}px`,
+      );
+    }
+  });
+}
+
+for (const viewport of footerViewports) {
+  test(`shared Ft4 footer is identical across every public route at ${viewport.width}px`, async ({
+    page,
+  }) => {
+    test.setTimeout(180_000);
+    await page.setViewportSize(viewport);
+    await gotoSettled(page, "/projects/");
+    const canonical = await captureFooterContract(page);
+    expectFooterContract(canonical, `/projects/ at ${viewport.width}px`);
+
+    for (const documentCase of publicDocumentCases) {
+      await gotoPublicDocument(page, documentCase);
+      const actual = await captureFooterContract(page);
+      const label = `${documentCase.route} at ${viewport.width}px`;
+      expectFooterContract(actual, label);
+      expect(actual.structure, `${label} footer must match the Projects reference contract`).toEqual(
+        canonical.structure,
       );
     }
   });
@@ -1639,6 +1940,55 @@ test("homepage mark scale and subheadline measure match the old responsive hero"
 });
 
 test("critical route fonts use exact subsets without redundant requests", async ({ page }) => {
+  const platformFontsFor = async (selectors) => {
+    const cdp = await page.context().newCDPSession(page);
+    await Promise.all([cdp.send("DOM.enable"), cdp.send("CSS.enable")]);
+    const { root } = await cdp.send("DOM.getDocument");
+    const proof = {};
+    for (const selector of selectors) {
+      const { nodeId } = await cdp.send("DOM.querySelector", {
+        nodeId: root.nodeId,
+        selector,
+      });
+      const { fonts } = await cdp.send("CSS.getPlatformFontsForNode", { nodeId });
+      proof[selector] = fonts
+        .filter(({ glyphCount }) => glyphCount > 0)
+        .map(({ familyName, glyphCount }) => ({ familyName, glyphCount }));
+    }
+    await cdp.detach();
+    return proof;
+  };
+  const expectPlatformFamily = (proof, selectors, expectedFamily) => {
+    for (const selector of selectors) {
+      expect(proof[selector], `${selector} must render at least one glyph`).not.toEqual([]);
+      expect(
+        proof[selector].filter(({ familyName }) => !expectedFamily.test(familyName)),
+        `${selector} must not fall back outside ${expectedFamily}`,
+      ).toEqual([]);
+    }
+  };
+  const activateIntentFonts = async () => {
+    await page.keyboard.press("Tab");
+    await page.waitForFunction(() => {
+      const stylesheet = document.querySelector('link[data-jq33-font-only]');
+      return stylesheet instanceof HTMLLinkElement && Boolean(stylesheet.sheet);
+    });
+    return page.evaluate(async () => {
+      const stylesheet = document.querySelector('link[data-jq33-font-only]');
+      await document.fonts.load('900 16px "Lato"', "PROJECTS");
+      await document.fonts.ready;
+      const href = stylesheet.href;
+      return {
+        href,
+        linkCount: document.querySelectorAll('link[data-jq33-font-only]').length,
+        requestCount: performance
+          .getEntriesByType("resource")
+          .filter((entry) => entry.name === href).length,
+        fullLatoLoaded: document.fonts.check('900 16px "Lato"', "PROJECTS"),
+      };
+    });
+  };
+
   await gotoSettled(page, "/");
   const fontProof = await page.evaluate(async () => {
     await document.fonts.ready;
@@ -1663,31 +2013,32 @@ test("critical route fonts use exact subsets without redundant requests", async 
       fullInterRequests: fontRequests.filter((url) =>
         url.includes("inter-latin-400-900.woff2"),
       ),
+      globalFontRequests: fontRequests.filter((url) =>
+        /\/(?:lato-(?:400|700|900)|inter-latin-400-900|permanent-marker-400)\.woff2(?:[?#]|$)/.test(
+          url,
+        ),
+      ),
+      criticalLatoLoaded: document.fonts.check(
+        '700 12px "JQ33 Home Critical Lato"',
+        "JQ33 DESIGN Projects Journal Inquiry Contact",
+      ),
+      intentLoaderCount: document.querySelectorAll("script[data-jq33-font-intent]").length,
+      fontOnlyLinkCount: document.querySelectorAll('link[data-jq33-font-only]').length,
     };
   });
-  const cdp = await page.context().newCDPSession(page);
-  await Promise.all([cdp.send("DOM.enable"), cdp.send("CSS.enable")]);
-  const { root } = await cdp.send("DOM.getDocument");
-  const platformFontProof = {};
-  for (const selector of [
+  const homeInterSelectors = [
     "#home .header-tagline",
     "#home .header-subheadline",
     "#home .hero-action--primary",
     "#home .hero-action--secondary",
     "#home .pillar-left .label",
     "#home .pillar-right .label",
-  ]) {
-    const { nodeId } = await cdp.send("DOM.querySelector", {
-      nodeId: root.nodeId,
-      selector,
-    });
-    const { fonts } = await cdp.send("CSS.getPlatformFontsForNode", { nodeId });
-    platformFontProof[selector] = fonts.map(({ familyName, glyphCount }) => ({
-      familyName,
-      glyphCount,
-    }));
-  }
-  await cdp.detach();
+  ];
+  const homeLatoSelectors = [".header-nav .label", ".header-nav .nav-link"];
+  const platformFontProof = await platformFontsFor([
+    ...homeInterSelectors,
+    ...homeLatoSelectors,
+  ]);
 
   expect(fontProof.loaded).toBe(true);
   expect(fontProof.family).toContain("Permanent Marker Home");
@@ -1696,13 +2047,20 @@ test("critical route fonts use exact subsets without redundant requests", async 
   expect(fontProof.interFamily).toContain("JQ33 Home Inter");
   expect(fontProof.homeInterRequests).toHaveLength(1);
   expect(fontProof.fullInterRequests).toEqual([]);
-  for (const [selector, fonts] of Object.entries(platformFontProof)) {
-    expect(fonts, `${selector} must render at least one glyph`).not.toEqual([]);
-    expect(
-      fonts.filter(({ familyName, glyphCount }) => glyphCount > 0 && !/inter/i.test(familyName)),
-      `${selector} must not fall back outside the exact Inter subset`,
-    ).toEqual([]);
-  }
+  expect(fontProof.globalFontRequests).toEqual([]);
+  expect(fontProof.criticalLatoLoaded).toBe(true);
+  expect(fontProof.intentLoaderCount).toBe(1);
+  expect(fontProof.fontOnlyLinkCount).toBe(0);
+  expectPlatformFamily(platformFontProof, homeInterSelectors, /inter/i);
+  expectPlatformFamily(platformFontProof, homeLatoSelectors, /lato/i);
+
+  const homeActivation = await activateIntentFonts();
+  expect(homeActivation.href).toMatch(/\/assets\/generated\/[a-f0-9]{64}\.css$/);
+  expect(homeActivation.linkCount).toBe(1);
+  expect(homeActivation.requestCount).toBe(1);
+  expect(homeActivation.fullLatoLoaded).toBe(true);
+  await page.keyboard.press("Shift");
+  expect(await page.locator('link[data-jq33-font-only]').count()).toBe(1);
 
   await gotoSettled(page, "/commercial-interior-design-montreal/");
   const commercialFontProof = await page.evaluate(async () => {
@@ -1718,12 +2076,59 @@ test("critical route fonts use exact subsets without redundant requests", async 
         .getEntriesByType("resource")
         .map((entry) => entry.name)
         .filter((url) => url.includes("permanent-marker-commercial-h1.woff2")),
+      globalFontRequests: performance
+        .getEntriesByType("resource")
+        .map((entry) => entry.name)
+        .filter((url) =>
+          /\/(?:lato-(?:400|700|900)|inter-latin-400-900|permanent-marker-400)\.woff2(?:[?#]|$)/.test(
+            url,
+          ),
+        ),
+      criticalLato400Loaded: document.fonts.check(
+        '400 16px "JQ33 Commercial Critical Lato"',
+        "Commercial Interior Design Montreal Layout first interiors",
+      ),
+      criticalLato700Loaded: document.fonts.check(
+        '700 16px "JQ33 Commercial Critical Lato"',
+        "JQ33 DESIGN Book a call Get a free quote Projects Journal Inquiry Contact",
+      ),
+      intentLoaderCount: document.querySelectorAll("script[data-jq33-font-intent]").length,
+      fontOnlyLinkCount: document.querySelectorAll('link[data-jq33-font-only]').length,
     };
   });
+
+  const commercialLatoSelectors = [
+    ".header-nav .label",
+    ".header-nav .nav-link",
+    "main .hero .hero-label",
+    "main .hero .hero-lead",
+    "main .hero .btn-primary",
+    "main .hero .btn-secondary",
+  ];
+  const commercialMarkerSelectors = ["main .hero h1"];
+  const commercialPlatformFontProof = await platformFontsFor([
+    ...commercialLatoSelectors,
+    ...commercialMarkerSelectors,
+  ]);
 
   expect(commercialFontProof.loaded).toBe(true);
   expect(commercialFontProof.family).toContain("Permanent Marker Commercial H1");
   expect(commercialFontProof.externalRequests).toEqual([]);
+  expect(commercialFontProof.globalFontRequests).toEqual([]);
+  expect(commercialFontProof.criticalLato400Loaded).toBe(true);
+  expect(commercialFontProof.criticalLato700Loaded).toBe(true);
+  expect(commercialFontProof.intentLoaderCount).toBe(1);
+  expect(commercialFontProof.fontOnlyLinkCount).toBe(0);
+  expectPlatformFamily(commercialPlatformFontProof, commercialLatoSelectors, /lato/i);
+  expectPlatformFamily(commercialPlatformFontProof, commercialMarkerSelectors, /permanent marker/i);
+
+  const commercialActivation = await activateIntentFonts();
+  expect(commercialActivation.href).toBe(homeActivation.href);
+  expect(commercialActivation.linkCount).toBe(1);
+  expect(commercialActivation.requestCount).toBe(1);
+  expect(commercialActivation.fullLatoLoaded).toBe(true);
+  await page.keyboard.press("Shift");
+  expect(await page.locator('link[data-jq33-font-only]').count()).toBe(1);
 });
 
 test("homepage hero links preserve behavior and stay square in every supported state", async ({
@@ -1794,7 +2199,7 @@ test("approved visual taxonomy computes to 30px containers, 20px cards, and a sq
 }) => {
   const cases = [
     { route: "/inquiry/", selector: "#inquiry-name", radius: "30px" },
-    { route: "/inquiry/", selector: ".site-footer .info-pillar", radius: "30px" },
+    { route: "/inquiry/", selector: ".site-footer .info-pillar", radius: "0px" },
     { route: "/commercial-interior-design-montreal/", selector: ".cta-panel", radius: "30px" },
     {
       route: "/commercial-interior-design-montreal/",

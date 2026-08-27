@@ -130,9 +130,9 @@
       .work-container {
         position: relative;
         width: min(1200px, calc(100vw - 48px));
-        height: 100vh;
-        height: 100svh;
-        overflow-y: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+        overflow-y: visible;
         margin: 0 auto;
         padding: var(--space-45) 0 10vh;
         display: flex;
@@ -430,9 +430,9 @@
           </div>
         </div>
       </div>
-
-      <footer class="site-footer" data-component="footer"></footer>
     </main>
+
+    <footer class="site-footer" data-component="footer"></footer>
 
     <script src="/assets/js/deferred-css.js"></script>
     <script src="/assets/js/calendly.js"></script>

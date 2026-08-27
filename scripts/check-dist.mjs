@@ -256,6 +256,40 @@ const imageTagsWithClass = (html, className) =>
     .map((match) => match[0])
     .filter((tag) => getHtmlAttribute(tag, "class").split(/\s+/).includes(className));
 
+const fontFaceFor = (css, family, weight = "") =>
+  [...String(css || "").matchAll(/@font-face\s*\{[^{}]*\}/gi)]
+    .map((match) => match[0])
+    .find(
+      (fontFace) =>
+        new RegExp(
+          `font-family\\s*:\\s*(?:["']${family.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']|${family.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})\\s*;`,
+          "i",
+        ).test(fontFace) &&
+        (!weight || new RegExp(`font-weight\\s*:\\s*${weight}\\s*;`, "i").test(fontFace)),
+    );
+
+const assertPinnedEmbeddedFont = ({ css, family, weight, bytes, sha256, label }) => {
+  const fontFace = fontFaceFor(css, family, weight);
+  const encoded = /src:\s*url\(["']?data:font\/woff2;base64,([A-Za-z0-9+/=]+)["']?\)\s*format\(["']woff2["']\)/i.exec(
+    fontFace || "",
+  )?.[1];
+  if (!encoded) {
+    failures.push(`${label} must be embedded as a WOFF2 data URL.`);
+    return;
+  }
+  const decoded = Buffer.from(encoded, "base64");
+  const actualSha256 = crypto.createHash("sha256").update(decoded).digest("hex");
+  if (
+    decoded.subarray(0, 4).toString("ascii") !== "wOF2" ||
+    decoded.length !== bytes ||
+    actualSha256 !== sha256
+  ) {
+    failures.push(
+      `${label} must match its pinned ${bytes}-byte WOFF2 artifact (${sha256}); received ${decoded.length} bytes (${actualSha256}).`,
+    );
+  }
+};
+
 for (const file of htmlFiles) {
   const html = fs.readFileSync(file.fullPath, "utf8");
   if (!html.includes(`<meta name="jq33-release" content="${releaseFingerprint}">`)) {
@@ -351,11 +385,30 @@ if (
 ) {
   failures.push("Homepage critical CSS must declare its route-scoped variable Inter subset.");
 }
-if (!/\.panel--home\s*\{[^}]*--font-hero:\s*["']JQ33 Home Inter["'],\s*var\(--font-body\)/i.test(homeCriticalCss || "")) {
-  failures.push("Homepage route subset must be bound only to the static home panel hero typography.");
+if (
+  !/\.panel--home\s*\{[^}]*--font-hero:\s*["']JQ33 Home Inter["'],\s*["']JQ33 Home Critical Lato["'],\s*["']Lato Metric Fallback["']/i.test(
+    homeCriticalCss || "",
+  )
+) {
+  failures.push("Homepage route subsets must be bound to the static home panel hero typography.");
 }
 if (homeFontPreloads.includes(`/${sharedInterRelativePath}`)) {
   failures.push("Homepage must not preload the full shared Inter font.");
+}
+assertPinnedEmbeddedFont({
+  css: homeCriticalCss,
+  family: "JQ33 Home Critical Lato",
+  weight: "700",
+  bytes: 5_980,
+  sha256: "f2aeafcd35c2ff85ddf85614106f9201f8ebdca38a6239a0acce98bccf0a55ed",
+  label: "Homepage critical Lato 700 subset",
+});
+if (
+  !/\.header-nav\s*\{[^}]*--font-sans:\s*["']JQ33 Home Critical Lato["']/i.test(
+    homeCriticalCss || "",
+  )
+) {
+  failures.push("Homepage critical Lato subset must be scoped to the uniform navigation.");
 }
 
 const commercialHtml = fs.readFileSync(
@@ -397,6 +450,159 @@ if (!/font-display:\s*swap/i.test(commercialFontFace || "")) {
 }
 if (!/h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"[^;}]*!important/i.test(commercialCriticalCss || "")) {
   failures.push(`${commercialRelativePath} must be cascade-bound only to its intended critical hero text.`);
+}
+assertPinnedEmbeddedFont({
+  css: commercialCriticalCss,
+  family: "JQ33 Commercial Critical Lato",
+  weight: "400",
+  bytes: 8_236,
+  sha256: "011f713874f6500a5a3254ed5cbab0fbc0487f0d2d39ab7abbb86edf01178ede",
+  label: "Commercial critical Lato 400 subset",
+});
+assertPinnedEmbeddedFont({
+  css: commercialCriticalCss,
+  family: "JQ33 Commercial Critical Lato",
+  weight: "700",
+  bytes: 6_948,
+  sha256: "909659cf9ac4b889e395fad86358557b4e6e47dbcc65a3db3bcd9956b8d2bada",
+  label: "Commercial critical Lato 700 subset",
+});
+for (const [selector, label] of [
+  ["\\.header-nav", "uniform navigation"],
+  ["main\\s+\\.hero", "critical hero"],
+]) {
+  if (
+    !new RegExp(
+      `${selector}\\s*\\{[^}]*--font-sans:\\s*["']JQ33 Commercial Critical Lato["']`,
+      "i",
+    ).test(commercialCriticalCss || "")
+  ) {
+    failures.push(`Commercial critical Lato subset must be scoped to the ${label}.`);
+  }
+}
+if (
+  !/main\s+\.hero\s*>\s*div:first-child\s*>\s*\.hero-actions\s+\.btn\s*\{[^}]*font-family:\s*var\(--font-sans\)\s*!important/i.test(
+    commercialCriticalCss || "",
+  )
+) {
+  failures.push("Commercial hero actions must resolve their 600 weight through the critical Lato family.");
+}
+
+const sharedNetworkFontPaths = [
+  "/assets/fonts/lato/lato-400.woff2",
+  "/assets/fonts/lato/lato-700.woff2",
+  "/assets/fonts/lato/lato-900.woff2",
+  "/assets/fonts/inter/inter-latin-400-900.woff2",
+  "/assets/fonts/permanent-marker/permanent-marker-400.woff2",
+];
+const inspectFirstIntentFontContract = ({ html, criticalCss, label }) => {
+  const intentScripts = [...html.matchAll(/<script\b[^>]*data-jq33-font-intent[^>]*>/gi)].map(
+    (match) => match[0],
+  );
+  if (intentScripts.length !== 1) {
+    failures.push(`${label} must contain exactly one external first-intent font loader.`);
+    return null;
+  }
+  const scriptHref = getHtmlAttribute(intentScripts[0], "src");
+  if (!/^\/assets\/generated\/[a-f0-9]{64}\.js$/.test(scriptHref)) {
+    failures.push(`${label} first-intent font loader must be a content-addressed local script.`);
+    return null;
+  }
+  const scriptRelativePath = scriptHref.slice(1);
+  if (!fileSet.has(scriptRelativePath)) {
+    failures.push(`${label} first-intent font loader is missing: ${scriptRelativePath}`);
+    return null;
+  }
+  const loaderSource = fs.readFileSync(path.join(distRoot, scriptRelativePath), "utf8");
+  const fontOnlyHref = /link\.href\s*=\s*["'](\/assets\/generated\/[a-f0-9]{64}\.css)["']/i.exec(
+    loaderSource,
+  )?.[1];
+  if (!fontOnlyHref) {
+    failures.push(`${label} loader must bind one content-addressed font-only stylesheet.`);
+    return null;
+  }
+  for (const eventName of [
+    "pointermove",
+    "pointerdown",
+    "touchstart",
+    "wheel",
+    "scroll",
+    "keydown",
+  ]) {
+    if (!loaderSource.includes(`"${eventName}"`)) {
+      failures.push(`${label} loader is missing the ${eventName} intent event.`);
+    }
+  }
+  if (
+    !/link\.dataset\.jq33FontOnly\s*=/.test(loaderSource) ||
+    !/activated\s*=\s*true/.test(loaderSource) ||
+    /(?:setTimeout|setInterval|requestIdleCallback|DOMContentLoaded|window\.onload)/.test(
+      loaderSource,
+    )
+  ) {
+    failures.push(`${label} loader must be one-shot and exclusively user-intent activated.`);
+  }
+
+  const fontOnlyRelativePath = fontOnlyHref.slice(1);
+  if (!fileSet.has(fontOnlyRelativePath)) {
+    failures.push(`${label} font-only stylesheet is missing: ${fontOnlyRelativePath}`);
+    return null;
+  }
+  const fontOnlyCss = fs.readFileSync(path.join(distRoot, fontOnlyRelativePath), "utf8");
+  if ([...fontOnlyCss.matchAll(/@font-face\s*\{/gi)].length !== sharedNetworkFontPaths.length) {
+    failures.push(`${label} font-only stylesheet must contain exactly five network-backed faces.`);
+  }
+  for (const fontPath of sharedNetworkFontPaths) {
+    if (fontOnlyCss.split(fontPath).length - 1 !== 1) {
+      failures.push(`${label} font-only stylesheet must contain ${fontPath} exactly once.`);
+    }
+  }
+  if (/Metric Fallback/i.test(fontOnlyCss)) {
+    failures.push(`${label} must keep local metric-fallback faces in initial CSS.`);
+  }
+
+  const stylesheetTags = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => getHtmlAttribute(tag, "rel").toLowerCase().split(/\s+/).includes("stylesheet"));
+  if (stylesheetTags.some((tag) => getHtmlAttribute(tag, "href") === fontOnlyHref)) {
+    failures.push(`${label} must not parse-load its font-only stylesheet.`);
+  }
+  const initialLinkedCss = stylesheetTags
+    .map((tag) => getHtmlAttribute(tag, "href").split(/[?#]/, 1)[0])
+    .filter((href) => /^\/assets\/generated\/[a-f0-9]{64}\.css$/.test(href))
+    .map((href) => fs.readFileSync(path.join(distRoot, href.slice(1)), "utf8"))
+    .join("\n");
+  const initialCss = `${criticalCss || ""}\n${initialLinkedCss}`;
+  for (const fontPath of sharedNetworkFontPaths) {
+    if (initialCss.includes(fontPath)) {
+      failures.push(`${label} initial CSS must not reference deferred shared face ${fontPath}.`);
+    }
+  }
+  for (const metricFamily of ["Lato Metric Fallback", "Permanent Marker Metric Fallback"]) {
+    if (!fontFaceFor(initialCss, metricFamily)) {
+      failures.push(`${label} initial CSS must retain ${metricFamily}.`);
+    }
+  }
+  return { fontOnlyHref, scriptHref };
+};
+
+const homeIntentFonts = inspectFirstIntentFontContract({
+  html: homeHtml,
+  criticalCss: homeCriticalCss,
+  label: "Homepage",
+});
+const commercialIntentFonts = inspectFirstIntentFontContract({
+  html: commercialHtml,
+  criticalCss: commercialCriticalCss,
+  label: "Commercial route",
+});
+if (
+  homeIntentFonts &&
+  commercialIntentFonts &&
+  (homeIntentFonts.fontOnlyHref !== commercialIntentFonts.fontOnlyHref ||
+    homeIntentFonts.scriptHref !== commercialIntentFonts.scriptHref)
+) {
+  failures.push("Home and Commercial must share one content-addressed font-only asset and loader.");
 }
 const projectsHtml = fs.readFileSync(path.join(distRoot, "projects/index.html"), "utf8");
 const projectHero = imageTagsWithClass(projectsHtml, "concept-index__hero-image");

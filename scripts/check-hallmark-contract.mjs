@@ -715,16 +715,39 @@ if (
   failures.push("Shared navigation must remain vertically centered in final and first-paint CSS.");
 }
 if (
-  !/\.site-footer\s*\{[^}]*color\s*:\s*var\(--color-white\)/is.test(siteCss)
-) {
-  failures.push("The dark footer must use a readable light foreground.");
-}
-if (
-  !/\.site-footer\s+\.info-pillar\.pillar-right\s*\{[^}]*background-color\s*:\s*var\(--color-deep-surface\)/is.test(
-    siteCss
+  !/\.site-footer\s*\{[^}]*border-top\s*:\s*1px\s+solid\s+var\(--color-cobalt-a45\)[^}]*grid-template-columns\s*:\s*minmax\(7rem,\s*0\.34fr\)\s+minmax\(11rem,\s*0\.46fr\)\s+minmax\(0,\s*1\.2fr\)[^}]*color\s*:\s*var\(--color-warm-paper\)[^}]*font-family\s*:\s*var\(--font-sans\)/is.test(
+    siteCss,
   )
 ) {
-  failures.push("The footer's right pillar must provide its own dark contrast surface.");
+  failures.push("The shared Ft4 footer must keep the approved top rule, desktop grid, warm-paper foreground, and JQ33 sans typography.");
+}
+if (
+  !/\.site-footer::before\s*\{[^}]*grid-column\s*:\s*1[^}]*background\s*:\s*url\(["']\/assets\/logo\/logo%20purple%20svg\.svg["']\)\s+center\s*\/\s*contain\s+no-repeat/is.test(
+    siteCss,
+  )
+) {
+  failures.push("The shared Ft4 footer must render the approved cobalt logo in its first column.");
+}
+if (
+  !/\.site-footer\s+\.info-pillar,\s*\.site-footer\s+\.info-pillar\.pillar-right\s*\{[^}]*padding\s*:\s*0[^}]*border\s*:\s*0[^}]*border-radius\s*:\s*0\s*!important[^}]*background\s*:\s*transparent/is.test(
+    siteCss,
+  )
+) {
+  failures.push("Shared footer pillars must remain transparent, square, and unboxed.");
+}
+if (
+  !/\.site-footer\s+\.info-pillar\s+\.label\s*\{[^}]*color\s*:\s*var\(--color-cobalt-bright\)/is.test(
+    siteCss,
+  )
+) {
+  failures.push("Shared footer labels must use the approved bright cobalt token.");
+}
+if (
+  !/@media\s*\(max-width:\s*48rem\)\s*\{[\s\S]*?\.site-footer\s*\{[^}]*grid-template-columns\s*:\s*minmax\(0,\s*1fr\)/i.test(
+    siteCss,
+  )
+) {
+  failures.push("The shared Ft4 footer must collapse to one column at the approved mobile breakpoint.");
 }
 
 const home = read("index.html");
@@ -1102,12 +1125,33 @@ if (
 ) {
   failures.push("Configured social profiles must render as accessible labelled icon links.");
 }
-if (
-  !/\.site-footer\s+\.pillar-left\s*\{[^}]*border-radius\s*:\s*var\(--radius-container\)/is.test(
-    siteCss
-  )
-) {
-  failures.push("Inquiry contact pillar must use the approved 30px radius.");
+for (const [selector, pattern] of [
+  ["heavy-text a", /\.site-footer\s+\.heavy-text\s+a\s*\{[^}]*min-width\s*:\s*44px[^}]*min-height\s*:\s*44px/is],
+  ["footer-nav a", /\.site-footer\s+\.footer-nav\s+a\s*\{[^}]*min-width\s*:\s*44px[^}]*min-height\s*:\s*44px/is],
+  ["footer-legal a", /\.site-footer\s+\.footer-legal\s+a\s*\{[^}]*min-width\s*:\s*44px[^}]*min-height\s*:\s*44px/is],
+]) {
+  if (!pattern.test(siteCss)) {
+    failures.push(`Shared footer ${selector} targets must be at least 44 by 44 CSS pixels.`);
+  }
+}
+for (const [label, href] of [
+  ["Concept studies", "/projects/"],
+  ["Commercial interior design", "/commercial-interior-design-montreal/"],
+  ["Design journal", "/journal/"],
+  ["Project inquiry", "/inquiry/"],
+  ["Contact", "/contact/"],
+]) {
+  if (!new RegExp(`<a\\s+href=["']${href.replaceAll("/", "\\/")}["']>${label}<\\/a>`, "i").test(footer)) {
+    failures.push(`Shared footer must keep the descriptive "${label}" link to ${href}.`);
+  }
+}
+const projectsIndexTemplate = read("projects/_projects-index-template.html");
+if (/\.concept-index\s+\.site-footer\b/i.test(projectsIndexTemplate)) {
+  failures.push("Projects must not retain route-scoped footer appearance rules.");
+}
+const commercialPage = read("commercial-interior-design-montreal/index.html");
+if (/footer-summary|buildFooter/i.test(commercialPage)) {
+  failures.push("Commercial interiors must not mutate or summarize the shared footer.");
 }
 
 const clickableLongCallLabel = /<(?:a|button)\b[^>]*>[\s\S]{0,120}Book a free(?:<br\s*\/?>|\s)+15-minute call[\s\S]{0,40}<\/(?:a|button)>/i;

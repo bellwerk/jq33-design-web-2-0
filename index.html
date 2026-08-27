@@ -1420,65 +1420,6 @@
         justify-content: flex-end;
       }
 
-      .panel--work .site-footer {
-        margin-top: auto;
-        margin-bottom: clamp(var(--space-10), 8vh, var(--space-20));
-      }
-
-      .panel--work .info-pillar {
-        position: static;
-        display: flex;
-        flex-direction: column;
-        z-index: 3;
-        background: var(--color-deep-surface);
-        color: var(--color-paper);
-        padding: var(--space-10);
-      }
-
-      .panel--work .pillar-left {
-        left: 0;
-        width: min(560px, 45vw);
-        clip-path: polygon(0 0, 100% 15%, 100% 100%, 0% 100%);
-        padding-top: var(--space-16);
-      }
-
-      .panel--work .pillar-right {
-        right: 0;
-        width: min(720px, 55vw);
-        text-align: right;
-        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
-        padding-top: var(--space-20);
-        align-items: flex-end;
-        background-color: var(--color-deep-surface);
-      }
-
-      .panel--work .label {
-        text-transform: uppercase;
-        margin-bottom: var(--space-xs);
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 2px;
-        background: var(--color-white-a20);
-        display: inline-block;
-        padding: var(--space-0-5) var(--space-xs);
-        color: var(--color-white);
-      }
-
-      .panel--work .content-block {
-        margin-bottom: var(--space-10);
-      }
-
-      .panel--work .heavy-text {
-        font-weight: 900;
-        font-size: 1.5rem;
-        line-height: 1.1;
-        text-transform: uppercase;
-      }
-
-      .panel--work .asymmetric-offset {
-        margin-left: var(--space-xl);
-      }
-
       @media (max-width: 768px) {
         .panel--home .brand-mark {
           font-size: clamp(45px, 11.2vh, 176px);
@@ -1528,17 +1469,6 @@
           text-align: left;
         }
 
-        .panel--work .info-pillar {
-          width: 100%;
-          position: relative;
-          clip-path: none;
-          padding: var(--space-xl);
-        }
-
-        .panel--work .pillar-left,
-        .panel--work .pillar-right {
-          width: 100%;
-        }
       }
 
       @media (max-width: 480px) {
@@ -1959,23 +1889,6 @@
         gap: var(--space-sm);
       }
 
-      .panel--work .site-footer {
-        z-index: 3;
-      }
-
-      .panel--work .site-footer .info-pillar {
-        width: auto;
-        max-width: 100%;
-        min-width: 0;
-        clip-path: none;
-        align-items: flex-start;
-        text-align: left;
-      }
-
-      .panel--work .site-footer .pillar-right {
-        background: var(--surface-translucent);
-      }
-
       @media (max-width: 1100px) {
         .selected-header {
           grid-template-columns: 1fr;
@@ -2059,21 +1972,6 @@
           width: calc(100% - 2rem);
         }
 
-        .panel--work .site-footer .info-pillar {
-          width: auto;
-          max-width: 100%;
-          min-width: 0;
-          align-items: flex-start;
-          text-align: left;
-        }
-
-        .panel--work .site-footer .content-block,
-        .panel--work .site-footer .heavy-text,
-        .panel--work .site-footer .footer-nav,
-        .panel--work .site-footer .footer-legal {
-          min-width: 0;
-          max-width: 100%;
-        }
       }
 
       @media (max-width: 520px) {
@@ -2776,8 +2674,9 @@
           </div>
         </div>
 
-        <footer class="site-footer" data-component="footer"></footer>
       </section>
+
+      <footer class="site-footer" data-component="footer"></footer>
     </main>
 
     <script src="/assets/js/deferred-css.js"></script>

@@ -18,7 +18,7 @@ const APPROVED_SLUGS = [
   "canvas-studios"
 ];
 const INDEX_META = {
-  title: "Self-Initiated Concept Studies | JQ33 DESIGN",
+  title: "Commercial Interior Design Concept Studies | JQ33 DESIGN",
   description:
     "Explore five self-initiated commercial interior concept studies, each using a distinct local illustrative board to examine a spatial question."
 };

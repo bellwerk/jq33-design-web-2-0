@@ -342,6 +342,28 @@ const createProductionFontSubsets = async () => {
   if (!fs.existsSync(interFontPath)) {
     fail("Inter variable source font is missing from the distribution.");
   }
+  const lato400FontPath = path.join(
+    distDir,
+    "assets",
+    "fonts",
+    "lato",
+    "lato-400.woff2",
+  );
+  const lato700FontPath = path.join(
+    distDir,
+    "assets",
+    "fonts",
+    "lato",
+    "lato-700.woff2",
+  );
+  for (const [label, fontPath] of [
+    ["Lato 400", lato400FontPath],
+    ["Lato 700", lato700FontPath],
+  ]) {
+    if (!fs.existsSync(fontPath)) {
+      fail(`${label} source font is missing from the distribution.`);
+    }
+  }
 
   const glyphText =
     " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u2014";
@@ -365,6 +387,8 @@ const createProductionFontSubsets = async () => {
 
   const source = fs.readFileSync(publicFontPath);
   const interSource = fs.readFileSync(interFontPath);
+  const lato400Source = fs.readFileSync(lato400FontPath);
+  const lato700Source = fs.readFileSync(lato700FontPath);
   const homeHtml = fs.readFileSync(path.join(distDir, "index.html"), "utf8");
   const homePanelMatch = /<section\b[^>]*\bid=(?:"home"|'home')[^>]*>([\s\S]*?)<\/section>/i.exec(
     homeHtml,
@@ -392,11 +416,37 @@ const createProductionFontSubsets = async () => {
   const homeGlyphText = " JQ33Design";
   const commercialH1GlyphText = " Commercial Interior Design in Montreal";
   const homeInterSubsetText = `${homeInterGlyphText}${homeInterGlyphText.toUpperCase()}`;
-  const [homeSubset, commercialH1Subset, subset, homeInterSubset] = await Promise.all([
+  const homeCriticalLatoText = "JQ33 DESIGN Projects Journal Inquiry Contact";
+  const commercialCriticalLato400Text =
+    "Commercial Interior Design • Montreal Layout-first interiors for cafes, salons, boutiques, and offices that need better flow, stronger first impressions, and a clear build-ready direction. Designed for: Cafes Salons Clinics Boutiques Offices";
+  const commercialCriticalLato700Text =
+    "JQ33 DESIGN Book a call Get a free quote Projects Journal Inquiry Contact";
+  const [
+    homeSubset,
+    commercialH1Subset,
+    subset,
+    homeInterSubset,
+    homeCriticalLatoSubset,
+    commercialCriticalLato400Subset,
+    commercialCriticalLato700Subset,
+  ] = await Promise.all([
     subsetFont(source, homeGlyphText, { targetFormat: "woff2" }),
     subsetFont(source, commercialH1GlyphText, { targetFormat: "woff2" }),
     subsetFont(source, glyphText, { targetFormat: "woff2" }),
     subsetFont(interSource, homeInterSubsetText, { targetFormat: "woff2" }),
+    subsetFont(lato700Source, `${homeCriticalLatoText}${homeCriticalLatoText.toUpperCase()}`, {
+      targetFormat: "woff2",
+    }),
+    subsetFont(
+      lato400Source,
+      `${commercialCriticalLato400Text}${commercialCriticalLato400Text.toUpperCase()}`,
+      { targetFormat: "woff2" },
+    ),
+    subsetFont(
+      lato700Source,
+      `${commercialCriticalLato700Text}${commercialCriticalLato700Text.toUpperCase()}`,
+      { targetFormat: "woff2" },
+    ),
   ]);
   fs.writeFileSync(
     path.join(path.dirname(publicFontPath), "permanent-marker-home.woff2"),
@@ -413,10 +463,71 @@ const createProductionFontSubsets = async () => {
   if (commercialH1Subset.length > 5_000) {
     fail("Commercial H1 subset must remain at most 5 KB before inlining.");
   }
+  const assertCriticalLatoSubset = ({
+    label,
+    subsetBuffer,
+    sourceBuffer,
+    maximumBytes,
+    expectedBytes,
+    expectedSha256,
+  }) => {
+    if (
+      !Buffer.isBuffer(subsetBuffer) ||
+      subsetBuffer.length < 1_000 ||
+      subsetBuffer.subarray(0, 4).toString("ascii") !== "wOF2"
+    ) {
+      fail(`${label} must be a non-empty WOFF2 font.`);
+    }
+    if (subsetBuffer.length > maximumBytes || subsetBuffer.length >= sourceBuffer.length) {
+      fail(
+        `${label} must remain at most ${maximumBytes} bytes and smaller than its source font.`,
+      );
+    }
+    const actualSha256 = crypto.createHash("sha256").update(subsetBuffer).digest("hex");
+    if (subsetBuffer.length !== expectedBytes || actualSha256 !== expectedSha256) {
+      fail(
+        `${label} drifted from its pinned ${expectedBytes}-byte artifact (${expectedSha256}); received ${subsetBuffer.length} bytes (${actualSha256}).`,
+      );
+    }
+  };
+  for (const definition of [
+    {
+      label: "Homepage critical Lato 700 subset",
+      subsetBuffer: homeCriticalLatoSubset,
+      sourceBuffer: lato700Source,
+      maximumBytes: 8_000,
+      expectedBytes: 5_980,
+      expectedSha256: "f2aeafcd35c2ff85ddf85614106f9201f8ebdca38a6239a0acce98bccf0a55ed",
+    },
+    {
+      label: "Commercial critical Lato 400 subset",
+      subsetBuffer: commercialCriticalLato400Subset,
+      sourceBuffer: lato400Source,
+      maximumBytes: 11_000,
+      expectedBytes: 8_236,
+      expectedSha256: "011f713874f6500a5a3254ed5cbab0fbc0487f0d2d39ab7abbb86edf01178ede",
+    },
+    {
+      label: "Commercial critical Lato 700 subset",
+      subsetBuffer: commercialCriticalLato700Subset,
+      sourceBuffer: lato700Source,
+      maximumBytes: 9_000,
+      expectedBytes: 6_948,
+      expectedSha256: "909659cf9ac4b889e395fad86358557b4e6e47dbcc65a3db3bcd9956b8d2bada",
+    },
+  ]) {
+    assertCriticalLatoSubset(definition);
+  }
   console.log(
-    `Subset production fonts (Permanent Marker ${source.length} -> shared ${subset.length}, homepage ${homeSubset.length}, commercial H1 ${commercialH1Subset.length}; Inter ${interSource.length} -> homepage ${homeInterSubset.length} bytes).`,
+    `Subset production fonts (Permanent Marker ${source.length} -> shared ${subset.length}, homepage ${homeSubset.length}, commercial H1 ${commercialH1Subset.length}; Inter ${interSource.length} -> homepage ${homeInterSubset.length}; critical Lato home 700 ${homeCriticalLatoSubset.length}, commercial 400 ${commercialCriticalLato400Subset.length}, commercial 700 ${commercialCriticalLato700Subset.length} bytes).`,
   );
-  return { homeSubset, commercialH1Subset };
+  return {
+    homeSubset,
+    commercialH1Subset,
+    homeCriticalLatoSubset,
+    commercialCriticalLato400Subset,
+    commercialCriticalLato700Subset,
+  };
 };
 
 const inlineHomepageFontSubset = (homeSubset) => {
@@ -532,7 +643,12 @@ const pruneUnreferencedAssets = () => {
   removeEmptyDirectories(distDir);
 };
 
-const externalizeInlineAssets = async ({ commercialH1Subset }) => {
+const externalizeInlineAssets = async ({
+  commercialH1Subset,
+  homeCriticalLatoSubset,
+  commercialCriticalLato400Subset,
+  commercialCriticalLato700Subset,
+}) => {
   const generatedRoot = path.join(distDir, "assets", "generated");
   const writeGenerated = (extension, content) => {
     const optimizedContent =
@@ -554,7 +670,56 @@ const externalizeInlineAssets = async ({ commercialH1Subset }) => {
     return `/${relativePath}`;
   };
 
+  const firstIntentFontRoutes = new Set([
+    "/index.html",
+    "/commercial-interior-design-montreal/index.html",
+  ]);
+  const sharedNetworkFontPaths = [
+    "/assets/fonts/lato/lato-400.woff2",
+    "/assets/fonts/lato/lato-700.woff2",
+    "/assets/fonts/lato/lato-900.woff2",
+    "/assets/fonts/inter/inter-latin-400-900.woff2",
+    "/assets/fonts/permanent-marker/permanent-marker-400.woff2",
+  ];
+  const fontFacePattern = /@font-face\s*\{[^{}]*\}/gi;
+  const getFontFaceFamily = (fontFace) => {
+    const match = /font-family\s*:\s*(?:"([^"]+)"|'([^']+)'|([^;]+))/i.exec(fontFace);
+    return (match?.[1] ?? match?.[2] ?? match?.[3] ?? "").trim();
+  };
+  const splitSharedNetworkFontFaces = (css) => {
+    const moved = [];
+    const remaining = css.replace(fontFacePattern, (fontFace) => {
+      if (!sharedNetworkFontPaths.some((fontPath) => fontFace.includes(fontPath))) {
+        return fontFace;
+      }
+      moved.push(fontFace);
+      return "";
+    });
+    return { remaining, moved };
+  };
+  const createFirstIntentLoader = (fontOnlyHref) => `(() => {
+  let activated = false;
+  const events = ["pointermove", "pointerdown", "touchstart", "wheel", "scroll", "keydown"];
+  const activate = () => {
+    if (activated) return;
+    activated = true;
+    for (const eventName of events) window.removeEventListener(eventName, activate);
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = ${JSON.stringify(fontOnlyHref)};
+    link.dataset.jq33FontOnly = "";
+    document.head.append(link);
+  };
+  for (const eventName of events) {
+    window.addEventListener(eventName, activate, {
+      once: true,
+      passive: eventName !== "keydown",
+    });
+  }
+})();`;
+
   const htmlFiles = walkFiles(distDir).filter((filePath) => filePath.endsWith(".html"));
+  let firstIntentRouteCount = 0;
   for (const filePath of htmlFiles) {
     const documentPath = `/${normalizeRelative(path.relative(distDir, filePath))}`;
     const documentDirectory = path.posix.dirname(documentPath);
@@ -583,12 +748,31 @@ const externalizeInlineAssets = async ({ commercialH1Subset }) => {
   font-display: swap;
   src: url("${homeInterPath}") format("woff2");
 }
+@font-face {
+  font-family: "JQ33 Home Critical Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("data:font/woff2;base64,${homeCriticalLatoSubset.toString("base64")}") format("woff2");
+}
+.header-nav {
+  --font-sans: "JQ33 Home Critical Lato", "Lato Metric Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
+}
+.header-nav .label,
+.header-nav .nav-link {
+  font-family: var(--font-sans) !important;
+}
 .panel--home {
-  --font-hero: "JQ33 Home Inter", var(--font-body);
+  --font-hero: "JQ33 Home Inter", "JQ33 Home Critical Lato", "Lato Metric Fallback", system-ui, sans-serif;
+  --font-home-mark: "Permanent Marker Home", "Permanent Marker Metric Fallback", "JQ33 Home Critical Lato", cursive;
 }`,
       );
-      if (!html.includes('font-family: "JQ33 Home Inter"')) {
-        fail("Homepage Inter subset could not be injected into critical CSS.");
+      if (
+        !html.includes('font-family: "JQ33 Home Inter"') ||
+        !html.includes('font-family: "JQ33 Home Critical Lato"')
+      ) {
+        fail("Homepage route-critical fonts could not be injected into critical CSS.");
       }
     }
     if (documentPath === "/commercial-interior-design-montreal/index.html") {
@@ -607,8 +791,46 @@ const externalizeInlineAssets = async ({ commercialH1Subset }) => {
   font-display: swap;
   src: url("data:font/woff2;base64,${commercialH1Subset.toString("base64")}") format("woff2");
   unicode-range: U+0020, U+0043, U+0044, U+0049, U+004D, U+0061, U+0063, U+0065, U+0067, U+0069, U+006C, U+006D, U+006E, U+006F, U+0072, U+0073, U+0074;
+}
+@font-face {
+  font-family: "JQ33 Commercial Critical Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("data:font/woff2;base64,${commercialCriticalLato400Subset.toString("base64")}") format("woff2");
+}
+@font-face {
+  font-family: "JQ33 Commercial Critical Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("data:font/woff2;base64,${commercialCriticalLato700Subset.toString("base64")}") format("woff2");
+}
+.header-nav {
+  --font-sans: "JQ33 Commercial Critical Lato", "Lato Metric Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
+}
+.header-nav .label,
+.header-nav .nav-link {
+  font-family: var(--font-sans) !important;
+}
+main .hero {
+  --font-sans: "JQ33 Commercial Critical Lato", "Lato Metric Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
+}
+main .hero h1 {
+  font-family: "Permanent Marker Commercial H1", "Permanent Marker Metric Fallback", "JQ33 Commercial Critical Lato", cursive !important;
+}
+main .hero > div:first-child > .hero-actions .btn {
+  font-family: var(--font-sans) !important;
 }`,
       );
+      if (
+        !html.includes('font-family: "JQ33 Commercial Critical Lato"') ||
+        !html.includes("main .hero > div:first-child > .hero-actions .btn")
+      ) {
+        fail("Commercial route-critical fonts could not be injected into critical CSS.");
+      }
     }
     html = html.replace(/\svid\s*=\s*(["'])[^"']*\1/gi, "");
     html = html.replace(
@@ -746,10 +968,76 @@ for (const element of document.querySelectorAll('[data-jq33-on${eventName}="${ma
           .map(({ content }) => content.trim())
           .filter(Boolean)
           .join("\n");
-      const criticalCss = criticalStylesheets.length ? makeBundle(criticalStylesheets) : "";
-      const deferredHref = deferredStylesheets.length
-        ? writeGenerated("css", makeBundle(deferredStylesheets))
-        : "";
+      let criticalCss = criticalStylesheets.length ? makeBundle(criticalStylesheets) : "";
+      let deferredCss = deferredStylesheets.length ? makeBundle(deferredStylesheets) : "";
+      let intentScriptHref = "";
+      let fontOnlyHref = "";
+      if (firstIntentFontRoutes.has(documentPath)) {
+        const criticalSplit = splitSharedNetworkFontFaces(criticalCss);
+        const deferredSplit = splitSharedNetworkFontFaces(deferredCss);
+        const movedFontFaces = [...criticalSplit.moved, ...deferredSplit.moved];
+        criticalCss = criticalSplit.remaining;
+        deferredCss = deferredSplit.remaining;
+
+        if (movedFontFaces.length !== sharedNetworkFontPaths.length) {
+          fail(
+            `${documentPath} must move exactly ${sharedNetworkFontPaths.length} network-backed shared font faces; received ${movedFontFaces.length}.`,
+          );
+        }
+        const movedFontCss = movedFontFaces.join("\n");
+        const initialCss = `${criticalCss}\n${deferredCss}`;
+        for (const fontPath of sharedNetworkFontPaths) {
+          const movedCount = movedFontFaces.filter((fontFace) =>
+            fontFace.includes(fontPath),
+          ).length;
+          if (movedCount !== 1 || initialCss.includes(fontPath)) {
+            fail(
+              `${documentPath} must move the shared face ${fontPath} exactly once and leave no initial reference.`,
+            );
+          }
+        }
+        if (/Metric Fallback/i.test(movedFontCss)) {
+          fail(`${documentPath} must retain metric-fallback faces in initial CSS.`);
+        }
+
+        const initialFontFamilies = [...initialCss.matchAll(fontFacePattern)].map((match) =>
+          getFontFaceFamily(match[0]),
+        );
+        for (const metricFamily of [
+          "Lato Metric Fallback",
+          "Permanent Marker Metric Fallback",
+        ]) {
+          if (initialFontFamilies.filter((family) => family === metricFamily).length !== 1) {
+            fail(`${documentPath} must retain exactly one ${metricFamily} face before intent.`);
+          }
+        }
+        const expectedCriticalFamilies =
+          documentPath === "/index.html"
+            ? ["Permanent Marker Home", "JQ33 Home Inter", "JQ33 Home Critical Lato"]
+            : [
+                "Permanent Marker Commercial H1",
+                "JQ33 Commercial Critical Lato",
+                "JQ33 Commercial Critical Lato",
+              ];
+        const remainingCriticalFamilies = initialFontFamilies.filter(
+          (family) => !family.endsWith("Metric Fallback"),
+        );
+        if (
+          remainingCriticalFamilies.length !== expectedCriticalFamilies.length ||
+          expectedCriticalFamilies.some(
+            (family, index) => remainingCriticalFamilies[index] !== family,
+          )
+        ) {
+          fail(
+            `${documentPath} retained unexpected route-critical font faces: ${remainingCriticalFamilies.join(", ") || "none"}.`,
+          );
+        }
+
+        fontOnlyHref = writeGenerated("css", movedFontCss);
+        intentScriptHref = writeGenerated("js", createFirstIntentLoader(fontOnlyHref));
+        firstIntentRouteCount += 1;
+      }
+      const deferredHref = deferredCss ? writeGenerated("css", deferredCss) : "";
       const replacements = new Map();
       for (const [stylesheetIndex, { index }] of criticalStylesheets.entries()) {
         replacements.set(
@@ -777,6 +1065,37 @@ for (const element of document.querySelectorAll('[data-jq33-on${eventName}="${ma
         cursor = stylesheet.index + stylesheet.length;
       }
       html = `${rebuilt}${html.slice(cursor)}`;
+      if (intentScriptHref) {
+        const parseTimeFontLinks = [...html.matchAll(/<link\b[^>]*>/gi)].filter((match) =>
+          match[0].includes(fontOnlyHref),
+        );
+        if (parseTimeFontLinks.length) {
+          fail(`${documentPath} must not parse-load its first-intent font stylesheet.`);
+        }
+        html = html.replace(
+          /<\/body>/i,
+          `  <script src="${intentScriptHref}" data-jq33-font-intent></script>\n  </body>`,
+        );
+        const intentScripts = [
+          ...html.matchAll(
+            /<script\b([^>]*data-jq33-font-intent[^>]*)>([\s\S]*?)<\/script>/gi,
+          ),
+        ];
+        if (
+          intentScripts.length !== 1 ||
+          !/\bsrc\s*=/.test(intentScripts[0][1]) ||
+          intentScripts[0][2].trim()
+        ) {
+          fail(`${documentPath} must contain exactly one external first-intent font script.`);
+        }
+      }
+    }
+
+    if (firstIntentFontRoutes.has(documentPath) && !html.includes("data-jq33-font-intent")) {
+      fail(`${documentPath} is missing its first-intent font loader.`);
+    }
+    if (!firstIntentFontRoutes.has(documentPath) && html.includes("data-jq33-font-intent")) {
+      fail(`${documentPath} must not receive the route-scoped first-intent font loader.`);
     }
 
     html = html.replace(/<script\b([^>]*\bsrc\s*=[^>]*)>/gi, (tag, attributes) => {
@@ -807,6 +1126,11 @@ for (const element of document.querySelectorAll('[data-jq33-on${eventName}="${ma
       sortClassName: false,
     });
     fs.writeFileSync(filePath, html, "utf8");
+  }
+  if (firstIntentRouteCount !== firstIntentFontRoutes.size) {
+    fail(
+      `Expected ${firstIntentFontRoutes.size} first-intent font routes; built ${firstIntentRouteCount}.`,
+    );
   }
 };
 
@@ -919,9 +1243,20 @@ try {
   run("scripts/generate-sitemap.mjs");
 
   replaceBuildTokens(integrations, profiles);
-  const { homeSubset, commercialH1Subset } = await createProductionFontSubsets();
+  const {
+    homeSubset,
+    commercialH1Subset,
+    homeCriticalLatoSubset,
+    commercialCriticalLato400Subset,
+    commercialCriticalLato700Subset,
+  } = await createProductionFontSubsets();
   inlineHomepageFontSubset(homeSubset);
-  await externalizeInlineAssets({ commercialH1Subset });
+  await externalizeInlineAssets({
+    commercialH1Subset,
+    homeCriticalLatoSubset,
+    commercialCriticalLato400Subset,
+    commercialCriticalLato700Subset,
+  });
   pruneUnreferencedAssets();
   assertConfiguredUrlsOnly(integrations);
   writeHeaders(integrations);

@@ -234,6 +234,7 @@
   --space-50: 12.5rem;
   --layout-gutter: var(--gutter);
   --layout-gutter-tight: clamp(1rem, 3vw, 2rem);
+  --site-footer-gutter: clamp(var(--space-md), 1.6vw, var(--space-6-4));
   --layout-max: 1100px;
   --layout-wide: var(--content-max);
   --section-top: clamp(120px, 14vh, 160px);

@@ -1,0 +1,366 @@
+{
+  "config": {
+    "argv": [
+      "<TEMP_DIR>\\codex-desira-node-v22.23.2\\runtime\\node-v22.23.2-win-x64\\node.exe",
+      "<REPOSITORY_ROOT>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/browser-contract.spec.mjs",
+      "tests/responsive.spec.mjs",
+      "--grep",
+      "(shared Ft4 footer|/inquiry/ is stable at 1280)"
+    ],
+    "configFile": "<REPOSITORY_ROOT>\\playwright.config.mjs",
+    "rootDir": "<REPOSITORY_ROOT>/tests",
+    "failOnFlakyTests": true,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": "<REPOSITORY_ROOT>\\tests\\global-teardown.mjs",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "artifactSha256": "f5bb6a343e658cc26fc1ec4f3fe5f0a31b9947fd37a46ab8298e8160df595678",
+      "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "browserHarnessSha256": "dd3a4389c2f5d4254aa39ab599b9d8c56a4b87fd6d6d99128b19fd4f4249e8b6",
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<PLAYWRIGHT_ARTIFACT_ROOT>/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "artifactSha256": "f5bb6a343e658cc26fc1ec4f3fe5f0a31b9947fd37a46ab8298e8160df595678",
+          "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "browserHarnessSha256": "dd3a4389c2f5d4254aa39ab599b9d8c56a4b87fd6d6d99128b19fd4f4249e8b6",
+          "actualWorkers": 4
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<REPOSITORY_ROOT>/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.mjs"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "<PLAYWRIGHT_ARTIFACT_ROOT>\\results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "<PLAYWRIGHT_ARTIFACT_ROOT>\\report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 4,
+    "webServer": {
+      "command": "node tests/serve-dist.mjs --host 127.0.0.1 --port 4173 --parent-pid 37420",
+      "url": "http://127.0.0.1:4173",
+      "reuseExistingServer": false,
+      "timeout": 15000
+    }
+  },
+  "suites": [
+    {
+      "title": "browser-contract.spec.mjs",
+      "file": "browser-contract.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "shared Ft4 footer is identical across every public route at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 6554,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T20:57:57.415Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-39219cb9cc937e0cc95d",
+          "file": "browser-contract.spec.mjs",
+          "line": 1414,
+          "column": 3
+        },
+        {
+          "title": "shared Ft4 footer is identical across every public route at 375px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 6608,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T20:57:57.415Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-6b98776f8d9c0d27a735",
+          "file": "browser-contract.spec.mjs",
+          "line": 1414,
+          "column": 3
+        },
+        {
+          "title": "shared Ft4 footer is identical across every public route at 414px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 6614,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T20:57:57.397Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-b28ec658859c4bfe55e7",
+          "file": "browser-contract.spec.mjs",
+          "line": 1414,
+          "column": 3
+        },
+        {
+          "title": "shared Ft4 footer is identical across every public route at 768px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 6698,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T20:57:57.415Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-ae4df4f68f2c2762c674",
+          "file": "browser-contract.spec.mjs",
+          "line": 1414,
+          "column": 3
+        },
+        {
+          "title": "shared Ft4 footer is identical across every public route at 1280px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 4148,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T20:58:04.073Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-1e56ce0e6e8407c6b17e",
+          "file": "browser-contract.spec.mjs",
+          "line": 1414,
+          "column": 3
+        },
+        {
+          "title": "shared Ft4 footer is identical across every public route at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 180000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 4231,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T20:58:04.106Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-bc6b99541f6367925715",
+          "file": "browser-contract.spec.mjs",
+          "line": 1414,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "responsive.spec.mjs",
+      "file": "responsive.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "/inquiry/ is stable at 1280x800",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 1340,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T20:58:04.134Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "responsive-metrics",
+                      "contentType": "application/json",
+                      "body": "ewogICJyb3V0ZSI6ICIvaW5xdWlyeS8iLAogICJ2aWV3cG9ydCI6IHsKICAgICJ3aWR0aCI6IDEyODAsCiAgICAiaGVpZ2h0IjogODAwCiAgfSwKICAib3ZlcmZsb3ciOiB7CiAgICAiY2xpZW50V2lkdGgiOiAxMjgwLAogICAgInNjcm9sbFdpZHRoIjogMTI4MAogIH0sCiAgIm5vbkFjdGlvbkNvbGxpc2lvbnMiOiBbXSwKICAiZ2VvbWV0cnkiOiB7CiAgICAid3JhcHBlZCI6IFtdLAogICAgIm9mZkNhbnZhcyI6IFtdLAogICAgIm92ZXJsYXBzIjogW10KICB9LAogICJsYXRlTW92ZW1lbnQiOiBbXQp9"
+                    },
+                    {
+                      "name": "full-page",
+                      "contentType": "image/png",
+                      "path": "<PLAYWRIGHT_ARTIFACT_ROOT>\\results\\responsive--inquiry-is-stable-at-1280x800-chromium\\attachments\\full-page-91f31ff5b1622b3282575fc834e2fe657e2e4da6.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "04f2492b8623081db638-2f0fdaedf8fdb3f5b70b",
+          "file": "responsive.spec.mjs",
+          "line": 17,
+          "column": 5
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-27T20:57:56.793Z",
+    "duration": 11772.564,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

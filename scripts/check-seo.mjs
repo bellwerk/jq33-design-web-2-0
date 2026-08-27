@@ -22,6 +22,7 @@ const distRoot = resolveDistRoot();
 const failures = [];
 const seenTitles = new Map();
 const seenDescriptions = new Map();
+const projectsTitle = "Commercial Interior Design Concept Studies | JQ33 DESIGN";
 const allowedSchemaTypes = new Set([
   "AboutPage",
   "Article",
@@ -84,6 +85,9 @@ try {
     if (seenTitles.has(title)) {
       failures.push(`${document.relativePath} duplicates the title from ${seenTitles.get(title)}.`);
     } else seenTitles.set(title, document.relativePath);
+    if (document.route === "/projects/" && title !== projectsTitle) {
+      failures.push(`projects/index.html title must be exactly "${projectsTitle}".`);
+    }
 
     const descriptions = metaContent(document.html, "name", "description");
     const description = descriptions[0] || "";

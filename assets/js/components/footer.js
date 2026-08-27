@@ -81,10 +81,10 @@
       <div class="content-block">
         <div class="label">Explore</div>
         <nav class="footer-nav" aria-label="Footer">
-          <a href="/projects/">Projects</a>
-          <a href="/commercial-interior-design-montreal/">Commercial interiors</a>
-          <a href="/journal/">Journal</a>
-          <a href="/inquiry/">Inquiry</a>
+          <a href="/projects/">Concept studies</a>
+          <a href="/commercial-interior-design-montreal/">Commercial interior design</a>
+          <a href="/journal/">Design journal</a>
+          <a href="/inquiry/">Project inquiry</a>
           <a href="/contact/">Contact</a>
         </nav>
       </div>

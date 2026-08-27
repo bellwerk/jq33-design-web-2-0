@@ -115,7 +115,7 @@
         grid-template-columns:
           10vw minmax(0, 1fr) minmax(0, 1fr)
           max(10vw, var(--space-50));
-        grid-template-rows: 15vh 1fr 15vh;
+        grid-template-rows: 15vh auto 15vh;
       }
 
       .info-col {
@@ -148,6 +148,7 @@
 
       .center-grid {
         grid-column: 2 / 4;
+        grid-row: 1 / -1;
         display: flex;
         flex-direction: column;
         gap: var(--space-16);
@@ -160,10 +161,6 @@
         grid-template-columns: 1fr 1fr;
         gap: clamp(var(--space-5), 4vw, var(--space-16));
         flex: 1 1 auto;
-      }
-
-      .center-grid .site-footer {
-        margin-top: auto;
       }
 
       .section-label {
@@ -548,8 +545,6 @@
             </div>
           </section>
         </div>
-
-        <footer class="site-footer site-footer--stacked" data-component="footer"></footer>
       </div>
 
       <div class="info-col col-right">
@@ -560,6 +555,8 @@
         </div>
       </div>
     </main>
+
+    <footer class="site-footer" data-component="footer"></footer>
 
     <script src="/assets/js/leads.js"></script>
     <script src="/assets/js/calendly.js"></script>

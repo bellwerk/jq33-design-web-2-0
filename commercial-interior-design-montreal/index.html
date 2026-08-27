@@ -804,20 +804,6 @@
         background: var(--color-white-a03);
       }
 
-      .footer-summary {
-        margin-top: var(--space-lg);
-      }
-
-      .footer-summary-text {
-        font-size: 0.85rem;
-        line-height: 1.5;
-        color: var(--color-white-a82);
-      }
-
-      .footer-summary-text p {
-        margin-bottom: var(--space-xs);
-      }
-
       .faq-grid {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1391,51 +1377,5 @@
     <script src="/assets/js/components/header-nav.js"></script>
     <script src="/assets/js/components/footer.js?v=20260716-1"></script>
     <script src="/assets/js/nav-drawer.js"></script>
-    <script>
-      (() => {
-        const buildFooter = () => {
-          const footer = document.querySelector(".site-footer");
-          if (!footer || footer.querySelector(".footer-summary")) return;
-          const summary = document.createElement("div");
-          summary.className = "content-block footer-summary";
-          summary.innerHTML = `
-            <div class="label">Commercial interiors</div>
-            <div class="footer-summary-text">
-              <p>Commercial interior design in Montreal.</p>
-              <p>For cafes, salons, boutiques, clinics, and offices.</p>
-              <p>Concept direction, layout planning, finishes, lighting, and contractor-ready packages.</p>
-            </div>
-          `.trim();
-
-          const navBlock = footer.querySelector(".footer-nav")?.closest(".content-block");
-          if (navBlock && navBlock.parentElement) {
-            navBlock.parentElement.insertBefore(summary, navBlock);
-          } else {
-            footer.appendChild(summary);
-          }
-        };
-
-        const tryBuildFooter = (attempts = 0) => {
-          if (attempts > 12) return;
-          const ready = document.querySelector(".site-footer");
-          if (ready) {
-            buildFooter();
-            return;
-          }
-          setTimeout(() => tryBuildFooter(attempts + 1), 80);
-        };
-
-        tryBuildFooter();
-        if (document.readyState === "loading") {
-          document.addEventListener(
-            "DOMContentLoaded",
-            () => {
-              tryBuildFooter();
-            },
-            { once: true }
-          );
-        }
-      })();
-    </script>
   </body>
 </html>

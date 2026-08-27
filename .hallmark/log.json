@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-08-27",
+    "macrostructure": "Ft4 compact shared colophon · owner override",
+    "theme": "studied-DNA",
+    "theme_axes": "JQ33 dark grain / cobalt / Lato microtype",
+    "enrichment": "none",
+    "brief": "Promote the approved Projects colophon to the shared site footer with restrained SEO labels",
+    "source_style": "immutable JQ33 Projects preview 2247a1a6",
+    "dna_source": "owner-approved live URL",
+    "studied": "yes",
+    "override": "Owner explicitly retained Ft4 across every public route; footer archetype rotation is suspended, and the tested guttered viewport breakout is retained for exact cross-template geometry without overflow",
+    "footer": "Ft4 compact shared colophon",
+    "pre_emit": "P5 H5 E5 S5 R5 V5"
+  },
+  {
     "date": "2026-08-23",
     "macrostructure": "Portfolio Grid · circular marquee override",
     "theme": "studied-DNA",

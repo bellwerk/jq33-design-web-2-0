@@ -66,3 +66,48 @@ Under the pinned toolchain, the verifier reran and passed:
 - `raw/verifier-prepreview/drawer-contrast-failure-and-correction.json` — SHA-256 `2f5127be28c3ef59592dd95adb89b17af5579d7400dc8ffe6f9f73f4aef8b17d`
 
 Both compact records exclude provider values, personal account data, and absolute machine paths.
+
+## 2026-08-27 local dirty-tree AC2 and AC11 addendum
+
+This addendum supersedes only the current-status statements above; it does not replace or erase the exact-commit evidence, retained failures, or corrective records from the earlier snapshot. The present candidate is an allowlisted dirty working tree based on commit `0ce0e023b50bb0d4146fad2e116b91fcb18122bf`, so the umbrella task remains **OPEN** and no deployment or completion claim is allowed.
+
+### Current candidate and build binding
+
+- Pinned runtime: Node `22.23.2`; package manager: pnpm `11.13.0`.
+- Pinned fixture build: **PASS**.
+- Distribution validation (`check-dist`): **PASS**.
+- Current local artifact SHA-256: `b844a7c5d3590ec53dcd7c656d3111d454c9aaf735629285ac8bfb7306d1eae3`.
+- Generated Projects and Journal source parity: **PASS** for all eight outputs in `raw/portable/footer-generator-determinism-2026-08-27.txt`; two independent temporary generations matched each other and the checked-in pages without retaining machine paths.
+- Source boundary: `sourceDirty=true`; this artifact is not yet bound to a clean commit or immutable Cloudflare Pages deployment.
+
+### AC2 local performance proof
+
+The targeted critical-font Playwright contract passed `1/1` in `raw/local/performance-font-targeted/results.sanitized.json`. It uses CDP platform-font evidence to prove the rendered Lato glyph source and also verifies the intended pre-intent loading boundary.
+
+The complete local simulated-mobile Lighthouse matrix is retained as `raw/local/performance-current-all-routes/summary.json`, `run-metadata.json`, and the `42` sibling `*.lhr.json` reports: three captures on each of the `14` indexable routes. The summary reports overall `PASS` with no failures. The two formerly failing routes now measure:
+
+| Route | Perf | A11y | BP | SEO | Median LCP | Median CLS | Median TBT |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| `/` | 99 | 100 | 100 | 100 | 1970.3107 ms | 0.00672632064895339 | 0 ms |
+| `/commercial-interior-design-montreal/` | 100 | 100 | 100 | 100 | 1812.1182 ms | 0.03652625491782134 | 0 ms |
+
+Every other route also satisfies performance >=90, accessibility/best-practices/SEO >=95, median LCP <=2500ms, CLS <=0.1, and TBT <=200ms. AC2 is therefore **PASS for the current local dirty-tree layer only**. The criterion remains externally unresolved until this exact release byte set is cleanly committed and the frozen immutable-preview matrix passes.
+
+### Combined AC2/AC11 browser correction and final rerun
+
+The first combined full-browser run retained at `raw/local/performance-footer-full-browser-final/results.sanitized.json` passed `308/315`. Its seven failures were limited to a test comparing literal CSS font-family strings across navigation routes: route-scoped critical Lato aliases intentionally have different names, although the dedicated CDP contract proved that their rendered glyphs are Lato. The smallest test-only correction normalizes those approved aliases for the shared-navigation equality assertion while retaining the independent platform-font proof.
+
+- Targeted navigation rerun: `7/7` PASS in `raw/local/performance-nav-alias-targeted/results.sanitized.json`.
+- Authoritative full rerun: `315/315` PASS in `raw/local/performance-footer-full-browser-final-rerun/results.sanitized.json`.
+- Final browser metadata: zero unexpected, skipped, flaky, retried, or top-level-error results; reporter metadata/redaction validation PASS.
+
+AC11 is **PASS for the current local candidate**: the shared footer and navigation contracts survived the performance correction and the complete browser suite. Its immutable-preview and later production bindings remain pending under AC6-AC10.
+
+### Current status boundary
+
+| Criterion | Current local status | Umbrella status |
+| --- | --- | --- |
+| AC2 | PASS — pinned fixture build, CDP font proof, and 42/42 local Lighthouse captures | UNKNOWN pending clean commit and immutable-preview proof |
+| AC11 | PASS — authoritative 315/315 full browser rerun | UNKNOWN pending immutable-preview and production rebinding |
+
+No synthetic form submission, provider mutation, merge, production promotion, DNS/mail change, Search Console submission, or rollback occurred while producing this evidence. The task stays open for the clean-commit, preview, external, approval-gated, production, and independent-final-verdict phases.
