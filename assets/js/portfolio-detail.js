@@ -5,7 +5,7 @@
   const PLACEHOLDER_TOKEN = /your-anon-key|your-project/i;
   const STORAGE_BUCKET = "portfolio";
 
-  const container = document.getElementById("project-container");
+  const container = document.getElementById("main-content");
   const heroImage = document.getElementById("hero-image");
   const heroTitle = document.getElementById("hero-title");
   const detailsGrid = document.getElementById("details-grid");
@@ -14,9 +14,28 @@
   const prevLink = document.getElementById("prev-project");
   const nextLink = document.getElementById("next-project");
 
+  const escapeHtml = (value) =>
+    String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
   const showStatus = (message) => {
     if (!container) return;
-    container.innerHTML = `<div class="status-message">${message}</div>`;
+    container.innerHTML = `
+      <section class="project-placeholder" aria-label="Project unavailable">
+        <div class="project-placeholder__inner">
+          <div class="project-placeholder__label">Project preview</div>
+          <h1>Portfolio entry pending.</h1>
+          <p>${escapeHtml(message)} Browse the curated project archive or start an inquiry for a current commercial interior design brief.</p>
+          <div class="project-placeholder__actions">
+            <a class="btn" href="/projects/">View projects</a>
+            <a class="btn" href="/inquiry/">Start an inquiry</a>
+          </div>
+        </div>
+      </section>`;
   };
 
   if (
@@ -61,14 +80,6 @@
     const normalized = clean.startsWith(bucketPrefix) ? clean : `${bucketPrefix}${clean}`;
     return `${supabaseUrl}/storage/v1/object/public/${normalized}`;
   };
-
-  const escapeHtml = (value) =>
-    String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
 
   const setMeta = (selector, content) => {
     if (!content) return;

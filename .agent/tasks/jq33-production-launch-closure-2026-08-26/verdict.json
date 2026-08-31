@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 2,
+  "taskId": "jq33-production-launch-closure-2026-08-26",
+  "checkedAt": "2026-08-26T21:54:36.3027088Z",
+  "verifierRole": "fresh-independent-prepreview-verifier",
+  "overallVerdict": "UNKNOWN",
+  "overallStatus": "PREVIEW_NOT_DEPLOYED",
+  "completionClaimAllowed": false,
+  "productionReady": false,
+  "promotionAllowed": false,
+  "summary": {"pass": 2, "fail": 0, "unknown": 8, "total": 10},
+  "candidateBinding": {
+    "branch": "codex/jq33-production-readiness-2026-07-29",
+    "head": "1523a086618c5dea365477032b6ac73a7a867862",
+    "requiredHeadMatched": true,
+    "startingRevision": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+    "releasePathsAtCommit": 38,
+    "currentTaskPathsAtCommit": 33,
+    "unexpectedCommittedPaths": 0,
+    "artifactFileCount": 112,
+    "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+    "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
+    "previewDeployed": false,
+    "productionPromoted": false
+  },
+  "environment": {
+    "node": "22.23.2",
+    "pnpm": "11.13.0",
+    "verificationScope": "exact clean-worktree local pre-preview plus current compact evidence",
+    "externalMutationPerformed": false,
+    "integrationValuesPersistedOrReported": false
+  },
+  "criteria": [
+    {"id": "AC1", "text": "Candidate integrity and preservation", "status": "PASS", "reason": "The exact commit is bound to the frozen start and contains only 38 allowlisted release paths plus 33 current-task paths; baseline candidate and prior-packet proof remains intact, with no unexpected committed path."},
+    {"id": "AC2", "text": "Non-visual performance closure", "status": "UNKNOWN", "localStatus": "PASS_STATIC_IMPLEMENTATION", "reason": "The frozen criterion requires a fresh immutable-preview Lighthouse matrix; none exists for this commit."},
+    {"id": "AC3", "text": "Strict build contract and dependency hygiene", "status": "UNKNOWN", "localStatus": "PASS_STRICT_BUILD_AUDITS_AND_ARTIFACT", "reason": "Pinned strict builds, artifact isolation, and both audits pass, but genuine preview HTTP 404/source-isolation behavior is not locally provable."},
+    {"id": "AC4", "text": "Minimal release and runtime safeguards", "status": "UNKNOWN", "localStatus": "PASS_WORKFLOW_AND_SELF_TESTS", "reason": "Workflow/static safeguards and health self-tests pass; protected main and a successful real production monitor run are absent."},
+    {"id": "AC5", "text": "Pinned local release gate", "status": "PASS", "reason": "Exact CRLF/LF deterministic strict builds, 308/308 full browser results, fresh 3/3 axe/navigation/focus coverage, static suites, both audits, health self-test, and evidence-contract self-tests pass without skip, retry, flake, unexpected result, or waiver."},
+    {"id": "AC6", "text": "Exact immutable preview", "status": "UNKNOWN", "reason": "No native immutable Cloudflare Pages preview, deployment ID, immutable URL, or deployed test matrix is bound to the exact commit."},
+    {"id": "AC7", "text": "Human, provider, and preview conversion proof", "status": "UNKNOWN", "reason": "Approval-gated Chrome/NVDA, provider readback, preview form delivery, and Calendly-open proof is absent."},
+    {"id": "AC8", "text": "Controlled promotion through PR #1", "status": "UNKNOWN", "reason": "AC2 through AC7 are not all PASS; rollback target, immediate approval, PR merge, and automatic production deployment are absent."},
+    {"id": "AC9", "text": "Production, DNS, mail, analytics, and search closure", "status": "UNKNOWN", "reason": "No authorized production promotion occurred, so production, DNS/mail, analytics, form, monitoring, and Search Console gates are unproven."},
+    {"id": "AC10", "text": "Durable independent all-PASS closure", "status": "UNKNOWN", "reason": "The matrix is 2 PASS, 0 FAIL, and 8 UNKNOWN; final evidence-only PR and active production monitoring proof do not exist."}
+  ],
+  "freshChecks": [
+    {"check": "required exact HEAD", "result": "PASS", "head": "1523a086618c5dea365477032b6ac73a7a867862"},
+    {"check": "clean CRLF and LF strict non-fixture builds", "result": "PASS", "files": 112, "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096", "manifestEntryDifferences": 0},
+    {"check": "exact LF full browser reporter", "result": "PASS", "sanitizedReporterSha256": "0232812721b5513926f39e4e4961037afa44e0f99b6d537542f1f33aad6e8ab4", "passed": 308, "failed": 0, "skipped": 0, "unexpected": 0, "flaky": 0, "retriedResults": 0},
+    {"check": "fresh targeted drawer axe/navigation/focus", "result": "PASS", "passed": 3, "failed": 0},
+    {"check": "frontend, links, images, strict static checks", "result": "PASS"},
+    {"check": "production and complete high-severity dependency audits", "result": "PASS_NO_KNOWN_VULNERABILITIES"},
+    {"check": "production-health self-test", "result": "PASS"},
+    {"check": "evidence-contract self-tests", "result": "PASS"},
+    {"check": "current task JSON parse", "result": "PASS"}
+  ],
+  "preservedFailure": {
+    "sourceCommit": "4ba02ca8bb96f1de9b497bdd7091083ead41cbdd",
+    "test": "open navigation drawer has zero serious or critical axe violations",
+    "result": "FAIL_CORRECTED_AND_REVERIFIED",
+    "contrastRatios": [2.92, 4.33],
+    "requiredRatio": 4.5,
+    "rootCause": "drawer parent opacity animation",
+    "correctionCommit": "1523a086618c5dea365477032b6ac73a7a867862",
+    "correctionPaths": ["assets/css/critical-shared.css", "assets/css/site.css"]
+  },
+  "durableRawProof": [
+    {"path": "raw/verifier-prepreview/exact-1523a08-local-proof.json", "sha256": "e8c184a5eb82845793a55d4e9770a0fc72170d183f2e52b4391b13a99927319f"},
+    {"path": "raw/verifier-prepreview/drawer-contrast-failure-and-correction.json", "sha256": "2f5127be28c3ef59592dd95adb89b17af5579d7400dc8ffe6f9f73f4aef8b17d"}
+  ],
+  "proofBoundary": {
+    "localFixtureAndBrowser": "PASS_LOCAL_ONLY",
+    "immutablePreview": "ABSENT",
+    "production": "ABSENT",
+    "humanProviderApprovals": "ABSENT"
+  },
+  "verifierChangedPaths": [
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/evidence.md",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/evidence.json",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/verdict.json",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/problems.md",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/verifier-prepreview/exact-1523a08-local-proof.json",
+    ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/verifier-prepreview/drawer-contrast-failure-and-correction.json"
+  ],
+  "productionCodeModifiedByVerifier": false
+}

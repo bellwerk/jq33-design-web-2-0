@@ -1,0 +1,356 @@
+{
+  "config": {
+    "argv": [
+      "<NODE_EXECUTABLE>",
+      "<REPOSITORY_ROOT>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/responsive.spec.mjs",
+      "tests/hallmark-responsive-continuum.spec.mjs",
+      "tests/accessibility.spec.mjs",
+      "tests/interactions.spec.mjs",
+      "tests/forms.spec.mjs",
+      "tests/browser-contract.spec.mjs",
+      "tests/calendly-contract.spec.mjs",
+      "tests/runtime-audit.spec.mjs",
+      "tests/native-forms.spec.mjs",
+      "tests/keyboard-navigation.spec.mjs",
+      "tests/media-layout.spec.mjs",
+      "--grep",
+      "shared navigation is identical across every public route"
+    ],
+    "configFile": "<REPOSITORY_ROOT>\\playwright.config.mjs",
+    "rootDir": "<REPOSITORY_ROOT>/tests",
+    "failOnFlakyTests": true,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": "<REPOSITORY_ROOT>\\tests\\global-teardown.mjs",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "artifactSha256": "b844a7c5d3590ec53dcd7c656d3111d454c9aaf735629285ac8bfb7306d1eae3",
+      "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "browserHarnessSha256": "915cc9628716d7cca46952c0115f5b8cb6890233586dc5eafc814ee742e473d0",
+      "actualWorkers": 4
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<PLAYWRIGHT_ARTIFACT_ROOT>/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "artifactSha256": "b844a7c5d3590ec53dcd7c656d3111d454c9aaf735629285ac8bfb7306d1eae3",
+          "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "browserHarnessSha256": "915cc9628716d7cca46952c0115f5b8cb6890233586dc5eafc814ee742e473d0",
+          "actualWorkers": 4
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<REPOSITORY_ROOT>/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.mjs"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "<PLAYWRIGHT_ARTIFACT_ROOT>\\results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "<PLAYWRIGHT_ARTIFACT_ROOT>\\report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 4,
+    "webServer": {
+      "command": "node tests/serve-dist.mjs --host 127.0.0.1 --port 4200 --parent-pid 30332",
+      "url": "http://127.0.0.1:4200",
+      "reuseExistingServer": false,
+      "timeout": 15000
+    }
+  },
+  "suites": [
+    {
+      "title": "browser-contract.spec.mjs",
+      "file": "browser-contract.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "shared navigation is identical across every public route at 320px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24324,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:28:54.424Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-4ed145d43a979bbf576c",
+          "file": "browser-contract.spec.mjs",
+          "line": 1406,
+          "column": 3
+        },
+        {
+          "title": "shared navigation is identical across every public route at 375px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 23321,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:28:54.440Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-7e543a9d30de8d9e6cdd",
+          "file": "browser-contract.spec.mjs",
+          "line": 1406,
+          "column": 3
+        },
+        {
+          "title": "shared navigation is identical across every public route at 390px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 24389,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:28:54.441Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-ad30828d7929dc23a084",
+          "file": "browser-contract.spec.mjs",
+          "line": 1406,
+          "column": 3
+        },
+        {
+          "title": "shared navigation is identical across every public route at 414px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 3,
+                  "status": "passed",
+                  "duration": 24395,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:28:54.440Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-d6b73118f5b9d9b24fcd",
+          "file": "browser-contract.spec.mjs",
+          "line": 1406,
+          "column": 3
+        },
+        {
+          "title": "shared navigation is identical across every public route at 768px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 21697,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:29:17.871Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-c9bfb29478d4582f173a",
+          "file": "browser-contract.spec.mjs",
+          "line": 1406,
+          "column": 3
+        },
+        {
+          "title": "shared navigation is identical across every public route at 1280px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 15231,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:29:18.843Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-016b0a4771b38f3df59c",
+          "file": "browser-contract.spec.mjs",
+          "line": 1406,
+          "column": 3
+        },
+        {
+          "title": "shared navigation is identical across every public route at 1440px",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 150000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 2,
+                  "status": "passed",
+                  "duration": 15153,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:29:18.944Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-d610a20b4b3e4c5a092d",
+          "file": "browser-contract.spec.mjs",
+          "line": 1406,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-27T21:28:53.473Z",
+    "duration": 46386.023,
+    "expected": 7,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

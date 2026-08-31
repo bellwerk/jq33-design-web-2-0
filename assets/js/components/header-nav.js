@@ -1,7 +1,7 @@
 (() => {
   window.JQ33 = window.JQ33 || {};
   window.JQ33.components = window.JQ33.components || {};
-  const calendlyUrl = window.JQ33.CALENDLY_URL || "/inquiry/";
+  const calendlyUrl = "{{CALENDLY_URL}}";
 
   window.JQ33.components.headerNav = `
   <a href="/" class="nav-item" aria-label="JQ33 DESIGN Home">
@@ -9,6 +9,8 @@
       class="nav-logo"
       src="/assets/logo/logo purple svg.svg"
       alt="JQ33 DESIGN"
+      width="445"
+      height="445"
       decoding="async"
     />
     <div class="label">JQ33 DESIGN</div>
@@ -73,8 +75,8 @@
             href="${calendlyUrl}"
             data-calendly-cta
             target="_blank"
-            rel="noopener"
-          >Book a free 15-minute call</a>
+            rel="noopener noreferrer"
+          >Book a call</a>
           <a class="drawer-cta drawer-cta--secondary" href="/inquiry/">Get a free quote</a>
         </div>
       `.trim();
@@ -104,4 +106,3 @@
     document.addEventListener("DOMContentLoaded", mount, { once: true });
   }
 })();
-

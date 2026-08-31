@@ -1,0 +1,212 @@
+{
+  "config": {
+    "argv": [
+      "<TEMP_DIR>\\codex-desira-node-v22.23.2\\runtime\\node-v22.23.2-win-x64\\node.exe",
+      "<REPOSITORY_ROOT>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/browser-contract.spec.mjs",
+      "--grep",
+      "terms.*valid main-targeting",
+      "--repeat-each=3",
+      "--workers=1"
+    ],
+    "configFile": "<REPOSITORY_ROOT>\\playwright.config.mjs",
+    "rootDir": "<REPOSITORY_ROOT>/tests",
+    "failOnFlakyTests": true,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": "<REPOSITORY_ROOT>\\tests\\global-teardown.mjs",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "artifactSha256": "f5bb6a343e658cc26fc1ec4f3fe5f0a31b9947fd37a46ab8298e8160df595678",
+      "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "browserHarnessSha256": "dd3a4389c2f5d4254aa39ab599b9d8c56a4b87fd6d6d99128b19fd4f4249e8b6",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<PLAYWRIGHT_ARTIFACT_ROOT>/results",
+        "repeatEach": 3,
+        "retries": 0,
+        "metadata": {
+          "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "artifactSha256": "f5bb6a343e658cc26fc1ec4f3fe5f0a31b9947fd37a46ab8298e8160df595678",
+          "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "browserHarnessSha256": "dd3a4389c2f5d4254aa39ab599b9d8c56a4b87fd6d6d99128b19fd4f4249e8b6",
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<REPOSITORY_ROOT>/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.mjs"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "<PLAYWRIGHT_ARTIFACT_ROOT>\\results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "<PLAYWRIGHT_ARTIFACT_ROOT>\\report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 1,
+    "webServer": {
+      "command": "node tests/serve-dist.mjs --host 127.0.0.1 --port 4173 --parent-pid 28132",
+      "url": "http://127.0.0.1:4173",
+      "reuseExistingServer": false,
+      "timeout": 15000
+    }
+  },
+  "suites": [
+    {
+      "title": "browser-contract.spec.mjs",
+      "file": "browser-contract.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "/terms/ has a valid main-targeting skip link visible on focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 495,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:01:10.502Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-cbd7df5ac324e9a877cd",
+          "file": "browser-contract.spec.mjs",
+          "line": 1110,
+          "column": 3
+        },
+        {
+          "title": "/terms/ has a valid main-targeting skip link visible on focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 500,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:01:11.503Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-ecaa154ab9b1cfa78053",
+          "file": "browser-contract.spec.mjs",
+          "line": 1110,
+          "column": 3
+        },
+        {
+          "title": "/terms/ has a valid main-targeting skip link visible on focus",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 658,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:01:12.503Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-bdcfb46ab8e811b0e9a6",
+          "file": "browser-contract.spec.mjs",
+          "line": 1110,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-27T21:01:09.924Z",
+    "duration": 3498.689,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

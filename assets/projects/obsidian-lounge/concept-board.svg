@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="title desc">
+  <title id="title">Obsidian Lounge concept board</title>
+  <desc id="desc">An illustrative dark lounge plan with an oval bar, soft-white seating islands, and restrained cobalt light paths.</desc>
+  <rect width="1200" height="630" fill="#14161a"/>
+  <rect x="38" y="38" width="1124" height="554" fill="none" stroke="#343842" stroke-width="2"/>
+  <ellipse cx="635" cy="318" rx="205" ry="122" fill="#0c0d10" stroke="#3b41e3" stroke-width="18"/>
+  <ellipse cx="635" cy="318" rx="130" ry="62" fill="#3b41e3"/>
+  <ellipse cx="635" cy="318" rx="94" ry="34" fill="#14161a"/>
+  <g fill="#f6f5f0">
+    <ellipse cx="272" cy="210" rx="104" ry="55"/>
+    <ellipse cx="290" cy="423" rx="124" ry="62"/>
+    <ellipse cx="951" cy="205" rx="96" ry="52"/>
+    <ellipse cx="949" cy="433" rx="130" ry="63"/>
+  </g>
+  <g fill="#3b41e3">
+    <circle cx="232" cy="210" r="13"/>
+    <circle cx="312" cy="210" r="13"/>
+    <circle cx="242" cy="423" r="14"/>
+    <circle cx="290" cy="423" r="14"/>
+    <circle cx="338" cy="423" r="14"/>
+    <circle cx="918" cy="205" r="13"/>
+    <circle cx="984" cy="205" r="13"/>
+    <circle cx="901" cy="433" r="14"/>
+    <circle cx="949" cy="433" r="14"/>
+    <circle cx="997" cy="433" r="14"/>
+  </g>
+  <path d="M92 316H375M894 316H1107" stroke="#3b41e3" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="92" cy="316" r="8" fill="#f6f5f0"/>
+  <circle cx="1107" cy="316" r="8" fill="#f6f5f0"/>
+  <text x="82" y="91" fill="#f6f5f0" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="4">OBSIDIAN LOUNGE</text>
+  <text x="84" y="119" fill="#8b90ff" font-family="Arial, sans-serif" font-size="11" letter-spacing="2">LOW LIGHT / ORIENTATION / CLUSTER</text>
+  <text x="851" y="554" fill="#848893" font-family="Arial, sans-serif" font-size="11" letter-spacing="2">ILLUSTRATIVE CONCEPT BOARD 03</text>
+</svg>

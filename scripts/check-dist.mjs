@@ -1,0 +1,1036 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { spawnSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const repositoryRoot = path.resolve(__dirname, "..");
+const canonicalOrigin = "https://jq33.design";
+const projectSlugs = [
+  "bruton-place-iv",
+  "ethereal-gallery",
+  "obsidian-lounge",
+  "vortex-showroom",
+  "canvas-studios",
+];
+const releaseFingerprint = "20260826-production-launch-closure-nav-1";
+const journalCardSlugs = [
+  "reduction-as-creation",
+  "lighting-that-sells",
+  "the-customer-path",
+  "durable-premium-materials",
+  "small-shop-big-impact",
+  "spend-where-it-shows",
+];
+const publicRoutes = [
+  "/",
+  "/commercial-interior-design-montreal/",
+  "/projects/",
+  ...projectSlugs.map((slug) => `/projects/${slug}/`),
+  "/journal/",
+  "/journal/reduction-as-creation/",
+  "/contact/",
+  "/inquiry/",
+  "/privacy/",
+  "/terms/",
+];
+
+const argumentValue = (name, fallback) => {
+  const index = process.argv.indexOf(name);
+  return index === -1 ? fallback : process.argv[index + 1];
+};
+
+const distRoot = path.resolve(argumentValue("--root", path.join(repositoryRoot, "dist")));
+const manifestTargetValue = argumentValue("--write-manifest", "");
+const manifestTarget = manifestTargetValue ? path.resolve(manifestTargetValue) : "";
+const allowTestFixtures = process.argv.includes("--allow-test-fixtures");
+const failures = [];
+const normalized = (value) => value.split(path.sep).join("/");
+const inlineCriticalStyleDocuments = new Set([
+  "index.html",
+  "commercial-interior-design-montreal/index.html",
+  "journal/index.html",
+]);
+
+const requiredExactFiles = new Set([
+  "index.html",
+  "commercial-interior-design-montreal/index.html",
+  "projects/index.html",
+  ...projectSlugs.map((slug) => `projects/${slug}/index.html`),
+  "journal/index.html",
+  "journal/reduction-as-creation/index.html",
+  "contact/index.html",
+  "inquiry/index.html",
+  "privacy/index.html",
+  "terms/index.html",
+  "404.html",
+  "robots.txt",
+  "sitemap.xml",
+  "favicon.svg",
+  "apple-touch-icon.svg",
+  "tokens.css",
+  "assets/css/site.css",
+  "_redirects",
+  "_headers",
+]);
+
+const permittedScripts = new Set([
+  "assets/js/leads.js",
+  "assets/js/calendly.js",
+  "assets/js/deferred-css.js",
+  "assets/js/nav-drawer.js",
+  "assets/js/components/header-nav.js",
+  "assets/js/components/footer.js",
+]);
+
+const permittedAssetPath = (relativePath) => {
+  if (requiredExactFiles.has(relativePath) || permittedScripts.has(relativePath)) return true;
+  const extension = path.posix.extname(relativePath).toLowerCase();
+  if (
+    /^assets\/fonts\/[^/]+\/[^/]+$/.test(relativePath) &&
+    [".woff", ".woff2", ".ttf", ".otf"].includes(extension)
+  ) {
+    return true;
+  }
+  if (
+    /^assets\/(?:home page images|journal|logo|projects)\/.+/.test(relativePath) &&
+    [".avif", ".gif", ".jpg", ".jpeg", ".png", ".svg", ".webp"].includes(extension)
+  ) {
+    return true;
+  }
+  if (
+    /^assets\/(?:icons|social)\/[^/]+\.svg$/.test(relativePath)
+  ) {
+    return true;
+  }
+  if (/^assets\/generated\/[a-f0-9]{64}\.(?:css|js)$/.test(relativePath)) {
+    return true;
+  }
+  if (
+    /^assets\/generated\/images\/[a-z0-9]+(?:-[a-z0-9]+)*-[0-9]+\.webp$/.test(
+      relativePath,
+    )
+  ) {
+    return true;
+  }
+  return (
+    /^og\/[^/]+$/.test(relativePath) &&
+    [".avif", ".jpg", ".jpeg", ".png", ".webp"].includes(extension)
+  );
+};
+
+const walk = (directory, files = []) => {
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const fullPath = path.join(directory, entry.name);
+    const relativePath = normalized(path.relative(distRoot, fullPath));
+    if (entry.isSymbolicLink()) {
+      failures.push(`${relativePath} is a symbolic link or junction.`);
+    } else if (entry.isDirectory()) {
+      walk(fullPath, files);
+    } else if (entry.isFile()) {
+      files.push({ fullPath, relativePath });
+    } else {
+      failures.push(`${relativePath} is not a regular file.`);
+    }
+  }
+  return files;
+};
+
+if (!fs.existsSync(distRoot) || !fs.statSync(distRoot).isDirectory()) {
+  console.error(`Distribution directory does not exist: ${distRoot}`);
+  process.exit(1);
+}
+if (manifestTarget && (manifestTarget === distRoot || manifestTarget.startsWith(`${distRoot}${path.sep}`))) {
+  console.error("The artifact manifest must be written outside dist.");
+  process.exit(1);
+}
+
+const files = walk(distRoot);
+const fileSet = new Set(files.map(({ relativePath }) => relativePath));
+
+for (const requiredFile of requiredExactFiles) {
+  if (!fileSet.has(requiredFile)) failures.push(`Missing required distribution file: ${requiredFile}`);
+}
+for (const { relativePath } of files) {
+  if (!permittedAssetPath(relativePath)) {
+    failures.push(`File is outside the public distribution allowlist: ${relativePath}`);
+  }
+  if (
+    /(^|\/)(?:admin|data|functions|scripts|supabase|templates?)(?:\/|$)/i.test(relativePath) ||
+    /(?:^|\/)_(?:journal|project)/i.test(relativePath) ||
+    /(?:^|\/)project\.html$/i.test(relativePath) ||
+    /\.map$/i.test(relativePath)
+  ) {
+    failures.push(`Development-only file is forbidden in dist: ${relativePath}`);
+  }
+}
+
+const textFile = ({ relativePath }) =>
+  [".css", ".html", ".js", ".svg", ".txt", ".xml"].includes(
+    path.posix.extname(relativePath).toLowerCase(),
+  ) || ["_headers", "_redirects"].includes(relativePath);
+
+const prohibitedText = [
+  { pattern: /{{[^{}\r\n]+}}/, label: "unresolved build token" },
+  { pattern: /__(?:SUPABASE|FORM|CALENDLY|SOCIAL|PUBLIC|RUNTIME)[A-Z0-9_]*__/, label: "unresolved config token" },
+  { pattern: /\bsupabase\b/i, label: "dead Supabase integration" },
+  { pattern: /portfolio-(?:admin|detail)\.js/i, label: "dead portfolio runtime" },
+  { pattern: /(?:generate-)?runtime-config/i, label: "dead runtime config" },
+  { pattern: /googletagmanager|google-analytics|gtag\s*\(/i, label: "non-Cloudflare analytics" },
+  { pattern: /images\.unsplash\.com|unsplash\.com/i, label: "remote Unsplash fallback" },
+  { pattern: /PUBLIC_(?:SUPABASE|LEAD_FUNCTION|ADMIN_UPLOAD|FORM_FALLBACK|GA_MEASUREMENT)/, label: "runtime environment integration" },
+  { pattern: /\/functions\/|lead-intake|admin-portfolio-upload/i, label: "backend function integration" },
+  { pattern: /SUPABASE_SERVICE_ROLE_KEY|BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY/i, label: "secret material" },
+  { pattern: /\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\b/, label: "JWT-like credential" },
+  { pattern: /sourceMappingURL\s*=/i, label: "source map reference" },
+];
+const generatedHeaders = fs.readFileSync(path.join(distRoot, "_headers"), "utf8");
+
+for (const file of files.filter(textFile)) {
+  const content = fs.readFileSync(file.fullPath, "utf8");
+  if (/\r/.test(content)) {
+    failures.push(`${file.relativePath} contains non-canonical CR line endings.`);
+  }
+  if (!allowTestFixtures && /\bjq33-(?:contact|inquiry|test)-fixture\b/i.test(content)) {
+    failures.push(`${file.relativePath} contains a local QA integration fixture.`);
+  }
+  for (const { pattern, label } of prohibitedText) {
+    if (pattern.test(content)) failures.push(`${file.relativePath} contains ${label}.`);
+  }
+  if (file.relativePath.endsWith(".html")) {
+    const inlineStyles = [
+      ...content.matchAll(/<style\b([^>]*)>([\s\S]*?)<\/style>/gi),
+    ];
+    if (inlineStyles.length) {
+      if (
+        !inlineCriticalStyleDocuments.has(file.relativePath) ||
+        inlineStyles.length !== 1 ||
+        inlineStyles[0][1].trim() !== "data-jq33-critical-bundle" ||
+        !inlineStyles[0][2].trim()
+      ) {
+        failures.push(`${file.relativePath} contains a non-approved inline style block.`);
+      } else {
+        // Browsers normalize inline element line endings before CSP hashing.
+        // Mirror that behavior so Windows CRLF artifacts cannot pass this
+        // check with a hash the browser will reject.
+        const browserVisibleStyle = inlineStyles[0][2].replace(/\r\n?/g, "\n");
+        const cspHash = `'sha256-${crypto
+          .createHash("sha256")
+          .update(browserVisibleStyle, "utf8")
+          .digest("base64")}'`;
+        if (!generatedHeaders.includes(cspHash)) {
+          failures.push(
+            `${file.relativePath} critical style hash is missing from the generated CSP.`,
+          );
+        }
+      }
+    } else if (inlineCriticalStyleDocuments.has(file.relativePath)) {
+      failures.push(`${file.relativePath} is missing its approved critical style bundle.`);
+    }
+    if (/\sstyle\s*=/i.test(content)) failures.push(`${file.relativePath} contains an inline style attribute.`);
+    if (/\son[a-z]+\s*=/i.test(content)) failures.push(`${file.relativePath} contains an inline event handler.`);
+    if (/\svid\s*=/i.test(content)) failures.push(`${file.relativePath} contains a development vid attribute.`);
+    for (const match of content.matchAll(/<script\b((?![^>]*\bsrc\s*=)[^>]*)>/gi)) {
+      if (!/\btype\s*=\s*(["'])application\/ld\+json\1/i.test(match[1])) {
+        failures.push(`${file.relativePath} contains an executable inline script.`);
+      }
+    }
+  }
+}
+
+const htmlFiles = files.filter(
+  (file) => path.posix.extname(file.relativePath).toLowerCase() === ".html",
+);
+const getHtmlAttribute = (tag, name) => {
+  const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const match = new RegExp(
+    `(?:^|\\s)${escaped}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'=<>]+))`,
+    "i",
+  ).exec(tag);
+  return match ? match[1] ?? match[2] ?? match[3] ?? "" : "";
+};
+const imageTagsWithClass = (html, className) =>
+  [...html.matchAll(/<img\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => getHtmlAttribute(tag, "class").split(/\s+/).includes(className));
+
+const fontFaceFor = (css, family, weight = "") =>
+  [...String(css || "").matchAll(/@font-face\s*\{[^{}]*\}/gi)]
+    .map((match) => match[0])
+    .find(
+      (fontFace) =>
+        new RegExp(
+          `font-family\\s*:\\s*(?:["']${family.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']|${family.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})\\s*;`,
+          "i",
+        ).test(fontFace) &&
+        (!weight || new RegExp(`font-weight\\s*:\\s*${weight}\\s*;`, "i").test(fontFace)),
+    );
+
+const assertPinnedEmbeddedFont = ({ css, family, weight, bytes, sha256, label }) => {
+  const fontFace = fontFaceFor(css, family, weight);
+  const encoded = /src:\s*url\(["']?data:font\/woff2;base64,([A-Za-z0-9+/=]+)["']?\)\s*format\(["']woff2["']\)/i.exec(
+    fontFace || "",
+  )?.[1];
+  if (!encoded) {
+    failures.push(`${label} must be embedded as a WOFF2 data URL.`);
+    return;
+  }
+  const decoded = Buffer.from(encoded, "base64");
+  const actualSha256 = crypto.createHash("sha256").update(decoded).digest("hex");
+  if (
+    decoded.subarray(0, 4).toString("ascii") !== "wOF2" ||
+    decoded.length !== bytes ||
+    actualSha256 !== sha256
+  ) {
+    failures.push(
+      `${label} must match its pinned ${bytes}-byte WOFF2 artifact (${sha256}); received ${decoded.length} bytes (${actualSha256}).`,
+    );
+  }
+};
+
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file.fullPath, "utf8");
+  if (!html.includes(`<meta name="jq33-release" content="${releaseFingerprint}">`)) {
+    failures.push(`${file.relativePath} is missing the exact release fingerprint.`);
+  }
+  if (
+    /\/assets\/js\/cloudflare-analytics\.js/i.test(html) ||
+    /https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js/i.test(html) ||
+    /\bdata-cf-beacon\s*=/i.test(html)
+  ) {
+    failures.push(
+      `${file.relativePath} must not contain source-managed Cloudflare Web Analytics; Cloudflare automatic injection is authoritative.`,
+    );
+  }
+}
+
+const homeHtml = fs.readFileSync(path.join(distRoot, "index.html"), "utf8");
+const homeCriticalCss = /<style\b[^>]*data-jq33-critical-bundle[^>]*>([\s\S]*?)<\/style>/i.exec(
+  homeHtml,
+)?.[1];
+const homeFontData = /src:\s*url\(["']?data:font\/woff2;base64,([A-Za-z0-9+/=]+)["']?\)\s*format\(["']woff2["']\)/i.exec(
+  homeCriticalCss || "",
+)?.[1];
+if (!homeFontData) {
+  failures.push("Homepage critical CSS must embed its WOFF2 hero subset as a data URL.");
+} else {
+  const decodedHomeFont = Buffer.from(homeFontData, "base64");
+  if (decodedHomeFont.subarray(0, 4).toString("ascii") !== "wOF2") {
+    failures.push("Embedded homepage font subset must contain valid WOFF2 bytes.");
+  }
+  if (decodedHomeFont.length >= fs.statSync(path.join(
+    distRoot,
+    "assets/fonts/permanent-marker/permanent-marker-400.woff2",
+  )).size) {
+    failures.push("Embedded homepage font subset must be smaller than the shared Permanent Marker subset.");
+  }
+}
+if (!homeCriticalCss?.includes('font-family: "Permanent Marker Home"')) {
+  failures.push("Embedded homepage subset must use the unambiguous Permanent Marker Home family.");
+}
+if (!/\.panel--home\s+\.brand-mark\s*\{[^}]*font-family:\s*var\(--font-home-mark\)/i.test(homeCriticalCss || "")) {
+  failures.push("Embedded homepage subset must be bound only to the intended brand mark.");
+}
+if (homeHtml.includes("/assets/fonts/permanent-marker/permanent-marker-home.woff2")) {
+  failures.push("Homepage must not retain an external request for its embedded hero font subset.");
+}
+if (fileSet.has("assets/fonts/permanent-marker/permanent-marker-home.woff2")) {
+  failures.push("The unreferenced external homepage font subset must be pruned from dist.");
+}
+
+const homeInterRelativePath = "assets/fonts/inter/inter-home-hero.woff2";
+const sharedInterRelativePath = "assets/fonts/inter/inter-latin-400-900.woff2";
+const homeInterPath = path.join(distRoot, homeInterRelativePath);
+const sharedInterPath = path.join(distRoot, sharedInterRelativePath);
+const sourceInterPath = path.join(repositoryRoot, sharedInterRelativePath);
+if (!fileSet.has(homeInterRelativePath)) {
+  failures.push(`Missing homepage Inter subset: ${homeInterRelativePath}`);
+} else {
+  const homeInterBytes = fs.readFileSync(homeInterPath);
+  if (homeInterBytes.subarray(0, 4).toString("ascii") !== "wOF2") {
+    failures.push("Homepage Inter subset must contain valid WOFF2 bytes.");
+  }
+  if (
+    !fs.existsSync(sharedInterPath) ||
+    homeInterBytes.length > 22_000 ||
+    homeInterBytes.length * 2 >= fs.statSync(sharedInterPath).size
+  ) {
+    failures.push("Homepage Inter subset must remain at most 22 KB and under half the shared variable font.");
+  }
+}
+if (
+  !fs.existsSync(sharedInterPath) ||
+  !fs.existsSync(sourceInterPath) ||
+  !fs.readFileSync(sharedInterPath).equals(fs.readFileSync(sourceInterPath))
+) {
+  failures.push("The shared Inter font must remain byte-identical to its repository source.");
+}
+const homeFontPreloads = [...homeHtml.matchAll(/<link\b[^>]*>/gi)]
+  .map((match) => match[0])
+  .filter(
+    (tag) =>
+      getHtmlAttribute(tag, "rel").toLowerCase().split(/\s+/).includes("preload") &&
+      getHtmlAttribute(tag, "as").toLowerCase() === "font",
+  )
+  .map((tag) => getHtmlAttribute(tag, "href"));
+if (homeFontPreloads.length !== 1 || homeFontPreloads[0] !== `/${homeInterRelativePath}`) {
+  failures.push("Homepage must preload exactly its route-scoped Inter subset.");
+}
+if (
+  !/@font-face\s*\{[^}]*font-family:\s*["']?JQ33 Home Inter["']?\s*;[^}]*font-weight:\s*400\s+900\s*;[^}]*font-display:\s*swap\s*;[^}]*\/assets\/fonts\/inter\/inter-home-hero\.woff2/i.test(
+    homeCriticalCss || "",
+  )
+) {
+  failures.push("Homepage critical CSS must declare its route-scoped variable Inter subset.");
+}
+if (
+  !/\.panel--home\s*\{[^}]*--font-hero:\s*["']JQ33 Home Inter["'],\s*["']JQ33 Home Critical Lato["'],\s*["']Lato Metric Fallback["']/i.test(
+    homeCriticalCss || "",
+  )
+) {
+  failures.push("Homepage route subsets must be bound to the static home panel hero typography.");
+}
+if (homeFontPreloads.includes(`/${sharedInterRelativePath}`)) {
+  failures.push("Homepage must not preload the full shared Inter font.");
+}
+assertPinnedEmbeddedFont({
+  css: homeCriticalCss,
+  family: "JQ33 Home Critical Lato",
+  weight: "700",
+  bytes: 5_980,
+  sha256: "f2aeafcd35c2ff85ddf85614106f9201f8ebdca38a6239a0acce98bccf0a55ed",
+  label: "Homepage critical Lato 700 subset",
+});
+if (
+  !/\.header-nav\s*\{[^}]*--font-sans:\s*["']JQ33 Home Critical Lato["']/i.test(
+    homeCriticalCss || "",
+  )
+) {
+  failures.push("Homepage critical Lato subset must be scoped to the uniform navigation.");
+}
+
+const commercialHtml = fs.readFileSync(
+  path.join(distRoot, "commercial-interior-design-montreal/index.html"),
+  "utf8",
+);
+const commercialRelativePath =
+  "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2";
+const commercialCriticalCss =
+  /<style\b[^>]*data-jq33-critical-bundle[^>]*>([\s\S]*?)<\/style>/i.exec(commercialHtml)?.[1];
+if (fileSet.has(commercialRelativePath)) {
+  failures.push(`The inlined commercial H1 subset must be pruned from dist: ${commercialRelativePath}`);
+}
+if (commercialHtml.includes(`/${commercialRelativePath}`)) {
+  failures.push("Commercial route must not retain an external H1 font request or preload.");
+}
+if (!/font-family:\s*["']?Permanent Marker Commercial H1["']?\s*;/i.test(commercialCriticalCss || "")) {
+  failures.push(`${commercialRelativePath} must use the unambiguous Permanent Marker Commercial H1 font family.`);
+}
+const commercialFontFace = /@font-face\s*\{(?=[^}]*font-family:\s*["']?Permanent Marker Commercial H1["']?\s*;)([^}]*)\}/i.exec(
+  commercialCriticalCss || "",
+)?.[1];
+const commercialFontData = /src:\s*url\(["']?data:font\/woff2;base64,([A-Za-z0-9+/=]+)["']?\)\s*format\(["']woff2["']\)/i.exec(
+  commercialFontFace || "",
+)?.[1];
+if (!commercialFontData) {
+  failures.push("Commercial H1 critical CSS must embed its route subset as a data URL.");
+} else {
+  const decodedCommercialFont = Buffer.from(commercialFontData, "base64");
+  if (decodedCommercialFont.subarray(0, 4).toString("ascii") !== "wOF2") {
+    failures.push("Embedded commercial H1 subset must contain valid WOFF2 bytes.");
+  }
+  if (decodedCommercialFont.length > 5_000) {
+    failures.push("Embedded commercial H1 subset must remain at most 5 KB.");
+  }
+}
+if (!/font-display:\s*swap/i.test(commercialFontFace || "")) {
+  failures.push("Embedded commercial H1 subset must retain font-display swap.");
+}
+if (!/h1\s*\{[^}]*font-family:\s*"Permanent Marker Commercial H1"[^;}]*!important/i.test(commercialCriticalCss || "")) {
+  failures.push(`${commercialRelativePath} must be cascade-bound only to its intended critical hero text.`);
+}
+assertPinnedEmbeddedFont({
+  css: commercialCriticalCss,
+  family: "JQ33 Commercial Critical Lato",
+  weight: "400",
+  bytes: 8_236,
+  sha256: "011f713874f6500a5a3254ed5cbab0fbc0487f0d2d39ab7abbb86edf01178ede",
+  label: "Commercial critical Lato 400 subset",
+});
+assertPinnedEmbeddedFont({
+  css: commercialCriticalCss,
+  family: "JQ33 Commercial Critical Lato",
+  weight: "700",
+  bytes: 6_948,
+  sha256: "909659cf9ac4b889e395fad86358557b4e6e47dbcc65a3db3bcd9956b8d2bada",
+  label: "Commercial critical Lato 700 subset",
+});
+for (const [selector, label] of [
+  ["\\.header-nav", "uniform navigation"],
+  ["main\\s+\\.hero", "critical hero"],
+]) {
+  if (
+    !new RegExp(
+      `${selector}\\s*\\{[^}]*--font-sans:\\s*["']JQ33 Commercial Critical Lato["']`,
+      "i",
+    ).test(commercialCriticalCss || "")
+  ) {
+    failures.push(`Commercial critical Lato subset must be scoped to the ${label}.`);
+  }
+}
+if (
+  !/main\s+\.hero\s*>\s*div:first-child\s*>\s*\.hero-actions\s+\.btn\s*\{[^}]*font-family:\s*var\(--font-sans\)\s*!important/i.test(
+    commercialCriticalCss || "",
+  )
+) {
+  failures.push("Commercial hero actions must resolve their 600 weight through the critical Lato family.");
+}
+
+const sharedNetworkFontPaths = [
+  "/assets/fonts/lato/lato-400.woff2",
+  "/assets/fonts/lato/lato-700.woff2",
+  "/assets/fonts/lato/lato-900.woff2",
+  "/assets/fonts/inter/inter-latin-400-900.woff2",
+  "/assets/fonts/permanent-marker/permanent-marker-400.woff2",
+];
+const inspectFirstIntentFontContract = ({ html, criticalCss, label }) => {
+  const intentScripts = [...html.matchAll(/<script\b[^>]*data-jq33-font-intent[^>]*>/gi)].map(
+    (match) => match[0],
+  );
+  if (intentScripts.length !== 1) {
+    failures.push(`${label} must contain exactly one external first-intent font loader.`);
+    return null;
+  }
+  const scriptHref = getHtmlAttribute(intentScripts[0], "src");
+  if (!/^\/assets\/generated\/[a-f0-9]{64}\.js$/.test(scriptHref)) {
+    failures.push(`${label} first-intent font loader must be a content-addressed local script.`);
+    return null;
+  }
+  const scriptRelativePath = scriptHref.slice(1);
+  if (!fileSet.has(scriptRelativePath)) {
+    failures.push(`${label} first-intent font loader is missing: ${scriptRelativePath}`);
+    return null;
+  }
+  const loaderSource = fs.readFileSync(path.join(distRoot, scriptRelativePath), "utf8");
+  const fontOnlyHref = /link\.href\s*=\s*["'](\/assets\/generated\/[a-f0-9]{64}\.css)["']/i.exec(
+    loaderSource,
+  )?.[1];
+  if (!fontOnlyHref) {
+    failures.push(`${label} loader must bind one content-addressed font-only stylesheet.`);
+    return null;
+  }
+  for (const eventName of [
+    "pointermove",
+    "pointerdown",
+    "touchstart",
+    "wheel",
+    "scroll",
+    "keydown",
+  ]) {
+    if (!loaderSource.includes(`"${eventName}"`)) {
+      failures.push(`${label} loader is missing the ${eventName} intent event.`);
+    }
+  }
+  if (
+    !/link\.dataset\.jq33FontOnly\s*=/.test(loaderSource) ||
+    !/activated\s*=\s*true/.test(loaderSource) ||
+    /(?:setTimeout|setInterval|requestIdleCallback|DOMContentLoaded|window\.onload)/.test(
+      loaderSource,
+    )
+  ) {
+    failures.push(`${label} loader must be one-shot and exclusively user-intent activated.`);
+  }
+
+  const fontOnlyRelativePath = fontOnlyHref.slice(1);
+  if (!fileSet.has(fontOnlyRelativePath)) {
+    failures.push(`${label} font-only stylesheet is missing: ${fontOnlyRelativePath}`);
+    return null;
+  }
+  const fontOnlyCss = fs.readFileSync(path.join(distRoot, fontOnlyRelativePath), "utf8");
+  if ([...fontOnlyCss.matchAll(/@font-face\s*\{/gi)].length !== sharedNetworkFontPaths.length) {
+    failures.push(`${label} font-only stylesheet must contain exactly five network-backed faces.`);
+  }
+  for (const fontPath of sharedNetworkFontPaths) {
+    if (fontOnlyCss.split(fontPath).length - 1 !== 1) {
+      failures.push(`${label} font-only stylesheet must contain ${fontPath} exactly once.`);
+    }
+  }
+  if (/Metric Fallback/i.test(fontOnlyCss)) {
+    failures.push(`${label} must keep local metric-fallback faces in initial CSS.`);
+  }
+
+  const stylesheetTags = [...html.matchAll(/<link\b[^>]*>/gi)]
+    .map((match) => match[0])
+    .filter((tag) => getHtmlAttribute(tag, "rel").toLowerCase().split(/\s+/).includes("stylesheet"));
+  if (stylesheetTags.some((tag) => getHtmlAttribute(tag, "href") === fontOnlyHref)) {
+    failures.push(`${label} must not parse-load its font-only stylesheet.`);
+  }
+  const initialLinkedCss = stylesheetTags
+    .map((tag) => getHtmlAttribute(tag, "href").split(/[?#]/, 1)[0])
+    .filter((href) => /^\/assets\/generated\/[a-f0-9]{64}\.css$/.test(href))
+    .map((href) => fs.readFileSync(path.join(distRoot, href.slice(1)), "utf8"))
+    .join("\n");
+  const initialCss = `${criticalCss || ""}\n${initialLinkedCss}`;
+  for (const fontPath of sharedNetworkFontPaths) {
+    if (initialCss.includes(fontPath)) {
+      failures.push(`${label} initial CSS must not reference deferred shared face ${fontPath}.`);
+    }
+  }
+  for (const metricFamily of ["Lato Metric Fallback", "Permanent Marker Metric Fallback"]) {
+    if (!fontFaceFor(initialCss, metricFamily)) {
+      failures.push(`${label} initial CSS must retain ${metricFamily}.`);
+    }
+  }
+  return { fontOnlyHref, scriptHref };
+};
+
+const homeIntentFonts = inspectFirstIntentFontContract({
+  html: homeHtml,
+  criticalCss: homeCriticalCss,
+  label: "Homepage",
+});
+const commercialIntentFonts = inspectFirstIntentFontContract({
+  html: commercialHtml,
+  criticalCss: commercialCriticalCss,
+  label: "Commercial route",
+});
+if (
+  homeIntentFonts &&
+  commercialIntentFonts &&
+  (homeIntentFonts.fontOnlyHref !== commercialIntentFonts.fontOnlyHref ||
+    homeIntentFonts.scriptHref !== commercialIntentFonts.scriptHref)
+) {
+  failures.push("Home and Commercial must share one content-addressed font-only asset and loader.");
+}
+const projectsHtml = fs.readFileSync(path.join(distRoot, "projects/index.html"), "utf8");
+const projectHero = imageTagsWithClass(projectsHtml, "concept-index__hero-image");
+const projectCards = imageTagsWithClass(projectsHtml, "project-card__image");
+if (projectHero.length !== 1 || projectCards.length !== projectSlugs.length) {
+  failures.push("Projects index must contain one responsive hero and five responsive study cards.");
+}
+for (const [index, slug] of projectSlugs.entries()) {
+  for (const width of [480, 768]) {
+    const relativePath = `assets/generated/images/project-${slug}-index-study-${width}.webp`;
+    if (!fileSet.has(relativePath)) failures.push(`Missing responsive project image: ${relativePath}`);
+    const cardSrcset = getHtmlAttribute(projectCards[index] || "", "srcset");
+    if (!cardSrcset.includes(`/${relativePath} ${width}w`)) {
+      failures.push(`Project card ${slug} is missing its ${width}w responsive candidate.`);
+    }
+  }
+  if (!getHtmlAttribute(projectCards[index] || "", "sizes")) {
+    failures.push(`Project card ${slug} is missing an accurate sizes contract.`);
+  }
+  const expectedLoading = index === 0 ? "eager" : "lazy";
+  const expectedPriority = index === 0 ? "high" : "low";
+  if (
+    getHtmlAttribute(projectCards[index] || "", "loading") !== expectedLoading ||
+    getHtmlAttribute(projectCards[index] || "", "fetchpriority") !== expectedPriority
+  ) {
+    failures.push(
+      `Project card ${slug} must use loading=${expectedLoading} and fetchpriority=${expectedPriority}.`,
+    );
+  }
+}
+for (const width of [480, 768]) {
+  if (
+    !getHtmlAttribute(projectHero[0] || "", "srcset").includes(
+      `/assets/generated/images/project-bruton-place-iv-index-study-${width}.webp ${width}w`,
+    )
+  ) {
+    failures.push(`Projects hero is missing its ${width}w responsive candidate.`);
+  }
+}
+if (
+  !getHtmlAttribute(projectHero[0] || "", "sizes") ||
+  getHtmlAttribute(projectHero[0] || "", "loading") !== "eager" ||
+  getHtmlAttribute(projectHero[0] || "", "fetchpriority") !== "high"
+) {
+  failures.push("Projects hero must declare responsive sizes and eager/high loading priority.");
+}
+
+const journalHtml = fs.readFileSync(path.join(distRoot, "journal/index.html"), "utf8");
+const journalCards = imageTagsWithClass(journalHtml, "project-image");
+if (journalCards.length !== journalCardSlugs.length) {
+  failures.push("Journal index must contain six responsive card images.");
+}
+for (const [index, slug] of journalCardSlugs.entries()) {
+  const relativePath = `assets/generated/images/journal-${slug}-768.webp`;
+  if (!fileSet.has(relativePath)) failures.push(`Missing responsive journal image: ${relativePath}`);
+  if (!getHtmlAttribute(journalCards[index] || "", "srcset").includes(`/${relativePath} 768w`)) {
+    failures.push(`Journal card ${slug} is missing its 768w responsive candidate.`);
+  }
+}
+
+const redirects = fs
+  .readFileSync(path.join(distRoot, "_redirects"), "utf8")
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .filter((line) => line && !line.startsWith("#"))
+  .map((line) => line.split(/\s+/))
+  .filter((parts) => parts.length >= 2);
+const redirectSources = new Set(
+  redirects
+    .map(([source]) => source)
+    .filter((source) => source.startsWith("/")),
+);
+
+const targetExists = (pathname) => {
+  let decoded;
+  try {
+    decoded = decodeURIComponent(pathname);
+  } catch {
+    return false;
+  }
+  if (decoded === "/") return fileSet.has("index.html");
+  if (redirectSources.has(decoded)) return true;
+  const relativePath = decoded.replace(/^\/+/, "");
+  if (fileSet.has(relativePath)) return true;
+  if (decoded.endsWith("/")) return fileSet.has(`${relativePath}index.html`);
+  return fileSet.has(`${relativePath}/index.html`);
+};
+
+const checkReference = (reference, file, kind) => {
+  const value = reference.trim();
+  if (
+    !value ||
+    value.includes("${") ||
+    value.includes("{{") ||
+    /^(?:#|data:|mailto:|tel:|javascript:)/i.test(value)
+  ) {
+    return;
+  }
+
+  let pathname = "";
+  if (/^https?:\/\//i.test(value)) {
+    const url = new URL(value);
+    if (url.origin === canonicalOrigin) {
+      pathname = url.pathname;
+    } else {
+      if (["src", "data-img", "css-url"].includes(kind)) {
+        failures.push(`${file.relativePath} uses a remote ${kind} resource: ${value}`);
+      }
+      return;
+    }
+  } else if (value.startsWith("//")) {
+    failures.push(`${file.relativePath} uses a protocol-relative resource: ${value}`);
+    return;
+  } else {
+    pathname = value.split(/[?#]/, 1)[0];
+    if (!pathname.startsWith("/")) {
+      const baseDirectory = path.posix.dirname(`/${file.relativePath}`);
+      pathname = path.posix.resolve(baseDirectory, pathname);
+    }
+  }
+
+  if (!targetExists(pathname)) {
+    failures.push(`${file.relativePath} references missing local target ${pathname}.`);
+  }
+};
+
+for (const file of files.filter(textFile)) {
+  const content = fs.readFileSync(file.fullPath, "utf8");
+  for (const match of content.matchAll(/\b(src|href|action|data-img)\s*=\s*(["'])(.*?)\2/gi)) {
+    checkReference(match[3], file, match[1].toLowerCase());
+  }
+  for (const match of content.matchAll(/\b(?:srcset|imagesrcset)\s*=\s*(["'])(.*?)\1/gi)) {
+    for (const candidate of match[2].split(",")) {
+      checkReference(candidate.trim().split(/\s+/, 1)[0], file, "src");
+    }
+  }
+  if ([".css", ".html"].includes(path.posix.extname(file.relativePath).toLowerCase())) {
+    for (const match of content.matchAll(/url\(\s*(["']?)(.*?)\1\s*\)/gi)) {
+      checkReference(match[2], file, "css-url");
+    }
+  }
+}
+
+const headers = fs.readFileSync(path.join(distRoot, "_headers"), "utf8");
+const csp = /Content-Security-Policy:\s*([^\r\n]+)/i.exec(headers)?.[1] || "";
+for (const directive of [
+  "default-src",
+  "script-src",
+  "style-src",
+  "connect-src",
+  "img-src",
+  "font-src",
+  "form-action",
+  "frame-ancestors",
+  "object-src",
+  "base-uri",
+]) {
+  if (!new RegExp(`(?:^|;)\\s*${directive}\\s+`, "i").test(csp)) {
+    failures.push(`_headers CSP is missing ${directive}.`);
+  }
+}
+if (!/(?:^|;)\s*font-src\s+'self'\s+data:\s*;/i.test(csp)) {
+  failures.push("_headers font-src must allow exactly self and data: for the embedded homepage font.");
+}
+if (/'unsafe-inline'|'unsafe-eval'/i.test(csp)) {
+  failures.push("_headers CSP may not contain unsafe-inline or unsafe-eval.");
+}
+if (!/frame-ancestors\s+'none'/i.test(csp)) failures.push("_headers must deny framing in CSP.");
+if (!/X-Frame-Options:\s*DENY/i.test(headers)) failures.push("_headers must include X-Frame-Options: DENY.");
+if (!/Strict-Transport-Security:\s*max-age=(?:31536000|[4-9]\d{7,});\s*includeSubDomains/i.test(headers)) {
+  failures.push("_headers HSTS must cover at least one year and include subdomains.");
+}
+if (/Strict-Transport-Security:[^\r\n]*\bpreload\b/i.test(headers)) {
+  failures.push("_headers HSTS may not request preload.");
+}
+for (const pattern of [
+  /X-Content-Type-Options:\s*nosniff/i,
+  /Referrer-Policy:\s*(?:no-referrer|same-origin|strict-origin|strict-origin-when-cross-origin)/i,
+  /Permissions-Policy:\s*[^\r\n]+/i,
+]) {
+  if (!pattern.test(headers)) failures.push(`_headers is missing required security header ${pattern}.`);
+}
+
+const notFoundHtml = fs.readFileSync(path.join(distRoot, "404.html"), "utf8");
+if (!/<html\b[^>]*\blang=["']en-CA["']/i.test(notFoundHtml)) {
+  failures.push("404.html must declare the sole en-CA locale.");
+}
+if (!/<meta\b[^>]*name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(notFoundHtml)) {
+  failures.push("404.html must include a noindex robots directive.");
+}
+if (/<link\b[^>]*rel=["']canonical["']/i.test(notFoundHtml)) {
+  failures.push("404.html must not publish an indexable canonical URL.");
+}
+
+for (const route of publicRoutes) {
+  const relativePath =
+    route === "/" ? "index.html" : `${route.replace(/^\/|\/$/g, "")}/index.html`;
+  const html = fs.readFileSync(path.join(distRoot, relativePath), "utf8");
+  if (!/<html\b[^>]*\blang=["']en-CA["']/i.test(html)) {
+    failures.push(`${relativePath} must declare the sole en-CA locale.`);
+  }
+  const canonicals = [
+    ...html.matchAll(/<link\b[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["'][^>]*>/gi),
+  ].map((match) => match[1]);
+  const expectedCanonical = `${canonicalOrigin}${route}`;
+  if (canonicals.length !== 1 || canonicals[0] !== expectedCanonical) {
+    failures.push(`${relativePath} must contain exactly one canonical URL: ${expectedCanonical}`);
+  }
+}
+
+const contactHtml = fs.readFileSync(path.join(distRoot, "contact/index.html"), "utf8");
+const inquiryHtml = fs.readFileSync(path.join(distRoot, "inquiry/index.html"), "utf8");
+const formAction = (html) => /<form\b[^>]*\baction=["']([^"']+)["'][^>]*>/i.exec(html)?.[1] || "";
+const contactAction = formAction(contactHtml);
+const inquiryAction = formAction(inquiryHtml);
+const validFormAction = (value) => {
+  if (/^https:\/\/formspree\.io\/f\/[A-Za-z0-9_-]+\/?$/.test(value)) return true;
+  if (!allowTestFixtures) return false;
+  try {
+    const url = new URL(value);
+    return (
+      ["http:", "https:"].includes(url.protocol) &&
+      ["localhost", "127.0.0.1", "::1"].includes(url.hostname)
+    );
+  } catch {
+    return false;
+  }
+};
+if (!validFormAction(contactAction)) {
+  failures.push("Contact form must have a direct production Formspree action.");
+}
+if (!validFormAction(inquiryAction)) {
+  failures.push("Inquiry form must have a direct production Formspree action.");
+}
+if (contactAction && contactAction === inquiryAction) {
+  failures.push("Contact and Inquiry must use different Formspree actions.");
+}
+
+const sitemap = fs.readFileSync(path.join(distRoot, "sitemap.xml"), "utf8");
+const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
+const sitemapLastmods = [...sitemap.matchAll(/<lastmod>([^<]+)<\/lastmod>/g)].map(
+  (match) => match[1],
+);
+const expectedSitemapUrls = publicRoutes.map((route) => `${canonicalOrigin}${route}`);
+if (
+  sitemapUrls.length !== expectedSitemapUrls.length ||
+  !expectedSitemapUrls.every((url) => sitemapUrls.includes(url))
+) {
+  failures.push("sitemap.xml must contain exactly the indexable launch routes.");
+}
+if (
+  sitemapLastmods.length !== sitemapUrls.length ||
+  sitemapLastmods.some((lastmod) => !/^\d{4}-\d{2}-\d{2}$/.test(lastmod))
+) {
+  failures.push("Every sitemap lastmod must be an ISO calendar date.");
+}
+
+const robots = fs.readFileSync(path.join(distRoot, "robots.txt"), "utf8");
+if (!/^User-agent:\s*\*\s*$/im.test(robots) || !/^Allow:\s*\/\s*$/im.test(robots)) {
+  failures.push("robots.txt must explicitly permit the public site crawl.");
+}
+if (!/^Sitemap:\s*https:\/\/jq33\.design\/sitemap\.xml\s*$/im.test(robots)) {
+  failures.push("robots.txt must reference the canonical sitemap.");
+}
+if (/^Disallow:\s*\/(?:admin|data|functions|scripts|supabase)/im.test(robots)) {
+  failures.push("robots.txt may not advertise or rely on source-only path exclusions.");
+}
+
+if (failures.length) {
+  console.error("Distribution validation failed:");
+  for (const failure of [...new Set(failures)]) console.error(`- ${failure}`);
+  process.exit(1);
+}
+
+const manifestFiles = files
+  .sort((a, b) => a.relativePath.localeCompare(b.relativePath))
+  .map(({ fullPath, relativePath }) => {
+    const buffer = fs.readFileSync(fullPath);
+    return {
+      path: relativePath,
+      bytes: buffer.length,
+      sha256: crypto.createHash("sha256").update(buffer).digest("hex"),
+    };
+  });
+const artifactSha256 = crypto
+  .createHash("sha256")
+  .update(
+    manifestFiles
+      .map((file) => `${file.path}\0${file.bytes}\0${file.sha256}\n`)
+      .join(""),
+  )
+  .digest("hex");
+const revisionResult = spawnSync("git", ["rev-parse", "HEAD"], {
+  cwd: repositoryRoot,
+  encoding: "utf8",
+});
+const sourceRevision =
+  revisionResult.status === 0 ? revisionResult.stdout.trim() : "unavailable";
+
+const sourceExactFiles = [
+  "index.html",
+  "commercial-interior-design-montreal/index.html",
+  "contact/index.html",
+  "inquiry/index.html",
+  "privacy/index.html",
+  "terms/index.html",
+  "404.html",
+  "robots.txt",
+  "favicon.svg",
+  "apple-touch-icon.svg",
+  "tokens.css",
+  "_redirects",
+  "_headers",
+  "assets/css/site.css",
+  "assets/css/critical-shared.css",
+  "assets/css/home-font.css",
+  "assets/js/leads.js",
+  "assets/js/calendly.js",
+  "assets/js/deferred-css.js",
+  "assets/js/nav-drawer.js",
+  "assets/js/components/header-nav.js",
+  "assets/js/components/footer.js",
+  "data/projects.json",
+  "data/posts.json",
+  "projects/_project-template.html",
+  "projects/_projects-index-template.html",
+  "journal/_journal-template.html",
+  "journal/_journal-index-template.html",
+  "scripts/build.mjs",
+  "scripts/check-dist.mjs",
+  "scripts/generate-responsive-images.mjs",
+  "scripts/generate-projects.mjs",
+  "scripts/generate-journal.mjs",
+  "scripts/generate-sitemap.mjs",
+  "package.json",
+  "pnpm-lock.yaml",
+  "pnpm-workspace.yaml",
+  "wrangler.toml",
+];
+const sourceTrees = [
+  ["assets/fonts", new Set([".woff", ".woff2", ".ttf", ".otf"])],
+  ["assets/home page images", new Set([".avif", ".gif", ".jpg", ".jpeg", ".png", ".svg", ".webp"])],
+  ["assets/journal", new Set([".avif", ".gif", ".jpg", ".jpeg", ".png", ".svg", ".webp"])],
+  ["assets/logo", new Set([".avif", ".gif", ".jpg", ".jpeg", ".png", ".svg", ".webp"])],
+  ["assets/projects", new Set([".avif", ".gif", ".jpg", ".jpeg", ".png", ".svg", ".webp"])],
+  ["assets/icons", new Set([".svg"])],
+  ["assets/social", new Set([".svg"])],
+  ["og", new Set([".avif", ".jpg", ".jpeg", ".png", ".webp"])],
+];
+const sourceInputPaths = new Set(sourceExactFiles);
+for (const [relativeRoot, extensions] of sourceTrees) {
+  const absoluteRoot = path.join(repositoryRoot, relativeRoot);
+  if (!fs.existsSync(absoluteRoot)) continue;
+  const queue = [absoluteRoot];
+  while (queue.length) {
+    const directory = queue.pop();
+    for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+      const fullPath = path.join(directory, entry.name);
+      if (entry.isDirectory()) queue.push(fullPath);
+      else if (entry.isFile() && extensions.has(path.extname(entry.name).toLowerCase())) {
+        sourceInputPaths.add(normalized(path.relative(repositoryRoot, fullPath)));
+      }
+    }
+  }
+}
+const sourceInputs = [...sourceInputPaths]
+  .sort((a, b) => a.localeCompare(b))
+  .map((relativePath) => {
+    const fullPath = path.join(repositoryRoot, relativePath);
+    if (!fs.existsSync(fullPath) || !fs.statSync(fullPath).isFile()) {
+      throw new Error(`Declared production source input is missing: ${relativePath}`);
+    }
+    const buffer = fs.readFileSync(fullPath);
+    return {
+      path: relativePath,
+      bytes: buffer.length,
+      sha256: crypto.createHash("sha256").update(buffer).digest("hex"),
+    };
+  });
+const sourceTreeSha256 = crypto
+  .createHash("sha256")
+  .update(
+    sourceInputs
+      .map((file) => `${file.path}\0${file.bytes}\0${file.sha256}\n`)
+      .join(""),
+  )
+  .digest("hex");
+const sourcePathspecs = [
+  ...sourceExactFiles,
+  ...sourceTrees.map(([relativeRoot]) => relativeRoot),
+];
+const sourceStatusResult = spawnSync(
+  "git",
+  ["status", "--porcelain=v1", "--untracked-files=all", "--", ...sourcePathspecs],
+  { cwd: repositoryRoot, encoding: "utf8" },
+);
+const sourceStatus = sourceStatusResult.status === 0 ? sourceStatusResult.stdout.trim() : "";
+const sourceChangeCount = sourceStatus ? sourceStatus.split(/\r?\n/).length : 0;
+const sourceStatusSha256 = crypto
+  .createHash("sha256")
+  .update(sourceStatus, "utf8")
+  .digest("hex");
+
+if (manifestTarget) {
+  fs.writeFileSync(
+    manifestTarget,
+    `${JSON.stringify(
+      {
+        schemaVersion: 2,
+        root: "dist",
+        generatedAt: new Date().toISOString(),
+        sourceRevision,
+        sourceTreeSha256,
+        sourceInputCount: sourceInputs.length,
+        sourceDirty: sourceChangeCount > 0,
+        sourceChangeCount,
+        sourceStatusSha256,
+        nodeVersion: process.version,
+        artifactSha256,
+        files: manifestFiles,
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
+}
+
+console.log(
+  `Distribution validation passed: ${manifestFiles.length} allowlisted files, artifact ${artifactSha256}.`,
+);

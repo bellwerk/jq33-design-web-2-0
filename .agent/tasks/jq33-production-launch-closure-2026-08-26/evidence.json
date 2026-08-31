@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 2,
+  "taskId": "jq33-production-launch-closure-2026-08-26",
+  "updatedAt": "2026-08-27T21:33:51.7207575Z",
+  "phase": "LOCAL_DIRTY_TREE_VERIFIED_PREVIEW_PENDING",
+  "startingRevision": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+  "currentRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+  "branch": "codex/jq33-production-readiness-2026-07-29",
+  "overall": "UNKNOWN",
+  "completionClaimAllowed": false,
+  "summary": {"pass": 2, "fail": 0, "unknown": 9, "total": 11},
+  "candidateBinding": {
+    "scope": "historical exact clean-commit snapshot retained from the 2026-08-26 evidence pass",
+    "releasePathCount": 38,
+    "currentTaskPathCountAtCommit": 33,
+    "unexpectedCommittedPathCount": 0,
+    "artifactFileCount": 112,
+    "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+    "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
+    "sourceDirtyInSuppliedCleanWorktrees": false
+  },
+  "currentLocalCandidate": {
+    "scope": "allowlisted local dirty-tree proof only",
+    "baseCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+    "sourceDirty": true,
+    "nodeVersion": "22.23.2",
+    "pnpmVersion": "11.13.0",
+    "fixtureBuild": "PASS",
+    "distributionValidation": "PASS",
+    "artifactSha256": "b844a7c5d3590ec53dcd7c656d3111d454c9aaf735629285ac8bfb7306d1eae3",
+    "generatorDeterminism": {
+      "status": "PASS",
+      "generatedFiles": 8,
+      "path": "raw/portable/footer-generator-determinism-2026-08-27.txt",
+      "absoluteMachinePathsRetained": false
+    },
+    "criticalFontPlaywright": {
+      "status": "PASS",
+      "passed": 1,
+      "failed": 0,
+      "path": "raw/local/performance-font-targeted/results.sanitized.json"
+    },
+    "lighthouse": {
+      "status": "PASS",
+      "summaryPath": "raw/local/performance-current-all-routes/summary.json",
+      "metadataPath": "raw/local/performance-current-all-routes/run-metadata.json",
+      "reportGlob": "raw/local/performance-current-all-routes/*.lhr.json",
+      "routeCount": 14,
+      "captureCount": 42,
+      "thresholdFailures": 0,
+      "routes": {
+        "/": {"performance": 99, "accessibility": 100, "bestPractices": 100, "seo": 100, "lcpMs": 1970.3107, "cls": 0.00672632064895339, "tbtMs": 0},
+        "/commercial-interior-design-montreal/": {"performance": 100, "accessibility": 100, "bestPractices": 100, "seo": 100, "lcpMs": 1812.1182, "cls": 0.03652625491782134, "tbtMs": 0}
+      },
+      "allOtherRoutes": "PASS"
+    },
+    "browserCorrection": {
+      "initial": {
+        "status": "FAIL",
+        "passed": 308,
+        "failed": 7,
+        "path": "raw/local/performance-footer-full-browser-final/results.sanitized.json",
+        "failureClass": "literal internal font-family alias equality assertions"
+      },
+      "smallestCorrection": "Normalize approved route-scoped Lato aliases for navigation equality while retaining dedicated CDP platform-font proof.",
+      "targetedNavigation": {"status": "PASS", "passed": 7, "failed": 0, "path": "raw/local/performance-nav-alias-targeted/results.sanitized.json"},
+      "authoritativeFullRerun": {
+        "status": "PASS",
+        "passed": 315,
+        "failed": 0,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0,
+        "retriedResults": 0,
+        "topLevelErrors": 0,
+        "metadataAndRedaction": "PASS",
+        "path": "raw/local/performance-footer-full-browser-final-rerun/results.sanitized.json"
+      }
+    }
+  },
+  "durableRawProof": [
+    {
+      "path": "raw/verifier-prepreview/exact-1523a08-local-proof.json",
+      "sha256": "e8c184a5eb82845793a55d4e9770a0fc72170d183f2e52b4391b13a99927319f",
+      "scope": "exact clean-worktree, determinism, full-browser, and fresh lightweight verifier proof"
+    },
+    {
+      "path": "raw/verifier-prepreview/drawer-contrast-failure-and-correction.json",
+      "sha256": "2f5127be28c3ef59592dd95adb89b17af5579d7400dc8ffe6f9f73f4aef8b17d",
+      "scope": "preserved 2.92 and 4.33 contrast failure plus exact-commit correction reruns"
+    },
+    {
+      "path": "raw/portable/footer-generator-determinism-2026-08-27.txt",
+      "sha256": "8795cc97e0db8852c599b121202282eb2cdc20ce32b891e21d2fefa2f7384909",
+      "scope": "portable AC11 Projects and Journal generator determinism and checked-in source parity"
+    }
+  ],
+  "proofLayers": {
+    "suppliedCleanWorktree": {
+      "status": "PASS",
+      "details": "Independent inspection confirmed clean CRLF and LF worktrees at the exact commit, pinned frozen installs, strict non-fixture builds, 112 identical artifact entries, and artifact SHA-256 f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096."
+    },
+    "localFixtureAndBrowser": {
+      "status": "PASS_LOCAL_ONLY",
+      "details": "The exact LF sanitized full run passed 308/308 with two workers and no skip, retry, flaky, unexpected result, or top-level error. Fresh targeted axe/navigation/focus tests passed 3/3. Controlled local browser/form/network behavior is not provider or deployed-runtime proof."
+    },
+    "immutablePreview": {"status": "ABSENT", "details": "No Cloudflare Pages preview is bound to the exact commit."},
+    "production": {"status": "ABSENT", "details": "No authorized merge, production deployment, production monitor, DNS/mail, analytics, or search proof exists for this commit."}
+  },
+  "fullBrowserProof": {
+    "scope": "historical exact clean-commit snapshot retained from the 2026-08-26 evidence pass",
+    "sanitizedReporterSha256": "0232812721b5513926f39e4e4961037afa44e0f99b6d537542f1f33aad6e8ab4",
+    "sourceCommit": "1523a086618c5dea365477032b6ac73a7a867862",
+    "artifactSha256": "f34d22641769eb52b3a8c4f5bc5db98560d49ce7350d1fb3c23d93de38243096",
+    "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a",
+    "workers": 2,
+    "passed": 308,
+    "failed": 0,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0,
+    "retriedResults": 0,
+    "metadataAndRedaction": "PASS"
+  },
+  "preservedDrawerContrastFailure": {
+    "sourceCommit": "4ba02ca8bb96f1de9b497bdd7091083ead41cbdd",
+    "artifactSha256": "1df50b27eb733b34c75c464884d1430e6f15e0ebeca7a74b17469d002c46ba25",
+    "status": "FAIL_CORRECTED_AND_REVERIFIED",
+    "ratios": [2.92, 4.33],
+    "requiredRatio": 4.5,
+    "rootCause": "Parent opacity animation blended drawer foreground and background colors during motion.",
+    "correctionCommit": "1523a086618c5dea365477032b6ac73a7a867862",
+    "correctionPaths": ["assets/css/critical-shared.css", "assets/css/site.css"],
+    "freshTargetedResult": "PASS_3_OF_3",
+    "exactFullResult": "PASS_308_OF_308"
+  },
+  "criteria": {
+    "AC1": {"text": "Candidate integrity and preservation", "status": "PASS", "reason": "The exact commit contains 38 allowlisted release paths and 33 current-task paths relative to the frozen start, with zero unexpected committed paths; baseline candidate/prior-packet bindings remain intact."},
+    "AC2": {"text": "Non-visual performance closure", "status": "UNKNOWN", "localStatus": "PASS_DIRTY_TREE", "reason": "The pinned local fixture build, targeted CDP font check, and all 42 local Lighthouse captures pass, but the exact release bytes are not yet cleanly committed or proven on an immutable preview."},
+    "AC3": {"text": "Strict build contract and dependency hygiene", "status": "UNKNOWN", "localStatus": "PASS_STRICT_BUILD_AUDITS_AND_ARTIFACT", "reason": "Genuine deployed preview 404/source-isolation proof is absent."},
+    "AC4": {"text": "Minimal release and runtime safeguards", "status": "UNKNOWN", "localStatus": "PASS_WORKFLOW_AND_SELF_TESTS", "reason": "Required main protection and a successful real production monitor run are not proven."},
+    "AC5": {"text": "Pinned local release gate", "status": "PASS", "reason": "Exact pinned clean-worktree builds, determinism, 308/308 full browser proof, fresh 3/3 corrective coverage, static checks, both audits, health self-test, and evidence-contract self-tests pass without waiver or flake."},
+    "AC6": {"text": "Exact immutable preview", "status": "UNKNOWN", "reason": "No native immutable Cloudflare Pages preview is bound to the exact commit."},
+    "AC7": {"text": "Human, provider, and preview conversion proof", "status": "UNKNOWN", "reason": "Approval-gated human, NVDA, provider, and preview-submission evidence is absent."},
+    "AC8": {"text": "Controlled promotion through PR #1", "status": "UNKNOWN", "reason": "Prerequisite preview gates, rollback target, immediate approval, merge, and deployment are absent."},
+    "AC9": {"text": "Production, DNS, mail, analytics, and search closure", "status": "UNKNOWN", "reason": "No authorized production promotion or provider/runtime closure proof exists."},
+    "AC10": {"text": "Durable independent all-PASS closure", "status": "UNKNOWN", "reason": "Nine criteria remain UNKNOWN at the umbrella layer and no final evidence-only PR or active production monitoring proof exists."},
+    "AC11": {"text": "Uniform Ft4 footer and restrained SEO copy", "status": "UNKNOWN", "localStatus": "PASS_DIRTY_TREE", "reason": "The authoritative local full browser rerun passed 315/315 after the performance correction, but AC11 still requires immutable-preview and production rebinding."}
+  },
+  "formSubmissionsCreated": 0,
+  "deploymentMutationPerformed": false,
+  "productionPromotionAuthorized": false
+}

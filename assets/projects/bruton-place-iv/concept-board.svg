@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="title desc">
+  <title id="title">Bruton Place IV office concept board</title>
+  <desc id="desc">An illustrative architectural plan with a cobalt circulation datum, charcoal work zones, and soft-white rooms.</desc>
+  <rect width="1200" height="630" fill="#f6f5f0"/>
+  <rect x="0" y="0" width="210" height="630" fill="#17191d"/>
+  <rect x="54" y="58" width="8" height="112" fill="#3b41e3"/>
+  <text x="54" y="218" fill="#f6f5f0" font-family="Arial, sans-serif" font-size="25" font-weight="700" letter-spacing="3">OFFICE</text>
+  <text x="54" y="252" fill="#9da0aa" font-family="Arial, sans-serif" font-size="12" letter-spacing="2">PLAN STUDY 01</text>
+  <line x1="54" y1="522" x2="154" y2="522" stroke="#3b41e3" stroke-width="2"/>
+  <text x="54" y="552" fill="#9da0aa" font-family="Arial, sans-serif" font-size="11" letter-spacing="1">ARRIVAL / FOCUS</text>
+  <rect x="270" y="68" width="864" height="494" fill="none" stroke="#17191d" stroke-width="5"/>
+  <rect x="270" y="259" width="864" height="78" fill="#3b41e3"/>
+  <rect x="308" y="102" width="208" height="122" fill="#e2e1dc" stroke="#17191d" stroke-width="3"/>
+  <rect x="550" y="102" width="250" height="122" fill="#17191d"/>
+  <rect x="834" y="102" width="262" height="122" fill="#e2e1dc" stroke="#17191d" stroke-width="3"/>
+  <rect x="308" y="372" width="158" height="152" fill="#17191d"/>
+  <rect x="500" y="372" width="310" height="152" fill="#e2e1dc" stroke="#17191d" stroke-width="3"/>
+  <rect x="844" y="372" width="252" height="152" fill="#e2e1dc" stroke="#17191d" stroke-width="3"/>
+  <g fill="#f6f5f0">
+    <rect x="578" y="123" width="48" height="28"/>
+    <rect x="648" y="123" width="48" height="28"/>
+    <rect x="718" y="123" width="48" height="28"/>
+    <rect x="578" y="171" width="48" height="28"/>
+    <rect x="648" y="171" width="48" height="28"/>
+    <rect x="718" y="171" width="48" height="28"/>
+  </g>
+  <g fill="#3b41e3">
+    <circle cx="350" cy="447" r="28"/>
+    <circle cx="424" cy="447" r="28"/>
+    <rect x="557" y="425" width="196" height="46"/>
+  </g>
+  <path d="M292 298H1088" stroke="#f6f5f0" stroke-width="3" stroke-dasharray="10 12"/>
+  <path d="M1048 282l40 16-40 16" fill="none" stroke="#f6f5f0" stroke-width="3"/>
+  <text x="929" y="594" fill="#17191d" font-family="Arial, sans-serif" font-size="11" letter-spacing="2">ILLUSTRATIVE CONCEPT BOARD</text>
+</svg>

@@ -1,403 +1,812 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-CA">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
-    <meta
-      name="description"
-      content="Explore commercial interior design projects in Montreal-cafes, salons, clinics, boutiques, and small offices. Layout-first design, confident finishes, and 3D visuals that speed up decisions."
-    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{meta_title}}</title>
+    <meta name="description" content="{{meta_description}}" />
     <link rel="canonical" href="https://jq33.design/projects/" />
-
-    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
-
-    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
-    <meta
-      property="og:title"
-      content="Projects | JQ33 DESIGN Commercial Interior Design (Montreal)"
-    />
-    <meta
-      property="og:description"
-      content="Explore commercial interior design projects in Montreal-cafes, salons, clinics, boutiques, and small offices. Layout-first design, confident finishes, and 3D visuals that speed up decisions."
-    />
+    <meta property="og:title" content="{{meta_title}}" />
+    <meta property="og:description" content="{{meta_description}}" />
     <meta property="og:url" content="https://jq33.design/projects/" />
+    <meta property="og:image" content="{{og_image}}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta
-      property="og:image"
-      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
+      property="og:image:alt"
+      content="Illustrative office concept board from the JQ33 DESIGN self-initiated study collection"
     />
-
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{meta_title}}" />
+    <meta name="twitter:description" content="{{meta_description}}" />
+    <meta name="twitter:image" content="{{og_image}}" />
     <meta
-      name="twitter:title"
-      content="Projects | JQ33 DESIGN Commercial Interior Design (Montreal)"
+      name="twitter:image:alt"
+      content="Illustrative office concept board from the JQ33 DESIGN self-initiated study collection"
     />
-    <meta
-      name="twitter:description"
-      content="Explore commercial interior design projects in Montreal-cafes, salons, clinics, boutiques, and small offices. Layout-first design, confident finishes, and 3D visuals that speed up decisions."
-    />
-    <meta
-      name="twitter:image"
-      content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Permanent+Marker&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/assets/css/site.css" />
+    <script type="application/ld+json">
+{{structured_data}}
+    </script>
+    <link rel="preload" href="/assets/fonts/inter/inter-latin-400-900.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
     <style>
-      * {
-        box-sizing: border-box;
+      /* Hallmark · genre: editorial · macrostructure: Portfolio Grid · user override: mandatory circular marquee overlap */
+      /* Hallmark · studied-DNA · source: user-supplied Group 2.png · studied: yes · DNA-source: image · hero: H6/E8 generated illustrative photography · feature: F6 3+2 portfolio grid · nav: shared JQ33 header · footer: Ft4 compact shared colophon */
+      /* Hallmark · JQ33 override: charcoal shared grain / var(--color-cobalt) / Permanent Marker display / Inter microtype */
+      /* Hallmark · variation knobs: H6 circle + lower-left overlay · F6 ratio=4/5,density=3+2,micro-action=View · shared nav=global component · Ft4 family=sans,layout=log-style,includes=studio contacts */
+      /* Hallmark · motion: one image/title settle + underline/arrow feedback; no image zoom */
+      /* Hallmark · pre-emit critique: P5 H5 E5 S5 R5 V5 */
+      /* Hallmark · contrast: pass · slop: pass · honest: pass · chrome: pass · tokens: pass · responsive: pass · icons: pass · mobile: pass */
+      html {
+        max-width: 100%;
+        overflow-x: clip;
+        scroll-padding-top: var(--space-16);
+      }
+
+      .concept-index {
+        --concept-gutter: clamp(var(--space-md), 1.6vw, var(--space-6-4));
+        position: relative;
+        isolation: isolate;
+        min-height: 100svh;
+        max-width: 100%;
+        overflow-x: clip;
+        background: var(--bg-2);
+        color: var(--color-warm-paper);
+        font-family: var(--font-hero);
+      }
+
+      .concept-index::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background: var(--color-deep-charcoal-a22);
+      }
+
+      .concept-index > .grain {
+        opacity: 0.94;
+      }
+
+      .concept-index .skip-link {
+        font-family: var(--font-hero);
+      }
+
+      .concept-index__main {
+        position: relative;
+        z-index: 15;
+        width: 100%;
         margin: 0;
         padding: 0;
       }
 
-      body {
+      .concept-index__intro {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        box-sizing: border-box;
         width: 100%;
-        min-height: 100vh;
-        min-height: 100svh;
-        overflow-x: hidden;
-        overflow-y: auto;
-        font-family: var(--font-sans);
-        color: var(--cobalt);
-        position: relative;
-      }
-
-      body.site-default-bg .bg-layer {
-        transition: background-image 0.5s ease-in-out;
-      }
-
-      .brand-mark {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-90deg);
-        font-family: var(--font-display);
-        font-size: clamp(72px, 25vh, 280px);
-        color: var(--cobalt);
-        white-space: nowrap;
-        z-index: 1;
-        pointer-events: none;
-        line-height: 0.8;
-        text-shadow: 0px 0px 20px rgba(59, 65, 227, 0.1);
-        opacity: 0.2;
-      }
-
-      .info-col {
-        position: fixed;
-        z-index: 20;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        font-size: 0.75rem;
-        font-weight: 500;
-        letter-spacing: 0.5px;
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        transform: rotate(180deg);
-        height: auto;
-      }
-
-      .col-left {
-        top: 15vh;
-        left: 5vw;
-      }
-
-      .label {
-        text-transform: uppercase;
-        margin-bottom: 8px;
-        opacity: 0.7;
-        font-size: var(--fs-label);
-      }
-
-      .content-block {
-        margin-bottom: 3rem;
-      }
-
-      a {
-        color: var(--cobalt);
-        text-decoration: none;
-        position: relative;
-        transition: color var(--dur-lg) var(--ease-standard);
-        cursor: pointer;
-      }
-
-      a:hover {
-        color: #fff;
-        text-shadow: 0 0 10px var(--cobalt);
-      }
-
-      .nav-link {
-        font-weight: 600;
-        font-size: 0.85rem;
-        padding: 4px 0;
-      }
-
-      .nav-link.active {
-        color: #fff;
-      }
-
-      .portfolio-container {
-        position: relative;
-        z-index: 15;
-        width: min(1100px, 92vw);
+        min-width: 0;
         margin: 0 auto;
-        height: 100vh;
-        height: 100svh;
-        overflow-y: auto;
-        padding: 180px 0 15vh;
-        scrollbar-width: none;
+        padding: 0 var(--concept-gutter);
       }
 
-      .portfolio-title {
-        margin-bottom: 1rem;
-        max-width: 18ch;
+      .concept-index__hero-stage {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: stretch;
+        min-height: clamp(40rem, 54vw, 50rem);
       }
 
-      .portfolio-container::-webkit-scrollbar {
-        display: none;
+      .concept-index__hero-visual {
+        position: relative;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+        justify-self: center;
+        width: min(46vw, 45rem);
+        aspect-ratio: 1;
+        margin: clamp(var(--space-20), 7.2vw, var(--space-28)) 0 0;
+        overflow: clip;
+        border: 0;
+        border-radius: 50%;
+        background: var(--color-cobalt);
+        isolation: isolate;
+        animation: concept-index-image-fade 320ms var(--ease-out) both;
       }
 
-      .project-list {
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      .project-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        padding: 2rem 0;
-        border-bottom: 1px solid rgba(59, 65, 227, 0.2);
-        cursor: pointer;
-        transition: border-color 0.3s ease;
-      }
-
-      .project-item:hover {
-        border-bottom-color: var(--cobalt);
-      }
-
-      .project-meta {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .project-year {
-        font-size: 0.7rem;
-        font-weight: 600;
-        opacity: 0.6;
-      }
-
-      .project-title {
-        font-size: var(--fs-h2);
-        line-height: 1.1;
-        text-transform: uppercase;
-        transition: transform 0.3s ease, color 0.3s ease;
-      }
-
-      .project-item:hover .project-title {
-        color: #fff;
-        transform: translateX(10px);
-      }
-
-      .project-category {
-        font-size: 0.75rem;
-        text-align: right;
-        max-width: 200px;
-        opacity: 0.6;
-      }
-
-      .hover-preview {
-        position: fixed;
-        pointer-events: none;
-        width: min(400px, 88vw);
-        height: clamp(190px, 34vw, 250px);
-        z-index: 25;
-        opacity: 0;
-        transform: scale(0.8);
-        transition: opacity 0.4s ease,
-          transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        overflow: hidden;
-        border: 1px solid var(--cobalt);
-      }
-
-      .hover-preview img {
+      .concept-index__hero-image {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        object-position: 50% 52%;
+        filter: grayscale(1) contrast(1.22);
+        mix-blend-mode: multiply;
       }
 
-      .cursor-dot {
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--cobalt);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 999;
-        transform: translate(-50%, -50%);
-        transition: width 0.2s, height 0.2s, background-color 0.2s;
+      .concept-index__title {
+        position: relative;
+        z-index: 2;
+        grid-column: 1;
+        grid-row: 1;
+        align-self: end;
+        justify-self: start;
+        max-width: none;
+        margin: 0;
+        padding-bottom: clamp(var(--space-xl), 3.2vw, var(--space-13));
+        color: var(--color-cobalt);
+        font-family: var(--font-display) !important;
+        font-size: clamp(5rem, 11.8vw, 11rem);
+        font-weight: 400;
+        line-height: 0.82;
+        letter-spacing: -0.045em;
+        overflow-wrap: normal;
+        animation: concept-index-settle 220ms 40ms var(--ease-out) both;
       }
 
-      .cursor-hover {
-        background-color: var(--cobalt);
-        opacity: 0.5;
-        width: 60px;
-        height: 60px;
+      .concept-index__title-line {
+        display: block;
+        width: max-content;
+        max-width: 100%;
+        white-space: nowrap;
       }
 
-      @media (max-width: 900px) {
-        .info-col {
+      .concept-index__title-line:last-child {
+        margin-left: 0;
+      }
+
+      @keyframes concept-index-image-fade {
+        from {
+          opacity: 0;
+        }
+
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes concept-index-settle {
+        from {
+          opacity: 0;
+          transform: translateY(var(--space-md));
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .concept-index__intro-meta {
+        display: none;
+      }
+
+      .concept-index__eyebrow,
+      .project-card__type,
+      .project-card__code,
+      .project-card__status,
+      .project-disclosure {
+        display: block;
+        color: var(--color-cobalt-bright);
+        font-size: 0.58rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        line-height: 1.35;
+        text-transform: uppercase;
+      }
+
+      .concept-index__copy {
+        max-width: 52ch;
+        margin: 0;
+        color: var(--color-warm-paper-a72);
+        font-size: clamp(1rem, 1.8vw, 1.25rem);
+        line-height: 1.55;
+      }
+
+      .concept-index__intro-meta .project-disclosure {
+        max-width: 62ch;
+        margin: 0;
+        color: var(--color-warm-paper-a62);
+      }
+
+      .concept-index__boundary {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-sm);
+        width: calc(100% - (var(--concept-gutter) * 2));
+        margin: 0 auto;
+        padding: var(--space-sm) 0 var(--space-xs);
+        border-bottom: 1px solid var(--color-cobalt-a45);
+        color: var(--color-cobalt-bright);
+        font-size: 0.56rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        line-height: 1.4;
+        text-transform: uppercase;
+      }
+
+      .concept-index__boundary span:last-child {
+        text-align: right;
+      }
+
+      .project-list {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: clamp(var(--space-20), 6.5vw, var(--space-28)) clamp(var(--space-sm), 1.1vw, var(--space-lg));
+        width: calc(100% - (var(--concept-gutter) * 2));
+        margin: 0 auto;
+        padding: var(--space-lg) 0 clamp(var(--space-20), 6vw, var(--space-24));
+      }
+
+      .concept-index .project-card {
+        position: relative;
+        min-width: 0;
+        overflow: visible;
+        border: 0;
+        border-radius: 0 !important;
+        background: transparent;
+        isolation: isolate;
+      }
+
+      .project-item {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-sm);
+        align-content: start;
+        height: 100%;
+        color: var(--color-warm-paper);
+        text-decoration: none;
+      }
+
+      .project-card__image {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        background: var(--color-deep-surface);
+        border-radius: 0 !important;
+        filter: grayscale(1) contrast(1.12) brightness(0.94);
+      }
+
+      .project-card__content {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-sm);
+        align-content: start;
+        min-width: 0;
+        padding: 0;
+      }
+
+      .project-card__heading {
+        display: flex;
+        gap: var(--space-md);
+        align-items: start;
+        justify-content: space-between;
+        min-width: 0;
+      }
+
+      .project-title {
+        min-width: 0;
+        margin: 0;
+        color: var(--color-cobalt-bright);
+        font-family: var(--font-display) !important;
+        font-size: clamp(1.1rem, 1.55vw, 1.35rem);
+        font-weight: 400;
+        line-height: 1.05;
+        letter-spacing: -0.025em;
+        overflow-wrap: break-word;
+      }
+
+      .project-card__code {
+        flex: 0 0 auto;
+        padding-top: var(--space-1);
+        color: var(--color-cobalt-bright);
+      }
+
+      .project-card__tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-1);
+      }
+
+      .project-card__tag {
+        display: inline-flex;
+        min-height: 24px;
+        align-items: center;
+        padding: var(--space-1) var(--space-xs);
+        border: 1px solid var(--color-cobalt-a45);
+        border-radius: var(--radius-control);
+        color: var(--color-cobalt-bright);
+        font-size: 0.55rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        line-height: 1.2;
+        text-transform: uppercase;
+      }
+
+      .project-card__tag:first-child {
+        border-color: var(--color-cobalt);
+        background: var(--color-cobalt);
+        color: var(--color-warm-paper);
+      }
+
+      .project-card__focus {
+        display: none;
+      }
+
+      .project-card__separator {
+        height: 1px;
+        border: 0;
+        margin: var(--space-xs) 0 0;
+        background: var(--color-cobalt-a45);
+      }
+
+      .project-card__footer {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 44px;
+        gap: var(--space-md);
+        align-items: end;
+      }
+
+      .project-card__status {
+        margin-bottom: var(--space-1);
+      }
+
+      .concept-index .project-disclosure {
+        margin: 0;
+        color: var(--color-warm-paper-a62) !important;
+        font-size: 0.56rem !important;
+        letter-spacing: 0.06em;
+      }
+
+      .project-card__arrow {
+        display: inline-flex;
+        width: 44px;
+        min-height: 44px;
+        align-items: center;
+        justify-content: flex-end;
+        border: 0;
+        border-radius: 0;
+        color: var(--color-cobalt-bright);
+        font-size: 0.9rem;
+        transition: transform var(--dur-sm) var(--ease-out);
+      }
+
+      .project-item:focus-visible {
+        outline: 3px solid var(--color-cobalt-soft);
+        outline-offset: 4px;
+        border-radius: 0;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        .project-item:hover .project-card__arrow {
+          transform: translate(var(--space-1), calc(var(--space-1) * -1));
+        }
+
+        .concept-index__cta-link:hover {
+          background: var(--bg-2);
+          color: var(--color-cobalt-bright);
+        }
+      }
+
+      .project-item:focus-visible .project-card__arrow {
+        transform: translate(var(--space-1), calc(var(--space-1) * -1));
+      }
+
+      .project-item:active .project-card__arrow {
+        transform: none;
+      }
+
+      .concept-index__cta {
+        min-height: 18rem;
+        background: var(--color-cobalt);
+        color: var(--color-warm-paper);
+      }
+
+      .concept-index__cta-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-xl);
+        width: calc(100% - (var(--concept-gutter) * 2));
+        min-height: 18rem;
+        margin: 0 auto;
+        padding: clamp(var(--space-10), 3.6vw, var(--space-14)) 0;
+        box-sizing: border-box;
+      }
+
+      .concept-index__cta-title {
+        max-width: 14ch;
+        margin: 0;
+        color: var(--color-warm-paper);
+        font-family: var(--font-display) !important;
+        font-size: clamp(3.75rem, 6.4vw, 6.75rem);
+        font-weight: 400;
+        line-height: 0.86;
+        letter-spacing: -0.04em;
+        overflow-wrap: normal;
+      }
+
+      .concept-index__cta-copy {
+        max-width: none;
+        margin: 0;
+        padding-bottom: var(--space-xs);
+        border-bottom: 1px solid var(--color-warm-paper-a62);
+        color: var(--color-warm-paper);
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        line-height: 1.45;
+        text-transform: uppercase;
+      }
+
+      .concept-index__cta-support {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: var(--space-xl);
+        align-content: stretch;
+      }
+
+      .concept-index__cta-actions {
+        display: grid;
+        gap: var(--space-xs);
+        align-self: end;
+        justify-items: end;
+      }
+
+      .concept-index__cta-count,
+      .concept-index__cta-link {
+        display: inline-flex;
+        width: min(100%, 14rem);
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        padding: var(--space-xs) var(--space-lg);
+        border: 1px solid var(--color-warm-paper);
+        border-radius: var(--radius-control);
+        box-sizing: border-box;
+        font-size: 0.7rem;
+        font-weight: 800;
+      }
+
+      .concept-index__cta-link {
+        background: var(--color-warm-paper);
+        color: var(--color-cobalt-deep);
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .concept-index__cta-count {
+        color: var(--color-warm-paper);
+      }
+
+      .concept-index__cta-link:active {
+        background: var(--bg-2);
+        color: var(--color-cobalt-bright);
+      }
+
+      .concept-index__cta-link:focus-visible {
+        outline: 3px solid var(--bg-2);
+        outline-offset: 4px;
+      }
+
+      .concept-index__methodology {
+        width: calc(100% - (var(--concept-gutter) * 2));
+        margin: 0 auto;
+        padding: clamp(var(--space-32-5), 12vw, var(--space-48)) 0 clamp(var(--space-28), 9vw, var(--space-40));
+      }
+
+      .concept-index__methodology-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--space-md);
+        align-items: end;
+        margin-bottom: var(--space-lg);
+        padding-bottom: var(--space-xs);
+        border-bottom: 1px solid var(--color-cobalt-a45);
+      }
+
+      .concept-index__methodology-title {
+        max-width: none;
+        margin: 0;
+        color: var(--color-cobalt-bright);
+        font-family: var(--font-display) !important;
+        font-size: clamp(1rem, 1.4vw, 1.3rem);
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .concept-index__methodology-meta {
+        color: var(--color-cobalt-bright);
+        font-size: 0.56rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .concept-index__methodology-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-2xl) clamp(var(--space-md), 3vw, var(--space-2xl));
+      }
+
+      .concept-index__methodology-card {
+        min-width: 0;
+        min-height: 11rem;
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .concept-index__methodology-index {
+        display: block;
+        margin-bottom: var(--space-lg);
+        color: var(--color-warm-paper-a62);
+        font-size: 0.55rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .concept-index__methodology-card h3 {
+        margin: 0 0 var(--space-sm);
+        color: var(--color-cobalt-bright);
+        font-family: var(--font-display) !important;
+        font-size: clamp(1.05rem, 1.45vw, 1.28rem);
+        font-weight: 400;
+        line-height: 1.1;
+      }
+
+      .concept-index__methodology-card p {
+        max-width: 45ch;
+        margin: 0;
+        padding-bottom: var(--space-lg);
+        border-bottom: 1px solid var(--color-warm-paper-a62);
+        color: var(--color-warm-paper-a72);
+        font-size: 0.76rem;
+        line-height: 1.4;
+      }
+
+      @media (min-width: 40rem) {
+        .project-list {
+          grid-template-columns: repeat(2,minmax(0,1fr));
+        }
+
+        .concept-index .project-card:last-child:nth-child(odd) {
+          grid-column: 1 / -1;
+          width: calc(50% - (var(--space-sm) / 2));
+          justify-self: center;
+        }
+
+      }
+
+      @media (min-width: 80rem) {
+        .project-list {
+          grid-template-columns: repeat(6,minmax(0,1fr));
+        }
+
+        .concept-index .project-card {
+          grid-column: span 2;
+        }
+
+        .concept-index .project-card:nth-child(n + 4) {
+          grid-column: span 3;
+          width: auto;
+        }
+
+        .concept-index .project-card:last-child:nth-child(odd) {
+          grid-column: span 3;
+          width: auto;
+          justify-self: stretch;
+        }
+      }
+
+      @media (min-width: 40rem) {
+        .concept-index__methodology-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (min-width: 60rem) {
+        .concept-index__cta-inner {
+          grid-template-columns: minmax(0, 2fr) minmax(18rem, 1fr);
+          align-items: end;
+        }
+
+        .concept-index__methodology-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 48rem) {
+        .concept-index__hero-stage {
+          min-height: clamp(25rem, 124vw, 43rem);
+        }
+
+        .concept-index__hero-visual {
+          width: min(88vw, 34rem);
+          margin-top: clamp(var(--space-20), 17vw, var(--space-28));
+        }
+
+        .concept-index__title {
+          max-width: none;
+          padding-bottom: clamp(var(--space-md), 4vw, var(--space-xl));
+          font-size: clamp(3.35rem, 16.8vw, 8rem);
+          line-height: 0.84;
+          letter-spacing: -0.04em;
+        }
+
+        .concept-index__cta,
+        .concept-index__cta-inner {
+          min-height: auto;
+        }
+
+        .concept-index__cta-title {
+          font-size: clamp(3.1rem, 14.5vw, 5.5rem);
+        }
+
+        .concept-index__cta-actions {
+          justify-items: stretch;
+        }
+
+        .concept-index__cta-count,
+        .concept-index__cta-link {
+          width: 100%;
+        }
+
+        .concept-index__methodology-header {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .concept-index__methodology-meta {
           display: none;
         }
 
-        .portfolio-container {
-          width: min(1100px, 94vw);
-          height: auto;
-          min-height: 100vh;
-          min-height: 100svh;
-          overflow: visible;
-          padding: 140px 0 80px;
+      }
+
+      @media (max-width: 30rem) {
+        .concept-index__boundary {
+          grid-template-columns: minmax(0, 1fr);
         }
 
-        .project-item {
-          align-items: flex-start;
-          gap: 1rem;
-          flex-wrap: wrap;
-        }
-
-        .project-category {
+        .concept-index__boundary span:last-child {
           text-align: left;
-          max-width: 100%;
+        }
+
+        .project-list {
+          row-gap: var(--space-20);
         }
       }
 
-      @media (max-width: 768px) {
-        .brand-mark {
-          font-size: clamp(56px, 17vh, 160px);
-          opacity: 0.12;
-        }
-
-        .project-item {
-          padding: 1.35rem 0;
-        }
-
-        .project-item:hover .project-title {
-          transform: none;
-        }
-
-        .hover-preview,
-        .cursor-dot {
-          display: none;
+      @media (prefers-reduced-motion: reduce) {
+        .concept-index__hero-visual,
+        .concept-index__title,
+        .concept-index .project-card__arrow {
+          animation: none;
+          transition: none;
+          transform: none !important;
         }
       }
     </style>
   </head>
-  <body class="site-default-bg">
-    <div class="bg-layer" id="main-bg"></div>
-    <div class="grain"></div>
-
-    <div class="brand-mark">JQ33<br />DESIGN</div>
-
+  <body class="site-default-bg concept-index">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="header-nav" data-component="header-nav"></header>
+    <div class="grain" aria-hidden="true"></div>
 
-    <div class="info-col col-left">
-      <div class="content-block">
-        <div class="label">Commercial Interior Design</div>
-        <div>Montreal · Greater Montreal</div>
+    <main class="concept-index__main" id="main-content">
+      <section class="concept-index__intro" aria-labelledby="concept-index-title">
+        <div class="concept-index__hero-stage">
+          <figure class="concept-index__hero-visual">
+            <img
+              class="concept-index__hero-image"
+              src="{{hero_image}}"
+              srcset="{{hero_srcset}}"
+              sizes="{{hero_sizes}}"
+              alt="{{hero_alt}}"
+              width="1120"
+              height="1400"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </figure>
+          <h1 class="concept-index__title" id="concept-index-title">
+            <span class="concept-index__title-line">Concept</span>
+            <span class="concept-index__title-line">studies<span aria-hidden="true">_</span></span>
+          </h1>
+        </div>
+        <div class="concept-index__intro-meta">
+          <p class="concept-index__copy">
+            Five speculative commercial interior studies used to investigate
+            circulation, program, atmosphere, and material direction. None is
+            presented as commissioned or completed work.
+          </p>
+          <p class="project-disclosure">
+            Concept study · illustrative visual · not completed client work.
+          </p>
+        </div>
+      </section>
+
+      <div class="concept-index__boundary">
+        <span>Selected studies · AI-generated illustrative visualizations · no completed client work</span>
+        <span>Index 01—05</span>
       </div>
-    </div>
 
-    <main class="portfolio-container">
-      <h1 class="portfolio-title">
-        Commercial Interior Design Projects in Montreal
-      </h1>
-      <p style="max-width: 65ch; opacity: 0.78; margin-bottom: 2.2rem">
-        A portfolio showcased on this page reflects our comprehensive approach focused
-        on flow, lighting, and signature moments-designed to get shared and bring
-        customers in.
-      </p>
-      <div class="project-list" data-portfolio-list>{{project_list}}</div>
+      <section class="project-list" aria-label="Self-initiated concept studies">
+{{project_list}}
+      </section>
+
+      <section class="concept-index__cta" aria-labelledby="concept-index-cta-title">
+        <div class="concept-index__cta-inner">
+          <div>
+            <h2 class="concept-index__cta-title" id="concept-index-cta-title">
+              Commercial<br />space thinking<span aria-hidden="true">_</span>
+            </h2>
+          </div>
+          <div class="concept-index__cta-support">
+            <p class="concept-index__cta-copy">
+              Review your space, business type, goals, timeline, and budget
+              range so the scope is clear.
+            </p>
+            <div class="concept-index__cta-actions">
+              <span class="concept-index__cta-count">05 studies</span>
+              <a class="concept-index__cta-link" href="/inquiry/">Send an inquiry&nbsp;↗</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="concept-index__methodology" aria-labelledby="concept-index-methodology-title">
+        <header class="concept-index__methodology-header">
+          <h2 class="concept-index__methodology-title" id="concept-index-methodology-title">
+            Technical specifications
+          </h2>
+          <span class="concept-index__methodology-meta">JQ33 methodology index</span>
+        </header>
+        <div class="concept-index__methodology-grid">
+          <article class="concept-index__methodology-card">
+            <span class="concept-index__methodology-index">01 / Layout clarity</span>
+            <h3>Flow-first planning</h3>
+            <p>
+              Customer movement, staff efficiency, and better use of every
+              square foot mapped before a single finish is selected.
+            </p>
+          </article>
+          <article class="concept-index__methodology-card">
+            <span class="concept-index__methodology-index">02 / Finish direction</span>
+            <h3>Durable + premium palette</h3>
+            <p>
+              Materials selected for daily wear, easy maintenance, and a
+              visual identity that reads well in photos.
+            </p>
+          </article>
+          <article class="concept-index__methodology-card">
+            <span class="concept-index__methodology-index">03 / Decision-making visuals</span>
+            <h3>3D views that decide fast</h3>
+            <p>
+              Perspectives that help you approve faster, align contractors,
+              and avoid costly surprises.
+            </p>
+          </article>
+        </div>
+      </section>
 
       <footer class="site-footer" data-component="footer"></footer>
     </main>
-
-    <div id="preview-container" class="hover-preview">
-      <img
-        id="preview-img"
-        src=""
-        alt="Project preview"
-        width="1200"
-        height="800"
-        decoding="async"
-      />
-    </div>
-
-    <div class="cursor-dot" id="cursor"></div>
-
-    <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/components/footer.js?v=20260823-projects-variant"></script>
     <script src="/assets/js/nav-drawer.js"></script>
-    <script src="/assets/js/portfolio.js"></script>
-    <script>
-      const cursor = document.getElementById("cursor");
-      const preview = document.getElementById("preview-container");
-      const previewImg = document.getElementById("preview-img");
-      const mainBg = document.getElementById("main-bg");
-      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-      document.addEventListener("mousemove", (e) => {
-        if (!canHover) return;
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-
-        if (preview.style.opacity === "1") {
-          preview.style.left = e.clientX + 30 + "px";
-          preview.style.top = e.clientY - 125 + "px";
-        }
-      });
-
-      function hoverCursor() {
-        if (!canHover) return;
-        cursor.classList.add("cursor-hover");
-      }
-
-      function leaveCursor() {
-        if (!canHover) return;
-        cursor.classList.remove("cursor-hover");
-      }
-
-      function hoverProject(el) {
-        if (!canHover) return;
-        const imgSrc = el.getAttribute("data-img");
-        const title = el.getAttribute("data-title");
-        previewImg.src = imgSrc;
-        previewImg.alt = title ? `Preview of ${title}` : "Project preview";
-        preview.style.opacity = "1";
-        preview.style.transform = "scale(1)";
-
-        mainBg.style.backgroundImage = `url(${imgSrc})`;
-        hoverCursor();
-      }
-
-      function leaveProject() {
-        if (!canHover) return;
-        preview.style.opacity = "0";
-        preview.style.transform = "scale(0.8)";
-        leaveCursor();
-      }
-    </script>
   </body>
 </html>

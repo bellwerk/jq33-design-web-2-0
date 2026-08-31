@@ -4,16 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Portfolio Admin | JQ33 DESIGN</title>
+    <meta
+      name="description"
+      content="Internal JQ33 DESIGN portfolio administration workspace."
+    />
+    <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Permanent+Marker&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;600&family=Permanent+Marker&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/site.css" />
+    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
     <style>
+      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -29,9 +36,9 @@
       }
 
       .admin-shell {
-        width: min(1100px, 92vw);
+        width: min(1100px, calc(100vw - 48px));
         margin: 0 auto;
-        padding: 140px 0 80px;
+        padding: 124px 0 80px;
         display: grid;
         gap: 2.5rem;
       }
@@ -44,7 +51,7 @@
       .admin-header h1 {
         font-size: var(--fs-h1);
         line-height: var(--lh-tight);
-        letter-spacing: -0.02em;
+        letter-spacing: 0;
       }
 
       .admin-header p {
@@ -62,7 +69,7 @@
       .admin-card {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(59, 65, 227, 0.2);
-        border-radius: 18px;
+        border-radius: 0;
         padding: 2rem;
         display: grid;
         gap: 1.5rem;
@@ -94,7 +101,7 @@
         width: 100%;
         background: transparent;
         border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
+        border-radius: 0;
         padding: 0.85rem 1rem;
         color: #fff;
         font-family: var(--font-sans);
@@ -123,7 +130,7 @@
         letter-spacing: 0.2em;
         font-weight: 600;
         cursor: pointer;
-        border-radius: 999px;
+        border-radius: 0;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         width: fit-content;
       }
@@ -160,7 +167,7 @@
       .file-item {
         border: 1px solid rgba(255, 255, 255, 0.12);
         padding: 0.75rem;
-        border-radius: 12px;
+        border-radius: 0;
         display: grid;
         gap: 0.6rem;
       }
@@ -181,6 +188,10 @@
       }
 
       @media (max-width: 960px) {
+        .admin-shell {
+          width: calc(100vw - 32px);
+        }
+
         .admin-grid {
           grid-template-columns: 1fr;
         }
@@ -188,9 +199,10 @@
     </style>
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="header-nav" data-component="header-nav"></header>
 
-    <main class="admin-shell">
+    <main class="admin-shell" id="main-content">
       <section class="admin-header">
         <h1>Portfolio Uploads</h1>
         <p>

@@ -1,20 +1,19 @@
 import fs from "node:fs";
 import path from "node:path";
+import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
-
-const baseUrl = (process.env.PUBLIC_SITE_URL || "https://jq33.design").replace(/\/+$/, "");
-const sitemapPath = path.join(rootDir, "sitemap.xml");
-const projectsPath = path.join(rootDir, "data", "projects.json");
-const postsPath = path.join(rootDir, "data", "posts.json");
-const supabaseUrl =
-  (process.env.PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || "").replace(/\/+$/, "");
-const supabaseAnonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || "";
-const PLACEHOLDER_TOKEN = /your-anon-key|your-project/i;
-
+const canonicalOrigin = "https://jq33.design";
+const projectSlugs = [
+  "bruton-place-iv",
+  "ethereal-gallery",
+  "obsidian-lounge",
+  "vortex-showroom",
+  "canvas-studios",
+];
 const staticRoutes = [
   "/",
   "/commercial-interior-design-montreal/",
@@ -23,84 +22,94 @@ const staticRoutes = [
   "/contact/",
   "/inquiry/",
   "/privacy/",
-  "/terms/"
+  "/terms/",
 ];
 
-const loadJson = (filePath) => {
-  if (!fs.existsSync(filePath)) return [];
-  const raw = fs.readFileSync(filePath, "utf8");
-  const parsed = JSON.parse(raw);
-  return Array.isArray(parsed) ? parsed : [];
+const outputRootIndex = process.argv.indexOf("--output-root");
+if (outputRootIndex === -1 || !process.argv[outputRootIndex + 1]) {
+  throw new Error("generate-sitemap.mjs requires --output-root <directory>.");
+}
+const outputRoot = path.resolve(process.argv[outputRootIndex + 1]);
+
+const loadArray = (relativePath) => {
+  const parsed = JSON.parse(fs.readFileSync(path.join(rootDir, relativePath), "utf8"));
+  if (!Array.isArray(parsed)) throw new Error(`${relativePath} must contain an array.`);
+  return parsed;
 };
 
-const toUrl = (route) => `${baseUrl}${route}`;
-
-const fetchSupabaseProjectSlugs = async () => {
-  if (!supabaseUrl || !supabaseAnonKey) return [];
-  if (PLACEHOLDER_TOKEN.test(supabaseUrl) || PLACEHOLDER_TOKEN.test(supabaseAnonKey)) {
-    return [];
-  }
-  try {
-    const response = await fetch(
-      `${supabaseUrl}/rest/v1/portfolio_projects?select=slug&order=sort_order.asc,created_at.desc`,
-      {
-        headers: {
-          apikey: supabaseAnonKey,
-          Authorization: `Bearer ${supabaseAnonKey}`
-        }
-      }
+const sourceDate = (...relativePaths) => {
+  const dirty = spawnSync("git", ["status", "--porcelain", "--", ...relativePaths], {
+    cwd: rootDir,
+    encoding: "utf8",
+  });
+  if (dirty.status === 0 && !dirty.stdout.trim()) {
+    const committed = spawnSync(
+      "git",
+      ["show", "-s", "--format=%cs", "HEAD"],
+      { cwd: rootDir, encoding: "utf8" },
     );
-    if (!response.ok) return [];
-    const data = await response.json();
-    return Array.isArray(data) ? data.map((row) => row?.slug).filter(Boolean) : [];
-  } catch {
-    return [];
+    const committedDate = committed.stdout.trim();
+    if (committed.status === 0 && /^\d{4}-\d{2}-\d{2}$/.test(committedDate)) {
+      return committedDate;
+    }
   }
+  const timestamp = Math.max(
+    ...relativePaths.map((relativePath) =>
+      fs.statSync(path.join(rootDir, relativePath)).mtime.getTime(),
+    ),
+  );
+  return new Date(timestamp).toISOString().slice(0, 10);
 };
 
-const buildUrls = async () => {
-  const urls = new Set(staticRoutes.map(toUrl));
+const projects = loadArray("data/projects.json");
+const actualProjectSlugs = projects.map((project) => project?.slug).filter(Boolean);
+if (
+  actualProjectSlugs.length !== projectSlugs.length ||
+  !projectSlugs.every((slug) => actualProjectSlugs.includes(slug))
+) {
+  throw new Error("data/projects.json must contain exactly the five launch project slugs.");
+}
 
-  const projects = loadJson(projectsPath);
-  projects.forEach((project) => {
-    if (!project?.slug) return;
-    urls.add(toUrl(`/projects/${project.slug}/`));
-  });
+const posts = loadArray("data/posts.json");
+const publishedPosts = posts.filter((post) => post?.status === "published");
+const entries = [
+  ...staticRoutes.map((route) => {
+    const source =
+      route === "/"
+        ? "index.html"
+        : route === "/projects/"
+          ? "projects/_projects-index-template.html"
+          : route === "/journal/"
+            ? "journal/_journal-index-template.html"
+            : `${route.replace(/^\/|\/$/g, "")}/index.html`;
+    return { route, lastmod: sourceDate(source) };
+  }),
+  ...projectSlugs.map((slug) => ({
+    route: `/projects/${slug}/`,
+    lastmod: sourceDate("data/projects.json", "projects/_project-template.html"),
+  })),
+  ...publishedPosts.map((post) => ({
+    route: `/journal/${post.slug}/`,
+    lastmod:
+      /^\d{4}-\d{2}-\d{2}$/.test(post.modified || "")
+        ? post.modified
+        : /^\d{4}-\d{2}-\d{2}$/.test(post.published || "")
+          ? post.published
+          : sourceDate("data/posts.json", "journal/_journal-template.html"),
+  })),
+];
 
-  const supabaseSlugs = await fetchSupabaseProjectSlugs();
-  supabaseSlugs.forEach((slug) => {
-    urls.add(toUrl(`/projects/${slug}/`));
-  });
+const xml = [
+  '<?xml version="1.0" encoding="UTF-8"?>',
+  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+  ...entries.map(
+    ({ route, lastmod }) =>
+      `  <url>\n    <loc>${canonicalOrigin}${route}</loc>\n    <lastmod>${lastmod}</lastmod>\n  </url>`,
+  ),
+  "</urlset>",
+  "",
+].join("\n");
 
-  const posts = loadJson(postsPath);
-  posts
-    .filter((post) => post?.status === "published")
-    .forEach((post) => {
-      if (!post?.slug) return;
-      urls.add(toUrl(`/journal/${post.slug}/`));
-    });
-
-  return Array.from(urls);
-};
-
-const generate = async () => {
-  const urls = await buildUrls();
-  const xml = [
-    '<?xml version="1.0" encoding="UTF-8"?>',
-    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ...urls.map((loc) => `  <url>\n    <loc>${loc}</loc>\n  </url>`),
-    "</urlset>",
-    ""
-  ].join("\n");
-
-  fs.writeFileSync(sitemapPath, xml, "utf8");
-};
-
-generate()
-  .then(() => {
-    console.log("Sitemap generated.");
-  })
-  .catch((error) => {
-    console.error("Failed to generate sitemap.", error);
-    process.exitCode = 1;
-  });
+fs.mkdirSync(outputRoot, { recursive: true });
+fs.writeFileSync(path.join(outputRoot, "sitemap.xml"), xml, "utf8");
+console.log(`Sitemap generated in ${outputRoot}.`);

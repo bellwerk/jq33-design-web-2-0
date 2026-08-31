@@ -1,0 +1,115 @@
+{
+  "capturedAt": "2026-08-26T20:38:45.7321381Z",
+  "buildArtifactSha256": "b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6",
+  "releaseFingerprint": "20260826-production-launch-closure-nav-1",
+  "fonts": [
+    {
+      "path": "assets/fonts/permanent-marker/permanent-marker-400.woff2",
+      "bytes": 17636,
+      "sha256": "3d3d2a74d2259e314364ad42d6b57e952682e9cde0cc31c9f60d05d05de703c8"
+    },
+    {
+      "path": "assets/fonts/permanent-marker/permanent-marker-home.woff2",
+      "bytes": 2628,
+      "sha256": "31cd264bfa17151846dff6a4d7e6c3b390a7ac922d4969d541fddb295ec310a3"
+    },
+    {
+      "path": "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
+      "bytes": 4016,
+      "sha256": "19142f8eadc1bea71048cc01ff484bf628ada00ed2928bd5dec6f95210af1584"
+    }
+  ],
+  "homeSubsetReductionPercent": 91.1,
+  "commercialSubsetReductionPercent": 86.4,
+  "projectResponsiveDerivativeCount": 10,
+  "projectResponsiveBytes": null,
+  "projectResponsiveDerivatives": [
+    {
+      "path": "assets/generated/images/project-bruton-place-iv-index-study-480.webp",
+      "bytes": 10874,
+      "sha256": "a0e32d514795281e1f28e92194fdb8a848b8e3240199a174af9310a906af8078"
+    },
+    {
+      "path": "assets/generated/images/project-bruton-place-iv-index-study-768.webp",
+      "bytes": 21466,
+      "sha256": "c7f9810e4535f6cf450ed7ff22605439ce24f21b8d93e5a9c37ccfa5f77e26ae"
+    },
+    {
+      "path": "assets/generated/images/project-canvas-studios-index-study-480.webp",
+      "bytes": 16632,
+      "sha256": "7bcb40063eb99471c25696d6f39bc11ee9c0dc8d59df3a5d10010939a3e15cdc"
+    },
+    {
+      "path": "assets/generated/images/project-canvas-studios-index-study-768.webp",
+      "bytes": 30798,
+      "sha256": "fa1f55f1b1442116307033a86b903df5e691dd999ffd3ecfa581b5d188c05065"
+    },
+    {
+      "path": "assets/generated/images/project-ethereal-gallery-index-study-480.webp",
+      "bytes": 12986,
+      "sha256": "6d5b5bbacac16d16911853106320e94bc0f79fd0ff530641a2ab948492c53da2"
+    },
+    {
+      "path": "assets/generated/images/project-ethereal-gallery-index-study-768.webp",
+      "bytes": 23594,
+      "sha256": "d2bc5403c7ab3ec30125092072a41a082efa340250f113dc592005cc1347570e"
+    },
+    {
+      "path": "assets/generated/images/project-obsidian-lounge-index-study-480.webp",
+      "bytes": 11970,
+      "sha256": "9e645262f3a3a5143e96548e62481921cce0f735cdfb1d1420966e41d0bcdc50"
+    },
+    {
+      "path": "assets/generated/images/project-obsidian-lounge-index-study-768.webp",
+      "bytes": 22894,
+      "sha256": "9555c59e5be856875c40e3851652618815332ddd7c2962fc6e3775d76ce810c9"
+    },
+    {
+      "path": "assets/generated/images/project-vortex-showroom-index-study-480.webp",
+      "bytes": 13006,
+      "sha256": "7883d58c4392210fb0d2069893c4f0bf065a5de076b8e4990ad7e13565991a70"
+    },
+    {
+      "path": "assets/generated/images/project-vortex-showroom-index-study-768.webp",
+      "bytes": 22670,
+      "sha256": "897debb7de05c46d4d2f1367247e0cc7e1f8e442402ad248e5e55d11bc48070a"
+    }
+  ],
+  "journal768DerivativeCount": 6,
+  "journal768Bytes": null,
+  "journal768Derivatives": [
+    {
+      "path": "assets/generated/images/journal-durable-premium-materials-768.webp",
+      "bytes": 41032,
+      "sha256": "d4c9c3ebcb1dba9f5e9ebcb4b37dc8705a3b2ab5b0b7e2b7b6773d9705c72585"
+    },
+    {
+      "path": "assets/generated/images/journal-lighting-that-sells-768.webp",
+      "bytes": 36298,
+      "sha256": "bcc37b3988a1ea9c746aced5d09992a79f825a1932e76bdb9fe44c4a19b96d8d"
+    },
+    {
+      "path": "assets/generated/images/journal-reduction-as-creation-768.webp",
+      "bytes": 27150,
+      "sha256": "c0b05397d27e2cbe456bc4a8a06603570c9a5c6486c96a81d62e3fd5b8b96400"
+    },
+    {
+      "path": "assets/generated/images/journal-small-shop-big-impact-768.webp",
+      "bytes": 19896,
+      "sha256": "58e7353ac390066ab7eaef92bf9dbb9e335d279e80e203b6081f00fb9f79a99b"
+    },
+    {
+      "path": "assets/generated/images/journal-spend-where-it-shows-768.webp",
+      "bytes": 49712,
+      "sha256": "dd12ae7d1130110b078d5329b9154303b021e7bde927b41b00a6f7be5be5efa4"
+    },
+    {
+      "path": "assets/generated/images/journal-the-customer-path-768.webp",
+      "bytes": 56454,
+      "sha256": "6958833412fff1147bf0335271d94143df95531614a970a1d67bf2e7708206bf"
+    }
+  ],
+  "staticContractResult": "PASS",
+  "localWranglerHealthResult": "PASS",
+  "previewLighthouseResult": "PENDING_FRESH_IMMUTABLE_PREVIEW"
+}

@@ -23,6 +23,8 @@ const walk = (dir, files = []) => {
 
 const imgRegex = /<img\b[^>]*>/gi;
 const altRegex = /\balt\s*=\s*["']([^"']*)["']/i;
+const intentionallyDecorativeRegex =
+  /\b(?:aria-hidden\s*=\s*["']true["']|role\s*=\s*["'](?:none|presentation)["'])/i;
 
 const htmlFiles = walk(rootDir);
 const missing = [];
@@ -38,7 +40,7 @@ for (const filePath of htmlFiles) {
       continue;
     }
     const altText = altMatch[1].trim();
-    if (!altText) {
+    if (!altText && !intentionallyDecorativeRegex.test(tag)) {
       missing.push({ filePath, tag });
     }
   }

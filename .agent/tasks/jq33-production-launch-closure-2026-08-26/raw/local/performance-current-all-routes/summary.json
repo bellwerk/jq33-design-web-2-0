@@ -1,0 +1,802 @@
+{
+  "schemaVersion": 1,
+  "summarizedAt": "2026-08-27T21:26:11.119Z",
+  "inputDirectory": ".agent/tasks/jq33-production-launch-closure-2026-08-26/raw/local/performance-current-all-routes",
+  "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+  "sourceTreeSha256": "f1064e85f0ed6b467ec954c51d78e0c87f4781765f4e1a7287eb3d384b988ab4",
+  "sourceInputCount": 92,
+  "sourceDirty": true,
+  "artifactSha256": "b844a7c5d3590ec53dcd7c656d3111d454c9aaf735629285ac8bfb7306d1eae3",
+  "artifactManifestSha256": "4ebcd80d39e2c15ca7bff5e4a6d5ffab7b84fe2724dd43f4c9f42a9672f81299",
+  "statusMatrixSha256": "",
+  "thresholds": {
+    "performance": {
+      "comparison": "minimum",
+      "value": 90
+    },
+    "accessibility": {
+      "comparison": "minimum",
+      "value": 95
+    },
+    "bestPractices": {
+      "comparison": "minimum",
+      "value": 95
+    },
+    "seo": {
+      "comparison": "minimum",
+      "value": 95
+    },
+    "lcpMs": {
+      "comparison": "maximum",
+      "value": 2500
+    },
+    "cls": {
+      "comparison": "maximum",
+      "value": 0.1
+    },
+    "tbtMs": {
+      "comparison": "maximum",
+      "value": 200
+    }
+  },
+  "result": "PASS",
+  "failures": [],
+  "routes": [
+    {
+      "route": "/",
+      "result": "PASS",
+      "medians": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1970.3107,
+        "cls": 0.00672632064895339,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "home--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:21:44.191Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 2202.649,
+            "cls": 0.00672632064895339,
+            "tbtMs": 2
+          }
+        },
+        {
+          "filename": "home--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:21:50.763Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1969.7199999999998,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "home--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:21:57.212Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1970.3107,
+            "cls": 0.00672632064895339,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/commercial-interior-design-montreal/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1812.1182,
+        "cls": 0.03652625491782134,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "commercial-interior-design-montreal--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:22:03.506Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1966.8339999999998,
+            "cls": 0.03652625491782134,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "commercial-interior-design-montreal--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:22:10.337Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1227.8424,
+            "cls": 0.03652625491782134,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "commercial-interior-design-montreal--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:22:16.796Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1812.1182,
+            "cls": 0.03652625491782134,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/projects/",
+      "result": "PASS",
+      "medians": {
+        "performance": 98,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 2342.1372,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "projects--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:22:23.220Z",
+          "metrics": {
+            "performance": 98,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 2338.5272999999997,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:22:29.732Z",
+          "metrics": {
+            "performance": 98,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 2345.3017999999997,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:22:36.183Z",
+          "metrics": {
+            "performance": 98,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 2342.1372,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/projects/bruton-place-iv/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1712.377,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "projects--bruton-place-iv--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:22:42.571Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1702.3519999999999,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--bruton-place-iv--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:22:48.662Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1714.7640000000001,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--bruton-place-iv--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:22:54.865Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1712.377,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/projects/ethereal-gallery/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1712.9898,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "projects--ethereal-gallery--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:23:00.939Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1716.2745999999997,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--ethereal-gallery--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:23:07.116Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1712.9898,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--ethereal-gallery--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:23:13.174Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1712.5968000000003,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/projects/obsidian-lounge/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1711.248,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "projects--obsidian-lounge--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:23:19.331Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1712.6702,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--obsidian-lounge--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:23:25.389Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1710.6628,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--obsidian-lounge--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:23:31.491Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1711.248,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/projects/vortex-showroom/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1711.9575999999997,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "projects--vortex-showroom--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:23:37.578Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1710.8962000000001,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--vortex-showroom--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:23:43.678Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1714.0294000000001,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--vortex-showroom--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:23:49.809Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1711.9575999999997,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/projects/canvas-studios/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1711.1873999999998,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "projects--canvas-studios--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:23:55.878Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1689.1616000000001,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--canvas-studios--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:24:02.009Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1711.7015999999999,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "projects--canvas-studios--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:24:08.164Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1711.1873999999998,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/journal/",
+      "result": "PASS",
+      "medians": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1977.8750000000005,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "journal--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:24:14.337Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 2040.5913,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "journal--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:24:20.786Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1361.4266000000002,
+            "cls": 0,
+            "tbtMs": 99
+          }
+        },
+        {
+          "filename": "journal--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:24:26.946Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1977.8750000000005,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/journal/reduction-as-creation/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1752.0007500000002,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "journal--reduction-as-creation--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:24:33.165Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1750.894925,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "journal--reduction-as-creation--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:24:39.462Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1752.855975,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "journal--reduction-as-creation--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:24:45.711Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1752.0007500000002,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/contact/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1733.2759999999998,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "contact--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:24:52.012Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1732.6432,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "contact--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:24:58.213Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1733.2759999999998,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "contact--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:25:04.309Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1734.1234,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/inquiry/",
+      "result": "PASS",
+      "medians": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1732.6936,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "inquiry--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:25:10.517Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1731.9766,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "inquiry--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:25:16.670Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1733.1126,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "inquiry--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:25:22.787Z",
+          "metrics": {
+            "performance": 100,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1732.6936,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/privacy/",
+      "result": "PASS",
+      "medians": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1683.5103000000001,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "privacy--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:25:28.842Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1678.24035,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "privacy--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:25:35.076Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1692.9234000000001,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "privacy--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:25:41.111Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1683.5103000000001,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    },
+    {
+      "route": "/terms/",
+      "result": "PASS",
+      "medians": {
+        "performance": 99,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "lcpMs": 1670.46375,
+        "cls": 0,
+        "tbtMs": 0
+      },
+      "runs": [
+        {
+          "filename": "terms--run-1.lhr.json",
+          "fetchTime": "2026-08-27T21:25:47.245Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1670.46375,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "terms--run-2.lhr.json",
+          "fetchTime": "2026-08-27T21:25:53.341Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1691.36355,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        },
+        {
+          "filename": "terms--run-3.lhr.json",
+          "fetchTime": "2026-08-27T21:25:59.477Z",
+          "metrics": {
+            "performance": 99,
+            "accessibility": 100,
+            "bestPractices": 100,
+            "seo": 100,
+            "lcpMs": 1669.04745,
+            "cls": 0,
+            "tbtMs": 0
+          }
+        }
+      ]
+    }
+  ]
+}

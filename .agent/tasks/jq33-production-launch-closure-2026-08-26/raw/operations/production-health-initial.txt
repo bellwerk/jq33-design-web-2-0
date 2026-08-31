@@ -1,0 +1,141 @@
+Command: node scripts/check-production-health.mjs --base-url https://jq33.design
+Exit code: 1
+
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-08-26T20:00:01.200Z",
+  "baseUrl": "https://jq33.design",
+  "result": "FAIL",
+  "failures": [
+    "/ lacks the approved global-navigation fingerprint.",
+    "/ CSP is missing default-src.",
+    "/ CSP is missing script-src.",
+    "/ CSP is missing style-src.",
+    "/ CSP is missing connect-src.",
+    "/ CSP is missing img-src.",
+    "/ CSP is missing font-src.",
+    "/ CSP is missing form-action.",
+    "/ CSP is missing frame-ancestors.",
+    "/ CSP is missing object-src.",
+    "/ CSP is missing base-uri.",
+    "/ CSP must deny framing.",
+    "/ lacks X-Frame-Options: DENY.",
+    "/ lacks Permissions-Policy.",
+    "/ HSTS is missing or too short.",
+    "/projects/ returned 308; expected 200.",
+    "/contact/ lacks the approved global-navigation fingerprint.",
+    "/contact/ CSP is missing default-src.",
+    "/contact/ CSP is missing script-src.",
+    "/contact/ CSP is missing style-src.",
+    "/contact/ CSP is missing connect-src.",
+    "/contact/ CSP is missing img-src.",
+    "/contact/ CSP is missing font-src.",
+    "/contact/ CSP is missing form-action.",
+    "/contact/ CSP is missing frame-ancestors.",
+    "/contact/ CSP is missing object-src.",
+    "/contact/ CSP is missing base-uri.",
+    "/contact/ CSP must deny framing.",
+    "/contact/ lacks X-Frame-Options: DENY.",
+    "/contact/ lacks Permissions-Policy.",
+    "/contact/ HSTS is missing or too short.",
+    "/inquiry/ lacks the approved global-navigation fingerprint.",
+    "/inquiry/ CSP is missing default-src.",
+    "/inquiry/ CSP is missing script-src.",
+    "/inquiry/ CSP is missing style-src.",
+    "/inquiry/ CSP is missing connect-src.",
+    "/inquiry/ CSP is missing img-src.",
+    "/inquiry/ CSP is missing font-src.",
+    "/inquiry/ CSP is missing form-action.",
+    "/inquiry/ CSP is missing frame-ancestors.",
+    "/inquiry/ CSP is missing object-src.",
+    "/inquiry/ CSP is missing base-uri.",
+    "/inquiry/ CSP must deny framing.",
+    "/inquiry/ lacks X-Frame-Options: DENY.",
+    "/inquiry/ lacks Permissions-Policy.",
+    "/inquiry/ HSTS is missing or too short.",
+    "/home-page must redirect once with 301 to https://jq33.design/.",
+    "/__jq33-health-404__ 404 lacks noindex.",
+    "/__jq33-health-404__ CSP is missing default-src.",
+    "/__jq33-health-404__ CSP is missing script-src.",
+    "/__jq33-health-404__ CSP is missing style-src.",
+    "/__jq33-health-404__ CSP is missing connect-src.",
+    "/__jq33-health-404__ CSP is missing img-src.",
+    "/__jq33-health-404__ CSP is missing font-src.",
+    "/__jq33-health-404__ CSP is missing form-action.",
+    "/__jq33-health-404__ CSP is missing frame-ancestors.",
+    "/__jq33-health-404__ CSP is missing object-src.",
+    "/__jq33-health-404__ CSP is missing base-uri.",
+    "/__jq33-health-404__ CSP must deny framing.",
+    "/__jq33-health-404__ lacks X-Frame-Options: DENY.",
+    "/__jq33-health-404__ lacks Permissions-Policy.",
+    "/__jq33-health-404__ HSTS is missing or too short.",
+    "/package.json must return a genuine non-redirecting 404.",
+    "/.env.example must return a genuine non-redirecting 404.",
+    "/admin/portfolio/ must return a genuine non-redirecting 404.",
+    "/contact/ lacks its direct production Formspree action.",
+    "/inquiry/ lacks its direct production Formspree action."
+  ],
+  "records": {
+    "/": {
+      "status": 200,
+      "location": "",
+      "contentType": "text/html; charset=utf-8"
+    },
+    "/projects/": {
+      "status": 308,
+      "location": "/projects/project",
+      "contentType": ""
+    },
+    "/contact/": {
+      "status": 200,
+      "location": "",
+      "contentType": "text/html; charset=utf-8"
+    },
+    "/inquiry/": {
+      "status": 200,
+      "location": "",
+      "contentType": "text/html; charset=utf-8"
+    },
+    "/robots.txt": {
+      "status": 200,
+      "location": "",
+      "contentType": "text/plain; charset=utf-8"
+    },
+    "/sitemap.xml": {
+      "status": 200,
+      "location": "",
+      "contentType": "application/xml"
+    },
+    "/home-page": {
+      "status": 200,
+      "location": "",
+      "contentType": "text/html; charset=utf-8"
+    },
+    "/__jq33-health-404__": {
+      "status": 404,
+      "location": "",
+      "contentType": "text/html; charset=utf-8"
+    },
+    "/package.json": {
+      "status": 200,
+      "location": "",
+      "contentType": "application/json"
+    },
+    "/.env.example": {
+      "status": 200,
+      "location": "",
+      "contentType": "application/octet-stream"
+    },
+    "/admin/portfolio/": {
+      "status": 200,
+      "location": "",
+      "contentType": "text/html; charset=utf-8"
+    },
+    "www:/projects/": {
+      "status": 301,
+      "location": "https://jq33.design/projects/",
+      "contentType": "text/html; charset=UTF-8"
+    }
+  }
+}
+

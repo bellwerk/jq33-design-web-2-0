@@ -1,0 +1,210 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-26T20:43:17.6196419Z",
+  "algorithm": "Recursively enumerate regular files in ordinal repository-relative slash-normalized path order. For each file append path, TAB, decimal byte length, TAB, lowercase SHA-256, LF. SHA-256 the concatenated UTF-8 bytes with final LF and no BOM.",
+  "packetCount": 20,
+  "passCount": 20,
+  "mismatchCount": 0,
+  "packets": [
+    {
+      "path": ".agent/tasks/frontend-system-audit",
+      "baselineFileCount": 17,
+      "currentFileCount": 17,
+      "baselineBytes": 5526382,
+      "currentBytes": 5526382,
+      "baselineAggregateSha256": "95bb7dc0d386a9b331fa9632c691cb4658d1c6dd2fbce37764b68dd3d39f6e56",
+      "currentAggregateSha256": "95bb7dc0d386a9b331fa9632c691cb4658d1c6dd2fbce37764b68dd3d39f6e56",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/frontend-system-remediation",
+      "baselineFileCount": 9,
+      "currentFileCount": 9,
+      "baselineBytes": 2245687,
+      "currentBytes": 2245687,
+      "baselineAggregateSha256": "c07ac8e07b9fba0ca44281a2766e9ab727d6e86fdf4f253bd0ab2f858650a126",
+      "currentAggregateSha256": "c07ac8e07b9fba0ca44281a2766e9ab727d6e86fdf4f253bd0ab2f858650a126",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/frontend-visual-polish",
+      "baselineFileCount": 12,
+      "currentFileCount": 12,
+      "baselineBytes": 6450195,
+      "currentBytes": 6450195,
+      "baselineAggregateSha256": "14bb0b209986697c3ae018b2c7bc5061ff744c76c286405310eafb5cb614e2ce",
+      "currentAggregateSha256": "14bb0b209986697c3ae018b2c7bc5061ff744c76c286405310eafb5cb614e2ce",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/frontend-visual-precision-pass",
+      "baselineFileCount": 16,
+      "currentFileCount": 16,
+      "baselineBytes": 3712224,
+      "currentBytes": 3712224,
+      "baselineAggregateSha256": "0fbeac1cef3b5d2483fb7b93f228fa8f18933c6f1844887a34da9fcbc5f11979",
+      "currentAggregateSha256": "0fbeac1cef3b5d2483fb7b93f228fa8f18933c6f1844887a34da9fcbc5f11979",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-analytics-auto-mode-2026-08-23",
+      "baselineFileCount": 11,
+      "currentFileCount": 11,
+      "baselineBytes": 6690849,
+      "currentBytes": 6690849,
+      "baselineAggregateSha256": "0b3369b547b8a2e838dbf213af3af5184b7d8e4e958b6ebc661e901953dbfc13",
+      "currentAggregateSha256": "0b3369b547b8a2e838dbf213af3af5184b7d8e4e958b6ebc661e901953dbfc13",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-deployed-404-console-compat-2026-08-23",
+      "baselineFileCount": 336,
+      "currentFileCount": 336,
+      "baselineBytes": 174005090,
+      "currentBytes": 174005090,
+      "baselineAggregateSha256": "5926ea5b6fc023391a4876801a205304d4e0f43bff5fdf8c501f402a160d4096",
+      "currentAggregateSha256": "5926ea5b6fc023391a4876801a205304d4e0f43bff5fdf8c501f402a160d4096",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-global-nav-uniformity-2026-08-24",
+      "baselineFileCount": 455,
+      "currentFileCount": 455,
+      "baselineBytes": 1308618552,
+      "currentBytes": 1308618552,
+      "baselineAggregateSha256": "31615488de13cb4e1ee592677075ef2fa8b6c3395fe61b5f2d51c8f2c8872847",
+      "currentAggregateSha256": "31615488de13cb4e1ee592677075ef2fa8b6c3395fe61b5f2d51c8f2c8872847",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-home-hero-parity-2026-08-23",
+      "baselineFileCount": 1224,
+      "currentFileCount": 1224,
+      "baselineBytes": 353390619,
+      "currentBytes": 353390619,
+      "baselineAggregateSha256": "44b001f42523c7493c9077d87df8b6ea0a78a889720f29feb3c1eb5b7e05b9a5",
+      "currentAggregateSha256": "44b001f42523c7493c9077d87df8b6ea0a78a889720f29feb3c1eb5b7e05b9a5",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-live-hallmark-remediation-2026-07-16",
+      "baselineFileCount": 40,
+      "currentFileCount": 40,
+      "baselineBytes": 6489232,
+      "currentBytes": 6489232,
+      "baselineAggregateSha256": "724a7e20dbf03ca1b9ca86e5ffb8cf23b26574b5ed4c0bfbc534ff7bf4b0ba5d",
+      "currentAggregateSha256": "724a7e20dbf03ca1b9ca86e5ffb8cf23b26574b5ed4c0bfbc534ff7bf4b0ba5d",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-production-finalization-2026-08-23",
+      "baselineFileCount": 368,
+      "currentFileCount": 368,
+      "baselineBytes": 199758333,
+      "currentBytes": 199758333,
+      "baselineAggregateSha256": "a7ab63e640ee743105c0a8ad1725ddad85b960a7ab8391215c4cffc6215e2635",
+      "currentAggregateSha256": "a7ab63e640ee743105c0a8ad1725ddad85b960a7ab8391215c4cffc6215e2635",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-production-launch-2026-08-19",
+      "baselineFileCount": 179,
+      "currentFileCount": 179,
+      "baselineBytes": 50592589,
+      "currentBytes": 50592589,
+      "baselineAggregateSha256": "91b4c2e5d1d859e0ef1cb5aaa90756854d730abe73cdb555c7673bb7691b0ac7",
+      "currentAggregateSha256": "91b4c2e5d1d859e0ef1cb5aaa90756854d730abe73cdb555c7673bb7691b0ac7",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-production-readiness-2026-07-29",
+      "baselineFileCount": 1899,
+      "currentFileCount": 1899,
+      "baselineBytes": 832854070,
+      "currentBytes": 832854070,
+      "baselineAggregateSha256": "7ee35ae281d18de9741427242b65c2f37708723eba8646ef11046e17f268869a",
+      "currentAggregateSha256": "7ee35ae281d18de9741427242b65c2f37708723eba8646ef11046e17f268869a",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-projects-exact-reference-2026-08-23",
+      "baselineFileCount": 452,
+      "currentFileCount": 452,
+      "baselineBytes": 72288319,
+      "currentBytes": 72288319,
+      "baselineAggregateSha256": "44b6df8ff303ad9bebc26f393eaa31beca6125acfc7a6ddb35ed7756a99ef457",
+      "currentAggregateSha256": "44b6df8ff303ad9bebc26f393eaa31beca6125acfc7a6ddb35ed7756a99ef457",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-projects-nav-parity-2026-08-24",
+      "baselineFileCount": 283,
+      "currentFileCount": 283,
+      "baselineBytes": 155663387,
+      "currentBytes": 155663387,
+      "baselineAggregateSha256": "dbbd127b46da31846fe019159cc6d5601d4d57d22888be789a4607e79a0a844b",
+      "currentAggregateSha256": "dbbd127b46da31846fe019159cc6d5601d4d57d22888be789a4607e79a0a844b",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-projects-page-restyle-2026-08-23",
+      "baselineFileCount": 781,
+      "currentFileCount": 781,
+      "baselineBytes": 364528469,
+      "currentBytes": 364528469,
+      "baselineAggregateSha256": "9d87c295c6cf432d4ffa53318a830d6a136ac2d05e9f6aa25c3f17c88482cefb",
+      "currentAggregateSha256": "9d87c295c6cf432d4ffa53318a830d6a136ac2d05e9f6aa25c3f17c88482cefb",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-projects-reference-fidelity-pass-2026-08-23",
+      "baselineFileCount": 505,
+      "currentFileCount": 505,
+      "baselineBytes": 281165344,
+      "currentBytes": 281165344,
+      "baselineAggregateSha256": "c25a21e33a4be41d3c5b27e5848e52e834693b1eddbb134173ca92c88d05a5b7",
+      "currentAggregateSha256": "c25a21e33a4be41d3c5b27e5848e52e834693b1eddbb134173ca92c88d05a5b7",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/jq33-projects-variant-layout-2026-08-23",
+      "baselineFileCount": 537,
+      "currentFileCount": 537,
+      "baselineBytes": 213282203,
+      "currentBytes": 213282203,
+      "baselineAggregateSha256": "83a28d9e3aebaf0705fa634d615f6fdc48502997ac4c60666738b0b3ab22d469",
+      "currentAggregateSha256": "83a28d9e3aebaf0705fa634d615f6fdc48502997ac4c60666738b0b3ab22d469",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/launch-setup-2026-05-24",
+      "baselineFileCount": 8,
+      "currentFileCount": 8,
+      "baselineBytes": 8404,
+      "currentBytes": 8404,
+      "baselineAggregateSha256": "b67ab9c6b745e2592b3daf84a28b3e4a5d914f3fe64ddfe23f43a558b2610c44",
+      "currentAggregateSha256": "b67ab9c6b745e2592b3daf84a28b3e4a5d914f3fe64ddfe23f43a558b2610c44",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/prod-readiness-audit-2026-04-21",
+      "baselineFileCount": 10,
+      "currentFileCount": 10,
+      "baselineBytes": 21375,
+      "currentBytes": 21375,
+      "baselineAggregateSha256": "8a097900cbcef2772aa96b866dc6532b114a8c69fddf2d22d5aa7f4eecb559c3",
+      "currentAggregateSha256": "8a097900cbcef2772aa96b866dc6532b114a8c69fddf2d22d5aa7f4eecb559c3",
+      "status": "PASS"
+    },
+    {
+      "path": ".agent/tasks/supabase-function-env-fallback-2026-06-05",
+      "baselineFileCount": 4,
+      "currentFileCount": 4,
+      "baselineBytes": 2997,
+      "currentBytes": 2997,
+      "baselineAggregateSha256": "b1a72e49630da8b47840a1b44e7132a1cbdd2860a5dd43fca4e507a7c78ee80e",
+      "currentAggregateSha256": "b1a72e49630da8b47840a1b44e7132a1cbdd2860a5dd43fca4e507a7c78ee80e",
+      "status": "PASS"
+    }
+  ]
+}

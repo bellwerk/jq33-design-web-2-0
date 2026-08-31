@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +8,7 @@
       name="description"
       content="The page you requested could not be found. Return to JQ33 DESIGN for commercial interior projects, services, or to request a quote."
     />
-    <link rel="canonical" href="https://jq33.design/404" />
+    <meta name="robots" content="noindex, nofollow" />
 
     <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -16,17 +16,20 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta property="og:title" content="Page Not Found | JQ33 DESIGN" />
     <meta
       property="og:description"
       content="We could not find that page. Explore projects, services, or request a quote with JQ33 DESIGN."
     />
-    <meta property="og:url" content="https://jq33.design/404" />
     <meta
       property="og:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="JQ33 DESIGN page not found" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -39,15 +42,13 @@
       name="twitter:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
+    <meta name="twitter:image:alt" content="JQ33 DESIGN page not found" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Permanent+Marker&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/assets/css/site.css" />
+    <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
     <style>
+      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -64,15 +65,15 @@
       main {
         position: relative;
         z-index: 2;
-        padding: 170px clamp(1.5rem, 6vw, 6rem) 120px;
+        padding: var(--section-top) var(--layout-gutter) var(--section-bottom);
         display: grid;
-        gap: 4rem;
+        gap: var(--space-16);
       }
 
       .hero {
         display: grid;
         grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-        gap: clamp(2rem, 6vw, 5rem);
+        gap: clamp(var(--space-xl), 6vw, var(--space-20));
         align-items: center;
       }
 
@@ -88,11 +89,11 @@
         font-size: var(--fs-h1);
         line-height: var(--lh-tight);
         color: var(--cobalt);
-        margin-top: 1.5rem;
+        margin-top: var(--space-lg);
       }
 
       .hero-lead {
-        margin-top: 1.5rem;
+        margin-top: var(--space-lg);
         font-size: 1.05rem;
         color: var(--text-muted);
         max-width: 46ch;
@@ -100,19 +101,20 @@
       }
 
       .hero-actions {
-        margin-top: 2rem;
+        margin-top: var(--space-xl);
         display: flex;
+        align-items: center;
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: var(--space-md);
       }
 
       .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
-        padding: 0.95rem 1.6rem;
-        border-radius: 999px;
+        gap: var(--space-xs);
+        padding: var(--space-3-8) var(--space-6-4);
+        border-radius: 0;
         font-weight: 600;
         font-size: 0.95rem;
         text-decoration: none;
@@ -122,62 +124,47 @@
       }
 
       .btn-primary {
-        background: var(--gradient-accent);
-        color: #fff;
-        box-shadow: 0 20px 40px rgba(59, 65, 227, 0.25);
-      }
-
-      .btn-primary:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 24px 45px rgba(59, 65, 227, 0.32);
+        background: var(--color-accent);
+        color: var(--color-accent-ink);
+        box-shadow: 0 20px 40px var(--color-cobalt-a25);
       }
 
       .btn-secondary {
         border-color: var(--border-strong);
         color: var(--text);
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-      .btn-secondary:hover {
-        transform: translateY(-2px);
-        border-color: var(--cobalt);
+        background: var(--color-white-a04);
       }
 
       .hero-meta {
-        margin-top: 1.5rem;
+        margin-top: var(--space-lg);
         font-size: 0.85rem;
         color: var(--text-subtle);
         display: flex;
         flex-wrap: wrap;
-        gap: 0.75rem;
+        gap: var(--space-sm);
       }
 
       .hero-meta a {
         color: inherit;
         text-decoration: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        padding-bottom: 2px;
-      }
-
-      .hero-meta a:hover {
-        color: #fff;
-        border-color: rgba(255, 255, 255, 0.5);
+        border-bottom: 1px solid var(--color-white-a20);
+        padding-bottom: var(--space-0-5);
       }
 
       .error-panel {
-        border-radius: 24px;
-        padding: 2.5rem;
-        background: linear-gradient(160deg, rgba(59, 65, 227, 0.22), rgba(0, 0, 0, 0.9));
-        border: 1px solid rgba(59, 65, 227, 0.45);
+        border-radius: 0;
+        padding: var(--space-10);
+        background: linear-gradient(160deg, var(--color-cobalt-a22), var(--color-black-a90));
+        border: 1px solid var(--color-cobalt-a45);
         display: grid;
-        gap: 1.5rem;
+        gap: var(--space-lg);
       }
 
       .error-code {
         font-family: var(--font-display);
         font-size: clamp(3.5rem, 10vw, 7rem);
         letter-spacing: 0.2rem;
-        color: #fff;
+        color: var(--color-white);
       }
 
       .error-copy {
@@ -187,39 +174,34 @@
 
       .coord-grid {
         display: grid;
-        gap: 0.75rem;
+        gap: var(--space-sm);
         font-size: 0.85rem;
         color: var(--text-subtle);
       }
 
       .coord-grid strong {
-        color: #fff;
+        color: var(--color-white);
         font-weight: 600;
       }
 
       .link-grid {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 1.5rem;
+        gap: var(--space-lg);
       }
 
       .link-card {
         text-decoration: none;
         color: inherit;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        background: rgba(15, 15, 15, 0.6);
-        padding: 1.5rem;
-        border-radius: 18px;
+        border: 1px solid var(--color-white-a08);
+        background: var(--color-soft-black-a60);
+        padding: var(--space-lg);
+        border-radius: 0;
         display: grid;
-        gap: 0.6rem;
+        gap: var(--space-2-4);
         min-height: 140px;
         transition: transform var(--dur-sm) var(--ease-out),
           border-color var(--dur-sm) var(--ease-out);
-      }
-
-      .link-card:hover {
-        transform: translateY(-4px);
-        border-color: var(--border-strong);
       }
 
       .link-card span {
@@ -229,9 +211,27 @@
         color: var(--text-subtle);
       }
 
+      @media (hover: hover) and (pointer: fine) {
+        .btn-primary:hover {
+          background: var(--cobalt-base-hover);
+        }
+
+        .btn-secondary:hover {
+          border-color: var(--cobalt);
+        }
+
+        .hero-meta a:hover {
+          color: var(--color-white);
+        }
+
+        .link-card:hover {
+          border-color: var(--border-strong);
+        }
+      }
+
       .link-card strong {
         font-size: 1.1rem;
-        color: #fff;
+        color: var(--color-white);
       }
 
       .link-card p {
@@ -252,7 +252,7 @@
 
       @media (max-width: 720px) {
         main {
-          padding: 140px 1.2rem 100px;
+          padding: var(--space-31) var(--space-md) var(--space-20);
         }
 
         .hero-actions {
@@ -271,12 +271,13 @@
     </style>
   </head>
   <body class="site-default-bg">
-    <div class="bg-layer"></div>
-    <div class="grain"></div>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="bg-layer" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
 
     <header class="header-nav" data-component="header-nav"></header>
 
-    <main>
+    <main id="main-content">
       <section class="hero">
         <div>
           <div class="eyebrow">Page not found</div>
@@ -300,12 +301,10 @@
           <div class="error-code">404</div>
           <p class="error-copy">
             Consider this a soft redirect back to clarity. We design layout-first commercial
-            interiors across Montreal with a fast, decision-ready process.
+            interiors across Montreal with a decision-ready process.
           </p>
           <div class="coord-grid">
             <div><span>Studio</span> · <strong>Montreal, QC</strong></div>
-            <div><span>Availability</span> · <strong>Next 2-4 weeks</strong></div>
-            <div><span>Response time</span> · <strong>24 hours</strong></div>
           </div>
         </div>
       </section>
@@ -329,7 +328,7 @@
         <a class="link-card" href="/inquiry/">
           <span>Get started</span>
           <strong>Request a quote</strong>
-          <p>Share your space details and receive next steps within 24 hours.</p>
+          <p>Share your space details to request next steps.</p>
         </a>
         <a class="link-card" href="/contact/">
           <span>Contact</span>
@@ -337,20 +336,20 @@
           <p>Direct contact details and calendar access for a quick intro call.</p>
         </a>
         <a class="link-card" href="/projects/bruton-place-iv/">
-          <span>Featured</span>
+          <span>Self-initiated concept study</span>
           <strong>Bruton Place IV</strong>
-          <p>Office reception concept focused on flow and premium first impressions.</p>
+          <p>
+            Illustrative office visual exploring arrival and flow; not completed client work.
+          </p>
         </a>
       </section>
     </main>
 
     <footer class="site-footer" data-component="footer"></footer>
 
-    <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/components/footer.js?v=20260716-1"></script>
     <script src="/assets/js/nav-drawer.js"></script>
   </body>
 </html>

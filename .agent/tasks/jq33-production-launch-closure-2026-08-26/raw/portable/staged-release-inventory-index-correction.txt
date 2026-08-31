@@ -1,0 +1,20 @@
+JQ33 staged release inventory integrity check - corrective rerun
+Checked at: 2026-08-26T21:00:27.809Z
+Byte source: git index blobs via git show :path
+Inventories checked:
+- raw/baseline/postimplementation-release-inventory.json
+- raw/verifier-prepreview/current-release-inventory.json
+
+Result: PASS
+- baseline inventory: 38/38 staged blob byte sizes and SHA-256 hashes match
+- verifier inventory: 38/38 staged blob byte sizes and SHA-256 hashes match
+- aggregate entries checked: 76
+- aggregate mismatches: 0
+- expected release paths: 38
+- staged release paths: 38
+- unexpected release paths: 0
+
+The index before packaging this correction contains 69 paths: 38 release
+paths and 31 current-task proof paths. Adding these two correction artifacts
+produces the next packaged expectation of 71 paths: 38 release paths and 33
+current-task proof paths. Prior-task and unexpected-path expectations remain 0.

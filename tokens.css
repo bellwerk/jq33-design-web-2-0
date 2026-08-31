@@ -1,0 +1,382 @@
+/* Hallmark · macrostructure: Photographic · genre: atmospheric · tone: architectural editorial · theme: custom JQ33 Cobalt Noir (dark / hand-drawn display / cool cobalt)
+ * hero: H6 Photographic fold · nav: N1b SaaS three-section (transparent-fixed) · footer: Ft4 Dense colophon
+ * enrichment: E8 Hero Photography (user-supplied architectural photography)
+ */
+/* Hallmark · pre-emit critique: P5 H4 E5 S5 R4 V5 */
+/*
+ * JQ33 DESIGN production tokens
+ * Hallmark accountability: architectural editorial / cobalt on charcoal.
+ * This is the sole public font-face and semantic token entrypoint.
+ */
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/lato/lato-400.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/lato/lato-700.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/assets/fonts/lato/lato-900.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Lato Metric Fallback";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: local("Arial");
+  size-adjust: 97.68%;
+  ascent-override: 101.05%;
+  descent-override: 21.81%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/assets/fonts/inter/inter-latin-400-900.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Permanent Marker";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/permanent-marker/permanent-marker-400.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Permanent Marker Metric Fallback";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Arial");
+  size-adjust: 117.70%;
+  ascent-override: 94.25%;
+  descent-override: 26.97%;
+  line-gap-override: 2.57%;
+}
+
+:root {
+  color-scheme: dark;
+
+  --color-cobalt: #3b41e3;
+  --color-nav: #5427E1;
+  --color-nav-surface: rgb(246 245 240);
+  --color-cobalt-bright: #7075eb;
+  --color-cobalt-soft: #8b90ff;
+  --color-violet: #7b4bff;
+  --color-ink: #0c0c0c;
+  --color-charcoal: #1a1a1a;
+  --color-zinc: #222222;
+  --color-paper: #f0f0f0;
+  --color-white: #f6f5f0;
+
+  --color-text: rgb(255 255 255 / 90%);
+  --color-text-muted: rgb(255 255 255 / 72%);
+  --color-text-subtle: rgb(255 255 255 / 62%);
+  --color-surface-glass: rgb(255 255 255 / 5%);
+  --color-border: rgb(59 65 227 / 30%);
+  --color-border-strong: rgb(112 117 235 / 72%);
+  --color-scrim-soft: rgb(12 12 12 / 46%);
+  --color-scrim-strong: rgb(12 12 12 / 82%);
+
+  --font-body: "Lato", "Lato Metric Fallback", system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-heading: "Permanent Marker", "Permanent Marker Metric Fallback",
+    "Lato", "Lato Metric Fallback", cursive;
+  --font-sans: var(--font-body);
+  --font-hero: "Inter", var(--font-body);
+  --font-display: var(--font-heading);
+  --font-brand: var(--font-heading);
+  --font-home-mark: "Permanent Marker Home", var(--font-heading);
+
+  --fs-body: 1rem;
+  --lh-body: 1.6;
+  --fs-label: 0.65rem;
+  --fw-label: 700;
+  --ls-label: 2px;
+  --fs-h1: clamp(2.7rem, 7vw, 6.6rem);
+  --fs-h2: clamp(2rem, 4.5vw, 3.8rem);
+  --fs-h3: 1.3rem;
+  --lh-tight: 1.05;
+
+  /*
+   * Compatibility aliases used by the existing page styles. Keeping them in
+   * the blocking token sheet makes the first paint identical to the final
+   * deferred stylesheet and prevents late typography/layout shifts.
+   */
+  --cobalt-base: var(--color-cobalt);
+  --cobalt-base-hover: #555ad9;
+  --cobalt-text: var(--color-cobalt-soft);
+  --cobalt: var(--color-cobalt);
+  --cobalt-hover: var(--color-cobalt-soft);
+  --color-accent: var(--color-cobalt);
+  --color-accent-ink: var(--color-warm-paper);
+  --ink: var(--color-ink);
+  --paper: var(--color-paper);
+  --zinc: var(--color-zinc);
+  --bg-0: var(--color-ink);
+  --bg-1: #111111;
+  --bg-2: var(--color-charcoal);
+  --site-bg-image: none;
+  --site-bg-filter: grayscale(20%) contrast(110%);
+  --site-bg-opacity: 0.4;
+  --text: rgb(255 255 255 / 85%);
+  --text-muted: rgb(255 255 255 / 75%);
+  --text-subtle: var(--color-text-subtle);
+  --text-primary: var(--color-text);
+  --text-secondary: var(--color-text-muted);
+  --text-tertiary: rgb(255 255 255 / 56%);
+  --text-inverse: var(--color-white);
+  --text-on-light: #111111;
+  --text-on-light-muted: rgb(17 17 17 / 68%);
+  --text-accent: var(--cobalt-base);
+  --link: var(--cobalt-base);
+  --link-hover: var(--cobalt-hover);
+  --glass: var(--color-surface-glass);
+  --border: rgb(59 65 227 / 20%);
+  --border-strong: rgb(59 65 227 / 50%);
+  --focus-ring: var(--color-cobalt-bright);
+  --scrim-soft: var(--color-scrim-soft);
+  --scrim-strong: var(--color-scrim-strong);
+  --surface-translucent: rgb(12 12 12 / 72%);
+  --gradient-accent: var(--color-accent);
+
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  /*
+   * Auditable 4px spacing scale. Legacy precision aliases are retained for
+   * source compatibility, but every resolved value is rounded to the nearest
+   * 0.25rem step so margins, padding, and gaps cannot drift off-grid.
+   */
+  --space-0-5: 0.25rem;
+  --space-1: 0.25rem;
+  --space-1-4: 0.25rem;
+  --space-1-5: 0.5rem;
+  --space-1-6: 0.5rem;
+  --space-1-8: 0.5rem;
+  --space-2-4: 0.5rem;
+  --space-2-5: 0.75rem;
+  --space-2-8: 0.75rem;
+  --space-3-2: 0.75rem;
+  --space-3-5: 1rem;
+  --space-3-6: 1rem;
+  --space-3-8: 1rem;
+  --space-4-2: 1rem;
+  --space-4-5: 1.25rem;
+  --space-4-8: 1.25rem;
+  --space-5: 1.25rem;
+  --space-5-2: 1.25rem;
+  --space-5-4: 1.25rem;
+  --space-5-5: 1.5rem;
+  --space-5-6: 1.5rem;
+  --space-5-8: 1.5rem;
+  --space-6-4: 1.5rem;
+  --space-6-8: 1.75rem;
+  --space-7: 1.75rem;
+  --space-7-2: 1.75rem;
+  --space-7-5: 2rem;
+  --space-8-8: 2.25rem;
+  --space-9: 2.25rem;
+  --space-9-4: 2.25rem;
+  --space-9-6: 2.5rem;
+  --space-10: 2.5rem;
+  --space-10-4: 2.5rem;
+  --space-10-5: 2.75rem;
+  --space-11: 2.75rem;
+  --space-13: 3.25rem;
+  --space-13-6: 3.5rem;
+  --space-14: 3.5rem;
+  --space-15: 3.75rem;
+  --space-16: 4rem;
+  --space-18: 4.5rem;
+  --space-19: 4.75rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-25: 6.25rem;
+  --space-26: 6.5rem;
+  --space-28: 7rem;
+  --space-29: 7.25rem;
+  --space-30: 7.5rem;
+  --space-31: 7.75rem;
+  --space-32-5: 8.25rem;
+  --space-34: 8.5rem;
+  --space-35: 8.75rem;
+  --space-36: 9rem;
+  --space-37-5: 9.5rem;
+  --space-38: 9.5rem;
+  --space-40: 10rem;
+  --space-44: 11rem;
+  --space-45: 11.25rem;
+  --space-48: 12rem;
+  --space-50: 12.5rem;
+  --layout-gutter: var(--gutter);
+  --layout-gutter-tight: clamp(1rem, 3vw, 2rem);
+  --site-footer-gutter: clamp(var(--space-md), 1.6vw, var(--space-6-4));
+  --layout-max: 1100px;
+  --layout-wide: var(--content-max);
+  --section-top: clamp(120px, 14vh, 160px);
+  --section-bottom: clamp(56px, 9vh, 112px);
+
+  --radius-control: 30px;
+  --radius-container: 30px;
+  --radius-card: 20px;
+  --radius-hero: 0;
+  --radius-sharp: var(--radius-hero);
+  --control-height: 52px;
+  --decorative-brand-opacity: 0.16;
+
+  --focus-size: 3px;
+  --focus-offset: 4px;
+  --content-max: 1200px;
+  --gutter: clamp(1rem, 4vw, 4rem);
+
+  --duration-fast: 140ms;
+  --duration-standard: 240ms;
+  --dur-xs: 120ms;
+  --dur-sm: 180ms;
+  --dur-md: var(--duration-standard);
+  --dur-lg: 300ms;
+  --dur-xl: 500ms;
+  --dur-2xl: 800ms;
+  --ease-linear: linear;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-emphasis: cubic-bezier(0.23, 1, 0.32, 1);
+
+  --bp-mobile: 480px;
+  --bp-tablet: 768px;
+  --bp-laptop: 1024px;
+  /* Hallmark locked color scale; generated by scripts/tokenize-design-colors.mjs. */
+  --color-black: rgb(6 6 8);
+  --color-black-a00: rgb(0 0 0 / 0%);
+  --color-black-a22: rgb(0 0 0 / 22%);
+  --color-black-a38: rgb(0 0 0 / 38%);
+  --color-black-a45: rgb(0 0 0 / 45%);
+  --color-black-a48: rgb(0 0 0 / 48%);
+  --color-black-a55: rgb(0 0 0 / 55%);
+  --color-black-a65: rgb(0 0 0 / 65%);
+  --color-black-a75: rgb(0 0 0 / 75%);
+  --color-black-a78: rgb(0 0 0 / 78%);
+  --color-black-a80: rgb(0 0 0 / 80%);
+  --color-black-a90: rgb(0 0 0 / 90%);
+  --color-charcoal-a80: rgb(26 26 26 / 80%);
+  --color-cobalt-a00: rgb(59 65 227 / 0%);
+  --color-cobalt-a03: rgb(59 65 227 / 3%);
+  --color-cobalt-a05: rgb(59 65 227 / 5%);
+  --color-cobalt-a06: rgb(59 65 227 / 6%);
+  --color-cobalt-a08: rgb(59 65 227 / 8%);
+  --color-cobalt-a10: rgb(59 65 227 / 10%);
+  --color-cobalt-a12: rgb(59 65 227 / 12%);
+  --color-cobalt-a16: rgb(59 65 227 / 16%);
+  --color-cobalt-a18: rgb(59 65 227 / 18%);
+  --color-cobalt-a20: rgb(59 65 227 / 20%);
+  --color-cobalt-a22: rgb(59 65 227 / 22%);
+  --color-cobalt-a24: rgb(59 65 227 / 24%);
+  --color-cobalt-a25: rgb(59 65 227 / 25%);
+  --color-cobalt-a28: rgb(59 65 227 / 28%);
+  --color-cobalt-a30: rgb(59 65 227 / 30%);
+  --color-cobalt-a32: rgb(59 65 227 / 32%);
+  --color-cobalt-a35: rgb(59 65 227 / 35%);
+  --color-cobalt-a45: rgb(59 65 227 / 45%);
+  --color-cobalt-a50: rgb(59 65 227 / 50%);
+  --color-cobalt-a55: rgb(59 65 227 / 55%);
+  --color-cobalt-a60: rgb(59 65 227 / 60%);
+  --color-cobalt-a65: rgb(59 65 227 / 65%);
+  --color-cobalt-deep: rgb(30 34 129);
+  --color-cobalt-hover: rgb(85 90 217);
+  --color-cobalt-soft-a28: rgb(139 144 255 / 28%);
+  --color-deep-charcoal: rgb(17 17 17);
+  --color-deep-charcoal-a22: rgb(17 17 17 / 22%);
+  --color-deep-charcoal-a68: rgb(17 17 17 / 68%);
+  --color-deep-surface: rgb(20 20 20);
+  --color-error-ink: rgb(139 29 29);
+  --color-error-light: rgb(255 210 210);
+  --color-facebook-blue: rgb(24 119 242);
+  --color-info-light: rgb(191 227 255);
+  --color-ink-a08: rgb(12 12 12 / 8%);
+  --color-ink-a16: rgb(12 12 12 / 16%);
+  --color-ink-a18: rgb(12 12 12 / 18%);
+  --color-ink-a20: rgb(12 12 12 / 20%);
+  --color-ink-a22: rgb(12 12 12 / 22%);
+  --color-ink-a46: rgb(12 12 12 / 46%);
+  --color-ink-a72: rgb(12 12 12 / 72%);
+  --color-ink-a82: rgb(12 12 12 / 82%);
+  --color-ink-a90: rgb(12 12 12 / 90%);
+  --color-ink-a96: rgb(12 12 12 / 96%);
+  --color-instagram-gold: rgb(252 176 69);
+  --color-instagram-purple: rgb(131 58 180);
+  --color-instagram-red: rgb(253 29 29);
+  --color-midnight-a12: rgb(6 6 8 / 12%);
+  --color-midnight-a18: rgb(6 6 8 / 18%);
+  --color-midnight-a20: rgb(6 6 8 / 20%);
+  --color-midnight-a48: rgb(6 6 8 / 48%);
+  --color-midnight-a62: rgb(6 6 8 / 62%);
+  --color-midnight-a68: rgb(6 6 8 / 68%);
+  --color-midnight-a72: rgb(6 6 8 / 72%);
+  --color-midnight-a82: rgb(6 6 8 / 82%);
+  --color-midnight-a88: rgb(6 6 8 / 88%);
+  --color-midnight-a94: rgb(6 6 8 / 94%);
+  --color-near-black-a70: rgb(10 10 10 / 70%);
+  --color-near-black-a75: rgb(10 10 10 / 75%);
+  --color-neutral-light: rgb(204 204 204);
+  --color-neutral-muted: rgb(153 153 153);
+  --color-social-blue: rgb(23 105 255);
+  --color-social-orange: rgb(255 122 0);
+  --color-social-yellow: rgb(255 214 0);
+  --color-soft-black-a60: rgb(15 15 15 / 60%);
+  --color-success-ink: rgb(31 79 47);
+  --color-warm-paper: rgb(246 245 240);
+  --color-warm-paper-a62: rgb(246 245 240 / 62%);
+  --color-warm-paper-a72: rgb(246 245 240 / 72%);
+  --color-white-a02: rgb(255 255 255 / 2%);
+  --color-white-a03: rgb(255 255 255 / 3%);
+  --color-white-a04: rgb(255 255 255 / 4%);
+  --color-white-a05: rgb(255 255 255 / 5%);
+  --color-white-a06: rgb(255 255 255 / 6%);
+  --color-white-a08: rgb(255 255 255 / 8%);
+  --color-white-a12: rgb(255 255 255 / 12%);
+  --color-white-a20: rgb(255 255 255 / 20%);
+  --color-white-a22: rgb(255 255 255 / 22%);
+  --color-white-a36: rgb(255 255 255 / 36%);
+  --color-white-a40: rgb(255 255 255 / 40%);
+  --color-white-a50: rgb(255 255 255 / 50%);
+  --color-white-a56: rgb(255 255 255 / 56%);
+  --color-white-a62: rgb(255 255 255 / 62%);
+  --color-white-a72: rgb(255 255 255 / 72%);
+  --color-white-a75: rgb(255 255 255 / 75%);
+  --color-white-a78: rgb(255 255 255 / 78%);
+  --color-white-a82: rgb(255 255 255 / 82%);
+  --color-white-a85: rgb(255 255 255 / 85%);
+  --color-white-a86: rgb(255 255 255 / 86%);
+  --color-white-a88: rgb(255 255 255 / 88%);
+  --color-white-a90: rgb(255 255 255 / 90%);
+  --color-white-a92: rgb(255 255 255 / 92%);
+  --color-youtube-red: rgb(255 0 51);
+
+  /* Hallmark locked color scale; generated by scripts/tokenize-design-colors.mjs. */
+  --color-neutral-strong: rgb(64 64 64);
+
+}

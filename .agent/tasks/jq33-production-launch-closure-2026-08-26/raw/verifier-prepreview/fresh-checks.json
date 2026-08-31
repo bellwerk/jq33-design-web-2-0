@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-26T20:43:17.6196419Z",
+  "phase": "PRE_PREVIEW",
+  "candidate": {
+    "branch": "codex/jq33-production-readiness-2026-07-29",
+    "head": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+    "releasePathCount": 38,
+    "stagedReleasePathCount": 38,
+    "unstagedReleasePathCount": 0,
+    "stagedUnexpectedPathCount": 0,
+    "artifactFileCount": 112,
+    "artifactSha256": "b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6",
+    "sourceTreeSha256": "a3206e45f895eaf23375c37f4dfed056be2f5f50c302a92ecac9a2e82edbeecb",
+    "browserHarnessSha256": "6a46950c7fd2de281df9c35e8d90c071ce7e5df4518dab131ed05cd1ad46042a"
+  },
+  "toolchain": {
+    "node": "v22.23.2",
+    "pnpm": "11.13.0"
+  },
+  "checks": [
+    {
+      "name": "frozen install",
+      "status": "PASS",
+      "result": "pnpm install --frozen-lockfile completed in the isolated verifier copy."
+    },
+    {
+      "name": "strict non-fixture build",
+      "status": "PASS",
+      "result": "The three required public integration values were validated and held only in process memory; 112 allowlisted files reproduced artifact b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6."
+    },
+    {
+      "name": "frontend and static launch checks",
+      "status": "PASS",
+      "result": "Render, metadata/performance, Hallmark, design tokens, spacing, links, images, distribution, redirects, project routes, content, forms, HTML, security/privacy, and SEO passed."
+    },
+    {
+      "name": "dependency audits",
+      "status": "PASS",
+      "result": "pnpm audit --prod and pnpm audit --audit-level high both reported no known vulnerabilities."
+    },
+    {
+      "name": "negative toolchain guards",
+      "status": "PASS",
+      "result": "Node 24.18.0 and pnpm 11.12.0 were each rejected before integration validation."
+    },
+    {
+      "name": "production monitor self-test",
+      "status": "PASS",
+      "result": "The current release-fingerprint, route, redirect, source-isolation, header, form-distinctness, and negative cases passed."
+    },
+    {
+      "name": "current full browser evidence validation",
+      "status": "PASS",
+      "result": "The current attempt-03 sanitized report contains 308 specs, 308 tests, and 308 passed results with zero skipped, unexpected, flaky, retried, or top-level errors; artifact and harness bindings match the current candidate."
+    },
+    {
+      "name": "fresh verifier targeted browser rerun",
+      "status": "PASS",
+      "result": "22/22 current-artifact Chromium tests passed: shared navigation at seven widths and clean runtime/network boundaries on all required responses."
+    },
+    {
+      "name": "prior task packet byte preservation",
+      "status": "PASS",
+      "result": "All 20 baseline packets recomputed to the same file count, total bytes, and canonical aggregate SHA-256; mismatchCount is 0."
+    },
+    {
+      "name": "current release allowlist",
+      "status": "PASS",
+      "result": "Exactly 38 frozen release paths are staged, no release path is unstaged, and no unexpected path is staged."
+    }
+  ],
+  "preservedVerifierFailure": {
+    "status": "RESOLVED_VERIFIER_SETUP",
+    "firstResult": "The first post-fingerprint isolated metadata check rejected the verifier's own Playwright report HTML because the report root was placed inside the copied source tree.",
+    "correction": "The report directory was moved to a sibling temporary root and the same unmodified production candidate passed the complete frontend and static checks.",
+    "productionCodeChanged": false
+  },
+  "externalMutationPerformed": false,
+  "formSubmissionPerformed": false,
+  "integrationValuesLoggedOrPersisted": false,
+  "evidenceSha256": {
+    "distManifest": "cf6c3aee01371eef1bb0b65725ef93e511a4622f516026d41f5d142e403d6ea9",
+    "fullBrowserSanitized": "327456afdda7fe7171bda90896cd5f0f625aa5d70bee42d26b56508027edee06",
+    "strictAttempt03": "8d9b68cd14c8962c978c3a4ebad078b1ce125680362dd7ac371f10b521782267",
+    "localHealthFirstFailure": "c1b4ed8bad9f171511e377ccc459689cd89e93a436f9a486e06af0510e832bd3",
+    "localHealthCorrection": "787f3fe38b43ebea40ea93c7d7a9578a8de931e343fe3f6a466eded885f28d5b",
+    "priorPacketRecomputation": "a2377940b8ad1bd197b8e95aa845ca00309d50e5c92aa214503f85ac457a9b3c",
+    "currentReleaseInventory": "3d393ffe38ba0f197d187cabdf38234e6efade35e2fa0dcec20d60c142afd0b5"
+  }
+}

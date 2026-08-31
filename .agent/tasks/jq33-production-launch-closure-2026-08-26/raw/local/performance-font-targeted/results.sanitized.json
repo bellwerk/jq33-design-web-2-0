@@ -1,0 +1,152 @@
+{
+  "config": {
+    "argv": [
+      "<NODE_EXECUTABLE>",
+      "<REPOSITORY_ROOT>\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "tests/responsive.spec.mjs",
+      "tests/hallmark-responsive-continuum.spec.mjs",
+      "tests/accessibility.spec.mjs",
+      "tests/interactions.spec.mjs",
+      "tests/forms.spec.mjs",
+      "tests/browser-contract.spec.mjs",
+      "tests/calendly-contract.spec.mjs",
+      "tests/runtime-audit.spec.mjs",
+      "tests/native-forms.spec.mjs",
+      "tests/keyboard-navigation.spec.mjs",
+      "tests/media-layout.spec.mjs",
+      "--grep",
+      "critical route fonts use exact subsets"
+    ],
+    "configFile": "<REPOSITORY_ROOT>\\playwright.config.mjs",
+    "rootDir": "<REPOSITORY_ROOT>/tests",
+    "failOnFlakyTests": true,
+    "forbidOnly": true,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": "<REPOSITORY_ROOT>\\tests\\global-teardown.mjs",
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "artifactSha256": "b844a7c5d3590ec53dcd7c656d3111d454c9aaf735629285ac8bfb7306d1eae3",
+      "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+      "browserHarnessSha256": "027e67a238486fbe245c6b1b85752116fe06f53634cfd4a908c3ea84b20fd8d9",
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "<PLAYWRIGHT_ARTIFACT_ROOT>/results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "sourceCommit": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "artifactSha256": "b844a7c5d3590ec53dcd7c656d3111d454c9aaf735629285ac8bfb7306d1eae3",
+          "artifactSourceRevision": "0ce0e023b50bb0d4146fad2e116b91fcb18122bf",
+          "browserHarnessSha256": "027e67a238486fbe245c6b1b85752116fe06f53634cfd4a908c3ea84b20fd8d9",
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "<REPOSITORY_ROOT>/tests",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.spec.mjs"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "<PLAYWRIGHT_ARTIFACT_ROOT>\\results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "<PLAYWRIGHT_ARTIFACT_ROOT>\\report",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.0",
+    "workers": 4,
+    "webServer": {
+      "command": "node tests/serve-dist.mjs --host 127.0.0.1 --port 4197 --parent-pid 30364",
+      "url": "http://127.0.0.1:4197",
+      "reuseExistingServer": false,
+      "timeout": 15000
+    }
+  },
+  "suites": [
+    {
+      "title": "browser-contract.spec.mjs",
+      "file": "browser-contract.spec.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "critical route fonts use exact subsets without redundant requests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1124,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-08-27T21:20:46.297Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "002bbc57f6ff071238d4-c0dc6b5ef7b1c09fe922",
+          "file": "browser-contract.spec.mjs",
+          "line": 1936,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-27T21:20:45.366Z",
+    "duration": 2351.462,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

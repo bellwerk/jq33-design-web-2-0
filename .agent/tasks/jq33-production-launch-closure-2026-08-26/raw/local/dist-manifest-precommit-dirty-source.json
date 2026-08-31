@@ -1,0 +1,575 @@
+{
+  "schemaVersion": 2,
+  "root": "dist",
+  "generatedAt": "2026-08-26T20:35:11.025Z",
+  "sourceRevision": "bba145dd89af1242a5766cb00845fc06186b8a8b",
+  "sourceTreeSha256": "a3206e45f895eaf23375c37f4dfed056be2f5f50c302a92ecac9a2e82edbeecb",
+  "sourceInputCount": 92,
+  "sourceDirty": true,
+  "sourceChangeCount": 21,
+  "sourceStatusSha256": "7745cd7e79426f97988f777c573ed14922040db9435db8c2d9bd67c713f4eaa5",
+  "nodeVersion": "v22.23.2",
+  "artifactSha256": "b95283c5e71563e86aa0fca7d7b17e63a672983f7758436af99d30709af5ace6",
+  "files": [
+    {
+      "path": "_headers",
+      "bytes": 2030,
+      "sha256": "60c6f43563d3339daaac2b3195c8635fc38af9723011e3a06c5dbd22931d6b6b"
+    },
+    {
+      "path": "_redirects",
+      "bytes": 434,
+      "sha256": "01146a1954ee7800fb4755f4c53529a2c22344923644d3299c1639b89287770e"
+    },
+    {
+      "path": "404.html",
+      "bytes": 4659,
+      "sha256": "a162bab7d1ec155340936b58b5adae6bfcb3efd7d5287add745314405ab6de07"
+    },
+    {
+      "path": "apple-touch-icon.svg",
+      "bytes": 1737,
+      "sha256": "30b091801b95242e445a5ae080078d931402cff555d14b39bba00dbbcf88fe9d"
+    },
+    {
+      "path": "assets/css/site.css",
+      "bytes": 35299,
+      "sha256": "ab15a6bf84fb6f7fb78590081b60ce1bfcc03d02bc5917b69fcfce6ed9a9d94f"
+    },
+    {
+      "path": "assets/fonts/inter/inter-latin-400-900.woff2",
+      "bytes": 48256,
+      "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62"
+    },
+    {
+      "path": "assets/fonts/lato/lato-400.woff2",
+      "bytes": 23580,
+      "sha256": "918b7dc3e2e2d015c16ce08b57bcb64d2253bafc1707658f361e72865498e537"
+    },
+    {
+      "path": "assets/fonts/lato/lato-700.woff2",
+      "bytes": 23040,
+      "sha256": "c447dd7677b419db7b21dbdfc6277c7816a913ffda76fd2e52702df538de0e49"
+    },
+    {
+      "path": "assets/fonts/lato/lato-900.woff2",
+      "bytes": 22504,
+      "sha256": "08664859baab5ed98f0bf818ed77e38464ff1826dc6406d5ecbd651409afbd92"
+    },
+    {
+      "path": "assets/fonts/permanent-marker/permanent-marker-400.woff2",
+      "bytes": 17636,
+      "sha256": "3d3d2a74d2259e314364ad42d6b57e952682e9cde0cc31c9f60d05d05de703c8"
+    },
+    {
+      "path": "assets/fonts/permanent-marker/permanent-marker-commercial-h1.woff2",
+      "bytes": 4016,
+      "sha256": "19142f8eadc1bea71048cc01ff484bf628ada00ed2928bd5dec6f95210af1584"
+    },
+    {
+      "path": "assets/fonts/permanent-marker/permanent-marker-home.woff2",
+      "bytes": 2628,
+      "sha256": "31cd264bfa17151846dff6a4d7e6c3b390a7ac922d4969d541fddb295ec310a3"
+    },
+    {
+      "path": "assets/generated/240de1bb5adf90ca7beb8dba45bc5ee19e21eecc8f619d35544349ad8e9c1f3b.css",
+      "bytes": 55830,
+      "sha256": "240de1bb5adf90ca7beb8dba45bc5ee19e21eecc8f619d35544349ad8e9c1f3b"
+    },
+    {
+      "path": "assets/generated/2c68c8fd3cb10167a526c8c0e34264dd37bb4f5e4b91532a53e2a5a71db698c4.css",
+      "bytes": 40115,
+      "sha256": "2c68c8fd3cb10167a526c8c0e34264dd37bb4f5e4b91532a53e2a5a71db698c4"
+    },
+    {
+      "path": "assets/generated/3bc851ec38f62be73e3a01641361cc1694868c20fe81f3b8399fb36da2c9c0be.js",
+      "bytes": 4716,
+      "sha256": "3bc851ec38f62be73e3a01641361cc1694868c20fe81f3b8399fb36da2c9c0be"
+    },
+    {
+      "path": "assets/generated/4ec1671c51b9ed1ac647e06c9a852902d08bde4a5393c60c2db4d86ea7eec0ce.css",
+      "bytes": 37527,
+      "sha256": "4ec1671c51b9ed1ac647e06c9a852902d08bde4a5393c60c2db4d86ea7eec0ce"
+    },
+    {
+      "path": "assets/generated/4f03db686858d49a4b582a575e8a81a6a0c8b045c27b3c48c6e67936ee46f915.js",
+      "bytes": 1608,
+      "sha256": "4f03db686858d49a4b582a575e8a81a6a0c8b045c27b3c48c6e67936ee46f915"
+    },
+    {
+      "path": "assets/generated/61f9c0e1d70571b1a9d624873c096933c1621c44ff53f450acb7306036244b01.css",
+      "bytes": 36731,
+      "sha256": "61f9c0e1d70571b1a9d624873c096933c1621c44ff53f450acb7306036244b01"
+    },
+    {
+      "path": "assets/generated/638f22fbba13dd8907fd1a113781be1c7aa9e83772d853c378752d90b36eb5b9.js",
+      "bytes": 797,
+      "sha256": "638f22fbba13dd8907fd1a113781be1c7aa9e83772d853c378752d90b36eb5b9"
+    },
+    {
+      "path": "assets/generated/693b02c8c6f83d5613cfd357f84e756607ad5f9f3fcd639570bafe3d32cbff8c.css",
+      "bytes": 42629,
+      "sha256": "693b02c8c6f83d5613cfd357f84e756607ad5f9f3fcd639570bafe3d32cbff8c"
+    },
+    {
+      "path": "assets/generated/6df8e4bb21f1d1d1342ec528d35900d5185bc44a7bdc33c36975852e9a1aef7e.css",
+      "bytes": 41966,
+      "sha256": "6df8e4bb21f1d1d1342ec528d35900d5185bc44a7bdc33c36975852e9a1aef7e"
+    },
+    {
+      "path": "assets/generated/7f944dd37f60d564bf2bcf5089e41aa854a954a7385b13a2592233f5bfb2dbf1.css",
+      "bytes": 37937,
+      "sha256": "7f944dd37f60d564bf2bcf5089e41aa854a954a7385b13a2592233f5bfb2dbf1"
+    },
+    {
+      "path": "assets/generated/8b4aa90f03b1657e03dd6b88de5d04aae3ad078c94f4fce784bfefe9fba495ff.css",
+      "bytes": 41323,
+      "sha256": "8b4aa90f03b1657e03dd6b88de5d04aae3ad078c94f4fce784bfefe9fba495ff"
+    },
+    {
+      "path": "assets/generated/8fdcc6de6ebb66f16f29f0e3b2cbb86cb79b5ada948fde4e213490eba4937795.css",
+      "bytes": 37438,
+      "sha256": "8fdcc6de6ebb66f16f29f0e3b2cbb86cb79b5ada948fde4e213490eba4937795"
+    },
+    {
+      "path": "assets/generated/b09ec1c3cb3f5e44849d8da77b206f69d26e7976ea287787b79e596a799b1238.css",
+      "bytes": 50549,
+      "sha256": "b09ec1c3cb3f5e44849d8da77b206f69d26e7976ea287787b79e596a799b1238"
+    },
+    {
+      "path": "assets/generated/b263300c90c3c274ba3b46a1232f6849a4fa6357bda5333dfa66ca41d8d3115e.css",
+      "bytes": 28311,
+      "sha256": "b263300c90c3c274ba3b46a1232f6849a4fa6357bda5333dfa66ca41d8d3115e"
+    },
+    {
+      "path": "assets/generated/images/commercial-hairsaloon-interior-1280.webp",
+      "bytes": 53522,
+      "sha256": "4c0ae676de11ddf75e00c7c88bb1f960c537d2f147381501ef2621e702750c8d"
+    },
+    {
+      "path": "assets/generated/images/commercial-hairsaloon-interior-1536.webp",
+      "bytes": 76906,
+      "sha256": "b01f51aada73a49ca6b417206a98c430f216770d5b81e7cbe6874a8472a68f68"
+    },
+    {
+      "path": "assets/generated/images/commercial-hairsaloon-interior-640.webp",
+      "bytes": 21492,
+      "sha256": "df3decd257edfefe7efe4622c2953ff5fdd964431246c6de8fe5d9c6504fbb43"
+    },
+    {
+      "path": "assets/generated/images/commercial-hairsaloon-interior-960.webp",
+      "bytes": 36618,
+      "sha256": "71d85866033890bfc551867aaff62bc28cfc88bb45dd57f8ffbdcbc11ac52dcb"
+    },
+    {
+      "path": "assets/generated/images/footer-reno-1280.webp",
+      "bytes": 103220,
+      "sha256": "dba7d461e014a7ec07ad52f17a81feaba0395029ddaba1d88baa494ad493399d"
+    },
+    {
+      "path": "assets/generated/images/footer-reno-1536.webp",
+      "bytes": 150396,
+      "sha256": "daebb7bc70446afb90537774f2da2c835f476fd569d63cd1a407d6baf5a62f98"
+    },
+    {
+      "path": "assets/generated/images/footer-reno-640.webp",
+      "bytes": 38192,
+      "sha256": "dec59063f3bb3ea2400c12494927238e5b044a400e79c85311db0ad9f8caee0b"
+    },
+    {
+      "path": "assets/generated/images/footer-reno-960.webp",
+      "bytes": 69722,
+      "sha256": "28074d8b7415559a4920588b0a7c1bd3cdaa5e7d1025f765f4052e1b43e6abfc"
+    },
+    {
+      "path": "assets/generated/images/journal-durable-premium-materials-1280.webp",
+      "bytes": 96406,
+      "sha256": "d5e701f51706204be9ba08a93d69ef179b313a1d4c835b57f571732eb8c8a9bc"
+    },
+    {
+      "path": "assets/generated/images/journal-durable-premium-materials-640.webp",
+      "bytes": 30460,
+      "sha256": "b5514a16e7ede6e15eb9d2e2f3fd38b661a3a33e455e7f71c8c0fbe6e2ad53ba"
+    },
+    {
+      "path": "assets/generated/images/journal-durable-premium-materials-768.webp",
+      "bytes": 41032,
+      "sha256": "d4c9c3ebcb1dba9f5e9ebcb4b37dc8705a3b2ab5b0b7e2b7b6773d9705c72585"
+    },
+    {
+      "path": "assets/generated/images/journal-durable-premium-materials-960.webp",
+      "bytes": 60292,
+      "sha256": "47fa03700b580e4b5919cacca6d58a8997744b6d4c4c4479aa2992c676e65c75"
+    },
+    {
+      "path": "assets/generated/images/journal-lighting-that-sells-1280.webp",
+      "bytes": 98450,
+      "sha256": "82b4219806e973a952b69360ce3f54719b60a977c528d3566f04bd2fe74dfd44"
+    },
+    {
+      "path": "assets/generated/images/journal-lighting-that-sells-640.webp",
+      "bytes": 25026,
+      "sha256": "b82a6e974e5731cf46271b8a46b4177216b24833491b24b54f3b21db7d345c6d"
+    },
+    {
+      "path": "assets/generated/images/journal-lighting-that-sells-768.webp",
+      "bytes": 36298,
+      "sha256": "bcc37b3988a1ea9c746aced5d09992a79f825a1932e76bdb9fe44c4a19b96d8d"
+    },
+    {
+      "path": "assets/generated/images/journal-lighting-that-sells-960.webp",
+      "bytes": 56836,
+      "sha256": "cd21363f1034753bb8135cb8ff78292c22ee3b35324065b5fa8843f5c48fb876"
+    },
+    {
+      "path": "assets/generated/images/journal-reduction-as-creation-1280.webp",
+      "bytes": 54858,
+      "sha256": "e96e284613cc5cc1937a93d125fdcdda42e4e6153501ecbf2263b9ec31239b83"
+    },
+    {
+      "path": "assets/generated/images/journal-reduction-as-creation-640.webp",
+      "bytes": 20880,
+      "sha256": "53c4874fc86fbad974ca86aaa579de584a2ae9da92c36a93da99587449c40780"
+    },
+    {
+      "path": "assets/generated/images/journal-reduction-as-creation-768.webp",
+      "bytes": 27150,
+      "sha256": "c0b05397d27e2cbe456bc4a8a06603570c9a5c6486c96a81d62e3fd5b8b96400"
+    },
+    {
+      "path": "assets/generated/images/journal-reduction-as-creation-960.webp",
+      "bytes": 37710,
+      "sha256": "2453c4de8fafddfd99c42f409af24162ca5034aea4c1867d803ccb9ad792dcdb"
+    },
+    {
+      "path": "assets/generated/images/journal-small-shop-big-impact-1280.webp",
+      "bytes": 37936,
+      "sha256": "d4ccaaa3ea3d98b3854aea0a25c57ff92129c14854148601ae3790365f45c511"
+    },
+    {
+      "path": "assets/generated/images/journal-small-shop-big-impact-640.webp",
+      "bytes": 14954,
+      "sha256": "3957bd2e043e7bdc1a4ad7d60e391fca4f2ffcaf8d6ff38e1a2433309f9a7df2"
+    },
+    {
+      "path": "assets/generated/images/journal-small-shop-big-impact-768.webp",
+      "bytes": 19896,
+      "sha256": "58e7353ac390066ab7eaef92bf9dbb9e335d279e80e203b6081f00fb9f79a99b"
+    },
+    {
+      "path": "assets/generated/images/journal-small-shop-big-impact-960.webp",
+      "bytes": 26650,
+      "sha256": "28c23f7170dea56037f62598a3ec491bafe277052731dd77f1fc73414d2ee4a8"
+    },
+    {
+      "path": "assets/generated/images/journal-spend-where-it-shows-1280.webp",
+      "bytes": 104024,
+      "sha256": "ff64886b7439e80489c8b9d3af2f5cde477c3d26c0855922894d58c1f21d7e46"
+    },
+    {
+      "path": "assets/generated/images/journal-spend-where-it-shows-640.webp",
+      "bytes": 38290,
+      "sha256": "5e927c361bcb1877323036b7a420cfb5954bec7d42989e4109abcd1507d18540"
+    },
+    {
+      "path": "assets/generated/images/journal-spend-where-it-shows-768.webp",
+      "bytes": 49712,
+      "sha256": "dd12ae7d1130110b078d5329b9154303b021e7bde927b41b00a6f7be5be5efa4"
+    },
+    {
+      "path": "assets/generated/images/journal-spend-where-it-shows-960.webp",
+      "bytes": 69650,
+      "sha256": "cc5b2123100d63f205c3db178143d6b1aceab264885c9cd8d28cbabf01a00642"
+    },
+    {
+      "path": "assets/generated/images/journal-the-customer-path-1280.webp",
+      "bytes": 123294,
+      "sha256": "74eee40b45dd0429a10d80cd4cdaaec83081a2129750b55ccdc115c45147fbf6"
+    },
+    {
+      "path": "assets/generated/images/journal-the-customer-path-640.webp",
+      "bytes": 41862,
+      "sha256": "633e92e26bcaf641ff1a0718f314a396c1a2edc3b4d41a5037ed63cbbc4e3834"
+    },
+    {
+      "path": "assets/generated/images/journal-the-customer-path-768.webp",
+      "bytes": 56454,
+      "sha256": "6958833412fff1147bf0335271d94143df95531614a970a1d67bf2e7708206bf"
+    },
+    {
+      "path": "assets/generated/images/journal-the-customer-path-960.webp",
+      "bytes": 81486,
+      "sha256": "d4255083ca73c3825bf417ff160d710427d4e233b0da3476cd36d34b97f99d49"
+    },
+    {
+      "path": "assets/generated/images/project-bruton-place-iv-index-study-480.webp",
+      "bytes": 10874,
+      "sha256": "a0e32d514795281e1f28e92194fdb8a848b8e3240199a174af9310a906af8078"
+    },
+    {
+      "path": "assets/generated/images/project-bruton-place-iv-index-study-768.webp",
+      "bytes": 21466,
+      "sha256": "c7f9810e4535f6cf450ed7ff22605439ce24f21b8d93e5a9c37ccfa5f77e26ae"
+    },
+    {
+      "path": "assets/generated/images/project-canvas-studios-index-study-480.webp",
+      "bytes": 16632,
+      "sha256": "7bcb40063eb99471c25696d6f39bc11ee9c0dc8d59df3a5d10010939a3e15cdc"
+    },
+    {
+      "path": "assets/generated/images/project-canvas-studios-index-study-768.webp",
+      "bytes": 30798,
+      "sha256": "fa1f55f1b1442116307033a86b903df5e691dd999ffd3ecfa581b5d188c05065"
+    },
+    {
+      "path": "assets/generated/images/project-ethereal-gallery-index-study-480.webp",
+      "bytes": 12986,
+      "sha256": "6d5b5bbacac16d16911853106320e94bc0f79fd0ff530641a2ab948492c53da2"
+    },
+    {
+      "path": "assets/generated/images/project-ethereal-gallery-index-study-768.webp",
+      "bytes": 23594,
+      "sha256": "d2bc5403c7ab3ec30125092072a41a082efa340250f113dc592005cc1347570e"
+    },
+    {
+      "path": "assets/generated/images/project-obsidian-lounge-index-study-480.webp",
+      "bytes": 11970,
+      "sha256": "9e645262f3a3a5143e96548e62481921cce0f735cdfb1d1420966e41d0bcdc50"
+    },
+    {
+      "path": "assets/generated/images/project-obsidian-lounge-index-study-768.webp",
+      "bytes": 22894,
+      "sha256": "9555c59e5be856875c40e3851652618815332ddd7c2962fc6e3775d76ce810c9"
+    },
+    {
+      "path": "assets/generated/images/project-vortex-showroom-index-study-480.webp",
+      "bytes": 13006,
+      "sha256": "7883d58c4392210fb0d2069893c4f0bf065a5de076b8e4990ad7e13565991a70"
+    },
+    {
+      "path": "assets/generated/images/project-vortex-showroom-index-study-768.webp",
+      "bytes": 22670,
+      "sha256": "897debb7de05c46d4d2f1367247e0cc7e1f8e442402ad248e5e55d11bc48070a"
+    },
+    {
+      "path": "assets/journal/reduction-as-creation/feature-1.webp",
+      "bytes": 283344,
+      "sha256": "fee68fa306b362ca89db0e2ad4dac3c1d09877fd547930f566f8f9eaa73c2894"
+    },
+    {
+      "path": "assets/journal/reduction-as-creation/feature-2.webp",
+      "bytes": 212346,
+      "sha256": "6c4b16df7d16ccabadff2e7a9ee775dd54d364f34af432ac0c487ff526e736ed"
+    },
+    {
+      "path": "assets/journal/reduction-as-creation/feature-3.webp",
+      "bytes": 346854,
+      "sha256": "be827cee2f0fe2d2e77eb3febd567982dfd2ea09bf7e8e76353f2cc3bcc4e249"
+    },
+    {
+      "path": "assets/js/calendly.js",
+      "bytes": 909,
+      "sha256": "4f709e5668087c3e4a66d97455cd791beca19096fb6915fbd949d6802c6dde30"
+    },
+    {
+      "path": "assets/js/components/footer.js",
+      "bytes": 4773,
+      "sha256": "80ff3157da4d2d3f0c48ceae01f20ea262c49f3d11b0f76145f3ac0f282f9347"
+    },
+    {
+      "path": "assets/js/components/header-nav.js",
+      "bytes": 3155,
+      "sha256": "16d9f6fdef2860e38cf0c04de6513c3fcde054a39724424aab9eef3ae15132a1"
+    },
+    {
+      "path": "assets/js/deferred-css.js",
+      "bytes": 1337,
+      "sha256": "8242b77dd5b2b65e2aa9bba25dbda1c2c7dd8e6cd13f2772a006365fc3de0533"
+    },
+    {
+      "path": "assets/js/leads.js",
+      "bytes": 9880,
+      "sha256": "8986ffd408682cfb7615edc912a50bd51d142b6b3027afb7861357977227d1af"
+    },
+    {
+      "path": "assets/js/nav-drawer.js",
+      "bytes": 4394,
+      "sha256": "7ed9642bbf35e3fe401ca219ef514fefe7ba2539a2518345b843a8607924aecf"
+    },
+    {
+      "path": "assets/logo/logo purple svg.svg",
+      "bytes": 1491,
+      "sha256": "4b61195ed2f8626f2a15914097470e4184c469281ca5c3436a14b76fa0338b04"
+    },
+    {
+      "path": "assets/projects/bruton-place-iv/concept-board-og.png",
+      "bytes": 11620,
+      "sha256": "0eb2cc6a1bd2f12a3b07bed2aa14750f3e23fe0cd299797af644532d98cb38b1"
+    },
+    {
+      "path": "assets/projects/bruton-place-iv/concept-board.svg",
+      "bytes": 2473,
+      "sha256": "e90eb45e34809736ddfaaf9d1e992f53ffabd7d8993cad94bc7b71ea8ba71dc4"
+    },
+    {
+      "path": "assets/projects/bruton-place-iv/index-study-20260823.webp",
+      "bytes": 137330,
+      "sha256": "fa763d00d94bce0a023f850813eb93c5431da9b6d09264586a59211179496c89"
+    },
+    {
+      "path": "assets/projects/canvas-studios/concept-board-og.png",
+      "bytes": 18295,
+      "sha256": "5f7ae9b8818d2e1d7ca8839d5e6bca9fcfef6901f6009dd82855c45488693819"
+    },
+    {
+      "path": "assets/projects/canvas-studios/concept-board.svg",
+      "bytes": 1988,
+      "sha256": "4616eb6ec228eb20464bda6eaf0ad5490b38655f6591896ab32a3c6e44c1373c"
+    },
+    {
+      "path": "assets/projects/canvas-studios/index-study-20260823.webp",
+      "bytes": 104118,
+      "sha256": "2090e988d169835b1f31583ab2344f8f848514956dd856cbd4086ffb9585e742"
+    },
+    {
+      "path": "assets/projects/ethereal-gallery/concept-board-og.png",
+      "bytes": 35553,
+      "sha256": "1083ba631277cd980ae6e5f4695f959fd009c27e712de1e5febd31235dc84bee"
+    },
+    {
+      "path": "assets/projects/ethereal-gallery/concept-board.svg",
+      "bytes": 1939,
+      "sha256": "2b9326bfda7cfdbf11ed499d4a856c7c8c6ac84caddb834ed0afdddf9598e85e"
+    },
+    {
+      "path": "assets/projects/ethereal-gallery/index-study-20260823.webp",
+      "bytes": 88392,
+      "sha256": "3c78799976fe0514314504a3d75acec0141bd7421d6e621b4d0a13f5461e7104"
+    },
+    {
+      "path": "assets/projects/obsidian-lounge/concept-board-og.png",
+      "bytes": 44121,
+      "sha256": "782faa919981208364dbf68a42abfde3cc0f81df9709c4db5d226079eb80b4ec"
+    },
+    {
+      "path": "assets/projects/obsidian-lounge/concept-board.svg",
+      "bytes": 1979,
+      "sha256": "33818248588f384ea8ffeec7e6266012f44479e34a75727c58f42204135d78f6"
+    },
+    {
+      "path": "assets/projects/obsidian-lounge/index-study-20260823.webp",
+      "bytes": 92724,
+      "sha256": "8e60701e5c683cea9f9008d5732fd7a4794e2faf46b1019def77c158d9c87ff0"
+    },
+    {
+      "path": "assets/projects/vortex-showroom/concept-board-og.png",
+      "bytes": 56581,
+      "sha256": "5cdaf5da83f5d08fb38bff780cd94b50cf2778ee874b0c971bb6097d4b603288"
+    },
+    {
+      "path": "assets/projects/vortex-showroom/concept-board.svg",
+      "bytes": 2166,
+      "sha256": "3d54eba02170187db4ca8a46ae8921add91f8ce6b09eb82a66aed4612257cc85"
+    },
+    {
+      "path": "assets/projects/vortex-showroom/index-study-20260823.webp",
+      "bytes": 72424,
+      "sha256": "3606bf26b3b8ea61a3933fc0e2bc2f0ec244200736e9fd46729bb1bd0099af54"
+    },
+    {
+      "path": "commercial-interior-design-montreal/index.html",
+      "bytes": 45520,
+      "sha256": "c3330f104c692a31f88211d5451884a1478ee901c8bacc9ac65a7d411abf26c4"
+    },
+    {
+      "path": "contact/index.html",
+      "bytes": 6111,
+      "sha256": "72c6da1ff65dade237d20e7b5ca3af9f677872818303d5b0cb799e6b2c47150d"
+    },
+    {
+      "path": "favicon.svg",
+      "bytes": 1737,
+      "sha256": "30b091801b95242e445a5ae080078d931402cff555d14b39bba00dbbcf88fe9d"
+    },
+    {
+      "path": "index.html",
+      "bytes": 52898,
+      "sha256": "cc91c9f0084369accd2b60b651181c717fa146c61805465f926fd01d1bb363bc"
+    },
+    {
+      "path": "inquiry/index.html",
+      "bytes": 6725,
+      "sha256": "d5ca7890897be3aa44abcb9c3c23b0cf10b69e9af8412e5d75139d5b89ec8953"
+    },
+    {
+      "path": "journal/index.html",
+      "bytes": 36761,
+      "sha256": "2b9c39a9d85839594a6249c80d750130e93741e9f7df0cce7087cf396ca02f07"
+    },
+    {
+      "path": "journal/reduction-as-creation/index.html",
+      "bytes": 8067,
+      "sha256": "c490dad3806479bec01e5ef879c98726d0dc765c47405bb5f37d915918b7995a"
+    },
+    {
+      "path": "og/jq33-design-commercial-interior-montreal.png",
+      "bytes": 29754,
+      "sha256": "d5ae08d7138538b79ff930f1c9e20887883521da22d46c12cff9e6293b3b45b3"
+    },
+    {
+      "path": "privacy/index.html",
+      "bytes": 5012,
+      "sha256": "c3fb16945f926b6673e526b405a776b81137f406a1d2fb6e52cb5810e1ad4317"
+    },
+    {
+      "path": "projects/bruton-place-iv/index.html",
+      "bytes": 8149,
+      "sha256": "7de70a2cd8a2972d6cfe81e00e95501e7bed1c8eef9d13b8e1d753714b50b6e4"
+    },
+    {
+      "path": "projects/canvas-studios/index.html",
+      "bytes": 8116,
+      "sha256": "dfe846c65be940a96754d6458228db61a6b12b39db5d21d1e0ce51be3b55f5e7"
+    },
+    {
+      "path": "projects/ethereal-gallery/index.html",
+      "bytes": 8340,
+      "sha256": "f51a8522b0829069b33ae85a5454c6c86cffd5fb1bd098ef754c82ae9db35674"
+    },
+    {
+      "path": "projects/index.html",
+      "bytes": 17543,
+      "sha256": "7d4230e2fb67f6cabbb1a631fc89f9667e0923ba82f42c11e57841b7c0febb12"
+    },
+    {
+      "path": "projects/obsidian-lounge/index.html",
+      "bytes": 8237,
+      "sha256": "fa3b50b58dbda201b1cc2e1e3e6adfb8a15f75a4d886721757cf5fcf223f2931"
+    },
+    {
+      "path": "projects/vortex-showroom/index.html",
+      "bytes": 8251,
+      "sha256": "83d240a5dcfc0436273a8d5eeb2270345679335513e13b802a8db1bf60b220cf"
+    },
+    {
+      "path": "robots.txt",
+      "bytes": 64,
+      "sha256": "7de4a9d6fbbf19a61d9b83bc007b4c3e93776957e99ca4771c78fb73c86b0769"
+    },
+    {
+      "path": "sitemap.xml",
+      "bytes": 1566,
+      "sha256": "9f57a4057b40eb735e09db036cd2f53f2a9c8576726d6f2e2989b0a588923983"
+    },
+    {
+      "path": "terms/index.html",
+      "bytes": 5315,
+      "sha256": "1bb6a3838a1d458a0305ff3ee2216633af5508251e8e662c8bcdc1f523c23217"
+    },
+    {
+      "path": "tokens.css",
+      "bytes": 12320,
+      "sha256": "16dffd8bccf67d256a9db0881a35532d46bd01239100b47f1992975fc436c486"
+    }
+  ]
+}

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" vid="0">
-  <head vid="1">
-    <meta charset="UTF-8" vid="2" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" vid="3" />
-    <title vid="4">Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
+<html lang="en-CA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
     <meta
       name="description"
-      content="Tell us about your Montreal commercial space. Get a reply within 24 hours with next steps and the best package. Book a free 15-minute call."
+      content="Tell us about your Montreal commercial space, project goals, timing, and budget range, or book an introductory call to discuss next steps."
     />
     <link rel="canonical" href="https://jq33.design/inquiry/" />
 
@@ -16,6 +16,7 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta
       property="og:title"
@@ -23,13 +24,16 @@
     />
     <meta
       property="og:description"
-      content="Tell us about your Montreal commercial space. Get a reply within 24 hours with next steps and the best package. Book a free 15-minute call."
+      content="Tell us about your Montreal commercial space, project goals, timing, and budget range, or book an introductory call to discuss next steps."
     />
     <meta property="og:url" content="https://jq33.design/inquiry/" />
     <meta
       property="og:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Request a commercial interior design quote from JQ33 DESIGN" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -39,21 +43,19 @@
     />
     <meta
       name="twitter:description"
-      content="Tell us about your Montreal commercial space. Get a reply within 24 hours with next steps and the best package. Book a free 15-minute call."
+      content="Tell us about your Montreal commercial space, project goals, timing, and budget range, or book an introductory call to discuss next steps."
     />
     <meta
       name="twitter:image"
       content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" vid="5" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" vid="6" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Permanent+Marker&amp;display=swap"
-      rel="stylesheet"
-      vid="7"
-    />
-    <link rel="stylesheet" href="/assets/css/site.css" />
-    <style vid="8">
+    <meta name="twitter:image:alt" content="Request a commercial interior design quote from JQ33 DESIGN" />
+    <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
+    <style>
+      /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
         box-sizing: border-box;
         margin: 0;
@@ -65,11 +67,10 @@
         width: 100%;
         min-height: 100vh;
         min-height: 100svh;
-        overflow-x: hidden;
-        overflow-y: auto;
-        background-color: #1a1a1a;
+        overflow-x: clip;
+        background-color: var(--color-charcoal);
         font-family: var(--font-sans);
-        color: var(--cobalt);
+        color: var(--text-primary);
         position: relative;
       }
 
@@ -84,23 +85,24 @@
         background-size: cover;
         background-position: center;
         filter: grayscale(60%) brightness(35%);
-        transition: transform 0.5s ease-out;
+        transition: transform var(--dur-xl) var(--ease-out);
       }
 
       .brand-mark {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(-90deg);
-        font-family: var(--font-display);
+        position: absolute;
+        top: 46%;
+        right: -4vw;
+        left: auto;
+        transform: translateY(-50%) rotate(-90deg);
+        font-family: var(--font-brand);
         font-size: clamp(72px, 25vh, 280px);
         color: var(--cobalt);
         white-space: nowrap;
         z-index: 1;
         pointer-events: none;
-        line-height: 0.8;
-        text-shadow: 0px 0px 20px rgba(59, 65, 227, 0.1);
-        opacity: 0.2;
+        line-height: 1;
+        text-shadow: 0px 0px 20px var(--color-cobalt-a10);
+        opacity: 0.08;
       }
 
       .main-content {
@@ -110,13 +112,10 @@
         min-height: 100vh;
         min-height: 100svh;
         display: grid;
-        grid-template-columns: 10vw 1fr 1fr 10vw;
-        grid-template-rows: 15vh 1fr 15vh;
-        overflow-y: auto;
-        scrollbar-width: none;
-      }
-      .main-content::-webkit-scrollbar {
-        display: none;
+        grid-template-columns:
+          10vw minmax(0, 1fr) minmax(0, 1fr)
+          max(10vw, var(--space-50));
+        grid-template-rows: 15vh auto 15vh;
       }
 
       .info-col {
@@ -124,7 +123,7 @@
         top: 15vh;
         display: flex;
         flex-direction: column;
-        gap: 2rem;
+        gap: var(--space-xl);
         font-size: 0.75rem;
         font-weight: 500;
         letter-spacing: 0.5px;
@@ -149,37 +148,57 @@
 
       .center-grid {
         grid-column: 2 / 4;
+        grid-row: 1 / -1;
         display: flex;
         flex-direction: column;
-        gap: 4rem;
-        padding: clamp(120px, 15vh, 180px) 0 80px;
+        gap: var(--space-16);
+        padding: clamp(var(--space-30), 15vh, var(--space-45)) 0 var(--space-20);
         min-height: 100%;
       }
 
       .center-grid__content {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: clamp(1.25rem, 4vw, 4rem);
+        gap: clamp(var(--space-5), 4vw, var(--space-16));
         flex: 1 1 auto;
-      }
-
-      .center-grid .site-footer {
-        margin-top: auto;
       }
 
       .section-label {
         text-transform: uppercase;
-        margin-bottom: 2rem;
-        opacity: 0.7;
+        margin-bottom: var(--space-xl);
+        color: var(--cobalt-hover);
+        opacity: 0.82;
         font-size: var(--fs-label);
         letter-spacing: var(--ls-label);
-        border-bottom: 1px solid var(--cobalt);
-        padding-bottom: 0.5rem;
+        border-bottom: 1px solid var(--cobalt-hover);
+        padding-bottom: var(--space-xs);
         width: fit-content;
       }
 
+      .center-grid__content > section:first-child > .section-label {
+        margin-bottom: clamp(var(--space-lg), 4vh, var(--space-11));
+        font-size: clamp(1.75rem, 4vw, 3.1rem);
+        line-height: 1.04;
+        font-weight: 850;
+        letter-spacing: 0;
+        text-transform: none;
+        opacity: 1;
+        max-width: 12ch;
+        border-bottom-color: var(--border-strong);
+      }
+
       .form-group {
-        margin-bottom: 1.5rem;
+        margin-bottom: var(--space-md);
+      }
+
+      .form-group > label {
+        display: block;
+        margin-bottom: var(--space-1-8);
+        color: var(--text-secondary);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
       }
 
       .sr-only {
@@ -196,143 +215,131 @@
 
       .hp-field {
         position: absolute;
-        left: -9999px;
         width: 1px;
         height: 1px;
+        padding: 0;
+        margin: -1px;
         overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        clip-path: inset(50%);
+        border: 0;
+        white-space: nowrap;
       }
 
       input,
       textarea {
         width: 100%;
-        background: transparent;
-        border: none;
-        border-bottom: 1px solid rgba(59, 65, 227, 0.3);
-        padding: 0.75rem 0;
-        color: #fff;
+        background: var(--glass);
+        border: 1px solid var(--text-tertiary);
+        border-radius: 30px;
+        padding: var(--space-md) var(--space-5);
+        color: var(--text-inverse);
         font-family: var(--font-sans);
-        font-size: 0.85rem;
-        outline: none;
-        transition: border-color 0.3s;
+        font-size: 0.95rem;
+        line-height: 1.45;
+        outline: 2px solid transparent;
+        outline-offset: 1px;
+        transition: border-color 0.3s, background-color 0.3s;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: var(--text-tertiary);
       }
 
       input:focus,
       textarea:focus {
-        border-bottom: 1px solid var(--cobalt);
+        border-color: var(--cobalt-hover);
+        background: var(--glass);
       }
 
       input:focus-visible,
       textarea:focus-visible {
         outline: 2px solid var(--focus-ring);
-        outline-offset: 4px;
-        border-bottom: 1px solid var(--cobalt);
+        outline-offset: 2px;
+        border-color: var(--cobalt-hover);
+      }
+
+      input:disabled,
+      textarea:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
       }
 
       button {
-        background: var(--cobalt-base);
-        color: #fff;
-        border: none;
-        padding: 1rem 2rem;
+        background: var(--color-accent);
+        color: var(--color-accent-ink);
+        border: 1px solid var(--color-cobalt-a65);
+        padding: var(--space-md) var(--space-5-4);
         font-family: var(--font-sans);
-        font-weight: 600;
-        font-size: 0.75rem;
+        font-weight: 800;
+        font-size: 0.78rem;
         text-transform: uppercase;
-        letter-spacing: 1px;
+        letter-spacing: 0.08em;
         cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      button:hover {
-        background: var(--cobalt-base-hover);
+        transition: background 0.3s, border-color 0.3s, transform 0.3s;
       }
 
       button:disabled {
-        opacity: 0.7;
+        opacity: 0.55;
         cursor: not-allowed;
       }
 
       .form-status {
-        margin-top: 1rem;
+        margin-top: var(--space-md);
         min-height: 1.4em;
-        color: #bfe3ff;
+        color: var(--color-info-light);
         font-size: 0.85rem;
       }
 
       .form-status.is-error {
-        color: #ffd2d2;
+        color: var(--color-error-light);
       }
 
       .bio-item {
-        margin-bottom: 2.5rem;
+        margin-bottom: var(--space-10);
       }
 
       .bio-name {
         font-weight: 600;
         font-size: 1rem;
-        margin-bottom: 0.25rem;
-        color: #fff;
+        margin-bottom: var(--space-1);
+        color: var(--text-inverse);
       }
 
       .bio-role {
         font-size: 0.7rem;
         text-transform: uppercase;
-        opacity: 0.8;
-        margin-bottom: 0.75rem;
+        opacity: 1;
+        margin-bottom: var(--space-sm);
+        color: var(--cobalt-hover);
       }
 
       .bio-text {
         font-size: 0.85rem;
         line-height: 1.6;
-        opacity: 0.7;
-        color: #fff;
-      }
-
-      .map-container {
-        width: 100%;
-        height: clamp(180px, 28vh, 240px);
-        background: #222;
-        margin-top: 1rem;
-        border: 1px solid rgba(59, 65, 227, 0.2);
-        position: relative;
-        overflow: hidden;
-        filter: grayscale(1);
-      }
-
-      .map-placeholder {
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(
-            circle at 20% 20%,
-            rgba(59, 65, 227, 0.25),
-            transparent 55%
-          ),
-          radial-gradient(
-            circle at 78% 35%,
-            rgba(59, 65, 227, 0.18),
-            transparent 60%
-          ),
-          linear-gradient(135deg, #0f0f0f, #1a1a1a);
-        opacity: 0.65;
+        opacity: 1;
+        color: var(--text-secondary);
       }
 
       .content-block {
-        margin-bottom: 3rem;
+        margin-bottom: var(--space-2xl);
       }
 
       a {
-        color: var(--cobalt);
+        color: var(--cobalt-hover);
         text-decoration: none;
-        transition: color 0.3s ease;
+        transition: color var(--dur-lg) var(--ease-standard);
       }
 
-      a:hover {
-        color: #fff;
-      }
+      @media (hover: hover) and (pointer: fine) {
+        button:hover {
+          background: var(--cobalt-base-hover);
+        }
 
-      .nav-link {
-        font-weight: 600;
-        font-size: 0.85rem;
-        padding: 4px 0;
+        a:hover {
+          color: var(--text-inverse);
+        }
       }
 
       .grain {
@@ -344,25 +351,6 @@
         pointer-events: none;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
         z-index: 10;
-      }
-
-      .cursor-dot {
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--cobalt);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 999;
-        transform: translate(-50%, -50%);
-        transition: width 0.2s, height 0.2s, background-color 0.2s;
-      }
-
-      .cursor-hover {
-        background-color: var(--cobalt);
-        opacity: 0.5;
-        width: 40px;
-        height: 40px;
       }
 
       .active-link {
@@ -380,7 +368,7 @@
 
         .center-grid {
           grid-column: 1;
-          padding: 130px min(6vw, 2rem) 60px;
+          padding: var(--space-31) max(var(--space-md), min(6vw, var(--space-xl))) var(--space-15);
         }
 
         .col-right {
@@ -395,44 +383,49 @@
 
         .brand-mark {
           font-size: clamp(56px, 16vh, 150px);
-          opacity: 0.12;
+          opacity: 0.1;
         }
       }
 
       @media (max-width: 640px) {
         .center-grid {
-          padding: 108px 1rem 40px;
-          gap: 2.25rem;
+          padding: var(--space-26) var(--space-md) var(--space-10);
+          gap: var(--space-9);
         }
 
         .section-label {
-          margin-bottom: 1.25rem;
+          margin-bottom: var(--space-5);
         }
 
         button {
           width: 100%;
         }
 
-        .cursor-dot {
-          display: none;
-        }
       }
     </style>
   </head>
-  <body vid="9">
-    <div class="bg-layer" id="parallax-bg" vid="10"></div>
-    <div class="grain" vid="11"></div>
-    <div class="brand-mark" vid="12">JQ33<br vid="13" />DESIGN</div>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="bg-layer" id="parallax-bg" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="brand-mark" aria-hidden="true">JQ33<br />DESIGN</div>
 
     <header class="header-nav" data-component="header-nav"></header>
 
-    <main class="main-content" vid="14">
-      <h1 class="sr-only">Project inquiry</h1>
-      <div class="center-grid" vid="21">
+    <main class="main-content" id="main-content">
+      <div class="center-grid">
         <div class="center-grid__content">
-          <section vid="22">
-            <div class="section-label" vid="23">Get a free quote (2 minutes)</div>
-            <form data-lead-form="inquiry" method="post" vid="24">
+          <section>
+            <h1 class="section-label">Get a free quote (2 minutes)</h1>
+            <form
+              data-lead-form="inquiry"
+              method="post"
+              action="{{FORMSPREE_INQUIRY_URL}}"
+              accept-charset="UTF-8"
+            >
+              <input type="hidden" name="form_type" value="inquiry" />
+              <input type="hidden" name="source_path" value="/inquiry/" />
+              <input type="hidden" name="_subject" value="JQ33 Inquiry request" />
               <div class="hp-field" aria-hidden="true">
                 <label for="inquiry-company">Company</label>
                 <input
@@ -443,173 +436,132 @@
                   autocomplete="off"
                 />
               </div>
-              <div class="form-group" vid="25">
-                <label class="sr-only" for="inquiry-name">Name and business name</label>
+              <div class="form-group">
+                <label for="inquiry-name">Name and business name</label>
                 <input
                   type="text"
                   id="inquiry-name"
                   name="name_business"
                   placeholder="Name + business name"
                   autocomplete="name"
+                  maxlength="200"
                   required
-                  vid="26"
+                  aria-describedby="inquiry-name-error"
                 />
+                <p class="field-error" id="inquiry-name-error" data-field-error aria-live="polite"></p>
               </div>
-              <div class="form-group" vid="27">
-                <label class="sr-only" for="inquiry-email">Email address</label>
+              <div class="form-group">
+                <label for="inquiry-email">Email address</label>
                 <input
                   type="email"
                   id="inquiry-email"
                   name="email"
                   placeholder="Email address"
                   autocomplete="email"
+                  maxlength="254"
                   required
-                  vid="28"
+                  aria-describedby="inquiry-email-error"
                 />
+                <p class="field-error" id="inquiry-email-error" data-field-error aria-live="polite"></p>
               </div>
-              <div class="form-group" vid="29">
-                <label class="sr-only" for="inquiry-space-type">Space type</label>
+              <div class="form-group">
+                <label for="inquiry-space-type">Space type</label>
                 <input
                   type="text"
                   id="inquiry-space-type"
                   name="space_type"
                   placeholder="Space type (Cafe / Salon / Clinic / Retail / Office / Other)"
+                  maxlength="120"
                   required
-                  vid="30"
+                  aria-describedby="inquiry-space-type-error"
                 />
+                <p class="field-error" id="inquiry-space-type-error" data-field-error aria-live="polite"></p>
               </div>
-              <div class="form-group" vid="31">
-                <label class="sr-only" for="inquiry-goals">Project goals and constraints</label>
+              <div class="form-group">
+                <label for="inquiry-goals">Project goals and constraints</label>
                 <textarea
                   id="inquiry-goals"
                   name="project_goals"
                   placeholder="What are you trying to achieve? (Timeline, budget range, neighborhood, constraints)"
                   rows="4"
+                  maxlength="2000"
                   required
-                  vid="32"
+                  aria-describedby="inquiry-goals-error"
                 ></textarea>
+                <p class="field-error" id="inquiry-goals-error" data-field-error aria-live="polite"></p>
               </div>
-              <button
-                type="submit"
-                onmouseenter="hoverCursor()"
-                onmouseleave="leaveCursor()"
-                vid="33"
-              >
+              <button type="submit">
                 Get a free quote
               </button>
-              <p class="form-status" data-form-status role="status" aria-live="polite"></p>
+              <p
+                class="form-status"
+                data-form-status
+                role="status"
+                aria-live="polite"
+                aria-atomic="true"
+              ></p>
+              <button type="button" data-form-retry hidden>Retry</button>
             </form>
 
-            <div class="section-label" vid="34" style="margin-top: 5rem">
-              Studio (Montreal)
-            </div>
-            <div class="map-container" vid="35">
-              <div class="map-placeholder" vid="36"></div>
-              <div
-                style="
-                  position: absolute;
-                  bottom: 10px;
-                  left: 10px;
-                  font-size: 10px;
-                  color: var(--cobalt);
-                "
-                vid="37"
-              >
-                Montreal, Quebec
-              </div>
-            </div>
           </section>
 
-          <section vid="38">
-            <div class="section-label" vid="39">What you'll get</div>
-            <div class="bio-item" vid="40">
-              <div class="bio-name" vid="41">Clear layout that improves flow</div>
-              <div class="bio-role" vid="42">Space planning</div>
-              <div class="bio-text" vid="43">
+          <section>
+            <div class="section-label">What you'll get</div>
+            <div class="bio-item">
+              <div class="bio-name">Clear layout that improves flow</div>
+              <div class="bio-role">Space planning</div>
+              <div class="bio-text">
                 Space planning focused on customer experience and staff efficiency.
               </div>
             </div>
-            <div class="bio-item" vid="44">
-              <div class="bio-name" vid="45">Confident finishes + lighting direction</div>
-              <div class="bio-role" vid="46">Taste + visual clarity</div>
-              <div class="bio-text" vid="47">
+            <div class="bio-item">
+              <div class="bio-name">Confident finishes + lighting direction</div>
+              <div class="bio-role">Taste + visual clarity</div>
+              <div class="bio-text">
                 A tight palette that looks premium and photographs well.
               </div>
             </div>
-            <div class="bio-item" vid="48">
-              <div class="bio-name" vid="49">3D visuals to decide faster</div>
-              <div class="bio-role" vid="50">Decision support</div>
-              <div class="bio-text" vid="51">
+            <div class="bio-item">
+              <div class="bio-name">3D visuals to decide faster</div>
+              <div class="bio-role">Decision support</div>
+              <div class="bio-text">
                 See key viewpoints before you spend on construction.
               </div>
             </div>
 
-            <div class="section-label" vid="52" style="margin-top: 2rem">
+            <div class="section-label" style="margin-top: var(--space-xl)">
               Next step
             </div>
-            <div style="display: flex; flex-direction: column; gap: 0.5rem" vid="53">
+            <div style="display: flex; flex-direction: column; gap: var(--space-xs)">
               <a
-                href="https://calendly.com/hello-jq33/15min"
+                href="{{CALENDLY_URL}}"
                 data-calendly-cta
                 style="color: inherit; text-decoration: underline"
                 target="_blank"
-                rel="noopener"
-                vid="54"
-                >Prefer talking first? Book a free 15-minute call</a
+                rel="noopener noreferrer"
+                >Book a call</a
               >
-              <div vid="55">Want pricing fast? Get a free quote</div>
+              <div>Book an introductory call, or get a quote for pricing.</div>
             </div>
           </section>
         </div>
-
-        <footer class="site-footer site-footer--stacked" data-component="footer"></footer>
       </div>
 
-      <div class="info-col col-right" vid="58">
-        <div class="content-block" vid="59">
-          <div class="label" vid="60">CONTACT</div>
-          <div vid="61">hello@jq33.design</div>
-          <div vid="62">+1 514 473 0075</div>
-        </div>
-        <div class="content-block" vid="63">
-          <div class="label" vid="64">HOURS</div>
-          <div vid="65">Mon-Fri / 9:00-5:00 ET</div>
-          <div vid="66">Montreal consultations by appointment</div>
+      <div class="info-col col-right">
+        <div class="content-block">
+          <div class="label">CONTACT</div>
+          <div>hello@jq33.design</div>
+          <div>+1 514 473 0075</div>
         </div>
       </div>
     </main>
 
-    <div class="cursor-dot" id="cursor" vid="67"></div>
+    <footer class="site-footer" data-component="footer"></footer>
 
-    <script src="/assets/js/supabase-config.js"></script>
-    <script src="/assets/js/analytics.js"></script>
     <script src="/assets/js/leads.js"></script>
     <script src="/assets/js/calendly.js"></script>
     <script src="/assets/js/components/header-nav.js"></script>
-    <script src="/assets/js/components/footer.js"></script>
+    <script src="/assets/js/components/footer.js?v=20260716-1"></script>
     <script src="/assets/js/nav-drawer.js"></script>
-    <script vid="68">
-      const cursor = document.getElementById("cursor");
-      const bg = document.getElementById("parallax-bg");
-      const canHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
-      document.addEventListener("mousemove", (e) => {
-        if (!canHover) return;
-        cursor.style.left = e.clientX + "px";
-        cursor.style.top = e.clientY + "px";
-        const x = (window.innerWidth - e.pageX * 2) / 100;
-        const y = (window.innerHeight - e.pageY * 2) / 100;
-        bg.style.transform = `scale(1.1) translate(${x}px, ${y}px)`;
-      });
-
-      function hoverCursor() {
-        if (!canHover) return;
-        cursor.classList.add("cursor-hover");
-      }
-      function leaveCursor() {
-        if (!canHover) return;
-        cursor.classList.remove("cursor-hover");
-      }
-    </script>
   </body>
 </html>
