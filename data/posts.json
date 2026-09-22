@@ -126,5 +126,160 @@
       },
       "alt": "Abstract lines"
     }
+  },
+  {
+    "slug": "commercial-interior-design-cost-montreal",
+    "status": "published",
+    "title": "What Does Commercial Interior Design Cost?",
+    "title_lines": ["Design Cost", "Made Clear"],
+    "hero_title_lines": ["COMMERCIAL", "DESIGN COSTS"],
+    "meta": {
+      "title": "Commercial Interior Design Costs in Montreal | JQ33",
+      "description": "Compare JQ33 design package starting prices, understand what changes your scope, and separate design fees from your Montreal commercial renovation budget."
+    },
+    "published": "2026-09-08",
+    "modified": "2026-09-08",
+    "published_display": "SEP 2026",
+    "category": "Budget & Scope",
+    "author": "JQ33 DESIGN",
+    "lead": "A useful design budget starts with the decisions you need to make. Here is how to compare our packages and prepare a brief that makes your quote more specific.",
+    "intro_paragraphs": [
+      "A layout refresh, a complete visual concept, and a detailed design handoff are different assignments. Before comparing fees, write down the outcome you need: a better customer path, a stronger brand experience, or a coordinated set of design decisions for contractor discussions.",
+      "The figures below are JQ33 DESIGN's published starting prices in Canadian dollars as of September 2026. They are design fees, not a survey of Montreal market rates or an estimate of your construction cost. Your proposal confirms the actual scope and price."
+    ],
+    "key_concepts": ["01. Define the decision", "02. Separate design and construction", "03. Compare the same deliverables"],
+    "pull_quote": "BUDGET FOR THE DECISIONS. THEN PRICE THE WORK.",
+    "sections": [
+      {
+        "title": "Start with the right scope",
+        "paragraphs": ["Choose the package that matches the work you need now. A higher tier makes sense when you need more coordinated decisions and documentation; it is not automatically the best place to start."],
+        "items": [
+          "Layout Sprint — from $2,900 CAD. A starting point for zoning, furniture or equipment placement, and circulation decisions.",
+          "Signature Interior — from $6,800 CAD. A broader concept with layout, finish palette, lighting direction, and key 3D views.",
+          "Contractor-Ready Package — from $12,500 CAD. More detailed design direction for multi-zone spaces, sourcing, and contractor pricing discussions. Confirm the exact drawing and specification list in your proposal."
+        ]
+      },
+      {
+        "title": "What changes the quote?",
+        "paragraphs": ["Floor area matters, but it is only one part of scope. A small salon with wash stations, storage, retail display, and several service types can involve more decisions than a larger room with one use. Share your equipment list and the number of zones before asking for a price.", "Existing information matters too. A usable floor plan, clear photos, and reliable dimensions help establish the starting point. If measurements or a site visit are needed, ask how that work is included in your proposal. Decide who will approve the design and consolidate feedback so each revision round has a clear purpose."],
+        "items": ["Number of customer and staff zones", "Existing plans and site information", "Number of views, elevations, and specified items", "Custom fixtures and technical coordination needs", "Revision rounds and changes after approval"]
+      },
+      {
+        "title": "Keep separate budget lines",
+        "paragraphs": ["Use separate lines for design fees, construction and installation, furniture and equipment, professional or approval-related services, and the amount you want to hold for unresolved conditions. Ask who is supplying and pricing each item. A material direction in a design presentation does not mean the material itself is purchased.", "Do not treat a rendering as a construction quote. A contractor needs site information and an agreed scope to price the work. Confirm any specialist drawings, permit submissions, engineering, purchasing, or site supervision separately rather than assuming the package name includes them."]
+      },
+      {
+        "title": "Compare proposals like for like",
+        "paragraphs": ["Make a short comparison with one row per deliverable: layout, finish schedule, lighting direction, 3D views, elevations, revision rounds, and handoff meeting. Beside each, note what is included, what information you must provide, and what remains to be quoted.", "Then compare the questions each proposal resolves. If you mostly need to decide whether the customer and staff flow works, start there. If that flow is settled but the space lacks an identity, finish and lighting direction may be the more useful investment."]
+      },
+      {
+        "title": "Bring a brief, even a rough one",
+        "paragraphs": ["Send your business type, location, approximate area, existing plans or photos, target opening period, and the three decisions that feel hardest. Separate your total project budget from what you have allocated to design. If either is unknown, say so; an honest starting point is more useful than a number chosen to fill a box.", "Use the sample package in our planning resources to see how a brief becomes a set of recorded design decisions. The package-fit guide can help you start the conversation, and the written proposal determines the final scope."]
+      }
+    ],
+    "closing_paragraphs": ["Prices are starting points for JQ33 services. Your space, existing information, and requested deliverables determine the proposal. Check the Services page for the current package details."],
+    "cta": {"title": "Put a scope around your idea", "text": "Tell us what you are planning and what you need to decide. We will discuss a suitable design scope.", "label": "Discuss your project scope"},
+    "card": {"number": "POST_007", "meta": "Journal / Budget & Scope", "image": {"local": "assets/journal/cards/reduction-as-creation.webp"}, "alt": "Technical drawings and tools on a drafting desk"},
+    "images": {"feature_one": {"local": "assets/journal/reduction-as-creation/feature-1.webp", "alt": "Technical drawings being reviewed at a desk", "label": "Reference / Planning & documentation", "width": 2070, "height": 1380}}
+  },
+  {
+    "slug": "before-you-sign-a-commercial-lease",
+    "status": "published",
+    "title": "Before You Sign a Commercial Lease",
+    "title_lines": ["Before You", "Sign the Lease"],
+    "hero_title_lines": ["BEFORE YOU", "SIGN THE LEASE"],
+    "meta": {
+      "title": "Before You Sign a Commercial Lease | JQ33 DESIGN",
+      "description": "Gather plans, equipment needs, landlord questions, and design priorities before choosing a commercial space. Use our free lease-preparation checklist."
+    },
+    "published": "2026-09-08",
+    "modified": "2026-09-08",
+    "published_display": "SEP 2026",
+    "category": "Planning",
+    "author": "JQ33 DESIGN",
+    "lead": "A promising address is only the beginning. Bring these design and operational questions to a space viewing so you can see what still needs an answer.",
+    "intro_paragraphs": [
+      "A room can look right in a photograph and still be awkward for the way your business works. Before committing, test an ordinary day: customers arriving, staff preparing, equipment running, supplies coming in, and cleaning at closing time.",
+      "This guide is a way to organize your design questions. Lease terms, permitted use, approvals, building systems, and compliance need confirmation from the landlord and appropriate local professionals. Record unanswered questions instead of treating a viewing as a technical assessment."
+    ],
+    "key_concepts": ["01. Map an ordinary day", "02. Record the unknowns", "03. Assign the next question"],
+    "pull_quote": "SEE THE SPACE. TEST THE DAY. ASK WHAT IS MISSING.",
+    "sections": [
+      {
+        "title": "Take a useful record of the space",
+        "paragraphs": ["Ask for the latest available floor plan and note whether its dimensions have been verified. With permission, photograph every wall, entry, ceiling, existing service area, and fixed obstruction. Include a view looking back toward the entrance. Mark where each photograph was taken so a designer can connect the images to the plan.", "List what is staying, what might be removed, and what you do not yet know. Note visible columns, changes in level, doors, windows, existing equipment, and possible storage areas. Do not infer the condition or capacity of concealed systems from appearance alone."]
+      },
+      {
+        "title": "Test how the business will work",
+        "paragraphs": ["Write a simple customer route: arrive, understand where to go, wait if needed, receive a service or browse, pay, and leave. Then trace the staff route separately. Where do the two paths compete? A reception point, service station, or display can feel attractive but make everyday movement awkward.", "Bring equipment sizes and operating needs, not just a mood board. Include support spaces that are easy to forget: deliveries, stock, cleaning supplies, waste, staff belongings, and any private conversations your business requires."]
+      },
+      {
+        "title": "Bring clear landlord questions",
+        "paragraphs": ["Ask the landlord to clarify what information and approvals are available, who provides them, and what work is expected from each party. Save written answers with your space notes so your designer and contractor are working from the same information."],
+        "items": ["What existing plans, reports, and building-system information can be shared?", "What is the process for confirming the proposed business use and alterations?", "What conditions apply to signage, deliveries, construction access, working hours, and waste?", "Which existing fixtures or equipment remain, and who is responsible for their condition?", "What dates or decisions affect access for surveys, pricing, and any planned work?"]
+      },
+      {
+        "title": "Give each unknown an owner",
+        "paragraphs": ["Make four columns: question, person to ask, information needed, and date required. For example, an equipment service requirement may need the manufacturer and a qualified contractor; a layout option may need a designer; a lease responsibility question belongs with your legal adviser and landlord.", "Keep a separate list of decisions that could change the plan or budget. Examples include relocating fixed service areas, adding custom joinery, changing the entry experience, or keeping the business open during work. Ask for investigation and pricing before treating these as settled choices."]
+      },
+      {
+        "title": "Compare spaces with the same brief",
+        "paragraphs": ["When comparing locations, use the same business needs for each. Record the customer experience, practical layout fit, existing information, changes needed, and unanswered questions. The cheapest-looking fit-out is not always the one with the fewest unresolved decisions.", "Our free checklist gives you a repeatable viewing sheet. Bring the completed notes, photos, and plan to a design conversation; they make it easier to discuss what to investigate and what can be explored through layout."]
+      }
+    ],
+    "closing_paragraphs": ["A viewing checklist helps you ask better questions. It does not establish that a space is suitable or approved for your business; have the relevant people confirm those decisions before relying on them."],
+    "cta": {"title": "Explore the layout before the fit-out", "text": "Share the plan, your business needs, and the questions still open. We can discuss a design scope for your next decision.", "label": "Discuss a potential space"},
+    "card": {"number": "POST_008", "meta": "Journal / Planning", "image": {"local": "assets/journal/cards/small-shop-big-impact.webp"}, "alt": "Office interior with shared amenities and a central circulation route"},
+    "images": {"feature_one": {"local": "assets/journal/reduction-as-creation/feature-3.webp", "alt": "Office corridor connecting enclosed work areas", "label": "Reference / Circulation & adjacent uses", "width": 2070, "height": 1380}}
+  },
+  {
+    "slug": "salon-layout-planning-checklist",
+    "status": "published",
+    "title": "A Practical Salon Layout Checklist",
+    "title_lines": ["Plan a", "Better Salon"],
+    "hero_title_lines": ["PLAN A", "BETTER SALON"],
+    "meta": {
+      "title": "Salon Layout Planning Checklist | JQ33 DESIGN",
+      "description": "Plan your salon around arrival, styling, wash stations, storage, lighting, and daily staff routines. A practical checklist for your design brief."
+    },
+    "published": "2026-09-08",
+    "modified": "2026-09-08",
+    "published_display": "SEP 2026",
+    "category": "Salon Layout",
+    "author": "JQ33 DESIGN",
+    "lead": "Start with the appointment from arrival to checkout. Then design the places, routes, and storage that let your team deliver that experience.",
+    "intro_paragraphs": [
+      "A salon layout is more than a row of chairs. Reception, consultation, styling, washing, product display, cleaning, and staff support all ask something different of the space. The brief should explain how those activities connect.",
+      "Use this checklist to prepare decisions for your designer. Confirm equipment requirements and site-specific technical, accessibility, and approval questions with the relevant professionals. A reference image is useful for discussing atmosphere, but it does not establish working dimensions or a compliant layout."
+    ],
+    "key_concepts": ["01. Follow the appointment", "02. Include staff routines", "03. Test before specifying"],
+    "pull_quote": "A BOLD SALON SHOULD WORK AS WELL AS IT LOOKS.",
+    "sections": [
+      {
+        "title": "Make arrival feel obvious",
+        "paragraphs": ["Stand at the entrance and describe what a new client sees first. Can they identify where to check in? Does waiting compete with the route to a station? Where can a coat or bag go? Include the moment before an appointment as part of the design, rather than fitting a waiting seat into leftover space.", "Decide how retail products support the visit. A considered display near consultation or checkout may be useful, but its position should not force every client and staff member through the same pinch point. Sketch the customer route before choosing display furniture."]
+      },
+      {
+        "title": "Brief the station around the service",
+        "paragraphs": ["List the services delivered at each station, who uses it, the equipment involved, and what needs to be within reach. Bring manufacturer dimensions for chairs, mirrors, trolleys, and fixed equipment. Discuss operating space and routes using real equipment information rather than estimating from an image.", "Record where tools, products, client belongings, and cables go during the appointment. Consider how a seated client, a stylist, and a passing colleague share the area. Let the designer know about different service durations and any need for privacy or a quieter consultation."]
+      },
+      {
+        "title": "Connect washing and staff support",
+        "paragraphs": ["Map the journey between styling, washing, preparation, and clean storage. List the wash units and their manufacturer requirements, then have the relevant contractor review the existing services and proposed locations. Moving a wet area is a coordination decision, not just a change to the furniture plan.", "Include towel handling, product preparation, cleaning, waste, deliveries, and staff belongings in your brief. Ask the team which repeated trips take the most effort today. That information can make a layout discussion more useful than simply asking for more stations."],
+        "items": ["Clean and used items have identified holding places", "Products and tools have storage close to their point of use", "Delivery and restocking routes are considered", "Staff can explain the opening and closing routine on the plan"]
+      },
+      {
+        "title": "Review light and materials in context",
+        "paragraphs": ["Separate the atmosphere you want clients to feel from the light staff need to work. Discuss mirror reflections, daylight changes, task lighting, and the appearance of hair and finishes with your designer and lighting supplier. Review samples in the actual space where possible.", "For floors, worktops, seating, and cabinetry, bring the expected cleaning routine and product exposure to the supplier conversation. Ask for the relevant maintenance and suitability information before selecting a finish solely for its colour or texture. Record alternatives if availability changes."]
+      },
+      {
+        "title": "Walk through a full appointment",
+        "paragraphs": ["Review a busy appointment period on the plan with your team: one client arriving, another being washed, a stylist collecting supplies, and someone paying. Mark each pause or crossing that seems awkward. Include clients with different mobility and access needs in the design discussion, with the appropriate professional review.", "Choose three priorities for the first design conversation, such as clearer arrival, more useful storage, or a stronger signature moment. Share photos, the existing plan, equipment information, and those priorities. That is a concrete starting point for a layout brief or a broader interior concept."]
+      }
+    ],
+    "closing_paragraphs": ["The illustrated salon is a visual reference, not completed JQ33 client work or a dimensioned layout. Your plan should be developed around your premises, equipment, services, and agreed professional scope."],
+    "cta": {"title": "Give your salon a clear direction", "text": "Tell us about your services, existing space, and the daily routines you want to improve.", "label": "Discuss your salon"},
+    "card": {"number": "POST_009", "meta": "Journal / Salon Layout", "image": {"local": "assets/home page images/commercial hairsaloon interior.webp"}, "alt": "Illustrative salon interior with styling chairs, mirrors, and a central aisle"},
+    "images": {"feature_one": {"local": "assets/home page images/commercial hairsaloon interior.webp", "alt": "Illustrative salon with paired styling stations; not completed JQ33 client work", "label": "Illustrative reference / Not client work", "width": 1536, "height": 1024}}
   }
 ]

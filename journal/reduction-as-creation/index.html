@@ -21,14 +21,14 @@
     <meta property="og:image" content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Material sampling" />
+    <meta property="og:image:alt" content="JQ33 DESIGN commercial interior design in Montreal" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Reduction as Creation | JQ33 DESIGN Journal" />
     <meta name="twitter:description" content="Why simplifying layout, finishes, and lighting can create a clearer customer experience and a more practical commercial interior design process." />
     <meta name="twitter:image" content="https://jq33.design/og/jq33-design-commercial-interior-montreal.png" />
-    <meta name="twitter:image:alt" content="Material sampling" />
+    <meta name="twitter:image:alt" content="JQ33 DESIGN commercial interior design in Montreal" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -90,8 +90,8 @@
     </script>
     <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/tokens.css?v=20260828-transparent-nav-1" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260828-transparent-nav-1" />
     <style>
       /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
@@ -166,7 +166,7 @@
 
       main {
         margin-left: clamp(var(--space-14), 6vw, var(--space-20));
-        padding: var(--space-45) clamp(var(--space-md), 8vw, 10vw) var(--space-20);
+        padding: var(--site-header-clearance) clamp(var(--space-md), 8vw, 10vw) var(--space-20);
         max-width: 1200px;
         position: relative;
         z-index: 2;
@@ -218,6 +218,51 @@
 
       .body-text p {
         margin-bottom: var(--space-xl);
+      }
+
+      .article-section {
+        grid-column: 1 / -1;
+        max-width: 70ch;
+      }
+
+      .article-section h2,
+      .article-actions h2 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h2);
+        line-height: var(--lh-tight);
+        color: var(--cobalt);
+        margin-bottom: var(--space-lg);
+      }
+
+      .article-section ul {
+        padding-left: var(--space-lg);
+      }
+
+      .article-section li + li {
+        margin-top: var(--space-sm);
+      }
+
+      .article-actions {
+        padding-block: var(--space-10);
+        border-block: 1px solid var(--border);
+        color: var(--text-secondary);
+      }
+
+      .article-action-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-lg);
+        margin-top: var(--space-xl);
+      }
+
+      .article-action-links a {
+        color: var(--cobalt);
+        text-underline-offset: var(--space-1);
+      }
+
+      .article-image-wide {
+        grid-column: 1 / -1;
+        height: clamp(300px, 56vh, 700px);
       }
 
       .pull-quote {
@@ -291,9 +336,18 @@
         align-items: flex-end;
       }
 
-      .next-article {
+      .next-article-title {
         font-family: var(--font-display);
         font-size: clamp(1.8rem, 5vw, 3rem);
+        color: var(--cobalt);
+        margin-block: var(--space-sm) var(--space-lg);
+        max-width: 25ch;
+      }
+
+      .next-article {
+        display: inline-block;
+        font-family: var(--font-display);
+        font-size: var(--fs-body);
         color: var(--cobalt);
         text-decoration: none;
         white-space: nowrap;
@@ -307,7 +361,7 @@
 
         main {
           margin-left: 0;
-          padding-top: var(--space-35);
+          padding-top: var(--site-header-clearance);
         }
         .content-grid {
           grid-template-columns: minmax(0, 1fr);
@@ -346,7 +400,7 @@
 
       @media (max-width: 480px) {
         main {
-          padding: var(--space-30) var(--space-md) var(--space-14);
+          padding: var(--site-header-clearance) var(--space-md) var(--space-14);
         }
 
         .body-text {
@@ -407,35 +461,24 @@
               <li>01. Customer Flow First</li><li>02. One Signature Moment</li><li>03. Tight Finish Palette</li>
             </ul>
           </div>
-          <div class="image-container" style="height: clamp(260px, 44vh, 500px)">
-            <img
-              src="/assets/journal/reduction-as-creation/feature-2.webp"
-              alt="Finish detail"
-              width="1964"
-              height="1309"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="image-label">Reference / Material Mood</div>
-          </div>
+          <div class="image-container">
+    <img src="/assets/journal/reduction-as-creation/feature-2.webp" alt="Finish detail"
+      width="1964" height="1309"
+      loading="lazy" decoding="async" />
+    <div class="image-label">Reference / Material Mood</div>
+  </div>
         </div>
 
         <blockquote class="pull-quote">"MAKE IT CLEAR. MAKE IT SHAREABLE. MAKE IT BUILDABLE."</blockquote>
 
-        <div
-          class="image-container"
-          style="grid-column: 1 / -1; height: clamp(300px, 56vh, 700px)"
-        >
-          <img
-            src="/assets/journal/reduction-as-creation/feature-3.webp"
-            alt="Interior reference view"
-            width="2070"
-            height="1380"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="image-label">Reference / Spatial clarity</div>
-        </div>
+        <div class="image-container article-image-wide">
+    <img src="/assets/journal/reduction-as-creation/feature-3.webp" alt="Interior reference view"
+      width="2070" height="1380"
+      loading="lazy" decoding="async" />
+    <div class="image-label">Reference / Spatial clarity</div>
+  </div>
+
+        
 
         
         <div class="body-text">
@@ -446,13 +489,24 @@
         </div>
       </section>
 
+      <section class="article-actions">
+  <h2>Make the next design decision</h2>
+  <p>Tell us about your space and the decisions you need help with. We will discuss a suitable scope.</p>
+  <div class="article-action-links">
+    <a href="/inquiry/">Discuss your space</a>
+    <a href="/commercial-interior-design-montreal/">Compare design services</a>
+    <a href="/planning-resources/">Sample package &amp; planning tools</a>
+  </div>
+</section>
+
       <footer class="article-footer">
         <div>
-          <span class="label">Next Article</span>
+            <span class="label">Keep Exploring</span>
+            <p class="next-article-title">More design ideas</p>
           <a
             href="/journal/"
             class="next-article"
-            >BACK TO JOURNAL</a
+            >Back to Journal</a
           >
         </div>
         <div style="text-align: right">

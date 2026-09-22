@@ -149,7 +149,7 @@ header.header-nav {
   padding: clamp(var(--space-5-8), 3vw, var(--space-9-4)) clamp(var(--space-5), 4vw, var(--space-13));
   border: 0;
   border-radius: 0;
-  background: var(--color-nav-surface);
+  background: transparent;
   background-image: none;
   box-shadow: none;
   backdrop-filter: none;
@@ -248,24 +248,6 @@ header.header-nav .nav-logo {
   transform: none;
 }
 
-header.header-nav .nav-item > .label {
-  display: block;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--color-nav);
-  font-family: var(--font-sans);
-  font-size: var(--fs-label);
-  font-style: normal;
-  font-weight: var(--fw-label);
-  line-height: 1.2;
-  letter-spacing: var(--ls-label);
-  text-transform: uppercase;
-  text-decoration: none;
-  opacity: 1;
-}
-
 header.header-nav a,
 header.header-nav a:link,
 header.header-nav a:visited,
@@ -302,9 +284,28 @@ header.header-nav .nav-link {
   text-transform: uppercase;
   text-decoration: none;
   text-decoration-line: none;
-  text-shadow: none;
+  text-shadow: 1px 1px var(--color-nav-surface), -1px 1px var(--color-nav-surface),
+    1px -1px var(--color-nav-surface), -1px -1px var(--color-nav-surface);
   cursor: pointer;
   transition: none;
+}
+
+/* A current-page outline preserves the brand's un-underlined menu treatment. */
+header.header-nav .nav-link[aria-current="page"]:not(:focus-visible),
+.nav-drawer nav a[aria-current="page"]:not(:focus-visible) {
+  outline: 1px solid var(--color-nav);
+  outline-offset: var(--space-xs);
+}
+
+/* Keep first headings clear of the fixed chrome without changing the home hero. */
+body:not(.is-home) {
+  --section-top: var(--site-header-clearance);
+}
+
+body main.contact-layout > .left-panel,
+body main.main-content > .center-grid,
+body.site-default-bg main > .hero {
+  padding-top: var(--site-header-clearance);
 }
 
 header.header-nav .nav-link::before,
@@ -597,10 +598,26 @@ button[type="submit"] {
     display: none;
   }
 
+  header.header-nav .nav-toggle,
+  header.header-nav .nav-toggle:hover,
+  header.header-nav .nav-toggle:focus,
+  header.header-nav .nav-toggle:focus-visible,
+  header.header-nav .nav-toggle:active {
+    background: var(--color-nav-surface);
+  }
+
   header.header-nav .nav-toggle {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin-left: auto;
+  }
+}
+
+@media print {
+  header.header-nav,
+  .nav-drawer,
+  .nav-overlay {
+    display: none !important;
   }
 }

@@ -88,10 +88,16 @@ try {
   try {
     repositorySourceFiles = execFileSync(
       "git",
-      ["ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+      [
+        "-c", "core.longpaths=true",
+        "ls-files", "-z", "--cached", "--others", "--exclude-standard", "--", ".",
+        ...[".agent", ".git", ".hallmark", ".playwright-mcp", "dist", "node_modules", "test-results"]
+          .map((directory) => `:(icase,exclude)${directory}/**`),
+      ],
       {
       cwd: repositoryRoot,
       encoding: "utf8",
+      maxBuffer: 8 * 1024 * 1024,
       },
     )
       .split("\0")

@@ -1,5 +1,5 @@
 const canonicalOrigin = "https://jq33.design";
-const releaseFingerprint = "20260826-production-launch-closure-nav-1";
+const releaseFingerprint = "20260828-production-launch-closure-nav-2";
 const timeoutMs = Number(process.env.PRODUCTION_HEALTH_TIMEOUT_MS || 15_000);
 const expectedPermissionsPolicy =
   "accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), usb=()";

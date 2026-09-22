@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
+    <title>Start Your Project | JQ33 DESIGN Montreal</title>
     <meta
       name="description"
       content="Tell us about your Montreal commercial space, project goals, timing, and budget range, or book an introductory call to discuss next steps."
@@ -20,7 +20,7 @@
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta
       property="og:title"
-      content="Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)"
+      content="Start Your Project | JQ33 DESIGN Montreal"
     />
     <meta
       property="og:description"
@@ -39,7 +39,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Inquiry | JQ33 DESIGN Commercial Interior Design (Montreal)"
+      content="Start Your Project | JQ33 DESIGN Montreal"
     />
     <meta
       name="twitter:description"
@@ -52,8 +52,8 @@
     <meta name="twitter:image:alt" content="Request a commercial interior design quote from JQ33 DESIGN" />
     <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/tokens.css?v=20260828-transparent-nav-1" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260828-transparent-nav-1" />
     <style>
       /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
@@ -187,6 +187,10 @@
         border-bottom-color: var(--border-strong);
       }
 
+      select { color-scheme: dark; }
+      #inquiry-goals-help { font-size: 0.85rem; line-height: 1.6; }
+      .center-grid__content > section > p { margin-bottom: var(--space-lg); line-height: 1.6; }
+
       .form-group {
         margin-bottom: var(--space-md);
       }
@@ -227,6 +231,7 @@
       }
 
       input,
+      select,
       textarea {
         width: 100%;
         background: var(--glass);
@@ -247,6 +252,7 @@
         color: var(--text-tertiary);
       }
 
+      select:focus,
       input:focus,
       textarea:focus {
         border-color: var(--cobalt-hover);
@@ -416,7 +422,8 @@
       <div class="center-grid">
         <div class="center-grid__content">
           <section>
-            <h1 class="section-label">Get a free quote (2 minutes)</h1>
+            <h1 class="section-label">Start your project</h1>
+            <p>Tell us what you have in mind. We will review your brief and reply by email to clarify the scope and next step. A tailored quote follows once the scope is clear.</p>
             <form
               data-lead-form="inquiry"
               method="post"
@@ -466,15 +473,21 @@
               </div>
               <div class="form-group">
                 <label for="inquiry-space-type">Space type</label>
-                <input
-                  type="text"
+                <select
                   id="inquiry-space-type"
                   name="space_type"
-                  placeholder="Space type (Cafe / Salon / Clinic / Retail / Office / Other)"
-                  maxlength="120"
                   required
                   aria-describedby="inquiry-space-type-error"
-                />
+                >
+                  <option value="" selected disabled>Select your space type</option>
+                  <option value="Cafe">Cafe / restaurant</option>
+                  <option value="Salon">Salon / beauty studio</option>
+                  <option value="Clinic">Clinic / wellness</option>
+                  <option value="Retail boutique">Retail / boutique</option>
+                  <option value="Office">Office / studio</option>
+                  <option value="Other">Other</option>
+                  <option value="Not sure yet">Not sure yet</option>
+                </select>
                 <p class="field-error" id="inquiry-space-type-error" data-field-error aria-live="polite"></p>
               </div>
               <div class="form-group">
@@ -482,16 +495,17 @@
                 <textarea
                   id="inquiry-goals"
                   name="project_goals"
-                  placeholder="What are you trying to achieve? (Timeline, budget range, neighborhood, constraints)"
+                  placeholder="What would you like to change or create?"
                   rows="4"
                   maxlength="2000"
                   required
-                  aria-describedby="inquiry-goals-error"
+                  aria-describedby="inquiry-goals-help inquiry-goals-error"
                 ></textarea>
+                <p id="inquiry-goals-help">If you know them, include your location, approximate size, timing, and budget range. It is fine if some details are still open.</p>
                 <p class="field-error" id="inquiry-goals-error" data-field-error aria-live="polite"></p>
               </div>
               <button type="submit">
-                Get a free quote
+                Send project brief
               </button>
               <p
                 class="form-status"
@@ -506,7 +520,8 @@
           </section>
 
           <section>
-            <div class="section-label">What you'll get</div>
+            <div class="section-label">Our design services</div>
+            <p>These are paid design deliverables, scoped in your proposal. Sending a brief starts a conversation.</p>
             <div class="bio-item">
               <div class="bio-name">Clear layout that improves flow</div>
               <div class="bio-role">Space planning</div>
@@ -541,7 +556,8 @@
                 rel="noopener noreferrer"
                 >Book a call</a
               >
-              <div>Book an introductory call, or get a quote for pricing.</div>
+              <div>A 15-minute discovery call to discuss your space, goals, timing, and which design support fits. Your next step is a tailored scope, not a commitment to a package.</div>
+              <a href="/planning-resources/">Explore sample deliverables and planning tools</a>
             </div>
           </section>
         </div>

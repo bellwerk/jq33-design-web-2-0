@@ -13,7 +13,7 @@ const rootDir = path.resolve(__dirname, "..");
 const distDir = path.join(rootDir, "dist");
 const allowTestFixtures = process.argv.includes("--allow-test-fixtures");
 const canonicalOrigin = "https://jq33.design";
-const releaseFingerprint = "20260826-production-launch-closure-nav-1";
+const releaseFingerprint = "20260828-production-launch-closure-nav-2";
 const requiredToolchain = {
   node: "22.23.2",
   pnpm: "11.13.0",
@@ -49,6 +49,8 @@ const handAuthoredFiles = [
   "commercial-interior-design-montreal/index.html",
   "contact/index.html",
   "inquiry/index.html",
+  "planning-resources/index.html",
+  "assets/resources/commercial-lease-preparation-checklist.html",
   "privacy/index.html",
   "terms/index.html",
   "404.html",
@@ -62,6 +64,7 @@ const handAuthoredFiles = [
 const publicScriptFiles = [
   "assets/js/leads.js",
   "assets/js/calendly.js",
+  "assets/js/package-guide.js",
   "assets/js/deferred-css.js",
   "assets/js/nav-drawer.js",
   "assets/js/components/header-nav.js",
@@ -416,11 +419,11 @@ const createProductionFontSubsets = async () => {
   const homeGlyphText = " JQ33Design";
   const commercialH1GlyphText = " Commercial Interior Design in Montreal";
   const homeInterSubsetText = `${homeInterGlyphText}${homeInterGlyphText.toUpperCase()}`;
-  const homeCriticalLatoText = "JQ33 DESIGN Projects Journal Inquiry Contact";
+  const homeCriticalLatoText = "JQ33 DESIGN Services Concept studies Journal Contact Start your project";
   const commercialCriticalLato400Text =
     "Commercial Interior Design • Montreal Layout-first interiors for cafes, salons, boutiques, and offices that need better flow, stronger first impressions, and a clear build-ready direction. Designed for: Cafes Salons Clinics Boutiques Offices";
   const commercialCriticalLato700Text =
-    "JQ33 DESIGN Book a call Get a free quote Projects Journal Inquiry Contact";
+    "JQ33 DESIGN Book a call Get a free quote Services Concept studies Journal Contact Start your project";
   const [
     homeSubset,
     commercialH1Subset,
@@ -496,8 +499,8 @@ const createProductionFontSubsets = async () => {
       subsetBuffer: homeCriticalLatoSubset,
       sourceBuffer: lato700Source,
       maximumBytes: 8_000,
-      expectedBytes: 5_980,
-      expectedSha256: "f2aeafcd35c2ff85ddf85614106f9201f8ebdca38a6239a0acce98bccf0a55ed",
+      expectedBytes: 6_392,
+      expectedSha256: "23f3e0e4b3ea42d0d534959372933ccc0f93f4e08f107cb27397d3bc891de40f",
     },
     {
       label: "Commercial critical Lato 400 subset",
@@ -512,8 +515,8 @@ const createProductionFontSubsets = async () => {
       subsetBuffer: commercialCriticalLato700Subset,
       sourceBuffer: lato700Source,
       maximumBytes: 9_000,
-      expectedBytes: 6_948,
-      expectedSha256: "909659cf9ac4b889e395fad86358557b4e6e47dbcc65a3db3bcd9956b8d2bada",
+      expectedBytes: 7_476,
+      expectedSha256: "ed9304f0c8a5572d93376ebd8ef54a46aa4695c8124fd57170b9271e71b8cbf0",
     },
   ]) {
     assertCriticalLatoSubset(definition);
@@ -649,6 +652,12 @@ const externalizeInlineAssets = async ({
   commercialCriticalLato400Subset,
   commercialCriticalLato700Subset,
 }) => {
+  const publicScriptVersions = new Map(
+    publicScriptFiles.map((relativePath) => [
+      `/${relativePath}`,
+      crypto.createHash("sha256").update(fs.readFileSync(path.join(distDir, relativePath))).digest("hex"),
+    ]),
+  );
   const generatedRoot = path.join(distDir, "assets", "generated");
   const writeGenerated = (extension, content) => {
     const optimizedContent =
@@ -1099,8 +1108,18 @@ for (const element of document.querySelectorAll('[data-jq33-on${eventName}="${ma
     }
 
     html = html.replace(/<script\b([^>]*\bsrc\s*=[^>]*)>/gi, (tag, attributes) => {
-      if (/\b(?:defer|async)\b/i.test(attributes)) return tag;
-      return `<script defer${attributes}>`;
+      const versionedAttributes = attributes.replace(
+        /(\s+src\s*=\s*)(?:"([^"]*)"|'([^']*)'|([^\s"'=<>]+))/i,
+        (attribute, prefix, doubleQuoted, singleQuoted, unquoted) => {
+          const reference = doubleQuoted ?? singleQuoted ?? unquoted;
+          if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(reference)) return attribute;
+          const pathname = reference.split(/[?#]/, 1)[0];
+          const version = publicScriptVersions.get(path.posix.resolve(documentDirectory, pathname));
+          return version ? `${prefix}"${pathname}?v=${version}"` : attribute;
+        },
+      );
+      const defer = /\b(?:defer|async)\b/i.test(attributes) ? "" : " defer";
+      return `<script${defer}${versionedAttributes}>`;
     });
     if (!html.includes(releaseFingerprint)) {
       html = html.replace(

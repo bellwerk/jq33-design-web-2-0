@@ -15,15 +15,12 @@ const projectSlugs = [
   "vortex-showroom",
   "canvas-studios",
 ];
-const releaseFingerprint = "20260826-production-launch-closure-nav-1";
-const journalCardSlugs = [
-  "reduction-as-creation",
-  "lighting-that-sells",
-  "the-customer-path",
-  "durable-premium-materials",
-  "small-shop-big-impact",
-  "spend-where-it-shows",
-];
+const releaseFingerprint = "20260828-production-launch-closure-nav-2";
+const journalCardSlugs = JSON.parse(
+  fs.readFileSync(path.join(repositoryRoot, "data/posts.json"), "utf8"),
+).filter((post) => post?.status === "published")
+  .sort((left, right) => String(right.published || "").localeCompare(String(left.published || "")))
+  .map((post) => post.slug);
 const publicRoutes = [
   "/",
   "/commercial-interior-design-montreal/",
@@ -31,8 +28,12 @@ const publicRoutes = [
   ...projectSlugs.map((slug) => `/projects/${slug}/`),
   "/journal/",
   "/journal/reduction-as-creation/",
+  "/journal/commercial-interior-design-cost-montreal/",
+  "/journal/before-you-sign-a-commercial-lease/",
+  "/journal/salon-layout-planning-checklist/",
   "/contact/",
   "/inquiry/",
+  "/planning-resources/",
   "/privacy/",
   "/terms/",
 ];
@@ -61,8 +62,13 @@ const requiredExactFiles = new Set([
   ...projectSlugs.map((slug) => `projects/${slug}/index.html`),
   "journal/index.html",
   "journal/reduction-as-creation/index.html",
+  "journal/commercial-interior-design-cost-montreal/index.html",
+  "journal/before-you-sign-a-commercial-lease/index.html",
+  "journal/salon-layout-planning-checklist/index.html",
   "contact/index.html",
   "inquiry/index.html",
+  "planning-resources/index.html",
+  "assets/resources/commercial-lease-preparation-checklist.html",
   "privacy/index.html",
   "terms/index.html",
   "404.html",
@@ -79,6 +85,7 @@ const requiredExactFiles = new Set([
 const permittedScripts = new Set([
   "assets/js/leads.js",
   "assets/js/calendly.js",
+  "assets/js/package-guide.js",
   "assets/js/deferred-css.js",
   "assets/js/nav-drawer.js",
   "assets/js/components/header-nav.js",
@@ -251,6 +258,26 @@ const getHtmlAttribute = (tag, name) => {
   ).exec(tag);
   return match ? match[1] ?? match[2] ?? match[3] ?? "" : "";
 };
+
+const publicScriptVersions = new Map(
+  [...permittedScripts].filter((relativePath) => fileSet.has(relativePath)).map((relativePath) => [
+    `/${relativePath}`,
+    crypto.createHash("sha256").update(fs.readFileSync(path.join(distRoot, relativePath))).digest("hex"),
+  ]),
+);
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file.fullPath, "utf8");
+  for (const [tag] of html.matchAll(/<script\b[^>]*>/gi)) {
+    const reference = getHtmlAttribute(tag, "src");
+    if (!reference || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(reference)) continue;
+    const pathname = reference.split(/[?#]/, 1)[0];
+    const absolutePath = path.posix.resolve(path.posix.dirname(`/${file.relativePath}`), pathname);
+    const version = publicScriptVersions.get(absolutePath);
+    if (version && reference !== `${pathname}?v=${version}`) {
+      failures.push(`${file.relativePath} must reference ${absolutePath} with its emitted SHA-256 version.`);
+    }
+  }
+}
 const imageTagsWithClass = (html, className) =>
   [...html.matchAll(/<img\b[^>]*>/gi)]
     .map((match) => match[0])
@@ -399,8 +426,8 @@ assertPinnedEmbeddedFont({
   css: homeCriticalCss,
   family: "JQ33 Home Critical Lato",
   weight: "700",
-  bytes: 5_980,
-  sha256: "f2aeafcd35c2ff85ddf85614106f9201f8ebdca38a6239a0acce98bccf0a55ed",
+  bytes: 6_392,
+  sha256: "23f3e0e4b3ea42d0d534959372933ccc0f93f4e08f107cb27397d3bc891de40f",
   label: "Homepage critical Lato 700 subset",
 });
 if (
@@ -463,8 +490,8 @@ assertPinnedEmbeddedFont({
   css: commercialCriticalCss,
   family: "JQ33 Commercial Critical Lato",
   weight: "700",
-  bytes: 6_948,
-  sha256: "909659cf9ac4b889e395fad86358557b4e6e47dbcc65a3db3bcd9956b8d2bada",
+  bytes: 7_476,
+  sha256: "ed9304f0c8a5572d93376ebd8ef54a46aa4695c8124fd57170b9271e71b8cbf0",
   label: "Commercial critical Lato 700 subset",
 });
 for (const [selector, label] of [
@@ -653,7 +680,7 @@ if (
 const journalHtml = fs.readFileSync(path.join(distRoot, "journal/index.html"), "utf8");
 const journalCards = imageTagsWithClass(journalHtml, "project-image");
 if (journalCards.length !== journalCardSlugs.length) {
-  failures.push("Journal index must contain six responsive card images.");
+  failures.push(`Journal index must contain exactly ${journalCardSlugs.length} published responsive card images.`);
 }
 for (const [index, slug] of journalCardSlugs.entries()) {
   const relativePath = `assets/generated/images/journal-${slug}-768.webp`;
@@ -907,6 +934,8 @@ const sourceExactFiles = [
   "commercial-interior-design-montreal/index.html",
   "contact/index.html",
   "inquiry/index.html",
+  "planning-resources/index.html",
+  "assets/resources/commercial-lease-preparation-checklist.html",
   "privacy/index.html",
   "terms/index.html",
   "404.html",
@@ -921,6 +950,7 @@ const sourceExactFiles = [
   "assets/css/home-font.css",
   "assets/js/leads.js",
   "assets/js/calendly.js",
+  "assets/js/package-guide.js",
   "assets/js/deferred-css.js",
   "assets/js/nav-drawer.js",
   "assets/js/components/header-nav.js",

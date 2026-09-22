@@ -224,7 +224,9 @@ for (const filePath of sourceFiles) {
       ].includes(relativePath);
       const stampPattern = isProjectsIndex
         ? /^\s*\/\*\s*Hallmark\s+·\s+genre:\s*editorial\s+·\s+macrostructure:\s*Portfolio Grid\s+·\s+user override:\s*mandatory circular marquee overlap\s*\*\//i
-        : /^\s*\/\*\s*Hallmark\s+·\s+macrostructure:\s*Photographic\s+·\s+tone:\s*atmospheric editorial\s+·\s+anchor hue:\s*cobalt\s*\*\//i;
+        : relativePath === path.join("planning-resources", "index.html")
+          ? /^\s*\/\*\s*Hallmark\s+·\s+macrostructure:\s*Editorial\s+·\s+tone:\s*practical studio workbook\s+·\s+anchor hue:\s*cobalt\s*\*\//i
+          : /^\s*\/\*\s*Hallmark\s+·\s+macrostructure:\s*Photographic\s+·\s+tone:\s*atmospheric editorial\s+·\s+anchor hue:\s*cobalt\s*\*\//i;
       if (
         !stampPattern.test(css)
       ) {
@@ -258,6 +260,7 @@ const publicHtmlRoots = new Set([
   "contact",
   "inquiry",
   "journal",
+  "planning-resources",
   "privacy",
   "projects",
   "terms",
@@ -268,7 +271,7 @@ const publicAndTemplateHtml = sourceFiles.filter((filePath) => {
   const parts = relativePath.split(path.sep);
   return ["404.html", "index.html"].includes(relativePath) || publicHtmlRoots.has(parts[0]);
 });
-const sharedNavigationCacheKey = "20260824-global-nav-final-2";
+const sharedNavigationCacheKey = "20260828-transparent-nav-1";
 const sharedNavigationCacheConsumers = [
   ...publicAndTemplateHtml,
   path.join(rootDir, "admin", "portfolio", "index.html"),
@@ -355,13 +358,9 @@ const navigationTokenDeclarations = [
 ];
 if (
   navigationTokenDeclarations.length !== 1 ||
-  navigationTokenDeclarations[0][1].trim().toLowerCase() !== "#5427e1"
+  navigationTokenDeclarations[0][1].trim() !== "var(--color-cobalt)"
 ) {
-  failures.push("tokens.css must declare --color-nav exactly once as #5427E1.");
-}
-const navigationHexOccurrences = tokensCss.match(/#5427e1\b/gi) || [];
-if (navigationHexOccurrences.length !== 1) {
-  failures.push("The exact #5427E1 navigation color must have one token authority in tokens.css.");
+  failures.push("tokens.css must alias --color-nav to the homepage wordmark's --color-cobalt token exactly once.");
 }
 const navigationSurfaceDeclarations = [
   ...tokensCss.matchAll(/--color-nav-surface\s*:\s*([^;]+)\s*;/gi),
@@ -501,7 +500,6 @@ const synchronizedNavigationSelectors = [
   "header.header-nav",
   "header.header-nav .nav-group",
   "header.header-nav .nav-item",
-  "header.header-nav .nav-item > .label",
   "header.header-nav .nav-logo",
   "header.header-nav a",
   "header.header-nav .nav-link",
@@ -533,16 +531,18 @@ for (const selector of synchronizedNavigationSelectors) {
 
 for (const [label, selector, property, value] of [
   ["header", "header.header-nav", "font-family", "var(--font-sans)"],
-  ["header brand label", "header.header-nav .nav-item > .label", "color", "var(--color-nav)"],
+  ["header", "header.header-nav", "background", "transparent"],
   ["header home link", "header.header-nav .nav-item", "position", "relative"],
   ["header home link", "header.header-nav .nav-item", "text-decoration", "none"],
   ["header primary links", "header.header-nav .nav-link", "color", "var(--color-nav)"],
+  ["header primary links", "header.header-nav .nav-link", "background", "transparent"],
   ["header primary links", "header.header-nav .nav-link", "font-size", "0.78rem"],
   ["header primary links", "header.header-nav .nav-link", "font-weight", "600"],
   ["header primary links", "header.header-nav .nav-link", "letter-spacing", "1px"],
   ["header primary links", "header.header-nav .nav-link", "text-decoration", "none"],
   ["mobile toggle", "header.header-nav .nav-toggle", "color", "var(--color-nav)"],
   ["drawer", ".nav-drawer", "font-family", "var(--font-sans)"],
+  ["drawer", ".nav-drawer", "background", "var(--color-nav-surface)"],
   ["drawer title", ".nav-drawer .drawer-title", "color", "var(--color-nav)"],
   ["drawer route links", ".nav-drawer nav a", "position", "relative"],
   ["drawer route links", ".nav-drawer nav a", "color", "var(--color-nav)"],
@@ -577,7 +577,7 @@ for (const [sheet, rules] of [
 
     const declarations = cssDeclarations(rule.body);
     if (declarations.color && declarations.color !== "var(--color-nav)") {
-      failures.push(`${sheet} navigation selector changes #5427E1 through ${selector}.`);
+      failures.push(`${sheet} navigation selector overrides the shared wordmark color through ${selector}.`);
     }
     if (/::(?:before|after)\b/i.test(selector)) {
       if (
@@ -1033,7 +1033,7 @@ if (!/\.brand-mark\s*\{[^}]*font-family\s*:\s*var\(--font-brand\)/is.test(inquir
   failures.push("Inquiry background wordmark must use the Permanent Marker brand font.");
 }
 if (
-  !/input,\s*textarea\s*\{[^}]*border-radius\s*:\s*30px[^}]*padding\s*:\s*var\(--space-md\)\s+var\(--space-5\)/is.test(
+  !/input,\s*select,\s*textarea\s*\{[^}]*border-radius\s*:\s*30px[^}]*padding\s*:\s*var\(--space-md\)\s+var\(--space-5\)/is.test(
     inquiry
   )
 ) {
@@ -1138,6 +1138,7 @@ for (const [label, href] of [
   ["Concept studies", "/projects/"],
   ["Commercial interior design", "/commercial-interior-design-montreal/"],
   ["Design journal", "/journal/"],
+  ["Planning resources", "/planning-resources/"],
   ["Project inquiry", "/inquiry/"],
   ["Contact", "/contact/"],
 ]) {

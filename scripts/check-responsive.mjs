@@ -39,6 +39,8 @@ const result = spawnSync(
     "tests/native-forms.spec.mjs",
     "tests/keyboard-navigation.spec.mjs",
     "tests/media-layout.spec.mjs",
+    "tests/acquisition-layout.spec.mjs",
+    "tests/acquisition-features.spec.mjs",
     ...process.argv.slice(2),
   ],
   {

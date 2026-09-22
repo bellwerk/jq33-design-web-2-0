@@ -48,7 +48,23 @@ async function instrumentSequentialFocusOrder(page) {
       );
     });
 
-    const ordered = candidates
+    // A named native radio group has one sequential Tab stop. Arrow keys,
+    // rather than repeated Tab presses, reach the other options in the group.
+    const sequentialCandidates = candidates.filter((element) => {
+      if (!(element instanceof HTMLInputElement) || element.type !== "radio" || !element.name) {
+        return true;
+      }
+      const group = candidates.filter((candidate) =>
+        candidate instanceof HTMLInputElement &&
+        candidate.type === "radio" &&
+        candidate.name === element.name &&
+        candidate.form === element.form &&
+        candidate.getRootNode() === element.getRootNode(),
+      );
+      return element === (group.find((candidate) => candidate.checked) || group[0]);
+    });
+
+    const ordered = sequentialCandidates
       .map((element, documentIndex) => ({
         element,
         documentIndex,
@@ -81,6 +97,37 @@ async function instrumentSequentialFocusOrder(page) {
     });
   });
 }
+
+test("planning resources radio choices are reachable with arrows and retain one Tab stop", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await gotoSettled(page, "/planning-resources/");
+  const choices = page.locator('input[name="package-goal"]');
+  await expect(choices).toHaveCount(3);
+  await page.evaluate(() => {
+    if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  });
+  for (let step = 0; step < 60; step += 1) {
+    await page.keyboard.press("Tab");
+    if (await choices.first().evaluate((element) => element === document.activeElement)) break;
+  }
+  await expect(choices.nth(0)).toBeFocused();
+  await expect(choices.nth(0)).toBeChecked();
+  await page.keyboard.press("ArrowRight");
+  await expect(choices.nth(1)).toBeFocused();
+  await expect(choices.nth(1)).toBeChecked();
+  await page.keyboard.press("ArrowRight");
+  await expect(choices.nth(2)).toBeFocused();
+  await expect(choices.nth(2)).toBeChecked();
+  await page.keyboard.press("ArrowLeft");
+  await expect(choices.nth(1)).toBeFocused();
+  await expect(choices.nth(1)).toBeChecked();
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("button", { name: "Suggest a starting package" })).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("status")).toContainText("Signature Interior");
+  await page.keyboard.press("Shift+Tab");
+  await expect(choices.nth(1)).toBeFocused();
+});
 
 for (const documentCase of documents) {
   test(`${documentCase.route} exposes every sequential control through keyboard-only Tab traversal`, async ({

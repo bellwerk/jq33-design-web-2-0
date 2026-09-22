@@ -21,6 +21,7 @@ const staticRoutes = [
   "/journal/",
   "/contact/",
   "/inquiry/",
+  "/planning-resources/",
   "/privacy/",
   "/terms/",
 ];
@@ -45,7 +46,7 @@ const sourceDate = (...relativePaths) => {
   if (dirty.status === 0 && !dirty.stdout.trim()) {
     const committed = spawnSync(
       "git",
-      ["show", "-s", "--format=%cs", "HEAD"],
+      ["log", "-1", "--format=%cs", "--", ...relativePaths],
       { cwd: rootDir, encoding: "utf8" },
     );
     const committedDate = committed.stdout.trim();

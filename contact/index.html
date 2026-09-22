@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact | JQ33 DESIGN Commercial Interior Design (Montreal)</title>
+    <title>Our Studio &amp; Contact | JQ33 DESIGN Montreal</title>
     <meta
       name="description"
-      content="Contact JQ33 DESIGN about commercial interior design for a Montreal cafe, salon, clinic, boutique, or office. Share your space, timing, and goals."
+      content="Meet JQ33 DESIGN: bold interiors and eight years of design experience. Contact our Montreal studio for questions, collaborations, and project next steps."
     />
     <link rel="canonical" href="https://jq33.design/contact/" />
 
@@ -20,11 +20,11 @@
     <meta property="og:site_name" content="JQ33 DESIGN" />
     <meta
       property="og:title"
-      content="Contact | JQ33 DESIGN Commercial Interior Design (Montreal)"
+      content="Our Studio &amp; Contact | JQ33 DESIGN Montreal"
     />
     <meta
       property="og:description"
-      content="Contact JQ33 DESIGN about commercial interior design for a Montreal cafe, salon, clinic, boutique, or office. Share your space, timing, and goals."
+      content="Meet JQ33 DESIGN: bold interiors and eight years of design experience. Contact our Montreal studio for questions, collaborations, and project next steps."
     />
     <meta property="og:url" content="https://jq33.design/contact/" />
     <meta
@@ -39,11 +39,11 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Contact | JQ33 DESIGN Commercial Interior Design (Montreal)"
+      content="Our Studio &amp; Contact | JQ33 DESIGN Montreal"
     />
     <meta
       name="twitter:description"
-      content="Contact JQ33 DESIGN about commercial interior design for a Montreal cafe, salon, clinic, boutique, or office. Share your space, timing, and goals."
+      content="Meet JQ33 DESIGN: bold interiors and eight years of design experience. Contact our Montreal studio for questions, collaborations, and project next steps."
     />
     <meta
       name="twitter:image"
@@ -52,8 +52,8 @@
     <meta name="twitter:image:alt" content="Contact JQ33 DESIGN about a Montreal commercial interior" />
     <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/tokens.css?v=20260828-transparent-nav-1" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260828-transparent-nav-1" />
     <style>
       /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       :root {
@@ -113,11 +113,24 @@
       }
 
       .headline {
+        font-size: clamp(2.2rem, 4.8vw, 4.5rem);
+        line-height: 1.08;
         margin-bottom: var(--space-7);
         color: var(--ink);
       }
 
+      #contact-form-title { font-size: clamp(1.8rem, 3vw, 2.5rem); }
+
+      .studio-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-sm);
+        margin-bottom: var(--space-lg);
+      }
+
       .page-intro {
+        margin-bottom: var(--space-md);
         max-width: 48ch;
         font-size: 1rem;
         line-height: 1.65;
@@ -387,19 +400,34 @@
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="header-nav" data-component="header-nav"></header>
-    <div class="nav-header">
-      <div class="nav-label">JQ33 DESIGN (Montreal)</div>
     </div>
     <main class="contact-layout" id="main-content">
       <div class="left-panel">
         <div class="left-panel__content">
           <h1 class="headline">
-            Commercial Interior Design<br />in Montreal
+            Bold interiors.<br />Eight years of experience.
           </h1>
 
           <p class="page-intro">
-            Tell us about your space, timing, and project goals.
+            We are JQ33 DESIGN, a Montreal design studio creating bold interiors.
+            We bring eight years of design experience to spaces with a clear
+            identity, thoughtful layouts, and a strong sense of place.
           </p>
+
+          <p class="page-intro">
+            Our work starts with how a space needs to feel and function. From
+            layout to finishes and 3D views, we help you turn a direction into
+            decisions you can share with your project team.
+          </p>
+          <p class="page-intro">
+            Planning a commercial space? Tell us about your project or explore our services.
+          </p>
+          <div class="studio-links">
+            <a href="/inquiry/">Start your project</a>
+            <a href="/commercial-interior-design-montreal/">Explore our services</a>
+          </div>
+          <h2 id="contact-form-title">Contact us</h2>
+          <p class="page-intro">For general questions, collaborations, and introductions, write to us below. We will review your message and reply by email with the next step.</p>
 
           <form
             class="capture-form"
@@ -407,6 +435,7 @@
             method="post"
             action="{{FORMSPREE_CONTACT_URL}}"
             accept-charset="UTF-8"
+            aria-labelledby="contact-form-title"
           >
             <input type="hidden" name="form_type" value="contact" />
             <input type="hidden" name="source_path" value="/contact/" />
@@ -450,14 +479,16 @@
               <p class="field-error" id="contact-email-error" data-field-error aria-live="polite"></p>
             </div>
             <div class="input-group">
-              <label for="contact-project-type">Project Type</label>
+              <label for="contact-project-type">What can we help with?</label>
               <select
                 id="contact-project-type"
                 name="project_type"
                 required
                 aria-describedby="contact-project-type-error"
               >
-                <option value="" selected disabled>Select project type</option>
+                <option value="" selected disabled>Select a topic</option>
+                <option value="general-question">General question</option>
+                <option value="collaboration">Collaboration / supplier introduction</option>
                 <option value="coffee-shop-cafe">Coffee shop / cafe</option>
                 <option value="salon-beauty-studio">Salon / beauty studio</option>
                 <option value="clinic-wellness">Clinic / wellness</option>
@@ -473,19 +504,19 @@
               ></p>
             </div>
             <div class="input-group">
-              <label for="contact-message">Project details</label>
+              <label for="contact-message">Your message</label>
               <textarea
                 id="contact-message"
                 name="message"
                 rows="4"
-                placeholder="Tell us about your space, timeline, and goals."
+                placeholder="Tell us how we can help."
                 maxlength="2000"
                 required
                 aria-describedby="contact-message-error"
               ></textarea>
               <p class="field-error" id="contact-message-error" data-field-error aria-live="polite"></p>
             </div>
-            <button type="submit" class="cta-button">Get a quote</button>
+            <button type="submit" class="cta-button">Send a message</button>
             <p
               class="form-status"
               data-form-status
