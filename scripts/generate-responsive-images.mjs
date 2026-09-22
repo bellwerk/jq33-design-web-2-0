@@ -54,6 +54,16 @@ const sources = [
     quality: 76,
   })),
   ...[
+    ["assets/journal/cards/reduction-as-creation.webp", "commercial-interior-design-cost-montreal"],
+    ["assets/journal/cards/small-shop-big-impact.webp", "before-you-sign-a-commercial-lease"],
+    ["assets/home page images/commercial hairsaloon interior.webp", "salon-layout-planning-checklist"],
+  ].map(([source, routeSlug]) => ({
+    source,
+    prefix: `journal-${routeSlug}`,
+    widths: [640, 768, 960, 1280],
+    quality: 76,
+  })),
+  ...[
     "bruton-place-iv",
     "ethereal-gallery",
     "obsidian-lounge",

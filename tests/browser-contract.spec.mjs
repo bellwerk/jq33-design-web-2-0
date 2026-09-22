@@ -68,18 +68,20 @@ const canonicalFooterLinks = [
     href: "/commercial-interior-design-montreal/",
   },
   { text: "Design journal", href: "/journal/" },
+  { text: "Planning resources", href: "/planning-resources/" },
   { text: "Project inquiry", href: "/inquiry/" },
   { text: "Contact", href: "/contact/" },
 ];
 
 const canonicalNavigationLinks = [
-  { text: "Projects", href: "/projects/" },
+  { text: "Services", href: "/commercial-interior-design-montreal/" },
+  { text: "Concept studies", href: "/projects/" },
   { text: "Journal", href: "/journal/" },
-  { text: "Inquiry", href: "/inquiry/" },
   { text: "Contact", href: "/contact/" },
+  { text: "Start your project", href: "/inquiry/" },
 ];
 
-const navigationColor = "rgb(84, 39, 225)";
+const navigationColor = "rgb(59, 65, 227)";
 
 const navigationStyleProperties = {
   drawer: [
@@ -124,6 +126,7 @@ const navigationStyleProperties = {
     "backgroundColor",
     "backgroundImage",
     "backdropFilter",
+    "boxShadow",
     "opacity",
     "visibility",
     "pointerEvents",
@@ -199,11 +202,13 @@ const navigationStyleProperties = {
     "backgroundColor",
     "backgroundImage",
     "backdropFilter",
+    "boxShadow",
     "opacity",
     "zIndex",
     "fontFamily",
   ],
   label: [
+    "backgroundColor",
     "display",
     "visibility",
     "fontFamily",
@@ -629,6 +634,10 @@ async function captureNavigationElementState(locator) {
 }
 
 async function captureNavigationInteractionStates(page, locator, { exactColor = false } = {}) {
+  // Verify the route's real current state separately. Normalize only this
+  // attribute while comparing the same interaction states across routes.
+  const actualCurrent = await locator.getAttribute("aria-current");
+  if (actualCurrent !== null) await locator.evaluate((element) => element.removeAttribute("aria-current"));
   const states = {};
   states.normal = await captureNavigationElementState(locator);
 
@@ -719,7 +728,7 @@ async function captureNavigationInteractionStates(page, locator, { exactColor = 
       ).toContain(pseudo.content);
     }
     if (exactColor) {
-      expect(style.color, `${state} primary navigation color must be #5427E1`).toBe(
+      expect(style.color, `${state} primary navigation color must match the #3B41E3 homepage brand mark`).toBe(
         navigationColor,
       );
       expect(style.fontFamily.toLowerCase(), `${state} primary navigation must use Lato`).toContain(
@@ -735,6 +744,15 @@ async function captureNavigationInteractionStates(page, locator, { exactColor = 
     Number.parseFloat(states.focus.style.outlineWidth),
     "Keyboard focus outline must remain at least 2px",
   ).toBeGreaterThanOrEqual(2);
+
+  if (exactColor) {
+    expect(states.current.style.outlineStyle, "The current page needs a visible state").toBe("solid");
+    expect(states.current.style.outlineWidth).toBe("1px");
+    expect(states.current.style.outlineColor).toBe(navigationColor);
+  }
+  if (actualCurrent !== null) {
+    await locator.evaluate((element, value) => element.setAttribute("aria-current", value), actualCurrent);
+  }
 
   return states;
 }
@@ -758,6 +776,14 @@ async function captureNavigationContract(page, viewport) {
     const style = (element, names) => {
       const computed = getComputedStyle(element);
       return Object.fromEntries(names.map((name) => [name, computed[name]]));
+    };
+    const pseudoSurface = (element, pseudo) => {
+      const computed = getComputedStyle(element, pseudo);
+      return {
+        backgroundColor: computed.backgroundColor,
+        backgroundImage: computed.backgroundImage,
+        content: computed.content,
+      };
     };
     const rect = (element) => {
       const bounds = element.getBoundingClientRect();
@@ -801,15 +827,14 @@ async function captureNavigationContract(page, viewport) {
         style: style(group, properties.group),
       },
       header: {
+        pseudo: [pseudoSurface(header, "::before"), pseudoSurface(header, "::after")],
         rect: rect(header),
         style: style(header, properties.header),
       },
       home: {
         accessibleName: home?.getAttribute("aria-label"),
         href: home ? new URL(home.href).pathname : "",
-        label: label?.textContent.trim(),
-        labelRect: rect(label),
-        labelStyle: style(label, properties.label),
+        hasLabel: Boolean(label),
         linkAfterContent: getComputedStyle(home, "::after").content,
         linkBeforeContent: getComputedStyle(home, "::before").content,
         linkStyle: style(home, properties.link),
@@ -874,19 +899,23 @@ async function captureNavigationContract(page, viewport) {
   expect(structure.home).toMatchObject({
     accessibleName: "JQ33 DESIGN Home",
     href: "/",
-    label: "JQ33 DESIGN",
+    hasLabel: false,
     logoAlt: "JQ33 DESIGN",
     logoSrc: "/assets/logo/logo%20purple%20svg.svg",
   });
   expect(structure.links).toEqual(canonicalNavigationLinks);
   expect(structure.drawer.links).toEqual(canonicalNavigationLinks);
+  const route = new URL(page.url()).pathname.replace(/\/index\.html$/, "/");
+  const expectedCurrent = canonicalNavigationLinks.find(({ href }) => route === href ||
+    (["/projects/", "/journal/"].includes(href) && route.startsWith(href)));
+  for (const selector of ["header.header-nav .nav-link", ".nav-drawer nav a"]) {
+    const currentLinks = page.locator(`${selector}[aria-current="page"]`);
+    expect(await currentLinks.count(), `${route} should identify its current primary destination`).toBe(expectedCurrent ? 1 : 0);
+    if (expectedCurrent) await expect(currentLinks).toHaveAttribute("href", expectedCurrent.href);
+  }
   expect(structure.header.style.position).toBe("fixed");
   expect(structure.header.style.alignItems).toBe("center");
   expect(structure.header.style.fontFamily.toLowerCase()).toContain("lato");
-  expect(structure.home.labelStyle.color).toBe(navigationColor);
-  expect(structure.home.labelStyle.fontFamily.toLowerCase()).toContain("lato");
-  expect(structure.home.labelStyle.display).not.toBe("none");
-  expect(structure.home.labelStyle.visibility).not.toBe("hidden");
   expect(structure.home.linkStyle.textDecorationLine).toBe("none");
   expect(structure.home.linkStyle.borderBottomWidth).toBe("0px");
   expect(structure.home.linkStyle.boxShadow).toBe("none");
@@ -896,9 +925,17 @@ async function captureNavigationContract(page, viewport) {
   expect(structure.drawer.title.text).toBe("Menu");
   expect(structure.drawer.title.style.color).toBe(navigationColor);
   expect(structure.drawer.title.style.fontFamily.toLowerCase()).toContain("lato");
-  expect(structure.tokens.color.toLowerCase()).toBe("#5427e1");
+  expect(structure.tokens.color.toLowerCase()).toBe("#3b41e3");
   expect(structure.tokens.surface).not.toBe("");
-  expect(structure.header.style.backgroundColor).toBe("rgb(246, 245, 240)");
+  expect(structure.header.style.backgroundColor).toBe("rgba(0, 0, 0, 0)");
+  expect(structure.header.style.backgroundImage).toBe("none");
+  expect(structure.header.style.backdropFilter).toBe("none");
+  expect(structure.header.style.boxShadow).toBe("none");
+  expect(structure.header.pseudo).toEqual([
+    { backgroundColor: "rgba(0, 0, 0, 0)", backgroundImage: "none", content: "none" },
+    { backgroundColor: "rgba(0, 0, 0, 0)", backgroundImage: "none", content: "none" },
+  ]);
+  expect(structure.drawer.style.backgroundColor).toBe("rgb(246, 245, 240)");
   expect(structure.overflow.scrollWidth).toBeLessThanOrEqual(structure.overflow.clientWidth + 1);
 
   const mobile = viewport.width <= 768;
@@ -914,6 +951,7 @@ async function captureNavigationContract(page, viewport) {
     expect(structure.toggle.rect.width).toBeGreaterThanOrEqual(44);
     expect(structure.toggle.rect.height).toBeGreaterThanOrEqual(44);
     expect(structure.toggle.style.color).toBe(navigationColor);
+    expect(structure.toggle.style.backgroundColor).toBe("rgb(246, 245, 240)");
     expect(structure.toggle.bars.items).toHaveLength(3);
     expect(
       structure.toggle.bars.items.map((bar) => bar.style.backgroundColor),
@@ -1024,7 +1062,6 @@ function expectNavigationMatchesCanonical(actual, canonical, label) {
     ["structure", "header", "rect"],
     ["structure", "group", "rect"],
     ["structure", "home", "logoRect"],
-    ["structure", "home", "labelRect"],
     ["structure", "toggle", "rect"],
     ["structure", "toggle", "bars", "rect"],
     ["structure", "drawer", "rect"],
@@ -1779,7 +1816,7 @@ test("homepage hero keeps the old transparent cobalt photograph composition", as
     };
   });
 
-  expect(composition.desktopNavLinkColors).toEqual(Array(4).fill(navigationColor));
+  expect(composition.desktopNavLinkColors).toEqual(Array(canonicalNavigationLinks.length).fill(navigationColor));
   expect(composition.photo.filter).toBe("grayscale(0.2) contrast(1.1)");
   expect(composition.photo.opacity).toBeCloseTo(1, 2);
   expect(composition.photo.scaleX).toBeCloseTo(1.07, 2);
@@ -2020,7 +2057,7 @@ test("critical route fonts use exact subsets without redundant requests", async 
       ),
       criticalLatoLoaded: document.fonts.check(
         '700 12px "JQ33 Home Critical Lato"',
-        "JQ33 DESIGN Projects Journal Inquiry Contact",
+        "JQ33 DESIGN Services Concept studies Journal Contact Start your project",
       ),
       intentLoaderCount: document.querySelectorAll("script[data-jq33-font-intent]").length,
       fontOnlyLinkCount: document.querySelectorAll('link[data-jq33-font-only]').length,
@@ -2034,7 +2071,7 @@ test("critical route fonts use exact subsets without redundant requests", async 
     "#home .pillar-left .label",
     "#home .pillar-right .label",
   ];
-  const homeLatoSelectors = [".header-nav .label", ".header-nav .nav-link"];
+  const homeLatoSelectors = [".header-nav .nav-link"];
   const platformFontProof = await platformFontsFor([
     ...homeInterSelectors,
     ...homeLatoSelectors,
@@ -2090,7 +2127,7 @@ test("critical route fonts use exact subsets without redundant requests", async 
       ),
       criticalLato700Loaded: document.fonts.check(
         '700 16px "JQ33 Commercial Critical Lato"',
-        "JQ33 DESIGN Book a call Get a free quote Projects Journal Inquiry Contact",
+        "JQ33 DESIGN Book a call Get a free quote Services Concept studies Journal Contact Start your project",
       ),
       intentLoaderCount: document.querySelectorAll("script[data-jq33-font-intent]").length,
       fontOnlyLinkCount: document.querySelectorAll('link[data-jq33-font-only]').length,
@@ -2098,7 +2135,6 @@ test("critical route fonts use exact subsets without redundant requests", async 
   });
 
   const commercialLatoSelectors = [
-    ".header-nav .label",
     ".header-nav .nav-link",
     "main .hero .hero-label",
     "main .hero .hero-lead",
@@ -2275,16 +2311,18 @@ for (const route of ["/contact/", "/inquiry/"]) {
         (entry) =>
           !entry.id ||
           entry.describedBy.length === 0 ||
+          new Set(entry.describedBy).size !== entry.describedBy.length ||
           entry.slots.length !== entry.describedBy.length ||
+          entry.slots.filter((slot) => slot.dataFieldError).length !== 1 ||
           entry.slots.some(
             (slot) =>
               slot.count !== 1 ||
-              !slot.dataFieldError ||
-              slot.live !== "polite" ||
-              Math.max(slot.height, slot.minHeight) < 12,
+              (slot.dataFieldError
+                ? slot.live !== "polite" || Math.max(slot.height, slot.minHeight) < 12
+                : !slot.text),
           ),
       ),
-      "Every user-facing field needs a unique, persistent, aria-live error/helper slot",
+      "Every reference must resolve uniquely; each field needs exactly one reserved live error slot and any static helpers must be meaningful",
     ).toEqual([]);
 
     await form.evaluate((element) => element.requestSubmit());
@@ -2297,19 +2335,22 @@ for (const route of ["/contact/", "/inquiry/"]) {
     for (let index = 0; index < (await invalid.count()); index += 1) {
       const control = invalid.nth(index);
       await expect(control).toHaveAttribute("aria-invalid", "true");
-      const errorIds = String((await control.getAttribute("aria-describedby")) || "")
+      const describedIds = String((await control.getAttribute("aria-describedby")) || "")
         .split(/\s+/)
         .filter(Boolean);
-      expect(errorIds.length).toBeGreaterThan(0);
-      for (const id of errorIds) {
-        await expect(page.locator(`#${id}`)).not.toHaveText("");
+      const controlId = await control.getAttribute("id");
+      const original = initial.find((entry) => entry.id === controlId);
+      expect(describedIds, "Validation must preserve the existing helper and error references").toEqual(original.describedBy);
+      const errorSlot = original.slots.find((slot) => slot.dataFieldError);
+      await expect(page.locator(`#${errorSlot.id}`)).not.toHaveText("");
+      await expect(page.locator(`#${errorSlot.id}`)).toHaveCount(1);
+      for (const helper of original.slots.filter((slot) => !slot.dataFieldError)) {
+        await expect(page.locator(`#${helper.id}`)).toHaveText(helper.text);
       }
     }
 
     const firstControl = controls.first();
-    const firstErrorId = String(await firstControl.getAttribute("aria-describedby"))
-      .split(/\s+/)
-      .filter(Boolean)[0];
+    const firstErrorId = initial[0].slots.find((slot) => slot.dataFieldError).id;
     await firstControl.fill("QA accessibility check");
     await expect(firstControl).not.toHaveAttribute("aria-invalid", "true");
     await expect(page.locator(`#${firstErrorId}`)).toHaveText("");

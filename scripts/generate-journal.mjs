@@ -94,6 +94,34 @@ const renderClosingBlocks = (paragraphs) =>
     )
     .join("");
 
+const renderSections = (sections) =>
+  (sections ?? []).map((section) => `
+    <section class="article-section body-text">
+      <h2>${escapeHtml(section.title)}</h2>
+      ${renderParagraphs(section.paragraphs)}
+      ${section.items?.length ? `<ul>${renderKeyConcepts(section.items)}</ul>` : ""}
+    </section>`).join("");
+
+const renderOptionalImage = (image, context, wide = false) => {
+  if (!image) return "";
+  return `<div class="image-container${wide ? " article-image-wide" : ""}">
+    <img src="${requireLocalImage(image, context)}" alt="${escapeHtml(image.alt)}"
+      width="${image.width || 2070}" height="${image.height || 1380}"
+      loading="lazy" decoding="async" />
+    <div class="image-label">${escapeHtml(image.label)}</div>
+  </div>`;
+};
+
+const renderArticleActions = (post) => `<section class="article-actions">
+  <h2>${escapeHtml(post.cta?.title || "Make the next design decision")}</h2>
+  <p>${escapeHtml(post.cta?.text || "Tell us about your space and the decisions you need help with. We will discuss a suitable scope.")}</p>
+  <div class="article-action-links">
+    <a href="/inquiry/">${escapeHtml(post.cta?.label || "Discuss your space")}</a>
+    <a href="/commercial-interior-design-montreal/">Compare design services</a>
+    <a href="/planning-resources/">Sample package &amp; planning tools</a>
+  </div>
+</section>`;
+
 const journalCardVariant = (slug, width) =>
   `/assets/generated/images/journal-${slug}-${width}.webp`;
 
@@ -148,40 +176,29 @@ const renderCards = (posts) =>
     })
     .join("");
 
-const upperLines = (lines) => (lines ?? []).map((line) => String(line).toUpperCase());
-
 const generate = () => {
   const posts = loadPosts();
+  const publishedPosts = posts
+    .filter((post) => post.status === "published")
+    .sort((a, b) => b.published.localeCompare(a.published));
   const postTemplate = fs.readFileSync(postTemplatePath, "utf8");
   const indexTemplate = fs.readFileSync(indexTemplatePath, "utf8");
   const journalRoot = path.join(outputRoot, "journal");
   fs.mkdirSync(journalRoot, { recursive: true });
 
   const indexHtml = fillTemplate(indexTemplate, {
-    card_preload: renderCardPreload(posts[0]),
-    post_cards: renderCards(posts),
+    card_preload: renderCardPreload(publishedPosts[0]),
+    post_cards: renderCards(publishedPosts),
   });
   fs.writeFileSync(path.join(journalRoot, "index.html"), indexHtml, "utf8");
 
-  const findNextPublished = (startIndex) => {
-    for (let index = startIndex + 1; index < posts.length; index += 1) {
-      if (posts[index]?.status === "published") return posts[index];
-    }
-    return null;
-  };
-
-  posts
-    .filter((post) => post.status === "published")
-    .forEach((post) => {
+  publishedPosts.forEach((post, postIndex) => {
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(post.slug || "")) {
         throw new Error(`Invalid journal slug: ${post.slug}`);
       }
-      const postIndex = posts.findIndex((entry) => entry.slug === post.slug);
-      const nextPost = postIndex >= 0 ? findNextPublished(postIndex) : null;
+      const nextPost = publishedPosts[postIndex + 1] || null;
       const nextHref = nextPost ? `/journal/${nextPost.slug}/` : "/journal/";
-      const nextLabel = joinLinesWithBreaks(
-        upperLines(nextPost?.title_lines ?? ["Back to Journal"]),
-      );
+      const nextLabel = nextPost ? "Read article &rarr;" : "Back to Journal";
       const metaTitle = escapeHtml(post.meta?.title || post.title);
       const metaDescription = escapeHtml(post.meta?.description || "");
       const canonicalUrl = `${canonicalOrigin}/journal/${post.slug}/`;
@@ -196,9 +213,7 @@ const generate = () => {
         og_description: metaDescription,
         og_url: canonicalUrl,
         og_image: ogImage,
-        og_image_alt: escapeHtml(
-          post.images?.feature_one?.alt || post.card?.alt || `${post.title} journal illustration`,
-        ),
+        og_image_alt: escapeHtml(post.og_image_alt || "JQ33 DESIGN commercial interior design in Montreal"),
         twitter_title: metaTitle,
         twitter_description: metaDescription,
         twitter_image: ogImage,
@@ -223,25 +238,15 @@ const generate = () => {
         image_one_width: post.images?.feature_one?.width || 2070,
         image_one_height: post.images?.feature_one?.height || 1380,
         key_concepts: renderKeyConcepts(post.key_concepts),
-        image_two_src: requireLocalImage(
-          post.images?.feature_two,
-          `Journal post ${post.slug} feature two`,
-        ),
-        image_two_alt: escapeHtml(post.images?.feature_two?.alt || post.title || ""),
-        image_two_label: escapeHtml(post.images?.feature_two?.label || ""),
-        image_two_width: post.images?.feature_two?.width || 1964,
-        image_two_height: post.images?.feature_two?.height || 1309,
+        image_two_markup: renderOptionalImage(post.images?.feature_two, `Journal post ${post.slug} feature two`),
         pull_quote: escapeHtml(post.pull_quote || ""),
-        image_three_src: requireLocalImage(
-          post.images?.feature_three,
-          `Journal post ${post.slug} feature three`,
-        ),
-        image_three_alt: escapeHtml(post.images?.feature_three?.alt || post.title || ""),
-        image_three_label: escapeHtml(post.images?.feature_three?.label || ""),
-        image_three_width: post.images?.feature_three?.width || 2070,
-        image_three_height: post.images?.feature_three?.height || 1380,
+        image_three_markup: renderOptionalImage(post.images?.feature_three, `Journal post ${post.slug} feature three`, true),
+        article_sections: renderSections(post.sections),
+        article_actions: renderArticleActions(post),
         closing_blocks: renderClosingBlocks(post.closing_paragraphs),
         next_href: nextHref,
+        next_heading: nextPost ? "Next Article" : "Keep Exploring",
+        next_title: escapeHtml(nextPost?.title || "More design ideas"),
         next_label: nextLabel,
       });
 

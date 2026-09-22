@@ -69,6 +69,17 @@ export async function settlePage(page) {
       .map((image) => image.currentSrc || image.src);
   });
   expect(brokenImages, "Every rendered image must decode successfully").toEqual([]);
+  // Deferred CSS can start finite entry transitions after fonts and images settle.
+  // Wait for their real end state without disabling motion or hiding layout shifts.
+  await page.waitForFunction(
+    () => !document.getAnimations().some((animation) =>
+      animation instanceof CSSTransition &&
+      (animation.pending || animation.playState === "running") &&
+      Number.isFinite(animation.effect?.getComputedTiming().endTime),
+    ),
+    undefined,
+    { timeout: 10_000 },
+  );
 }
 
 export async function gotoSettledWithStatus(page, route, expectedStatus) {

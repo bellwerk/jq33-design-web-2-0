@@ -24,8 +24,12 @@ export const publicRoutes = [
   ...projectSlugs.map((slug) => `/projects/${slug}/`),
   "/journal/",
   "/journal/reduction-as-creation/",
+  "/journal/commercial-interior-design-cost-montreal/",
+  "/journal/before-you-sign-a-commercial-lease/",
+  "/journal/salon-layout-planning-checklist/",
   "/contact/",
   "/inquiry/",
+  "/planning-resources/",
   "/privacy/",
   "/terms/",
 ];

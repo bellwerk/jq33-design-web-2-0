@@ -242,13 +242,14 @@
     try {
       await submitToFormspree(form, controller.signal);
       form.reset();
+      window.JQ33?.applyLeadAttribution?.(form);
       const submissionIdField = form.querySelector('input[name="submission_id"]');
       if (submissionIdField instanceof HTMLInputElement) submissionIdField.value = "";
       delete form.dataset.deliveryUnknown;
       setStatus(
         form,
         "success",
-        "Thanks—your request has been sent. We reply within one business day.",
+        "Thanks—your request has been sent. We will reply by email with the next step.",
         true,
       );
     } catch (error) {

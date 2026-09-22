@@ -13,15 +13,15 @@
       height="445"
       decoding="async"
     />
-    <div class="label">JQ33 DESIGN</div>
   </a>
 
   <nav aria-label="Primary">
     <ul class="nav-group">
-      <li><a href="/projects/" class="nav-link">Projects</a></li>
+      <li><a href="/commercial-interior-design-montreal/" class="nav-link">Services</a></li>
+      <li><a href="/projects/" class="nav-link">Concept studies</a></li>
       <li><a href="/journal/" class="nav-link">Journal</a></li>
-      <li><a href="/inquiry/" class="nav-link">Inquiry</a></li>
       <li><a href="/contact/" class="nav-link">Contact</a></li>
+      <li><a href="/inquiry/" class="nav-link nav-link--start">Start your project</a></li>
     </ul>
   </nav>
 
@@ -64,10 +64,11 @@
           <div class="drawer-title">Menu</div>
         </div>
         <nav aria-label="Mobile">
-          <a href="/projects/">Projects</a>
+          <a href="/commercial-interior-design-montreal/">Services</a>
+          <a href="/projects/">Concept studies</a>
           <a href="/journal/">Journal</a>
-          <a href="/inquiry/">Inquiry</a>
           <a href="/contact/">Contact</a>
+          <a href="/inquiry/">Start your project</a>
         </nav>
         <div class="drawer-ctas">
           <a
@@ -77,7 +78,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >Book a call</a>
-          <a class="drawer-cta drawer-cta--secondary" href="/inquiry/">Get a free quote</a>
+          <a class="drawer-cta drawer-cta--secondary" href="/inquiry/">Start your project</a>
         </div>
       `.trim();
 
@@ -97,6 +98,14 @@
       el.dataset.navMounted = "true";
     }
     ensureDrawer();
+    const pathname = window.location.pathname.replace(/\/index\.html$/, "/");
+    for (const link of document.querySelectorAll("header.header-nav .nav-link, .nav-drawer nav a")) {
+      const href = link.getAttribute("href");
+      const isCurrent = pathname === href ||
+        (["/projects/", "/journal/"].includes(href) && pathname.startsWith(href));
+      if (isCurrent) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    }
   };
 
   window.JQ33.components.mountHeaderNav = mount;

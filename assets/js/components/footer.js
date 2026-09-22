@@ -65,7 +65,7 @@
         <div class="label">Enquiries</div>
         <div class="heavy-text">
           <a href="mailto:hello@jq33.design">hello@jq33.design</a>
-          <div>+1 514 473 0075</div>
+          <div><a href="tel:+15144730075">+1 514 473 0075</a></div>
         </div>
       </div>
     </div>
@@ -84,6 +84,7 @@
           <a href="/projects/">Concept studies</a>
           <a href="/commercial-interior-design-montreal/">Commercial interior design</a>
           <a href="/journal/">Design journal</a>
+          <a href="/planning-resources/">Planning resources</a>
           <a href="/inquiry/">Project inquiry</a>
           <a href="/contact/">Contact</a>
         </nav>

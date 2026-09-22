@@ -1,0 +1,19 @@
+{
+  "candidate": "ab86817200f85449447da6812b754dddb06d139c",
+  "observedAt": "2026-09-22T18:11:14.2044247Z",
+  "preview": "https://08dfee77.jq33-design-website.pages.dev",
+  "homepage": {
+    "wordmarkColor": "rgb(59, 65, 227)",
+    "menuColor": "rgb(59, 65, 227)",
+    "menuBackground": "rgba(0, 0, 0, 0)",
+    "menuCount": 5,
+    "logoCaptionPresent": false
+  },
+  "services": {
+    "heading": "Commercial Interior Design in Montreal",
+    "font": "Permanent Marker Commercial H1",
+    "fontSize": "81.2933px",
+    "maxWidth": "532.471px",
+    "screenshotReview": "PASS: Commercial remains one word; expressive four-line title and correct body font."
+  }
+}

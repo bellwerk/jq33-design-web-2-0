@@ -24,6 +24,16 @@ const publicSamples = [
     expectFooter: true
   },
   { route: "/inquiry/", file: "inquiry/index.html", expectFooter: true },
+  { route: "/planning-resources/", file: "planning-resources/index.html", expectFooter: true },
+  ...[
+    "commercial-interior-design-cost-montreal",
+    "before-you-sign-a-commercial-lease",
+    "salon-layout-planning-checklist",
+  ].map((slug) => ({
+    route: `/journal/${slug}/`,
+    file: `journal/${slug}/index.html`,
+    expectFooter: true,
+  })),
   { route: "/contact/", file: "contact/index.html", expectFooter: true },
   { route: "/privacy/", file: "privacy/index.html", expectFooter: true },
   { route: "/404.html", file: "404.html", expectFooter: true },

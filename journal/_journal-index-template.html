@@ -52,9 +52,9 @@
     <meta name="twitter:image:alt" content="JQ33 DESIGN commercial interior design journal" />
     <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
     {{card_preload}}
-    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" data-jq33-critical />
-    <link rel="stylesheet" href="/assets/css/critical-shared.css?v=20260824-global-nav-final-2" data-jq33-critical />
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/tokens.css?v=20260828-transparent-nav-1" data-jq33-critical />
+    <link rel="stylesheet" href="/assets/css/critical-shared.css?v=20260828-transparent-nav-1" data-jq33-critical />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260828-transparent-nav-1" />
     <style data-jq33-critical>
       /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
@@ -127,7 +127,7 @@
         min-height: 100svh;
         overflow-y: visible;
         margin: 0 auto;
-        padding: var(--space-45) 0 10vh;
+        padding: var(--site-header-clearance) 0 10vh;
         display: flex;
         flex-direction: column;
         gap: clamp(var(--space-7), 5vh, var(--space-14));
@@ -150,6 +150,10 @@
         max-width: 48ch;
         margin-top: var(--space-3-2);
         opacity: 0.8;
+      }
+
+      .journal-intro-action {
+        opacity: 1;
       }
 
       .work-grid {
@@ -242,7 +246,7 @@
           min-height: 100vh;
           min-height: 100svh;
           overflow: visible;
-          padding: var(--space-31) 0 var(--space-18);
+          padding: var(--site-header-clearance) 0 var(--space-18);
         }
       }
 
@@ -286,8 +290,9 @@
             Journal: Design decisions that pay off
           </h1>
           <p class="journal-intro-copy">
-            Short reads on the choices that make a space feel premium-and build smoothly.
+            Practical guides to design scope, lease preparation, and layouts that support your business.
           </p>
+          <p class="journal-intro-copy journal-intro-action"><a href="/planning-resources/">Explore the sample package and free planning tools &rarr;</a></p>
         </section>
         {{post_cards}}
       </div>

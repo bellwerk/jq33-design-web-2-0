@@ -90,8 +90,8 @@
     </script>
     <link rel="preload" href="/assets/fonts/lato/lato-400.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/permanent-marker/permanent-marker-400.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/tokens.css?v=20260824-global-nav-final-2" />
-    <link rel="stylesheet" href="/assets/css/site.css?v=20260824-global-nav-final-2" />
+    <link rel="stylesheet" href="/tokens.css?v=20260828-transparent-nav-1" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=20260828-transparent-nav-1" />
     <style>
       /* Hallmark · macrostructure: Photographic · tone: atmospheric editorial · anchor hue: cobalt */
       * {
@@ -166,7 +166,7 @@
 
       main {
         margin-left: clamp(var(--space-14), 6vw, var(--space-20));
-        padding: var(--space-45) clamp(var(--space-md), 8vw, 10vw) var(--space-20);
+        padding: var(--site-header-clearance) clamp(var(--space-md), 8vw, 10vw) var(--space-20);
         max-width: 1200px;
         position: relative;
         z-index: 2;
@@ -218,6 +218,51 @@
 
       .body-text p {
         margin-bottom: var(--space-xl);
+      }
+
+      .article-section {
+        grid-column: 1 / -1;
+        max-width: 70ch;
+      }
+
+      .article-section h2,
+      .article-actions h2 {
+        font-family: var(--font-display);
+        font-size: var(--fs-h2);
+        line-height: var(--lh-tight);
+        color: var(--cobalt);
+        margin-bottom: var(--space-lg);
+      }
+
+      .article-section ul {
+        padding-left: var(--space-lg);
+      }
+
+      .article-section li + li {
+        margin-top: var(--space-sm);
+      }
+
+      .article-actions {
+        padding-block: var(--space-10);
+        border-block: 1px solid var(--border);
+        color: var(--text-secondary);
+      }
+
+      .article-action-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-lg);
+        margin-top: var(--space-xl);
+      }
+
+      .article-action-links a {
+        color: var(--cobalt);
+        text-underline-offset: var(--space-1);
+      }
+
+      .article-image-wide {
+        grid-column: 1 / -1;
+        height: clamp(300px, 56vh, 700px);
       }
 
       .pull-quote {
@@ -291,9 +336,18 @@
         align-items: flex-end;
       }
 
-      .next-article {
+      .next-article-title {
         font-family: var(--font-display);
         font-size: clamp(1.8rem, 5vw, 3rem);
+        color: var(--cobalt);
+        margin-block: var(--space-sm) var(--space-lg);
+        max-width: 25ch;
+      }
+
+      .next-article {
+        display: inline-block;
+        font-family: var(--font-display);
+        font-size: var(--fs-body);
         color: var(--cobalt);
         text-decoration: none;
         white-space: nowrap;
@@ -307,7 +361,7 @@
 
         main {
           margin-left: 0;
-          padding-top: var(--space-35);
+          padding-top: var(--site-header-clearance);
         }
         .content-grid {
           grid-template-columns: minmax(0, 1fr);
@@ -346,7 +400,7 @@
 
       @media (max-width: 480px) {
         main {
-          padding: var(--space-30) var(--space-md) var(--space-14);
+          padding: var(--site-header-clearance) var(--space-md) var(--space-14);
         }
 
         .body-text {
@@ -407,42 +461,24 @@
               {{key_concepts}}
             </ul>
           </div>
-          <div class="image-container" style="height: clamp(260px, 44vh, 500px)">
-            <img
-              src="{{image_two_src}}"
-              alt="{{image_two_alt}}"
-              width="{{image_two_width}}"
-              height="{{image_two_height}}"
-              loading="lazy"
-              decoding="async"
-            />
-            <div class="image-label">{{image_two_label}}</div>
-          </div>
+          {{image_two_markup}}
         </div>
 
         <blockquote class="pull-quote">"{{pull_quote}}"</blockquote>
 
-        <div
-          class="image-container"
-          style="grid-column: 1 / -1; height: clamp(300px, 56vh, 700px)"
-        >
-          <img
-            src="{{image_three_src}}"
-            alt="{{image_three_alt}}"
-            width="{{image_three_width}}"
-            height="{{image_three_height}}"
-            loading="lazy"
-            decoding="async"
-          />
-          <div class="image-label">{{image_three_label}}</div>
-        </div>
+        {{image_three_markup}}
+
+        {{article_sections}}
 
         {{closing_blocks}}
       </section>
 
+      {{article_actions}}
+
       <footer class="article-footer">
         <div>
-          <span class="label">Next Article</span>
+            <span class="label">{{next_heading}}</span>
+            <p class="next-article-title">{{next_title}}</p>
           <a
             href="{{next_href}}"
             class="next-article"

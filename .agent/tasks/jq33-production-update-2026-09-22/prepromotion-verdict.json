@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-09-22T18:24:23.358Z",
+  "reviewer": "Independent task-verifier /root/release_verifier",
+  "phase": "prepromotion",
+  "overallVerdict": "UNKNOWN",
+  "prepromotionCriteriaVerdict": "PASS",
+  "sourceCandidate": "ab86817200f85449447da6812b754dddb06d139c",
+  "artifactSha256": "1c7b127d14b750477290cd3e50624aca34abc795a26c9a4062f3ee27c6488711",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "All 57 reviewed release-source paths are inventoried against production, with exact current hashes and Git blobs. Unrelated historical task artifacts and screenshots remain outside the release source. Rollback commit and deployment are recorded.",
+      "evidence": [
+        "raw/source-inventory-platform-final.json",
+        "raw/verifier-platform-source.json",
+        "spec.md"
+      ],
+      "text": "Inventory and review the exact source release against current production; preserve unrelated working-tree artifacts. Record the rollback deployment and commit."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "Exact candidate passed Linux Release Gate 35765231913: pinned Node 22.23.2/pnpm 11.13.0, frozen install, both audits with zero vulnerabilities, real-provider strict build/static checks, 398 expected non-flaky browser tests, and production-monitor self-test. Independent current-source static reruns passed. Windows evidence is separately 396 passes plus two successful transport-error recovery cases; it is not represented as one clean full local run.",
+      "evidence": [
+        "raw/ci-platform-pass.log",
+        "raw/ci-platform-pass.json",
+        "raw/verifier-platform-source.json"
+      ],
+      "text": "Current candidate passes required build, static, browser and production monitor checks under Node 22.23.2 / pnpm 11.13.0; real provider build passes on the candidate in CI."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "Candidate is published in PR 2; Release Gate and Cloudflare Pages both pass on ab86817. Immutable preview 08dfee77 is byte-checked against the candidate distribution by the builder and independent verifier. Hosted observations confirm transparent cobalt menu links matching the central wordmark and absent logo caption.",
+      "evidence": [
+        "raw/ci-platform-pass.json",
+        "raw/preview-platform/status-matrix.json",
+        "raw/verifier-preview-platform/status-matrix.json",
+        "raw/preview-platform-browser-observations.json"
+      ],
+      "text": "Candidate branch and pull request are published; Release Gate and Cloudflare Pages checks pass on the candidate; verify immutable preview routes, bytes, configuration and requested navigation changes."
+    },
+    {
+      "id": "AC4",
+      "status": "UNKNOWN",
+      "reason": "Pending: protected-main merge and production deployment have not happened. The reviewed source candidate is ready for the remaining promotion steps after review-thread resolution and required checks on any evidence-only follow-up commit.",
+      "evidence": [
+        "raw/ci-platform-pass.json"
+      ],
+      "text": "Merge through the existing protected main branch with user authorization; verify successful Cloudflare production deployment for the resulting commit and production route/security/navigation checks."
+    },
+    {
+      "id": "AC5",
+      "status": "UNKNOWN",
+      "reason": "Pending: this is an independent prepromotion verdict, not the final current-production verdict. Final release evidence must bind the eventual merge/deployment and report fresh production verification. No form inbox delivery, completed booking, analytics account reporting, or Search Console indexing is claimed.",
+      "evidence": [
+        "prepromotion-verdict.json"
+      ],
+      "text": "Retain current command results and release evidence; fresh independent verification reports every criterion honestly, including any provider-delivery or external checks unavailable without additional user action."
+    }
+  ],
+  "limitations": [
+    "AC4 and AC5 are pending future production actions; UNKNOWN is intentional and is not a release-completion claim.",
+    "Current CI and immutable preview proof apply to ab86817; any subsequent commit requires its own required-check result.",
+    "Provider inbox delivery, creation of a real booking, analytics reporting, and Search Console indexing were not performed."
+  ]
+}
