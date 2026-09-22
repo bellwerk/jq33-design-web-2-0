@@ -1,0 +1,292 @@
+{
+  "candidate": "ab86817200f85449447da6812b754dddb06d139c",
+  "production": "708ea8d261dab90c51aa2b15a807849f308bac8f",
+  "generatedAt": "2026-09-22T18:11:09.590Z",
+  "files": [
+    {
+      "path": "404.html",
+      "sha256": "9601a9c965fb5268f015d34f01984a27402accdc1349936fbfc5e51c14eabc63",
+      "gitBlob": "42fe47fde7dfeed1ace1f4bee56ba472a552c20e"
+    },
+    {
+      "path": "admin/portfolio/index.html",
+      "sha256": "8060905640ca457a91250d0f9fe95a363edd06fb712258a9c8d25bc91a7a81b8",
+      "gitBlob": "00faac4f4bbd04eba94e233b249a5d2c23a78bfa"
+    },
+    {
+      "path": "assets/css/critical-shared.css",
+      "sha256": "fcb387147d6449bf4fc23f2b1f7d221715196d118aa21830865a5e799830db16",
+      "gitBlob": "0a5fc4044fead8f46189d864906178f92cd799b5"
+    },
+    {
+      "path": "assets/css/site.css",
+      "sha256": "8c4cbd4e042debcc81a2841c3bd615f230861694bb7849b3e357c25a24520e41",
+      "gitBlob": "c73722c2d38bb623a4ca984301964b79861dccfc"
+    },
+    {
+      "path": "assets/js/calendly.js",
+      "sha256": "c67447615a034bcc323dd1b72adc658c94c3821c8adf78e5ab5d09d44e0bf1aa",
+      "gitBlob": "99ec911295ad64efd87f68efbae0b2a286d99074"
+    },
+    {
+      "path": "assets/js/components/footer.js",
+      "sha256": "db6ab7ee59121c920a9f6d5ffa98596517331b38e55c28a34e3b4ac86140eb31",
+      "gitBlob": "d14bb97efb09bbc579018828c9d5cbcc17ed4428"
+    },
+    {
+      "path": "assets/js/components/header-nav.js",
+      "sha256": "26f8c7f3ac989709a2a9ebde45057813a9ea497dc51b15afeb2dd2aaaf2083d7",
+      "gitBlob": "8658c6799d931a81234611bd8b49a3464ace31e2"
+    },
+    {
+      "path": "assets/js/leads.js",
+      "sha256": "61075bbe9e8792c54793f8ccddb23153d7172cd2a2424be2ce47bb3d288325d6",
+      "gitBlob": "b4cbdd681593463221401435b2974e6c8c0cb37e"
+    },
+    {
+      "path": "assets/js/package-guide.js",
+      "sha256": "2d8b663eb6c6a61efb528019cfa22671ad31646056a62d11c4d3900fa4f25ac7",
+      "gitBlob": "64a3e8bbd7fbae5682ba80dc6f0db9eb90df28fd"
+    },
+    {
+      "path": "assets/resources/commercial-lease-preparation-checklist.html",
+      "sha256": "92e2a9dac91a6435192b8e38182bc3a71f020357a57ae02fd33994021b2a1e80",
+      "gitBlob": "2819e74006eb6067f4780fc9ac4f6142b68a3743"
+    },
+    {
+      "path": "commercial-interior-design-montreal/index.html",
+      "sha256": "6d5c7250ffe9b1a8c6ff6ad352b424e5002c1f05211de3c350c10bdfb8f09105",
+      "gitBlob": "b8481504bc49aa9e94df310b2ebc441296407ff8"
+    },
+    {
+      "path": "contact/index.html",
+      "sha256": "4ea79f58cd4e756ebd5d5658d7096147b444b298b24570e17befbeb02dc2ada0",
+      "gitBlob": "b006aac94bfe3dd342db3e2a73b59250cddd4b2d"
+    },
+    {
+      "path": "data/posts.json",
+      "sha256": "4017fca3939b099df82d95f20b7b398ce87adf10857c5dbe7c52bc866cb6f014",
+      "gitBlob": "960643873a72b59749cbe6acc12baaea607b0896"
+    },
+    {
+      "path": "index.html",
+      "sha256": "e4d98ebc7f4d3a096b85651d261a9e4c29548164814a4631040b319a50918a40",
+      "gitBlob": "0b0111f5c9c6dea4c69ed792f0c9c4b3a8599451"
+    },
+    {
+      "path": "inquiry/index.html",
+      "sha256": "f59871572a1af96505f51f6234e838a5b2590d714b6b2682ca5db10dc68777aa",
+      "gitBlob": "c2caf1cb01525a31076cc93f5e6885df9fcb16df"
+    },
+    {
+      "path": "journal/_journal-index-template.html",
+      "sha256": "3138a9771ef8bf287a4f1e50f7f6d48802e241d71059228ac583bb581f9f3219",
+      "gitBlob": "3462db6e354566bfdb765b74196dea01c9b93316"
+    },
+    {
+      "path": "journal/_journal-template.html",
+      "sha256": "80243e261e684d8723669bb5494f0e80c68a63bc17719c9a13b4268078fc223c",
+      "gitBlob": "444b8a6e6a00a5e057261b70c5a16ff17ea4ddae"
+    },
+    {
+      "path": "journal/before-you-sign-a-commercial-lease/index.html",
+      "sha256": "9c62c148a9c8f7a967d5eebdfc1da7594c05d5e3279f7421fd5019b94738e591",
+      "gitBlob": "b1ee7f35b2df6b11f361ae0199ed0e6d8f2aa477"
+    },
+    {
+      "path": "journal/commercial-interior-design-cost-montreal/index.html",
+      "sha256": "ab42ddcf5598d215b1d8f84a8c4d52ffa30d3a1d8dc8248ec911f683060de76a",
+      "gitBlob": "fb1d49864eb57112f0232358cc5ccf6d899d0d22"
+    },
+    {
+      "path": "journal/index.html",
+      "sha256": "f883dd0d4d516ce43283d0b0f2e90a6dbe2ed2f2ead0d9191da5e6b51c914062",
+      "gitBlob": "ea86ab3b055dcabb771aac773e3539d43f2f4f82"
+    },
+    {
+      "path": "journal/reduction-as-creation/index.html",
+      "sha256": "40a9435a5e41be5ffa2a98456af2505d920486f0454f8d3f9e1caa3d33ee1274",
+      "gitBlob": "6cd1eabc732c2f39187871aaf581f263a0288446"
+    },
+    {
+      "path": "journal/salon-layout-planning-checklist/index.html",
+      "sha256": "fe9830a6c2b6e8984af5fc2af21d8be75402aa69843f938d72a3707b38acfb52",
+      "gitBlob": "6e96dba7e9c1907eb382fa048a37aaa05bceeafb"
+    },
+    {
+      "path": "package.json",
+      "sha256": "2972d9545cbff9dbc0f8c5d7cff02ade21d3e6cec6c926e879f93383296c5346",
+      "gitBlob": "f9070aec9c44cb3ad44f29692077023f2d1aa254"
+    },
+    {
+      "path": "planning-resources/index.html",
+      "sha256": "a5118863877bd88e8e20de757165f25ee5b20b79cdace7fdf4f11b41fedb5627",
+      "gitBlob": "2bb7d8788f33983a949c10935d23f16d08ecc1df"
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "sha256": "721a1b37ba5c6b35f3fff910a8ca11e6a709410e31d8ea5cf950cff78af6be7a",
+      "gitBlob": "723d86a50ea66926f793f9640be1e2ca42d4c915"
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "sha256": "cb783c4d75b3e67019e322fcfe4b62f414affb14630d0716704b71f0ad44bbdc",
+      "gitBlob": "b523515fbd1b848d6ff7ce0c62dbee014358ff67"
+    },
+    {
+      "path": "privacy/index.html",
+      "sha256": "c1cd24be7f220034128c3f6716578e0bcbcae42820d4aadffdcee570419f8489",
+      "gitBlob": "ae9d8b041acb76541233daba74729751e94fd30c"
+    },
+    {
+      "path": "projects/_project-template.html",
+      "sha256": "5ae700e48fec5206ea49a69f5a2909dd2a7e8c7bc98ec2f21d01d163f8b34403",
+      "gitBlob": "a3314c15ef3dc2d6442fcead76716e507525f5cc"
+    },
+    {
+      "path": "projects/_projects-index-template.html",
+      "sha256": "ec04fc3e792bc7a749636e0257012921b7a3966818f2baa175a7bfbfc396ed40",
+      "gitBlob": "7e55f652e09f14d89e0e4816ea8df01889eb6eda"
+    },
+    {
+      "path": "projects/bruton-place-iv/index.html",
+      "sha256": "0700bbb06a33572356670a9d9f56de8b600f1dc6da4ecfa74d75ae9318c189fe",
+      "gitBlob": "48884388de8ec7c171f1588dc44ab63a09853672"
+    },
+    {
+      "path": "projects/canvas-studios/index.html",
+      "sha256": "8ef706d86da11f69eecaa494e6103eb1e52a2ed3299a0990ada68396fce63ae6",
+      "gitBlob": "90fa8ce9567ff9a96c15b47d34af8a11dd695849"
+    },
+    {
+      "path": "projects/ethereal-gallery/index.html",
+      "sha256": "88e21e35c3a62ddf46dd40e97db409cc348afe5ed34c2c6c3e29fc08acf9ecd8",
+      "gitBlob": "9317675738d3dbc5aabc87639ccdba32e302c8f5"
+    },
+    {
+      "path": "projects/index.html",
+      "sha256": "c2c5757a9bcaa245ef508b7fdf38015a98ec934bf1797749345278021b731f1c",
+      "gitBlob": "82bf6271f9dd86a3386aec1cb594127730fb5d37"
+    },
+    {
+      "path": "projects/obsidian-lounge/index.html",
+      "sha256": "f2a27a545fbdf33a48c64683505b0c29fde2603a24618fc39c4141bb82c5c128",
+      "gitBlob": "dd2a6c62069603fc28d4e4bdaa611a4ad1eb5814"
+    },
+    {
+      "path": "projects/project.html",
+      "sha256": "1b1d0a73d7ea673559a9450a06f904d049373aba5afb12ca36ea2a12b8061dc6",
+      "gitBlob": "af0e9eb7a5e478a6ce8efbf6c4100513c6c6960d"
+    },
+    {
+      "path": "projects/vortex-showroom/index.html",
+      "sha256": "13a2bad0f8b85745c7e9bd7e7172e9ef24f474102195663e3bbcd047d4ead9ce",
+      "gitBlob": "b0f3a68ce7da4e93ce1c6ef37c0238bddd4c1a7e"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "2f3b4872c46dd3cb90985ba2656a0484e8a47a090076581509a21c07ef1e59a7",
+      "gitBlob": "3443af6cd03467e2063ae6b1e0e4a347802d0211"
+    },
+    {
+      "path": "scripts/check-design-tokens.mjs",
+      "sha256": "0fad1e6b5f80723eb571f04cce0a9ec0b3a2b9e94a5f89611643f0120236303a",
+      "gitBlob": "a7287ea28a458c4895d5cfa2fdfc7bfcfb8d4fe1"
+    },
+    {
+      "path": "scripts/check-dist.mjs",
+      "sha256": "2217c1f9a8168c84299a71ac227520c1aa4651bda564a7a6a4d189f48a489014",
+      "gitBlob": "7e135d7b2eb908abbf46eed357713bec6d5c21c3"
+    },
+    {
+      "path": "scripts/check-hallmark-contract.mjs",
+      "sha256": "cd8a29e80401f5689f1f05c87077658d5dbc004676e0f49b9a379636c9e28dcb",
+      "gitBlob": "fdd02511d31af06a0b5e8e9f70af26335c03b6a0"
+    },
+    {
+      "path": "scripts/check-production-health.mjs",
+      "sha256": "16a793477888842b05bc01e1ca7e8a964411994eb7b7c0e6e51c8c150172a79f",
+      "gitBlob": "204515c1136c1d7419964a6a1c757e4e158e0139"
+    },
+    {
+      "path": "scripts/check-render-contract.mjs",
+      "sha256": "f52d4e170990bba433d2443c98fb871536a537cb712007bb66fce86f48e4ba84",
+      "gitBlob": "41f10380e675d7a1cc23fd4aa7d49bc28e2083e2"
+    },
+    {
+      "path": "scripts/check-responsive.mjs",
+      "sha256": "52a425f660dd8f5c7003b5df5face8835a03c127578a6da0e70a68ba8318cbe3",
+      "gitBlob": "43c0c60bbcd9ec7f5b2943f8932cab7a933ac85e"
+    },
+    {
+      "path": "scripts/check-security.mjs",
+      "sha256": "a2df90298190eafd3aebcc7d5609ab815c03aae5ef92550fa3f50762fad80bf2",
+      "gitBlob": "65544b237daf73f6c35524814c409a767adb0c48"
+    },
+    {
+      "path": "scripts/generate-journal.mjs",
+      "sha256": "34fd1204fd2b7dc784367ef00e685e1cc18c1bf75086df935d86ac325c53b055",
+      "gitBlob": "ccdd02be74646f793a2a9de27adcc1785f554d29"
+    },
+    {
+      "path": "scripts/generate-responsive-images.mjs",
+      "sha256": "b12e142bf8128800924ae5f5edce3db47491d167afa53bca630d49ea79bf33ab",
+      "gitBlob": "8aec34739455c72556ac23810cbab76d9e35a26d"
+    },
+    {
+      "path": "scripts/generate-sitemap.mjs",
+      "sha256": "10d879e5915c06111dde1ad0a28fd4a508ba61a9361eeb22f65786d6917036d5",
+      "gitBlob": "388d4b74e25b97aa5da6b60b9c30a96f82b69f73"
+    },
+    {
+      "path": "scripts/tokenize-design-colors.mjs",
+      "sha256": "2c75700a0d10166ccaec27adecee497663b3b2c64cef811ae3beb77eda5bc93b",
+      "gitBlob": "7ecfff721c703a5aa518c7547ae9afc274d929b0"
+    },
+    {
+      "path": "sitemap.xml",
+      "sha256": "2b37bd7453a53032e5bb496d3e881d91a9fed505e5bb974ee514c2b14d4c951e",
+      "gitBlob": "e9887c772f24947f23c9eae6a63a9c6ef7f4c91a"
+    },
+    {
+      "path": "terms/index.html",
+      "sha256": "e8644321e627263a584049c1f830f300dd117391b75c500ed435996934e92e43",
+      "gitBlob": "0c5d92258d6b839be3a9aa408dbb8dd99befdc19"
+    },
+    {
+      "path": "tests/acquisition-features.spec.mjs",
+      "sha256": "45bd6439a4b3ae532ece1c47668cf0ccd1facc9729f20f876443dd6d2063ec9a",
+      "gitBlob": "fcd772cac669bdfb31a1838568095ab551d4a015"
+    },
+    {
+      "path": "tests/acquisition-layout.spec.mjs",
+      "sha256": "776915d6ed3b7ba282d7f23c9bfed62da570c361e53892cdd18b6a8a0bb18694",
+      "gitBlob": "742e319eeec6cff6c8e9384d55d6e00486e63cb8"
+    },
+    {
+      "path": "tests/browser-contract.spec.mjs",
+      "sha256": "5462d51c403058fc44cab572dd7985447824826c726a61a2a0bbb780f0b36a01",
+      "gitBlob": "c3620a462de50e84a37695a60c907c2b942c2ba3"
+    },
+    {
+      "path": "tests/helpers/browser.mjs",
+      "sha256": "613f9f4925a008ccc67f201b4986370ac342847c2dbae3df66731bede86e4596",
+      "gitBlob": "65e8ddaf6156bb5901edd27a10b0781773fd8946"
+    },
+    {
+      "path": "tests/helpers/site.mjs",
+      "sha256": "6ee45c0f7814106df6f6dac7f42873632e4a60749ad2fedbdd69717379783c7e",
+      "gitBlob": "272cc1e1f0a330bb04a3298d1cabd419cd72d965"
+    },
+    {
+      "path": "tests/keyboard-navigation.spec.mjs",
+      "sha256": "c8167327cd3d08b1ef2e3b712df7f013757d069dc77c62a38c6db834b5ba6f21",
+      "gitBlob": "f3a02f8dac556440860a7df268b9af3976aea1a9"
+    },
+    {
+      "path": "tokens.css",
+      "sha256": "877c6b41bb223fdcbd04131f211b2841efb17e1250f91e26c5695ed1c35a8f63",
+      "gitBlob": "cb641c80092322866bb6d1e59898f512430ed949"
+    }
+  ]
+}

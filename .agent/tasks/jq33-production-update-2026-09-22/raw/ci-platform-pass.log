@@ -1,0 +1,946 @@
+Release Gate	Set up job	﻿2026-09-22T18:08:40.3765046Z Current runner version: '2.337.0'
+Release Gate	Set up job	2026-09-22T18:08:40.3800028Z ##[group]Runner Image Provisioner
+Release Gate	Set up job	2026-09-22T18:08:40.3801700Z Hosted Compute Agent
+Release Gate	Set up job	2026-09-22T18:08:40.3802806Z Version: 20260828.587
+Release Gate	Set up job	2026-09-22T18:08:40.3803925Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+Release Gate	Set up job	2026-09-22T18:08:40.3805312Z Build Date: 2026-08-28T16:44:25Z
+Release Gate	Set up job	2026-09-22T18:08:40.3806890Z Worker ID: {49f53d19-98e5-4bc8-9161-3747d4728392}
+Release Gate	Set up job	2026-09-22T18:08:40.3808233Z Azure Region: eastus
+Release Gate	Set up job	2026-09-22T18:08:40.3809216Z ##[endgroup]
+Release Gate	Set up job	2026-09-22T18:08:40.3811928Z ##[group]Operating System
+Release Gate	Set up job	2026-09-22T18:08:40.3813006Z Ubuntu
+Release Gate	Set up job	2026-09-22T18:08:40.3813903Z 24.04.5
+Release Gate	Set up job	2026-09-22T18:08:40.3814964Z LTS
+Release Gate	Set up job	2026-09-22T18:08:40.3815847Z ##[endgroup]
+Release Gate	Set up job	2026-09-22T18:08:40.3816870Z ##[group]Runner Image
+Release Gate	Set up job	2026-09-22T18:08:40.3817968Z Image: ubuntu-24.04
+Release Gate	Set up job	2026-09-22T18:08:40.3819009Z Version: 20260907.300.1
+Release Gate	Set up job	2026-09-22T18:08:40.3820880Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260907.300/images/ubuntu/Ubuntu2404-Readme.md
+Release Gate	Set up job	2026-09-22T18:08:40.3824278Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260907.300
+Release Gate	Set up job	2026-09-22T18:08:40.3826088Z ##[endgroup]
+Release Gate	Set up job	2026-09-22T18:08:40.3827991Z ##[group]GITHUB_TOKEN Permissions
+Release Gate	Set up job	2026-09-22T18:08:40.3830827Z Contents: read
+Release Gate	Set up job	2026-09-22T18:08:40.3832173Z Metadata: read
+Release Gate	Set up job	2026-09-22T18:08:40.3833073Z ##[endgroup]
+Release Gate	Set up job	2026-09-22T18:08:40.3836269Z Secret source: Actions
+Release Gate	Set up job	2026-09-22T18:08:40.3837953Z Cache mode: write
+Release Gate	Set up job	2026-09-22T18:08:40.3839312Z Prepare workflow directory
+Release Gate	Set up job	2026-09-22T18:08:40.4586789Z Prepare all required actions
+Release Gate	Set up job	2026-09-22T18:08:40.4659428Z Getting action download info
+Release Gate	Set up job	2026-09-22T18:08:40.6751649Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Release Gate	Set up job	2026-09-22T18:08:40.7857971Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Release Gate	Set up job	2026-09-22T18:08:40.9675178Z Complete job name: Release Gate
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-09-22T18:08:41.0525170Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0534311Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0535268Z with:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0535762Z   repository: bellwerk/jq33-design-web-2-0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0539706Z   token: ***
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0540163Z   ssh-strict: true
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0540632Z   ssh-user: git
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0541099Z   persist-credentials: true
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0541821Z   clean: true
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0542312Z   sparse-checkout-cone-mode: true
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0542868Z   fetch-depth: 1
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0543360Z   fetch-tags: false
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0543833Z   show-progress: true
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0544298Z   lfs: false
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0544790Z   submodules: false
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0545261Z   set-safe-directory: true
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0545794Z   allow-unsafe-pr-checkout: false
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0546584Z env:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0547220Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0547946Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0548629Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.0549129Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1598797Z Syncing repository: bellwerk/jq33-design-web-2-0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1600779Z ##[group]Getting Git version info
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1602174Z Working directory is '/home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0'
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1603389Z [command]/usr/bin/git version
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1682914Z git version 2.55.0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1709439Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1732508Z Temporarily overriding HOME='/home/runner/work/_temp/32746ffd-c889-4cf5-9767-2ad172bbc841' before making global git config changes
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1735312Z Adding repository directory to the temporary git global config as a safe directory
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1742935Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1801414Z Deleting the contents of '/home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0'
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1804674Z ##[group]Initializing the repository
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1806325Z [command]/usr/bin/git init /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1906511Z hint: Using 'master' as the name for the initial branch. This default branch name
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1919786Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1921006Z hint: to use in all of your new repositories, which will suppress this warning,
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1922252Z hint: call:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1922733Z hint:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1923328Z hint: 	git config --global init.defaultBranch <name>
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1924056Z hint:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1924735Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1925743Z hint: 'development'. The just-created branch can be renamed via this command:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1926547Z hint:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1927027Z hint: 	git branch -m <name>
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1927576Z hint:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1928256Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1929451Z Initialized empty Git repository in /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0/.git/
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1940120Z [command]/usr/bin/git remote add origin https://github.com/bellwerk/jq33-design-web-2-0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1987717Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1989219Z ##[group]Disabling automatic garbage collection
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.1991743Z [command]/usr/bin/git config --local gc.auto 0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2025928Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2027335Z ##[group]Setting up auth
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2034344Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2071594Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2473082Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2513396Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2743911Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.2780945Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.3010190Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.3051848Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.3052854Z ##[group]Fetching the repository
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:41.3064055Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +93da4007f9a5adad678a58c778174793274ff6fc:refs/remotes/pull/2/merge
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1795487Z From https://github.com/bellwerk/jq33-design-web-2-0
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1797871Z  * [new ref]         93da4007f9a5adad678a58c778174793274ff6fc -> pull/2/merge
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1833317Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1834970Z ##[group]Determining the checkout info
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1836657Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1837629Z [command]/usr/bin/git sparse-checkout disable
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1872940Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1918333Z ##[group]Checking out the ref
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.1923213Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/2/merge
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3124380Z Note: switching to 'refs/remotes/pull/2/merge'.
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3125404Z 
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3126475Z You are in 'detached HEAD' state. You can look around, make experimental
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3128867Z changes and commit them, and you can discard any commits you make in this
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3131109Z state without impacting any branches by switching back to a branch.
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3132699Z 
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3133722Z If you want to create a new branch to retain commits you create, you may
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3135771Z do so (now or later) by using -c with the switch command. Example:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3137156Z 
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3137880Z   git switch -c <new-branch-name>
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3138883Z 
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3139544Z Or undo this operation with:
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3140407Z 
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3140932Z   git switch -
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3141875Z 
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3143023Z Turn off this advice by setting config variable advice.detachedHead to false
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3144621Z 
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3146350Z HEAD is now at 93da400 Merge ab86817200f85449447da6812b754dddb06d139c into 708ea8d261dab90c51aa2b15a807849f308bac8f
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3151064Z ##[endgroup]
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3185147Z [command]/usr/bin/git log -1 --format=%H
+Release Gate	Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:08:42.3212416Z 93da4007f9a5adad678a58c778174793274ff6fc
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	﻿2026-09-22T18:08:42.3670441Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3676356Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3678376Z with:
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3679767Z   node-version: 22.23.2
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3681527Z   always-auth: false
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3683024Z   check-latest: false
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3693088Z   token: ***
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3694518Z env:
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3696225Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3698226Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3700152Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.3701800Z ##[endgroup]
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.5105266Z Found in cache @ /opt/hostedtoolcache/node/22.23.2/x64
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.5110608Z (node:2296) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.5114703Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.5118526Z ##[group]Environment details
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.9223351Z node: v22.23.2
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.9225679Z npm: 10.9.8
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.9226660Z yarn: 1.22.22
+Release Gate	Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:08:42.9228845Z ##[endgroup]
+Release Gate	Activate pinned pnpm	﻿2026-09-22T18:08:42.9363255Z ##[group]Run corepack enable
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9363709Z [36;1mcorepack enable[0m
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9364090Z [36;1mcorepack prepare pnpm@11.13.0 --activate[0m
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9417436Z shell: /usr/bin/bash -e {0}
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9417797Z env:
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9418479Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9418941Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9419372Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:42.9419662Z ##[endgroup]
+Release Gate	Activate pinned pnpm	2026-09-22T18:08:43.0731589Z Preparing pnpm@11.13.0 for immediate activation...
+Release Gate	Install frozen dependencies	﻿2026-09-22T18:08:43.8326232Z ##[group]Run pnpm install --frozen-lockfile
+Release Gate	Install frozen dependencies	2026-09-22T18:08:43.8326693Z [36;1mpnpm install --frozen-lockfile[0m
+Release Gate	Install frozen dependencies	2026-09-22T18:08:43.8364678Z shell: /usr/bin/bash -e {0}
+Release Gate	Install frozen dependencies	2026-09-22T18:08:43.8364962Z env:
+Release Gate	Install frozen dependencies	2026-09-22T18:08:43.8365438Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Install frozen dependencies	2026-09-22T18:08:43.8365879Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Install frozen dependencies	2026-09-22T18:08:43.8366267Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Install frozen dependencies	2026-09-22T18:08:43.8366509Z ##[endgroup]
+Release Gate	Install frozen dependencies	2026-09-22T18:08:44.6145638Z ? Verifying lockfile against supply-chain policies (265 entries)...
+Release Gate	Install frozen dependencies	2026-09-22T18:08:44.6229681Z Lockfile is up to date, resolution step is skipped
+Release Gate	Install frozen dependencies	2026-09-22T18:08:44.7277566Z Progress: resolved 1, reused 0, downloaded 0, added 0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:44.7752453Z Packages: +199
+Release Gate	Install frozen dependencies	2026-09-22T18:08:44.7753957Z ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Release Gate	Install frozen dependencies	2026-09-22T18:08:45.7427272Z Progress: resolved 199, reused 0, downloaded 40, added 0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:46.7461651Z Progress: resolved 199, reused 0, downloaded 122, added 5
+Release Gate	Install frozen dependencies	2026-09-22T18:08:47.7564798Z Progress: resolved 199, reused 0, downloaded 198, added 64
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.3483969Z ✓ Lockfile passes supply-chain policies (265 entries in 3.7s)
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.4071927Z Progress: resolved 199, reused 0, downloaded 199, added 199, done
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.4955616Z .../node_modules/workerd postinstall$ node install.js
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.4968005Z .../esbuild@0.28.1/node_modules/esbuild postinstall$ node install.js
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.6013611Z .../esbuild@0.28.1/node_modules/esbuild postinstall: Done
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.6032317Z .../node_modules/workerd postinstall: Done
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9652762Z 
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9653376Z devDependencies:
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9653917Z + @axe-core/playwright 4.12.1
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9654445Z + @playwright/test 1.62.0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9655121Z + chrome-launcher 1.2.1
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9655581Z + html-minifier-terser 7.2.0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9656061Z + html-validate 11.10.0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9656505Z + lighthouse 13.4.1
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9656955Z + lightningcss 1.33.0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9657347Z + sharp 0.35.4
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9657725Z + subset-font 2.5.0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9658123Z + wrangler 4.126.0
+Release Gate	Install frozen dependencies	2026-09-22T18:08:48.9658351Z 
+Release Gate	Install frozen dependencies	2026-09-22T18:08:49.0070891Z Done in 5s using pnpm v11.13.0
+Release Gate	Audit build toolchain	﻿2026-09-22T18:08:49.0870424Z ##[group]Run pnpm audit --prod
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0870793Z [36;1mpnpm audit --prod[0m
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0871095Z [36;1mpnpm audit --audit-level high[0m
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0909955Z shell: /usr/bin/bash -e {0}
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0910231Z env:
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0910653Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0911041Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0911663Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.0911910Z ##[endgroup]
+Release Gate	Audit build toolchain	2026-09-22T18:08:49.8107454Z No known vulnerabilities found
+Release Gate	Audit build toolchain	2026-09-22T18:08:50.5110543Z No known vulnerabilities found
+Release Gate	Install Chromium	﻿2026-09-22T18:08:50.5258768Z ##[group]Run pnpm exec playwright install --with-deps chromium
+Release Gate	Install Chromium	2026-09-22T18:08:50.5259292Z [36;1mpnpm exec playwright install --with-deps chromium[0m
+Release Gate	Install Chromium	2026-09-22T18:08:50.5298468Z shell: /usr/bin/bash -e {0}
+Release Gate	Install Chromium	2026-09-22T18:08:50.5298778Z env:
+Release Gate	Install Chromium	2026-09-22T18:08:50.5299328Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Install Chromium	2026-09-22T18:08:50.5299752Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Install Chromium	2026-09-22T18:08:50.5300124Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Install Chromium	2026-09-22T18:08:50.5300367Z ##[endgroup]
+Release Gate	Install Chromium	2026-09-22T18:08:51.5591824Z Installing dependencies...
+Release Gate	Install Chromium	2026-09-22T18:08:51.5714071Z Switching to root user to install dependencies...
+Release Gate	Install Chromium	2026-09-22T18:08:51.6998427Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Release Gate	Install Chromium	2026-09-22T18:08:51.7327574Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Release Gate	Install Chromium	2026-09-22T18:08:51.7338029Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Release Gate	Install Chromium	2026-09-22T18:08:51.7351907Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.7382900Z Get:7 https://dl.google.com/linux/chrome-stable/deb stable InRelease [2548 B]
+Release Gate	Install Chromium	2026-09-22T18:08:51.7402613Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.7432275Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.8625490Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [431 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.8829807Z Get:9 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [482 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9189538Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1284 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9256337Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [295 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9276245Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9288898Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1697 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9419443Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [340 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9444036Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9468816Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1596 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9554013Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [362 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9569524Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [45.7 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:51.9578708Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [13.1 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0009509Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0014340Z Get:21 https://dl.google.com/linux/chrome-stable/deb stable/main amd64 Packages [1411 B]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0372533Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [40.6 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0383324Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5748 B]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0387952Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [31.0 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0400082Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe Translation-en [18.6 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0405901Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [12.6 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0914566Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1028 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0970584Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [216 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0985877Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [46.3 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.0993334Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1217 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.1058739Z Get:31 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [244 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.1070503Z Get:32 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.2 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.1080714Z Get:33 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1496 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.1154742Z Get:34 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [343 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:52.1609658Z Get:35 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.3 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:56.4932384Z Fetched 12.3 MB in 1s (8825 kB/s)
+Release Gate	Install Chromium	2026-09-22T18:08:57.4068840Z Reading package lists...
+Release Gate	Install Chromium	2026-09-22T18:08:57.4317495Z Reading package lists...
+Release Gate	Install Chromium	2026-09-22T18:08:57.6519562Z Building dependency tree...
+Release Gate	Install Chromium	2026-09-22T18:08:57.6527365Z Reading state information...
+Release Gate	Install Chromium	2026-09-22T18:08:57.8534557Z libasound2t64 is already the newest version (1.2.11-1ubuntu0.3).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8535605Z libasound2t64 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8536862Z libatk-bridge2.0-0t64 is already the newest version (2.52.0-1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8537855Z libatk-bridge2.0-0t64 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8538633Z libatk1.0-0t64 is already the newest version (2.52.0-1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8539223Z libatk1.0-0t64 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8539836Z libatspi2.0-0t64 is already the newest version (2.52.0-1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8540432Z libatspi2.0-0t64 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8541664Z libcairo2 is already the newest version (1.18.0-3build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8542794Z libcairo2 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8543424Z libcups2t64 is already the newest version (2.4.7-1.2ubuntu7.14).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8543921Z libcups2t64 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8564960Z libdbus-1-3 is already the newest version (1.14.10-4ubuntu4.1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8565475Z libdbus-1-3 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8565940Z libdrm2 is already the newest version (2.4.125-1ubuntu0.1~24.04.2).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8566375Z libdrm2 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8566800Z libgbm1 is already the newest version (25.2.8-0ubuntu0.24.04.2).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8567211Z libgbm1 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8567627Z libnspr4 is already the newest version (2:4.35-1.1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8568026Z libnspr4 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8568435Z libnss3 is already the newest version (2:3.98-1ubuntu0.2).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8568821Z libnss3 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8569249Z libpango-1.0-0 is already the newest version (1.52.1+ds-1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8569678Z libpango-1.0-0 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8570095Z libx11-6 is already the newest version (2:1.8.7-1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8570478Z libx11-6 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8570850Z libxcb1 is already the newest version (1.15-1ubuntu2).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8571357Z libxcb1 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8571781Z libxcomposite1 is already the newest version (1:0.4.5-1build3).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8572200Z libxcomposite1 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8572627Z libxdamage1 is already the newest version (1:1.1.6-1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8573021Z libxdamage1 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8573416Z libxext6 is already the newest version (2:1.3.4-1build2).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8573802Z libxext6 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8574199Z libxfixes3 is already the newest version (1:6.0.0-2build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8574610Z libxfixes3 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8575017Z libxkbcommon0 is already the newest version (1.6.0-1build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8575415Z libxkbcommon0 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8575828Z libxrandr2 is already the newest version (2:1.5.2-2build1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8576213Z libxrandr2 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8577015Z xvfb is already the newest version (2:21.1.12-1ubuntu1.6).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8577590Z fonts-noto-color-emoji is already the newest version (2.047-0ubuntu0.24.04.1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8578179Z libfontconfig1 is already the newest version (2.15.0-1.1ubuntu2).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8578609Z libfontconfig1 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8579066Z libfreetype6 is already the newest version (2.13.2+dfsg-1ubuntu0.1).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8579508Z libfreetype6 set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8579935Z fonts-liberation is already the newest version (1:2.1.5-3).
+Release Gate	Install Chromium	2026-09-22T18:08:57.8580375Z fonts-liberation set to manually installed.
+Release Gate	Install Chromium	2026-09-22T18:08:57.8580785Z The following additional packages will be installed:
+Release Gate	Install Chromium	2026-09-22T18:08:57.8581735Z   gir1.2-glib-2.0 libglib2.0-bin libglib2.0-data xfonts-encodings xfonts-utils
+Release Gate	Install Chromium	2026-09-22T18:08:57.8582214Z Suggested packages:
+Release Gate	Install Chromium	2026-09-22T18:08:57.8582456Z   low-memory-monitor
+Release Gate	Install Chromium	2026-09-22T18:08:57.8582724Z Recommended packages:
+Release Gate	Install Chromium	2026-09-22T18:08:57.8583009Z   fonts-ipafont-mincho fonts-tlwg-loma
+Release Gate	Install Chromium	2026-09-22T18:08:57.8803394Z The following NEW packages will be installed:
+Release Gate	Install Chromium	2026-09-22T18:08:57.8804051Z   fonts-freefont-ttf fonts-ipafont-gothic fonts-tlwg-loma-otf fonts-unifont
+Release Gate	Install Chromium	2026-09-22T18:08:57.8814004Z   fonts-wqy-zenhei xfonts-cyrillic xfonts-encodings xfonts-scalable
+Release Gate	Install Chromium	2026-09-22T18:08:57.8814531Z   xfonts-utils
+Release Gate	Install Chromium	2026-09-22T18:08:57.8820087Z The following packages will be upgraded:
+Release Gate	Install Chromium	2026-09-22T18:08:57.8827906Z   gir1.2-glib-2.0 libglib2.0-0t64 libglib2.0-bin libglib2.0-data
+Release Gate	Install Chromium	2026-09-22T18:08:57.9039769Z 4 upgraded, 9 newly installed, 0 to remove and 84 not upgraded.
+Release Gate	Install Chromium	2026-09-22T18:08:57.9040986Z Need to get 23.0 MB of archives.
+Release Gate	Install Chromium	2026-09-22T18:08:57.9042102Z After this operation, 79.6 MB of additional disk space will be used.
+Release Gate	Install Chromium	2026-09-22T18:08:57.9043096Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Release Gate	Install Chromium	2026-09-22T18:08:57.9266157Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:57.9805262Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglib2.0-data all 2.80.0-6ubuntu3.9 [50.1 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:57.9877951Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglib2.0-bin amd64 2.80.0-6ubuntu3.9 [97.9 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:57.9958714Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 gir1.2-glib-2.0 amd64 2.80.0-6ubuntu3.9 [183 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.0054060Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglib2.0-0t64 amd64 2.80.0-6ubuntu3.9 [1547 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.0332323Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.1350818Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.1437807Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.2142148Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.4542695Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.4803899Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.4907480Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 xfonts-cyrillic all 1:1.0.5+nmu1 [384 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.5114337Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-scalable all 1:1.0.3-1.3 [304 kB]
+Release Gate	Install Chromium	2026-09-22T18:08:58.8037679Z Fetched 23.0 MB in 1s (36.4 MB/s)
+Release Gate	Install Chromium	2026-09-22T18:08:58.8279583Z Selecting previously unselected package fonts-ipafont-gothic.
+Release Gate	Install Chromium	2026-09-22T18:08:58.8579590Z (Reading database ... 
+Release Gate	Install Chromium	2026-09-22T18:08:58.8580258Z (Reading database ... 5%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8580890Z (Reading database ... 10%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8582009Z (Reading database ... 15%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8582508Z (Reading database ... 20%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8582993Z (Reading database ... 25%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8583475Z (Reading database ... 30%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8583959Z (Reading database ... 35%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8584431Z (Reading database ... 40%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8584903Z (Reading database ... 45%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8585390Z (Reading database ... 50%
+Release Gate	Install Chromium	2026-09-22T18:08:58.8627402Z (Reading database ... 55%
+Release Gate	Install Chromium	2026-09-22T18:08:59.0006765Z (Reading database ... 60%
+Release Gate	Install Chromium	2026-09-22T18:08:59.1414198Z (Reading database ... 65%
+Release Gate	Install Chromium	2026-09-22T18:08:59.3483554Z (Reading database ... 70%
+Release Gate	Install Chromium	2026-09-22T18:08:59.4947723Z (Reading database ... 75%
+Release Gate	Install Chromium	2026-09-22T18:08:59.6172600Z (Reading database ... 80%
+Release Gate	Install Chromium	2026-09-22T18:08:59.7977655Z (Reading database ... 85%
+Release Gate	Install Chromium	2026-09-22T18:08:59.9371444Z (Reading database ... 90%
+Release Gate	Install Chromium	2026-09-22T18:09:00.0638596Z (Reading database ... 95%
+Release Gate	Install Chromium	2026-09-22T18:09:00.0639399Z (Reading database ... 100%
+Release Gate	Install Chromium	2026-09-22T18:09:00.0640203Z (Reading database ... 201818 files and directories currently installed.)
+Release Gate	Install Chromium	2026-09-22T18:09:00.0681858Z Preparing to unpack .../00-fonts-ipafont-gothic_00303-21ubuntu1_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.0772802Z Unpacking fonts-ipafont-gothic (00303-21ubuntu1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.3329814Z Preparing to unpack .../01-libglib2.0-data_2.80.0-6ubuntu3.9_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.3351661Z Unpacking libglib2.0-data (2.80.0-6ubuntu3.9) over (2.80.0-6ubuntu3.8) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.3706966Z Preparing to unpack .../02-libglib2.0-bin_2.80.0-6ubuntu3.9_amd64.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.3733452Z Unpacking libglib2.0-bin (2.80.0-6ubuntu3.9) over (2.80.0-6ubuntu3.8) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.4223185Z Preparing to unpack .../03-gir1.2-glib-2.0_2.80.0-6ubuntu3.9_amd64.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.4244143Z Unpacking gir1.2-glib-2.0:amd64 (2.80.0-6ubuntu3.9) over (2.80.0-6ubuntu3.8) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.4642924Z Preparing to unpack .../04-libglib2.0-0t64_2.80.0-6ubuntu3.9_amd64.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.4741363Z Unpacking libglib2.0-0t64:amd64 (2.80.0-6ubuntu3.9) over (2.80.0-6ubuntu3.8) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.5159441Z Selecting previously unselected package fonts-freefont-ttf.
+Release Gate	Install Chromium	2026-09-22T18:09:00.5285695Z Preparing to unpack .../05-fonts-freefont-ttf_20211204+svn4273-2_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.5294016Z Unpacking fonts-freefont-ttf (20211204+svn4273-2) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.6107255Z Selecting previously unselected package fonts-tlwg-loma-otf.
+Release Gate	Install Chromium	2026-09-22T18:09:00.6231894Z Preparing to unpack .../06-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.6243871Z Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.6455336Z Selecting previously unselected package fonts-unifont.
+Release Gate	Install Chromium	2026-09-22T18:09:00.6579345Z Preparing to unpack .../07-fonts-unifont_1%3a15.1.01-1build1_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.6587240Z Unpacking fonts-unifont (1:15.1.01-1build1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.7669092Z Selecting previously unselected package fonts-wqy-zenhei.
+Release Gate	Install Chromium	2026-09-22T18:09:00.7792223Z Preparing to unpack .../08-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:00.7895979Z Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.2575972Z Selecting previously unselected package xfonts-encodings.
+Release Gate	Install Chromium	2026-09-22T18:09:01.2700981Z Preparing to unpack .../09-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.2711047Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.3000548Z Selecting previously unselected package xfonts-utils.
+Release Gate	Install Chromium	2026-09-22T18:09:01.3124721Z Preparing to unpack .../10-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.3134118Z Unpacking xfonts-utils (1:7.7+6build3) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.3456642Z Selecting previously unselected package xfonts-cyrillic.
+Release Gate	Install Chromium	2026-09-22T18:09:01.3580864Z Preparing to unpack .../11-xfonts-cyrillic_1%3a1.0.5+nmu1_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.3589406Z Unpacking xfonts-cyrillic (1:1.0.5+nmu1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.3958498Z Selecting previously unselected package xfonts-scalable.
+Release Gate	Install Chromium	2026-09-22T18:09:01.4086388Z Preparing to unpack .../12-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4095778Z Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4544000Z Setting up fonts-wqy-zenhei (0.9.45-8) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4702716Z Setting up fonts-freefont-ttf (20211204+svn4273-2) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4723671Z Setting up libglib2.0-0t64:amd64 (2.80.0-6ubuntu3.9) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4840242Z Setting up libglib2.0-data (2.80.0-6ubuntu3.9) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4861363Z Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4883111Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4911932Z Setting up gir1.2-glib-2.0:amd64 (2.80.0-6ubuntu3.9) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.4933974Z Setting up fonts-ipafont-gothic (00303-21ubuntu1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.5000997Z update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+Release Gate	Install Chromium	2026-09-22T18:09:01.5017110Z Setting up fonts-unifont (1:15.1.01-1build1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.5039547Z Setting up libglib2.0-bin (2.80.0-6ubuntu3.9) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.5066110Z Setting up xfonts-utils (1:7.7+6build3) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.5110433Z Setting up xfonts-cyrillic (1:1.0.5+nmu1) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.5425146Z Setting up xfonts-scalable (1:1.0.3-1.3) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.5729525Z Processing triggers for libc-bin (2.39-0ubuntu8.8) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.6105075Z Processing triggers for man-db (2.12.0-4build2) ...
+Release Gate	Install Chromium	2026-09-22T18:09:01.6130205Z Not building database; man-db/auto-update is not 'true'.
+Release Gate	Install Chromium	2026-09-22T18:09:01.6147579Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+Release Gate	Install Chromium	2026-09-22T18:09:02.2836476Z 
+Release Gate	Install Chromium	2026-09-22T18:09:02.2837234Z Running kernel seems to be up-to-date.
+Release Gate	Install Chromium	2026-09-22T18:09:02.2837676Z 
+Release Gate	Install Chromium	2026-09-22T18:09:02.2837890Z Restarting services...
+Release Gate	Install Chromium	2026-09-22T18:09:02.3289673Z  systemctl restart packagekit.service php8.3-fpm.service polkit.service udisks2.service
+Release Gate	Install Chromium	2026-09-22T18:09:02.4622282Z 
+Release Gate	Install Chromium	2026-09-22T18:09:02.4624791Z Service restarts being deferred:
+Release Gate	Install Chromium	2026-09-22T18:09:02.4625508Z  systemctl restart ModemManager.service
+Release Gate	Install Chromium	2026-09-22T18:09:02.4626187Z  systemctl restart networkd-dispatcher.service
+Release Gate	Install Chromium	2026-09-22T18:09:02.4626502Z 
+Release Gate	Install Chromium	2026-09-22T18:09:02.4626784Z No containers need to be restarted.
+Release Gate	Install Chromium	2026-09-22T18:09:02.4627134Z 
+Release Gate	Install Chromium	2026-09-22T18:09:02.4627473Z No user sessions are running outdated binaries.
+Release Gate	Install Chromium	2026-09-22T18:09:02.4627830Z 
+Release Gate	Install Chromium	2026-09-22T18:09:02.4628149Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+Release Gate	Install Chromium	2026-09-22T18:09:03.3636575Z Downloading Chrome for Testing 151.0.7922.34 (playwright chromium v1234) from https://cdn.playwright.dev/builds/cft/151.0.7922.34/linux64/chrome-linux64.zip
+Release Gate	Install Chromium	2026-09-22T18:09:04.3540515Z |                                                                                |   0% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:04.6463017Z |■■■■■■■■                                                                        |  10% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:04.7822455Z |■■■■■■■■■■■■■■■■                                                                |  20% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:04.8695300Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:04.9838150Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:05.1115226Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:05.2456466Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:05.3617164Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:05.4707319Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:05.5658670Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:05.6883308Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 184.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:08.4787887Z Chrome for Testing 151.0.7922.34 (playwright chromium v1234) downloaded to /home/runner/.cache/ms-playwright/chromium-1234
+Release Gate	Install Chromium	2026-09-22T18:09:08.4792436Z Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+Release Gate	Install Chromium	2026-09-22T18:09:09.4405390Z |                                                                                |   0% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4441694Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4470253Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4488973Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4506163Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4521033Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4535754Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4551861Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4568117Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4579092Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.4588275Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:09.5212924Z FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+Release Gate	Install Chromium	2026-09-22T18:09:09.5216959Z Downloading Chrome Headless Shell 151.0.7922.34 (playwright chromium-headless-shell v1234) from https://cdn.playwright.dev/builds/cft/151.0.7922.34/linux64/chrome-headless-shell-linux64.zip
+Release Gate	Install Chromium	2026-09-22T18:09:10.5164379Z |                                                                                |   0% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:10.6579336Z |■■■■■■■■                                                                        |  10% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:10.7353919Z |■■■■■■■■■■■■■■■■                                                                |  20% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:10.7906978Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:10.8488371Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:10.8920363Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:10.9351898Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:10.9737990Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:11.0118487Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:11.0537207Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:11.0947795Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.7 MiB
+Release Gate	Install Chromium	2026-09-22T18:09:13.0566741Z Chrome Headless Shell 151.0.7922.34 (playwright chromium-headless-shell v1234) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1234
+Release Gate	Verify release candidate	﻿2026-09-22T18:09:13.0835117Z ##[group]Run pnpm verify
+Release Gate	Verify release candidate	2026-09-22T18:09:13.0835436Z [36;1mpnpm verify[0m
+Release Gate	Verify release candidate	2026-09-22T18:09:13.0872535Z shell: /usr/bin/bash -e {0}
+Release Gate	Verify release candidate	2026-09-22T18:09:13.0872803Z env:
+Release Gate	Verify release candidate	2026-09-22T18:09:13.0873372Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Verify release candidate	2026-09-22T18:09:13.0873770Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Verify release candidate	2026-09-22T18:09:13.0874140Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Verify release candidate	2026-09-22T18:09:13.0874384Z ##[endgroup]
+Release Gate	Verify release candidate	2026-09-22T18:09:13.5550836Z $ pnpm build && pnpm check:launch
+Release Gate	Verify release candidate	2026-09-22T18:09:14.0117850Z $ node scripts/build.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:27.5575562Z Generated 54 responsive WebP derivatives (2374156 bytes) in /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0/dist/assets/generated/images.
+Release Gate	Verify release candidate	2026-09-22T18:09:27.6112806Z Generated projects index and 5 concept studies in /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0/dist
+Release Gate	Verify release candidate	2026-09-22T18:09:27.6558211Z Journal generated in /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0/dist.
+Release Gate	Verify release candidate	2026-09-22T18:09:27.9643248Z Sitemap generated in /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0/dist.
+Release Gate	Verify release candidate	2026-09-22T18:09:28.5257292Z Subset production fonts (Permanent Marker 29564 -> shared 17636, homepage 2628, commercial H1 4016; Inter 48256 -> homepage 18696; critical Lato home 700 6392, commercial 400 8236, commercial 700 7476 bytes).
+Release Gate	Verify release candidate	2026-09-22T18:09:28.8486249Z Distribution validation passed: 112 allowlisted files, artifact 1c7b127d14b750477290cd3e50624aca34abc795a26c9a4062f3ee27c6488711.
+Release Gate	Verify release candidate	2026-09-22T18:09:28.8580582Z Clean static distribution built at /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0/dist.
+Release Gate	Verify release candidate	2026-09-22T18:09:29.3493873Z $ pnpm check:frontend && pnpm check:links && pnpm check:images && pnpm check:static && pnpm check:browser
+Release Gate	Verify release candidate	2026-09-22T18:09:29.8219200Z $ pnpm check:render && pnpm check:meta-performance && pnpm check:hallmark && pnpm check:tokens && pnpm check:spacing
+Release Gate	Verify release candidate	2026-09-22T18:09:30.2811388Z $ node scripts/check-render-contract.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:30.3209224Z Render/component contracts passed.
+Release Gate	Verify release candidate	2026-09-22T18:09:30.8072368Z $ node scripts/check-meta-performance.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:30.8598940Z Metadata/performance checks passed. 50 image assets, 12558636 bytes total.
+Release Gate	Verify release candidate	2026-09-22T18:09:31.3470935Z $ node scripts/check-hallmark-contract.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:31.4747398Z Hallmark remediation contracts passed.
+Release Gate	Verify release candidate	2026-09-22T18:09:31.9499026Z $ node scripts/check-design-tokens.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:31.9987920Z Design token validation passed: colors and fonts are locked to named tokens.
+Release Gate	Verify release candidate	2026-09-22T18:09:32.4678525Z $ node scripts/check-design-spacing.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:32.5241770Z Design spacing validation passed across 26 public style sources: padding, margin, gap, inset, and positional offsets use the named --space-* scale.
+Release Gate	Verify release candidate	2026-09-22T18:09:33.0063918Z $ node scripts/check-links.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:33.0549077Z All internal anchor links look valid.
+Release Gate	Verify release candidate	2026-09-22T18:09:33.5339733Z $ node scripts/check-images.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:33.5763887Z All images include alt text.
+Release Gate	Verify release candidate	2026-09-22T18:09:34.0363913Z $ pnpm check:dist && pnpm check:redirects && pnpm check:project-routes && pnpm check:content && pnpm check:forms && pnpm check:html && pnpm check:security && pnpm check:seo
+Release Gate	Verify release candidate	2026-09-22T18:09:34.4947900Z $ node scripts/check-dist.mjs --root dist --write-manifest dist-manifest.json
+Release Gate	Verify release candidate	2026-09-22T18:09:34.6280969Z Distribution validation passed: 112 allowlisted files, artifact 1c7b127d14b750477290cd3e50624aca34abc795a26c9a4062f3ee27c6488711.
+Release Gate	Verify release candidate	2026-09-22T18:09:35.1017494Z $ node scripts/check-redirects.mjs --root dist
+Release Gate	Verify release candidate	2026-09-22T18:09:35.1361884Z Redirect safety checks passed for 8 one-hop 301 rules.
+Release Gate	Verify release candidate	2026-09-22T18:09:35.6112677Z $ node scripts/check-project-routes.mjs --root dist
+Release Gate	Verify release candidate	2026-09-22T18:09:35.6454849Z Static project artifact checks passed for 6 known routes and 3 negative routes. Set PROJECT_ROUTE_BASE_URL for HTTP status verification.
+Release Gate	Verify release candidate	2026-09-22T18:09:36.1197347Z $ node scripts/check-content.mjs --root dist
+Release Gate	Verify release candidate	2026-09-22T18:09:36.1777311Z Content and local-asset validation passed.
+Release Gate	Verify release candidate	2026-09-22T18:09:36.6485459Z $ node scripts/check-forms.mjs --root dist
+Release Gate	Verify release candidate	2026-09-22T18:09:36.6886769Z Form contract validation passed.
+Release Gate	Verify release candidate	2026-09-22T18:09:37.1519915Z $ node scripts/check-html.mjs --root dist
+Release Gate	Verify release candidate	2026-09-22T18:09:37.9019406Z HTML standards validation passed.
+Release Gate	Verify release candidate	2026-09-22T18:09:38.3825185Z $ node scripts/check-security.mjs --root dist
+Release Gate	Verify release candidate	2026-09-22T18:09:38.4674163Z Security and privacy static validation passed.
+Release Gate	Verify release candidate	2026-09-22T18:09:38.9297127Z $ node scripts/check-seo.mjs --root dist
+Release Gate	Verify release candidate	2026-09-22T18:09:38.9862361Z SEO and crawl validation passed.
+Release Gate	Verify release candidate	2026-09-22T18:09:39.4718700Z $ node scripts/check-responsive.mjs
+Release Gate	Verify release candidate	2026-09-22T18:09:41.1546258Z 
+Release Gate	Verify release candidate	2026-09-22T18:09:41.1550939Z Running 398 tests using 2 workers
+Release Gate	Verify release candidate	2026-09-22T18:09:41.1551515Z 
+Release Gate	Verify release candidate	2026-09-22T18:09:44.0204116Z   ✓    2 [chromium] › tests/accessibility.spec.mjs:59:3 › / passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:09:45.3473284Z   ✓    3 [chromium] › tests/accessibility.spec.mjs:100:3 › / honors reduced motion (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:09:45.5913824Z   ✓    1 [chromium] › tests/accessibility.spec.mjs:54:3 › / has zero serious or critical axe violations (3.5s)
+Release Gate	Verify release candidate	2026-09-22T18:09:46.8092372Z   ✓    5 [chromium] › tests/accessibility.spec.mjs:59:3 › /commercial-interior-design-montreal/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:09:47.9852485Z   ✓    4 [chromium] › tests/accessibility.spec.mjs:54:3 › /commercial-interior-design-montreal/ has zero serious or critical axe violations (2.6s)
+Release Gate	Verify release candidate	2026-09-22T18:09:48.0184034Z   ✓    6 [chromium] › tests/accessibility.spec.mjs:100:3 › /commercial-interior-design-montreal/ honors reduced motion (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:09:49.1545815Z   ✓    8 [chromium] › tests/accessibility.spec.mjs:59:3 › /projects/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:09:50.0815735Z   ✓    9 [chromium] › tests/accessibility.spec.mjs:100:3 › /projects/ honors reduced motion (910ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:50.4743475Z   ✓    7 [chromium] › tests/accessibility.spec.mjs:54:3 › /projects/ has zero serious or critical axe violations (2.5s)
+Release Gate	Verify release candidate	2026-09-22T18:09:51.0824086Z   ✓   11 [chromium] › tests/accessibility.spec.mjs:59:3 › /projects/bruton-place-iv/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (592ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:51.6617696Z   ✓   12 [chromium] › tests/accessibility.spec.mjs:100:3 › /projects/bruton-place-iv/ honors reduced motion (565ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:51.6949659Z   ✓   10 [chromium] › tests/accessibility.spec.mjs:54:3 › /projects/bruton-place-iv/ has zero serious or critical axe violations (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:09:52.4370495Z   ✓   14 [chromium] › tests/accessibility.spec.mjs:59:3 › /projects/ethereal-gallery/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (720ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:53.0500921Z   ✓   15 [chromium] › tests/accessibility.spec.mjs:100:3 › /projects/ethereal-gallery/ honors reduced motion (598ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:53.3643697Z   ✓   13 [chromium] › tests/accessibility.spec.mjs:54:3 › /projects/ethereal-gallery/ has zero serious or critical axe violations (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:09:53.8605694Z   ✓   17 [chromium] › tests/accessibility.spec.mjs:59:3 › /projects/obsidian-lounge/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (478ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:54.5337330Z   ✓   18 [chromium] › tests/accessibility.spec.mjs:100:3 › /projects/obsidian-lounge/ honors reduced motion (657ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:54.6783264Z   ✓   16 [chromium] › tests/accessibility.spec.mjs:54:3 › /projects/obsidian-lounge/ has zero serious or critical axe violations (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:09:55.3447272Z   ✓   20 [chromium] › tests/accessibility.spec.mjs:59:3 › /projects/vortex-showroom/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (648ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:55.8987720Z   ✓   21 [chromium] › tests/accessibility.spec.mjs:100:3 › /projects/vortex-showroom/ honors reduced motion (543ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:56.2937608Z   ✓   19 [chromium] › tests/accessibility.spec.mjs:54:3 › /projects/vortex-showroom/ has zero serious or critical axe violations (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:09:56.8551688Z   ✓   23 [chromium] › tests/accessibility.spec.mjs:59:3 › /projects/canvas-studios/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (545ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:57.4327912Z   ✓   22 [chromium] › tests/accessibility.spec.mjs:54:3 › /projects/canvas-studios/ has zero serious or critical axe violations (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:09:57.4354875Z   ✓   24 [chromium] › tests/accessibility.spec.mjs:100:3 › /projects/canvas-studios/ honors reduced motion (560ms)
+Release Gate	Verify release candidate	2026-09-22T18:09:58.9365690Z   ✓   26 [chromium] › tests/accessibility.spec.mjs:59:3 › /journal/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:09:59.4643459Z   ✓   25 [chromium] › tests/accessibility.spec.mjs:54:3 › /journal/ has zero serious or critical axe violations (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:10:00.0046156Z   ✓   27 [chromium] › tests/accessibility.spec.mjs:100:3 › /journal/ honors reduced motion (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:10:00.9068323Z   ✓   29 [chromium] › tests/accessibility.spec.mjs:59:3 › /journal/reduction-as-creation/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (885ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:01.3402439Z   ✓   28 [chromium] › tests/accessibility.spec.mjs:54:3 › /journal/reduction-as-creation/ has zero serious or critical axe violations (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:10:01.8151108Z   ✓   30 [chromium] › tests/accessibility.spec.mjs:100:3 › /journal/reduction-as-creation/ honors reduced motion (894ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:02.6875283Z   ✓   32 [chromium] › tests/accessibility.spec.mjs:59:3 › /journal/commercial-interior-design-cost-montreal/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (852ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:03.3058737Z   ✓   31 [chromium] › tests/accessibility.spec.mjs:54:3 › /journal/commercial-interior-design-cost-montreal/ has zero serious or critical axe violations (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:10:03.5290450Z   ✓   33 [chromium] › tests/accessibility.spec.mjs:100:3 › /journal/commercial-interior-design-cost-montreal/ honors reduced motion (825ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:04.4216025Z   ✓   35 [chromium] › tests/accessibility.spec.mjs:59:3 › /journal/before-you-sign-a-commercial-lease/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (878ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:05.1418639Z   ✓   34 [chromium] › tests/accessibility.spec.mjs:54:3 › /journal/before-you-sign-a-commercial-lease/ has zero serious or critical axe violations (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:10:05.2403088Z   ✓   36 [chromium] › tests/accessibility.spec.mjs:100:3 › /journal/before-you-sign-a-commercial-lease/ honors reduced motion (795ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:06.2459208Z   ✓   38 [chromium] › tests/accessibility.spec.mjs:59:3 › /journal/salon-layout-planning-checklist/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (986ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:06.9668437Z   ✓   37 [chromium] › tests/accessibility.spec.mjs:54:3 › /journal/salon-layout-planning-checklist/ has zero serious or critical axe violations (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:10:07.1357113Z   ✓   39 [chromium] › tests/accessibility.spec.mjs:100:3 › /journal/salon-layout-planning-checklist/ honors reduced motion (874ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:07.8057626Z   ✓   41 [chromium] › tests/accessibility.spec.mjs:59:3 › /contact/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (650ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:08.3914510Z   ✓   42 [chromium] › tests/accessibility.spec.mjs:100:3 › /contact/ honors reduced motion (567ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:08.5272069Z   ✓   40 [chromium] › tests/accessibility.spec.mjs:54:3 › /contact/ has zero serious or critical axe violations (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:10:09.5377314Z   ✓   44 [chromium] › tests/accessibility.spec.mjs:59:3 › /inquiry/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (995ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:10.2304411Z   ✓   43 [chromium] › tests/accessibility.spec.mjs:54:3 › /inquiry/ has zero serious or critical axe violations (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:10:10.3617916Z   ✓   45 [chromium] › tests/accessibility.spec.mjs:100:3 › /inquiry/ honors reduced motion (808ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:11.4238312Z   ✓   47 [chromium] › tests/accessibility.spec.mjs:59:3 › /planning-resources/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:10:12.3189145Z   ✓   48 [chromium] › tests/accessibility.spec.mjs:100:3 › /planning-resources/ honors reduced motion (879ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:12.5930278Z   ✓   46 [chromium] › tests/accessibility.spec.mjs:54:3 › /planning-resources/ has zero serious or critical axe violations (2.3s)
+Release Gate	Verify release candidate	2026-09-22T18:10:13.1396735Z   ✓   50 [chromium] › tests/accessibility.spec.mjs:59:3 › /privacy/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (529ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:13.7712027Z   ✓   51 [chromium] › tests/accessibility.spec.mjs:100:3 › /privacy/ honors reduced motion (613ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:13.9127713Z   ✓   49 [chromium] › tests/accessibility.spec.mjs:54:3 › /privacy/ has zero serious or critical axe violations (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:10:14.5346757Z   ✓   53 [chromium] › tests/accessibility.spec.mjs:59:3 › /terms/ passes an automated 640 CSS-pixel reflow approximation (not manual 200 percent browser zoom proof) (606ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:15.1516945Z   ✓   54 [chromium] › tests/accessibility.spec.mjs:100:3 › /terms/ honors reduced motion (603ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:15.3598059Z   ✓   52 [chromium] › tests/accessibility.spec.mjs:54:3 › /terms/ has zero serious or critical axe violations (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:10:17.3754488Z   ✓   56 [chromium] › tests/accessibility.spec.mjs:145:1 › branded 404 has zero serious or critical axe violations (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:10:17.6592548Z   ✓   55 [chromium] › tests/accessibility.spec.mjs:135:1 › open navigation drawer has zero serious or critical axe violations (2.5s)
+Release Gate	Verify release candidate	2026-09-22T18:10:20.4429143Z   ✓   58 [chromium] › tests/accessibility.spec.mjs:162:1 › open native FAQ state has zero serious or critical axe violations (2.8s)
+Release Gate	Verify release candidate	2026-09-22T18:10:20.9897500Z   ✓   57 [chromium] › tests/accessibility.spec.mjs:152:1 › open custom FAQ state has zero serious or critical axe violations (3.6s)
+Release Gate	Verify release candidate	2026-09-22T18:10:23.0543390Z   ✓   59 [chromium] › tests/accessibility.spec.mjs:173:3 › /contact/ validation state has zero serious or critical axe violations (2.6s)
+Release Gate	Verify release candidate	2026-09-22T18:10:24.1533269Z   ✓   60 [chromium] › tests/accessibility.spec.mjs:182:3 › /contact/ provider error and retry state has zero serious or critical axe violations (3.1s)
+Release Gate	Verify release candidate	2026-09-22T18:10:26.5026395Z   ✓   61 [chromium] › tests/accessibility.spec.mjs:173:3 › /inquiry/ validation state has zero serious or critical axe violations (3.4s)
+Release Gate	Verify release candidate	2026-09-22T18:10:27.2593447Z   ✓   63 [chromium] › tests/acquisition-features.spec.mjs:11:1 › company introduction and contact purpose use the owner's facts (713ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:27.9367102Z   ✓   62 [chromium] › tests/accessibility.spec.mjs:182:3 › /inquiry/ provider error and retry state has zero serious or critical axe violations (3.8s)
+Release Gate	Verify release candidate	2026-09-22T18:10:28.0455349Z   ✓   65 [chromium] › tests/acquisition-features.spec.mjs:31:1 › checklist download contains practical content and stays outside the sitemap (87ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:30.1960833Z   ✓   64 [chromium] › tests/acquisition-features.spec.mjs:19:1 › journal has only published guides and each guide provides a next step (2.9s)
+Release Gate	Verify release candidate	2026-09-22T18:10:30.8240039Z   ✓   66 [chromium] › tests/acquisition-features.spec.mjs:43:1 › campaign attribution survives navigation and accompanies accepted inquiries only as bounded fields (2.8s)
+Release Gate	Verify release candidate	2026-09-22T18:10:31.3268294Z   ✓   67 [chromium] › tests/acquisition-features.spec.mjs:68:1 › invalid campaign values and unavailable storage do not break form enhancement (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:10:31.6633139Z   ✓   68 [chromium] › tests/acquisition-features.spec.mjs:78:1 › planning resources stay useful without JavaScript (806ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:31.8995965Z   ✓   70 [chromium] › tests/acquisition-layout.spec.mjs:23:1 › owner-preserved home hero markup and typography rules match the intake baseline (217ms)
+Release Gate	Verify release candidate	2026-09-22T18:10:32.5184264Z   ✓   69 [chromium] › tests/acquisition-features.spec.mjs:88:1 › package guide explains all three recommendations and links to project intake (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:10:35.8780193Z   ✓   71 [chromium] › tests/acquisition-layout.spec.mjs:38:3 › acquisition headings clear the header at 320x900 (4.0s)
+Release Gate	Verify release candidate	2026-09-22T18:10:38.1673807Z   ✓   72 [chromium] › tests/acquisition-layout.spec.mjs:38:3 › acquisition headings clear the header at 375x900 (5.6s)
+Release Gate	Verify release candidate	2026-09-22T18:10:40.3633348Z   ✓   73 [chromium] › tests/acquisition-layout.spec.mjs:38:3 › acquisition headings clear the header at 414x900 (4.5s)
+Release Gate	Verify release candidate	2026-09-22T18:10:43.1975685Z   ✓   74 [chromium] › tests/acquisition-layout.spec.mjs:38:3 › acquisition headings clear the header at 768x900 (5.0s)
+Release Gate	Verify release candidate	2026-09-22T18:10:48.7224808Z   ✓   75 [chromium] › tests/acquisition-layout.spec.mjs:38:3 › acquisition headings clear the header at 1280x720 (8.3s)
+Release Gate	Verify release candidate	2026-09-22T18:10:48.8953917Z   ✓   76 [chromium] › tests/acquisition-layout.spec.mjs:38:3 › acquisition headings clear the header at 1440x900 (5.7s)
+Release Gate	Verify release candidate	2026-09-22T18:10:50.8966822Z   ✓   78 [chromium] › tests/browser-contract.spec.mjs:1259:3 › / uses its approved heading and UI typography (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:10:50.9477123Z   ✓   77 [chromium] › tests/browser-contract.spec.mjs:1160:3 › / has a valid main-targeting skip link visible on focus (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:10:52.9690631Z   ✓   79 [chromium] › tests/browser-contract.spec.mjs:1354:3 › / keeps decorative grain out of the accessibility tree (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:10:54.1037272Z   ✓   80 [chromium] › tests/browser-contract.spec.mjs:1376:3 › / keeps intended navigation alignment and CTA labels on one line (3.1s)
+Release Gate	Verify release candidate	2026-09-22T18:10:54.7100716Z   ✓   81 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /commercial-interior-design-montreal/ has a valid main-targeting skip link visible on focus (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:10:55.5199767Z   ✓   82 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /commercial-interior-design-montreal/ uses its approved heading and UI typography (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:10:56.0989469Z   ✓   83 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /commercial-interior-design-montreal/ keeps decorative grain out of the accessibility tree (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:10:57.3874212Z   ✓   85 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /projects/ has a valid main-targeting skip link visible on focus (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:10:57.7882937Z   ✓   84 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /commercial-interior-design-montreal/ keeps intended navigation alignment and CTA labels on one line (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:10:58.5488707Z   ✓   86 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /projects/ uses its approved heading and UI typography (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:10:58.9459627Z   ✓   87 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /projects/ keeps decorative grain out of the accessibility tree (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:10:59.9503605Z   ✓   89 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /projects/bruton-place-iv/ has a valid main-targeting skip link visible on focus (984ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:00.1626723Z   ✓   88 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /projects/ keeps intended navigation alignment and CTA labels on one line (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:11:00.6135459Z   ✓   90 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /projects/bruton-place-iv/ uses its approved heading and UI typography (643ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:00.9269024Z   ✓   91 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /projects/bruton-place-iv/ keeps decorative grain out of the accessibility tree (739ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:01.6682031Z   ✓   92 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /projects/bruton-place-iv/ keeps intended navigation alignment and CTA labels on one line (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:11:01.8970454Z   ✓   93 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /projects/ethereal-gallery/ has a valid main-targeting skip link visible on focus (945ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:02.4553740Z   ✓   94 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /projects/ethereal-gallery/ uses its approved heading and UI typography (767ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:02.6048154Z   ✓   95 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /projects/ethereal-gallery/ keeps decorative grain out of the accessibility tree (690ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:03.4574374Z   ✓   97 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /projects/obsidian-lounge/ has a valid main-targeting skip link visible on focus (831ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:03.5123296Z   ✓   96 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /projects/ethereal-gallery/ keeps intended navigation alignment and CTA labels on one line (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:11:04.2552803Z   ✓   98 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /projects/obsidian-lounge/ uses its approved heading and UI typography (782ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:04.2693685Z   ✓   99 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /projects/obsidian-lounge/ keeps decorative grain out of the accessibility tree (728ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:05.3179846Z   ✓  101 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /projects/vortex-showroom/ has a valid main-targeting skip link visible on focus (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:11:05.3245198Z   ✓  100 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /projects/obsidian-lounge/ keeps intended navigation alignment and CTA labels on one line (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:06.0137105Z   ✓  102 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /projects/vortex-showroom/ uses its approved heading and UI typography (678ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:06.1484825Z   ✓  103 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /projects/vortex-showroom/ keeps decorative grain out of the accessibility tree (799ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:06.9312980Z   ✓  104 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /projects/vortex-showroom/ keeps intended navigation alignment and CTA labels on one line (900ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:07.1152504Z   ✓  105 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /projects/canvas-studios/ has a valid main-targeting skip link visible on focus (951ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:07.6603298Z   ✓  106 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /projects/canvas-studios/ uses its approved heading and UI typography (715ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:07.8470643Z   ✓  107 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /projects/canvas-studios/ keeps decorative grain out of the accessibility tree (712ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:08.7636184Z   ✓  108 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /projects/canvas-studios/ keeps intended navigation alignment and CTA labels on one line (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:09.3168820Z   ✓  109 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /journal/ has a valid main-targeting skip link visible on focus (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:11:09.8113699Z   ✓  110 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /journal/ uses its approved heading and UI typography (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:11:10.3866066Z   ✓  111 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /journal/ keeps decorative grain out of the accessibility tree (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:11.5203606Z   ✓  112 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /journal/ keeps intended navigation alignment and CTA labels on one line (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:11:11.6610252Z   ✓  113 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /journal/reduction-as-creation/ has a valid main-targeting skip link visible on focus (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:11:12.5173671Z   ✓  114 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /journal/reduction-as-creation/ uses its approved heading and UI typography (978ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:12.6819467Z   ✓  115 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /journal/reduction-as-creation/ keeps decorative grain out of the accessibility tree (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:11:13.7781894Z   ✓  117 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /journal/commercial-interior-design-cost-montreal/ has a valid main-targeting skip link visible on focus (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:14.0550640Z   ✓  116 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /journal/reduction-as-creation/ keeps intended navigation alignment and CTA labels on one line (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:11:14.6813112Z   ✓  118 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /journal/commercial-interior-design-cost-montreal/ uses its approved heading and UI typography (886ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:15.1078323Z   ✓  119 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /journal/commercial-interior-design-cost-montreal/ keeps decorative grain out of the accessibility tree (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:11:16.0264272Z   ✓  120 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /journal/commercial-interior-design-cost-montreal/ keeps intended navigation alignment and CTA labels on one line (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:11:16.2027788Z   ✓  121 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /journal/before-you-sign-a-commercial-lease/ has a valid main-targeting skip link visible on focus (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:16.9336871Z   ✓  122 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /journal/before-you-sign-a-commercial-lease/ uses its approved heading and UI typography (892ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:17.1143483Z   ✓  123 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /journal/before-you-sign-a-commercial-lease/ keeps decorative grain out of the accessibility tree (895ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:18.2137058Z   ✓  125 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /journal/salon-layout-planning-checklist/ has a valid main-targeting skip link visible on focus (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:18.3804705Z   ✓  124 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /journal/before-you-sign-a-commercial-lease/ keeps intended navigation alignment and CTA labels on one line (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:11:19.0560731Z   ✓  126 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /journal/salon-layout-planning-checklist/ uses its approved heading and UI typography (825ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:19.3716519Z   ✓  127 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /journal/salon-layout-planning-checklist/ keeps decorative grain out of the accessibility tree (974ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:20.3063290Z   ✓  129 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /contact/ has a valid main-targeting skip link visible on focus (910ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:20.6706176Z   ✓  128 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /journal/salon-layout-planning-checklist/ keeps intended navigation alignment and CTA labels on one line (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:11:20.8462960Z   ✓  130 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /contact/ uses its approved heading and UI typography (523ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:21.2828574Z   ✓  131 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /contact/ keeps decorative grain out of the accessibility tree (585ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:21.7746349Z   ✓  132 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /contact/ keeps intended navigation alignment and CTA labels on one line (907ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:22.6292429Z   ✓  133 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /inquiry/ has a valid main-targeting skip link visible on focus (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:11:22.8515060Z   ✓  134 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /inquiry/ uses its approved heading and UI typography (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:23.6138924Z   ✓  135 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /inquiry/ keeps decorative grain out of the accessibility tree (969ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:24.4042772Z   ✓  136 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /inquiry/ keeps intended navigation alignment and CTA labels on one line (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:11:24.7820049Z   ✓  137 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /planning-resources/ has a valid main-targeting skip link visible on focus (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:25.4193060Z   ✓  138 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /planning-resources/ uses its approved heading and UI typography (998ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:25.7463113Z   ✓  139 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /planning-resources/ keeps decorative grain out of the accessibility tree (938ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:26.6758828Z   ✓  141 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /privacy/ has a valid main-targeting skip link visible on focus (917ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:26.9414663Z   ✓  140 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /planning-resources/ keeps intended navigation alignment and CTA labels on one line (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:11:27.3007236Z   ✓  142 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /privacy/ uses its approved heading and UI typography (610ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:27.6011994Z   ✓  143 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /privacy/ keeps decorative grain out of the accessibility tree (636ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:28.3474022Z   ✓  144 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /privacy/ keeps intended navigation alignment and CTA labels on one line (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:11:28.5656125Z   ✓  145 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /terms/ has a valid main-targeting skip link visible on focus (945ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:28.9604860Z   ✓  146 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /terms/ uses its approved heading and UI typography (599ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:29.1741522Z   ✓  147 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /terms/ keeps decorative grain out of the accessibility tree (587ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:29.9482592Z   ✓  148 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /terms/ keeps intended navigation alignment and CTA labels on one line (972ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:30.3392726Z   ✓  149 [chromium] › tests/browser-contract.spec.mjs:1160:3 › /__jq33-branded-not-found-probe__/ has a valid main-targeting skip link visible on focus (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:11:30.8565743Z   ✓  150 [chromium] › tests/browser-contract.spec.mjs:1259:3 › /__jq33-branded-not-found-probe__/ uses its approved heading and UI typography (891ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:31.1770781Z   ✓  151 [chromium] › tests/browser-contract.spec.mjs:1354:3 › /__jq33-branded-not-found-probe__/ keeps decorative grain out of the accessibility tree (821ms)
+Release Gate	Verify release candidate	2026-09-22T18:11:32.2488293Z   ✓  152 [chromium] › tests/browser-contract.spec.mjs:1376:3 › /__jq33-branded-not-found-probe__/ keeps intended navigation alignment and CTA labels on one line (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:12:25.6963808Z   ✓  153 [chromium] › tests/browser-contract.spec.mjs:1443:3 › shared navigation is identical across every public route at 320px (54.5s)
+Release Gate	Verify release candidate	2026-09-22T18:12:27.9490511Z   ✓  154 [chromium] › tests/browser-contract.spec.mjs:1443:3 › shared navigation is identical across every public route at 375px (55.7s)
+Release Gate	Verify release candidate	2026-09-22T18:13:20.0450068Z   ✓  155 [chromium] › tests/browser-contract.spec.mjs:1443:3 › shared navigation is identical across every public route at 390px (54.3s)
+Release Gate	Verify release candidate	2026-09-22T18:13:23.1831550Z   ✓  156 [chromium] › tests/browser-contract.spec.mjs:1443:3 › shared navigation is identical across every public route at 414px (55.2s)
+Release Gate	Verify release candidate	2026-09-22T18:14:06.4871485Z   ✓  158 [chromium] › tests/browser-contract.spec.mjs:1443:3 › shared navigation is identical across every public route at 1280px (43.3s)
+Release Gate	Verify release candidate	2026-09-22T18:14:22.8646496Z   ✓  157 [chromium] › tests/browser-contract.spec.mjs:1443:3 › shared navigation is identical across every public route at 768px (1.0m)
+Release Gate	Verify release candidate	2026-09-22T18:14:33.7511371Z   ✓  160 [chromium] › tests/browser-contract.spec.mjs:1464:3 › shared Ft4 footer is identical across every public route at 320px (10.9s)
+Release Gate	Verify release candidate	2026-09-22T18:14:44.3458192Z   ✓  161 [chromium] › tests/browser-contract.spec.mjs:1464:3 › shared Ft4 footer is identical across every public route at 375px (10.6s)
+Release Gate	Verify release candidate	2026-09-22T18:14:48.0047637Z   ✓  159 [chromium] › tests/browser-contract.spec.mjs:1443:3 › shared navigation is identical across every public route at 1440px (41.5s)
+Release Gate	Verify release candidate	2026-09-22T18:14:55.5963542Z   ✓  162 [chromium] › tests/browser-contract.spec.mjs:1464:3 › shared Ft4 footer is identical across every public route at 414px (11.2s)
+Release Gate	Verify release candidate	2026-09-22T18:15:00.7413235Z   ✓  163 [chromium] › tests/browser-contract.spec.mjs:1464:3 › shared Ft4 footer is identical across every public route at 768px (12.7s)
+Release Gate	Verify release candidate	2026-09-22T18:15:10.9606796Z   ✓  164 [chromium] › tests/browser-contract.spec.mjs:1464:3 › shared Ft4 footer is identical across every public route at 1280px (15.3s)
+Release Gate	Verify release candidate	2026-09-22T18:15:15.2977203Z   ✓  165 [chromium] › tests/browser-contract.spec.mjs:1464:3 › shared Ft4 footer is identical across every public route at 1440px (14.5s)
+Release Gate	Verify release candidate	2026-09-22T18:15:16.6161992Z   ✓  166 [chromium] › tests/browser-contract.spec.mjs:1485:1 › homepage hero CTAs stay in the lower region without colliding at parity viewports (5.6s)
+Release Gate	Verify release candidate	2026-09-22T18:15:18.4652588Z   ✓  167 [chromium] › tests/browser-contract.spec.mjs:1649:1 › homepage hero remains collision-free and reachable at short viewport heights (3.1s)
+Release Gate	Verify release candidate	2026-09-22T18:15:18.6660734Z   ✓  168 [chromium] › tests/browser-contract.spec.mjs:1742:1 › homepage hero keeps the old transparent cobalt photograph composition (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:15:21.7860389Z   ✓  170 [chromium] › tests/browser-contract.spec.mjs:1979:1 › critical route fonts use exact subsets without redundant requests (3.1s)
+Release Gate	Verify release candidate	2026-09-22T18:15:24.0345065Z   ✓  169 [chromium] › tests/browser-contract.spec.mjs:1857:1 › homepage mark scale and subheadline measure match the old responsive hero (5.5s)
+Release Gate	Verify release candidate	2026-09-22T18:15:28.7229063Z   ✓  172 [chromium] › tests/browser-contract.spec.mjs:2233:1 › approved visual taxonomy computes to 30px containers, 20px cards, and a square hero (4.7s)
+Release Gate	Verify release candidate	2026-09-22T18:15:29.7892329Z   ✓  173 [chromium] › tests/browser-contract.spec.mjs:2271:3 › /contact/ has persistent, correctly referenced field error slots (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:15:29.8279538Z   ✓  171 [chromium] › tests/browser-contract.spec.mjs:2170:1 › homepage hero links preserve behavior and stay square in every supported state (8.0s)
+Release Gate	Verify release candidate	2026-09-22T18:15:30.5973457Z   ✓  175 [chromium] › tests/browser-contract.spec.mjs:2421:3 › /contact/ aligns single-line fields with the submit control (747ms)
+Release Gate	Verify release candidate	2026-09-22T18:15:31.2204102Z   ✓  174 [chromium] › tests/browser-contract.spec.mjs:2360:3 › /contact/ exposes distinct rest, focus, and disabled form-control states (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:15:32.3538733Z   ✓  176 [chromium] › tests/browser-contract.spec.mjs:2271:3 › /inquiry/ has persistent, correctly referenced field error slots (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:15:33.0779352Z   ✓  177 [chromium] › tests/browser-contract.spec.mjs:2360:3 › /inquiry/ exposes distinct rest, focus, and disabled form-control states (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:15:33.2734223Z   ✓  178 [chromium] › tests/browser-contract.spec.mjs:2421:3 › /inquiry/ aligns single-line fields with the submit control (905ms)
+Release Gate	Verify release candidate	2026-09-22T18:15:33.8204256Z   ✓  179 [chromium] › tests/browser-contract.spec.mjs:2464:1 › contact uses light native controls with intact browser validation (719ms)
+Release Gate	Verify release candidate	2026-09-22T18:15:35.2773316Z   ✓  181 [chromium] › tests/browser-contract.spec.mjs:2539:1 › button controls expose active and disabled signals (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:15:36.0423273Z   ✓  180 [chromium] › tests/browser-contract.spec.mjs:2520:1 › link controls expose active and aria-disabled signals (2.8s)
+Release Gate	Verify release candidate	2026-09-22T18:15:37.4433472Z   ✓  182 [chromium] › tests/browser-contract.spec.mjs:2560:1 › project placeholders are local, unique, and explicitly disclosed (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:15:38.9198849Z   ✓  184 [chromium] › tests/forms.spec.mjs:69:1 › Contact and Inquiry use distinct normalized Formspree endpoints (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:15:40.2365653Z   ✓  185 [chromium] › tests/forms.spec.mjs:91:5 › /contact/ handles Formspree success with one request (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:15:41.6825110Z   ✓  186 [chromium] › tests/forms.spec.mjs:91:5 › /contact/ handles Formspree validation failure with one request (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:15:42.8523422Z   ✓  187 [chromium] › tests/forms.spec.mjs:91:5 › /contact/ handles Formspree rate limit with one request (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:15:44.2039321Z   ✓  188 [chromium] › tests/forms.spec.mjs:91:5 › /contact/ handles Formspree provider error with one request (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:15:45.6503489Z   ✓  189 [chromium] › tests/forms.spec.mjs:91:5 › /contact/ handles Formspree network failure with one request (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:15:47.1609965Z   ✓  190 [chromium] › tests/forms.spec.mjs:91:5 › /contact/ handles Formspree timeout with one request (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:15:47.5229396Z   ✓  183 [chromium] › tests/calendly-contract.spec.mjs:29:1 › every booking CTA, including every mobile drawer, resolves to one direct event (11.4s)
+Release Gate	Verify release candidate	2026-09-22T18:15:48.5201956Z   ✓  191 [chromium] › tests/forms.spec.mjs:182:3 › /contact/ coalesces repeated Enter activation while a request is in flight (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:15:48.9334979Z   ✓  192 [chromium] › tests/forms.spec.mjs:239:3 › /contact/ coalesces double-Enter retry activation into one retry request (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:15:50.1745842Z   ✓  193 [chromium] › tests/forms.spec.mjs:91:5 › /inquiry/ handles Formspree success with one request (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:15:50.6879494Z   ✓  194 [chromium] › tests/forms.spec.mjs:91:5 › /inquiry/ handles Formspree validation failure with one request (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:15:51.9303957Z   ✓  195 [chromium] › tests/forms.spec.mjs:91:5 › /inquiry/ handles Formspree rate limit with one request (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:15:52.4232674Z   ✓  196 [chromium] › tests/forms.spec.mjs:91:5 › /inquiry/ handles Formspree provider error with one request (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:15:53.6918552Z   ✓  197 [chromium] › tests/forms.spec.mjs:91:5 › /inquiry/ handles Formspree network failure with one request (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:15:54.3079771Z   ✓  198 [chromium] › tests/forms.spec.mjs:91:5 › /inquiry/ handles Formspree timeout with one request (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:15:55.6592637Z   ✓  199 [chromium] › tests/forms.spec.mjs:182:3 › /inquiry/ coalesces repeated Enter activation while a request is in flight (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:15:56.2222680Z   ✓  200 [chromium] › tests/forms.spec.mjs:239:3 › /inquiry/ coalesces double-Enter retry activation into one retry request (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:15:57.8152746Z   ✓  202 [chromium] › tests/interactions.spec.mjs:4:1 › navigation drawer traps focus, closes on Escape, and restores focus (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:16:00.1935127Z   ✓  203 [chromium] › tests/interactions.spec.mjs:37:1 › custom FAQ is keyboard operable and exposes its state (2.4s)
+Release Gate	Verify release candidate	2026-09-22T18:16:01.6158276Z   ✓  204 [chromium] › tests/interactions.spec.mjs:50:1 › native details FAQ is keyboard operable (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:16:02.2584272Z   ✓  205 [chromium] › tests/interactions.spec.mjs:60:3 › /contact/ exposes native validation from the keyboard (624ms)
+Release Gate	Verify release candidate	2026-09-22T18:16:03.4173253Z   ✓  206 [chromium] › tests/interactions.spec.mjs:60:3 › /inquiry/ exposes native validation from the keyboard (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:16:04.9533549Z   ✓  207 [chromium] › tests/keyboard-navigation.spec.mjs:101:1 › planning resources radio choices are reachable with arrows and retain one Tab stop (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:16:10.7029963Z   ✓  208 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › / exposes every sequential control through keyboard-only Tab traversal (5.7s)
+Release Gate	Verify release candidate	2026-09-22T18:16:13.7254434Z   ✓  209 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /commercial-interior-design-montreal/ exposes every sequential control through keyboard-only Tab traversal (3.0s)
+Release Gate	Verify release candidate	2026-09-22T18:16:15.7389994Z   ✓  210 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /projects/ exposes every sequential control through keyboard-only Tab traversal (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:16:17.3611677Z   ✓  211 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /projects/bruton-place-iv/ exposes every sequential control through keyboard-only Tab traversal (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:16:18.8344554Z   ✓  212 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /projects/ethereal-gallery/ exposes every sequential control through keyboard-only Tab traversal (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:16:20.2133329Z   ✓  213 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /projects/obsidian-lounge/ exposes every sequential control through keyboard-only Tab traversal (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:16:21.6436015Z   ✓  214 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /projects/vortex-showroom/ exposes every sequential control through keyboard-only Tab traversal (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:16:23.3063927Z   ✓  215 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /projects/canvas-studios/ exposes every sequential control through keyboard-only Tab traversal (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:16:25.3257730Z   ✓  216 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /journal/ exposes every sequential control through keyboard-only Tab traversal (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:16:27.0828185Z   ✓  217 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /journal/reduction-as-creation/ exposes every sequential control through keyboard-only Tab traversal (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:16:28.7832686Z   ✓  218 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /journal/commercial-interior-design-cost-montreal/ exposes every sequential control through keyboard-only Tab traversal (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:16:30.5093451Z   ✓  219 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /journal/before-you-sign-a-commercial-lease/ exposes every sequential control through keyboard-only Tab traversal (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:16:32.4004065Z   ✓  220 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /journal/salon-layout-planning-checklist/ exposes every sequential control through keyboard-only Tab traversal (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:16:33.8403354Z   ✓  221 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /contact/ exposes every sequential control through keyboard-only Tab traversal (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:16:35.8243564Z   ✓  222 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /inquiry/ exposes every sequential control through keyboard-only Tab traversal (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:16:38.0419508Z   ✓  223 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /planning-resources/ exposes every sequential control through keyboard-only Tab traversal (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:16:39.3017173Z   ✓  224 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /privacy/ exposes every sequential control through keyboard-only Tab traversal (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:16:40.6852794Z   ✓  225 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /terms/ exposes every sequential control through keyboard-only Tab traversal (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:16:42.4776952Z   ✓  226 [chromium] › tests/keyboard-navigation.spec.mjs:133:3 › /__jq33-branded-not-found-probe__/ exposes every sequential control through keyboard-only Tab traversal (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:16:44.1825253Z   ✓  227 [chromium] › tests/media-layout.spec.mjs:23:5 › / loads every scrolled image and keeps normal-flow regions separate at 375px (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:16:47.4377296Z   ✓  228 [chromium] › tests/media-layout.spec.mjs:23:5 › / loads every scrolled image and keeps normal-flow regions separate at 1280px (3.2s)
+Release Gate	Verify release candidate	2026-09-22T18:16:49.0243079Z   ✓  229 [chromium] › tests/media-layout.spec.mjs:23:5 › /commercial-interior-design-montreal/ loads every scrolled image and keeps normal-flow regions separate at 375px (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:16:50.9917732Z   ✓  230 [chromium] › tests/media-layout.spec.mjs:23:5 › /commercial-interior-design-montreal/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:16:52.0336468Z   ✓  231 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/ loads every scrolled image and keeps normal-flow regions separate at 375px (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:16:53.5073566Z   ✓  232 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:16:54.3264215Z   ✓  233 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/bruton-place-iv/ loads every scrolled image and keeps normal-flow regions separate at 375px (804ms)
+Release Gate	Verify release candidate	2026-09-22T18:16:55.0577633Z   ✓  234 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/bruton-place-iv/ loads every scrolled image and keeps normal-flow regions separate at 1280px (716ms)
+Release Gate	Verify release candidate	2026-09-22T18:16:55.9066469Z   ✓  235 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/ethereal-gallery/ loads every scrolled image and keeps normal-flow regions separate at 375px (834ms)
+Release Gate	Verify release candidate	2026-09-22T18:16:56.7573314Z   ✓  236 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/ethereal-gallery/ loads every scrolled image and keeps normal-flow regions separate at 1280px (837ms)
+Release Gate	Verify release candidate	2026-09-22T18:16:57.4932728Z   ✓  237 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/obsidian-lounge/ loads every scrolled image and keeps normal-flow regions separate at 375px (722ms)
+Release Gate	Verify release candidate	2026-09-22T18:16:58.3322099Z   ✓  238 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/obsidian-lounge/ loads every scrolled image and keeps normal-flow regions separate at 1280px (821ms)
+Release Gate	Verify release candidate	2026-09-22T18:16:59.2694816Z   ✓  239 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/vortex-showroom/ loads every scrolled image and keeps normal-flow regions separate at 375px (925ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:00.1358506Z   ✓  240 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/vortex-showroom/ loads every scrolled image and keeps normal-flow regions separate at 1280px (855ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:00.8990913Z   ✓  241 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/canvas-studios/ loads every scrolled image and keeps normal-flow regions separate at 375px (750ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:01.7143746Z   ✓  242 [chromium] › tests/media-layout.spec.mjs:23:5 › /projects/canvas-studios/ loads every scrolled image and keeps normal-flow regions separate at 1280px (802ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:02.5844148Z   ✓  243 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/ loads every scrolled image and keeps normal-flow regions separate at 375px (860ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:03.9854305Z   ✓  244 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:17:05.2544005Z   ✓  245 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/reduction-as-creation/ loads every scrolled image and keeps normal-flow regions separate at 375px (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:06.5347901Z   ✓  246 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/reduction-as-creation/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:17:07.6818685Z   ✓  247 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/commercial-interior-design-cost-montreal/ loads every scrolled image and keeps normal-flow regions separate at 375px (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:17:09.0367857Z   ✓  248 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/commercial-interior-design-cost-montreal/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:17:10.4157179Z   ✓  249 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/before-you-sign-a-commercial-lease/ loads every scrolled image and keeps normal-flow regions separate at 375px (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:17:11.7777372Z   ✓  250 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/before-you-sign-a-commercial-lease/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:17:12.9732400Z   ✓  251 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/salon-layout-planning-checklist/ loads every scrolled image and keeps normal-flow regions separate at 375px (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:14.4780598Z   ✓  252 [chromium] › tests/media-layout.spec.mjs:23:5 › /journal/salon-layout-planning-checklist/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:17:15.2148325Z   ✓  253 [chromium] › tests/media-layout.spec.mjs:23:5 › /contact/ loads every scrolled image and keeps normal-flow regions separate at 375px (724ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:15.9985028Z   ✓  254 [chromium] › tests/media-layout.spec.mjs:23:5 › /contact/ loads every scrolled image and keeps normal-flow regions separate at 1280px (769ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:16.8853284Z   ✓  255 [chromium] › tests/media-layout.spec.mjs:23:5 › /inquiry/ loads every scrolled image and keeps normal-flow regions separate at 375px (868ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:18.3056271Z   ✓  256 [chromium] › tests/media-layout.spec.mjs:23:5 › /inquiry/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:17:19.6126714Z   ✓  257 [chromium] › tests/media-layout.spec.mjs:23:5 › /planning-resources/ loads every scrolled image and keeps normal-flow regions separate at 375px (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:17:21.1671928Z   ✓  258 [chromium] › tests/media-layout.spec.mjs:23:5 › /planning-resources/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:17:21.9276718Z   ✓  259 [chromium] › tests/media-layout.spec.mjs:23:5 › /privacy/ loads every scrolled image and keeps normal-flow regions separate at 375px (748ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:22.8266408Z   ✓  260 [chromium] › tests/media-layout.spec.mjs:23:5 › /privacy/ loads every scrolled image and keeps normal-flow regions separate at 1280px (880ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:23.5724171Z   ✓  261 [chromium] › tests/media-layout.spec.mjs:23:5 › /terms/ loads every scrolled image and keeps normal-flow regions separate at 375px (731ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:24.3433495Z   ✓  262 [chromium] › tests/media-layout.spec.mjs:23:5 › /terms/ loads every scrolled image and keeps normal-flow regions separate at 1280px (757ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:25.2902169Z   ✓  263 [chromium] › tests/media-layout.spec.mjs:23:5 › /__jq33-branded-not-found-probe__/ loads every scrolled image and keeps normal-flow regions separate at 375px (930ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:26.5715656Z   ✓  264 [chromium] › tests/media-layout.spec.mjs:23:5 › /__jq33-branded-not-found-probe__/ loads every scrolled image and keeps normal-flow regions separate at 1280px (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:17:27.7675837Z   ✓  265 [chromium] › tests/native-forms.spec.mjs:41:1 › Contact and Inquiry make distinct, single native POSTs with JavaScript disabled (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:29.4090793Z   ✓  266 [chromium] › tests/responsive.spec.mjs:17:5 › / is stable at 320x800 (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:17:31.1890044Z   ✓  267 [chromium] › tests/responsive.spec.mjs:17:5 › / is stable at 375x800 (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:17:32.8678338Z   ✓  268 [chromium] › tests/responsive.spec.mjs:17:5 › / is stable at 414x800 (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:17:34.4969516Z   ✓  201 [chromium] › tests/hallmark-responsive-continuum.spec.mjs:17:3 › Hallmark continuous responsive gates › all required routes avoid horizontal scroll and wrapped affordances from 320px through 1920px (1.6m)
+Release Gate	Verify release candidate	2026-09-22T18:17:34.8973846Z   ✓  269 [chromium] › tests/responsive.spec.mjs:17:5 › / is stable at 768x800 (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:17:37.1463582Z   ✓  270 [chromium] › tests/responsive.spec.mjs:17:5 › / is stable at 1280x800 (2.6s)
+Release Gate	Verify release candidate	2026-09-22T18:17:37.8453621Z   ✓  271 [chromium] › tests/responsive.spec.mjs:17:5 › / is stable at 1440x900 (2.9s)
+Release Gate	Verify release candidate	2026-09-22T18:17:39.0226149Z   ✓  272 [chromium] › tests/responsive.spec.mjs:17:5 › /commercial-interior-design-montreal/ is stable at 320x800 (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:17:39.7765238Z   ✓  273 [chromium] › tests/responsive.spec.mjs:17:5 › /commercial-interior-design-montreal/ is stable at 375x800 (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:17:41.1586090Z   ✓  274 [chromium] › tests/responsive.spec.mjs:17:5 › /commercial-interior-design-montreal/ is stable at 414x800 (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:17:42.4890139Z   ✓  275 [chromium] › tests/responsive.spec.mjs:17:5 › /commercial-interior-design-montreal/ is stable at 768x800 (2.7s)
+Release Gate	Verify release candidate	2026-09-22T18:17:44.4098068Z   ✓  276 [chromium] › tests/responsive.spec.mjs:17:5 › /commercial-interior-design-montreal/ is stable at 1280x800 (3.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:45.6172880Z   ✓  278 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ is stable at 320x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:45.9884059Z   ✓  277 [chromium] › tests/responsive.spec.mjs:17:5 › /commercial-interior-design-montreal/ is stable at 1440x900 (3.5s)
+Release Gate	Verify release candidate	2026-09-22T18:17:46.9667403Z   ✓  279 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ is stable at 375x800 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:17:47.5758173Z   ✓  280 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ is stable at 414x800 (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:17:49.0307614Z   ✓  281 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ is stable at 768x800 (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:17:49.9557375Z   ✓  282 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ is stable at 1280x800 (2.4s)
+Release Gate	Verify release candidate	2026-09-22T18:17:50.9573316Z   ✓  284 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/bruton-place-iv/ is stable at 320x800 (977ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:51.5612402Z   ✓  283 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ is stable at 1440x900 (2.5s)
+Release Gate	Verify release candidate	2026-09-22T18:17:52.0138252Z   ✓  285 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/bruton-place-iv/ is stable at 375x800 (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:17:52.5802374Z   ✓  286 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/bruton-place-iv/ is stable at 414x800 (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:17:53.1804476Z   ✓  287 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/bruton-place-iv/ is stable at 768x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:53.8273877Z   ✓  288 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/bruton-place-iv/ is stable at 1280x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:54.5209573Z   ✓  289 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/bruton-place-iv/ is stable at 1440x900 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:17:54.9173203Z   ✓  290 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ethereal-gallery/ is stable at 320x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:17:55.4873320Z   ✓  291 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ethereal-gallery/ is stable at 375x800 (955ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:55.9147573Z   ✓  292 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ethereal-gallery/ is stable at 414x800 (987ms)
+Release Gate	Verify release candidate	2026-09-22T18:17:56.6963333Z   ✓  293 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ethereal-gallery/ is stable at 768x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:57.1834419Z   ✓  294 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ethereal-gallery/ is stable at 1280x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:57.9022450Z   ✓  295 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/ethereal-gallery/ is stable at 1440x900 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:17:58.2443478Z   ✓  296 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/obsidian-lounge/ is stable at 320x800 (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:17:58.9393277Z   ✓  297 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/obsidian-lounge/ is stable at 375x800 (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:17:59.3174176Z   ✓  298 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/obsidian-lounge/ is stable at 414x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:00.1219209Z   ✓  299 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/obsidian-lounge/ is stable at 768x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:00.5519328Z   ✓  300 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/obsidian-lounge/ is stable at 1280x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:01.4555401Z   ✓  301 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/obsidian-lounge/ is stable at 1440x900 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:01.5504521Z   ✓  302 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/vortex-showroom/ is stable at 320x800 (980ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:02.4952889Z   ✓  303 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/vortex-showroom/ is stable at 375x800 (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:18:02.7153579Z   ✓  304 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/vortex-showroom/ is stable at 414x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:03.7440223Z   ✓  305 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/vortex-showroom/ is stable at 768x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:04.1418671Z   ✓  306 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/vortex-showroom/ is stable at 1280x800 (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:05.0801852Z   ✓  308 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/canvas-studios/ is stable at 320x800 (923ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:05.1162755Z   ✓  307 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/vortex-showroom/ is stable at 1440x900 (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:06.1834802Z   ✓  309 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/canvas-studios/ is stable at 375x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:06.3375588Z   ✓  310 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/canvas-studios/ is stable at 414x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:07.3685743Z   ✓  311 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/canvas-studios/ is stable at 768x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:07.6457439Z   ✓  312 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/canvas-studios/ is stable at 1280x800 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:08.6593310Z   ✓  313 [chromium] › tests/responsive.spec.mjs:17:5 › /projects/canvas-studios/ is stable at 1440x900 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:09.2694308Z   ✓  314 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/ is stable at 320x800 (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:18:10.3046890Z   ✓  315 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/ is stable at 375x800 (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:18:10.9718752Z   ✓  316 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/ is stable at 414x800 (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:18:12.7425236Z   ✓  317 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/ is stable at 768x800 (2.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:13.3808747Z   ✓  318 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/ is stable at 1280x800 (2.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:14.6514402Z   ✓  320 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/reduction-as-creation/ is stable at 320x800 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:15.2350759Z   ✓  319 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/ is stable at 1440x900 (2.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:16.1596856Z   ✓  321 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/reduction-as-creation/ is stable at 375x800 (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:16.7056959Z   ✓  322 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/reduction-as-creation/ is stable at 414x800 (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:18.2309933Z   ✓  323 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/reduction-as-creation/ is stable at 768x800 (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:18.9647089Z   ✓  324 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/reduction-as-creation/ is stable at 1280x800 (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:20.3937058Z   ✓  326 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/commercial-interior-design-cost-montreal/ is stable at 320x800 (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:20.5487297Z   ✓  325 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/reduction-as-creation/ is stable at 1440x900 (2.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:21.9203405Z   ✓  327 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/commercial-interior-design-cost-montreal/ is stable at 375x800 (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:22.2803671Z   ✓  328 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/commercial-interior-design-cost-montreal/ is stable at 414x800 (1.7s)
+Release Gate	Verify release candidate	2026-09-22T18:18:23.9568526Z   ✓  329 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/commercial-interior-design-cost-montreal/ is stable at 768x800 (2.0s)
+Release Gate	Verify release candidate	2026-09-22T18:18:24.5327285Z   ✓  330 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/commercial-interior-design-cost-montreal/ is stable at 1280x800 (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:25.8281733Z   ✓  332 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/before-you-sign-a-commercial-lease/ is stable at 320x800 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:26.4709915Z   ✓  331 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/commercial-interior-design-cost-montreal/ is stable at 1440x900 (2.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:27.3830336Z   ✓  333 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/before-you-sign-a-commercial-lease/ is stable at 375x800 (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:28.0607646Z   ✓  334 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/before-you-sign-a-commercial-lease/ is stable at 414x800 (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:18:29.5445605Z   ✓  335 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/before-you-sign-a-commercial-lease/ is stable at 768x800 (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:30.5073772Z   ✓  336 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/before-you-sign-a-commercial-lease/ is stable at 1280x800 (2.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:31.8645023Z   ✓  337 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/before-you-sign-a-commercial-lease/ is stable at 1440x900 (2.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:31.9118870Z   ✓  338 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/salon-layout-planning-checklist/ is stable at 320x800 (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:33.4415322Z   ✓  339 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/salon-layout-planning-checklist/ is stable at 375x800 (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:18:33.7447311Z   ✓  340 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/salon-layout-planning-checklist/ is stable at 414x800 (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:18:35.5810307Z   ✓  341 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/salon-layout-planning-checklist/ is stable at 768x800 (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:36.1292131Z   ✓  342 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/salon-layout-planning-checklist/ is stable at 1280x800 (2.4s)
+Release Gate	Verify release candidate	2026-09-22T18:18:37.1373928Z   ✓  344 [chromium] › tests/responsive.spec.mjs:17:5 › /contact/ is stable at 320x800 (994ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:37.8073802Z   ✓  343 [chromium] › tests/responsive.spec.mjs:17:5 › /journal/salon-layout-planning-checklist/ is stable at 1440x900 (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:38.2688573Z   ✓  345 [chromium] › tests/responsive.spec.mjs:17:5 › /contact/ is stable at 375x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:38.8905230Z   ✓  346 [chromium] › tests/responsive.spec.mjs:17:5 › /contact/ is stable at 414x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:39.4933901Z   ✓  347 [chromium] › tests/responsive.spec.mjs:17:5 › /contact/ is stable at 768x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:40.1863225Z   ✓  348 [chromium] › tests/responsive.spec.mjs:17:5 › /contact/ is stable at 1280x800 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:40.6751543Z   ✓  349 [chromium] › tests/responsive.spec.mjs:17:5 › /contact/ is stable at 1440x900 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:41.4569385Z   ✓  350 [chromium] › tests/responsive.spec.mjs:17:5 › /inquiry/ is stable at 320x800 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:42.0180665Z   ✓  351 [chromium] › tests/responsive.spec.mjs:17:5 › /inquiry/ is stable at 375x800 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:42.9426628Z   ✓  352 [chromium] › tests/responsive.spec.mjs:17:5 › /inquiry/ is stable at 414x800 (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:43.9762678Z   ✓  353 [chromium] › tests/responsive.spec.mjs:17:5 › /inquiry/ is stable at 768x800 (1.9s)
+Release Gate	Verify release candidate	2026-09-22T18:18:45.1583873Z   ✓  354 [chromium] › tests/responsive.spec.mjs:17:5 › /inquiry/ is stable at 1280x800 (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:46.1286146Z   ✓  355 [chromium] › tests/responsive.spec.mjs:17:5 › /inquiry/ is stable at 1440x900 (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:46.7099306Z   ✓  356 [chromium] › tests/responsive.spec.mjs:17:5 › /planning-resources/ is stable at 320x800 (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:47.6679411Z   ✓  357 [chromium] › tests/responsive.spec.mjs:17:5 › /planning-resources/ is stable at 375x800 (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:18:48.3501025Z   ✓  358 [chromium] › tests/responsive.spec.mjs:17:5 › /planning-resources/ is stable at 414x800 (1.6s)
+Release Gate	Verify release candidate	2026-09-22T18:18:49.8939220Z   ✓  359 [chromium] › tests/responsive.spec.mjs:17:5 › /planning-resources/ is stable at 768x800 (2.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:51.0193115Z   ✓  360 [chromium] › tests/responsive.spec.mjs:17:5 › /planning-resources/ is stable at 1280x800 (2.7s)
+Release Gate	Verify release candidate	2026-09-22T18:18:51.9910414Z   ✓  362 [chromium] › tests/responsive.spec.mjs:17:5 › /privacy/ is stable at 320x800 (956ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:52.4691130Z   ✓  361 [chromium] › tests/responsive.spec.mjs:17:5 › /planning-resources/ is stable at 1440x900 (2.6s)
+Release Gate	Verify release candidate	2026-09-22T18:18:52.9744334Z   ✓  363 [chromium] › tests/responsive.spec.mjs:17:5 › /privacy/ is stable at 375x800 (969ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:53.4607252Z   ✓  364 [chromium] › tests/responsive.spec.mjs:17:5 › /privacy/ is stable at 414x800 (979ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:54.0548778Z   ✓  365 [chromium] › tests/responsive.spec.mjs:17:5 › /privacy/ is stable at 768x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:54.6487183Z   ✓  366 [chromium] › tests/responsive.spec.mjs:17:5 › /privacy/ is stable at 1280x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:55.3355567Z   ✓  367 [chromium] › tests/responsive.spec.mjs:17:5 › /privacy/ is stable at 1440x900 (1.3s)
+Release Gate	Verify release candidate	2026-09-22T18:18:55.6537439Z   ✓  368 [chromium] › tests/responsive.spec.mjs:17:5 › /terms/ is stable at 320x800 (994ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:56.3278320Z   ✓  369 [chromium] › tests/responsive.spec.mjs:17:5 › /terms/ is stable at 375x800 (977ms)
+Release Gate	Verify release candidate	2026-09-22T18:18:56.7273155Z   ✓  370 [chromium] › tests/responsive.spec.mjs:17:5 › /terms/ is stable at 414x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:57.4409134Z   ✓  371 [chromium] › tests/responsive.spec.mjs:17:5 › /terms/ is stable at 768x800 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:57.9036489Z   ✓  372 [chromium] › tests/responsive.spec.mjs:17:5 › /terms/ is stable at 1280x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:58.5864903Z   ✓  373 [chromium] › tests/responsive.spec.mjs:17:5 › /terms/ is stable at 1440x900 (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:18:59.1439608Z   ✓  374 [chromium] › tests/responsive.spec.mjs:17:5 › /__jq33-branded-not-found-probe__/ is stable at 320x800 (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:18:59.9918059Z   ✓  375 [chromium] › tests/responsive.spec.mjs:17:5 › /__jq33-branded-not-found-probe__/ is stable at 375x800 (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:19:00.5527484Z   ✓  376 [chromium] › tests/responsive.spec.mjs:17:5 › /__jq33-branded-not-found-probe__/ is stable at 414x800 (1.4s)
+Release Gate	Verify release candidate	2026-09-22T18:19:01.8326435Z   ✓  377 [chromium] › tests/responsive.spec.mjs:17:5 › /__jq33-branded-not-found-probe__/ is stable at 768x800 (1.8s)
+Release Gate	Verify release candidate	2026-09-22T18:19:02.6475062Z   ✓  378 [chromium] › tests/responsive.spec.mjs:17:5 › /__jq33-branded-not-found-probe__/ is stable at 1280x800 (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:19:04.1574323Z   ✓  379 [chromium] › tests/responsive.spec.mjs:17:5 › /__jq33-branded-not-found-probe__/ is stable at 1440x900 (2.3s)
+Release Gate	Verify release candidate	2026-09-22T18:19:04.7378550Z   ✓  380 [chromium] › tests/runtime-audit.spec.mjs:16:3 › / has a clean pre-action runtime and network boundary (2.1s)
+Release Gate	Verify release candidate	2026-09-22T18:19:05.6843847Z   ✓  381 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /commercial-interior-design-montreal/ has a clean pre-action runtime and network boundary (1.5s)
+Release Gate	Verify release candidate	2026-09-22T18:19:05.7184974Z   ✓  382 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /projects/ has a clean pre-action runtime and network boundary (967ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:06.4729214Z   ✓  383 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /projects/bruton-place-iv/ has a clean pre-action runtime and network boundary (773ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:06.6630071Z   ✓  384 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /projects/ethereal-gallery/ has a clean pre-action runtime and network boundary (928ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:07.2427163Z   ✓  385 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /projects/obsidian-lounge/ has a clean pre-action runtime and network boundary (754ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:07.5067207Z   ✓  386 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /projects/vortex-showroom/ has a clean pre-action runtime and network boundary (828ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:08.0393780Z   ✓  387 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /projects/canvas-studios/ has a clean pre-action runtime and network boundary (781ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:08.7710353Z   ✓  388 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /journal/ has a clean pre-action runtime and network boundary (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:19:09.0896807Z   ✓  389 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /journal/reduction-as-creation/ has a clean pre-action runtime and network boundary (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:19:09.8429559Z   ✓  390 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /journal/commercial-interior-design-cost-montreal/ has a clean pre-action runtime and network boundary (1.1s)
+Release Gate	Verify release candidate	2026-09-22T18:19:10.3085713Z   ✓  391 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /journal/before-you-sign-a-commercial-lease/ has a clean pre-action runtime and network boundary (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:19:10.7767198Z   ✓  392 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /journal/salon-layout-planning-checklist/ has a clean pre-action runtime and network boundary (919ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:10.9715706Z   ✓  393 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /contact/ has a clean pre-action runtime and network boundary (651ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:11.8367867Z   ✓  394 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /inquiry/ has a clean pre-action runtime and network boundary (1.0s)
+Release Gate	Verify release candidate	2026-09-22T18:19:12.1443390Z   ✓  395 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /planning-resources/ has a clean pre-action runtime and network boundary (1.2s)
+Release Gate	Verify release candidate	2026-09-22T18:19:12.5809179Z   ✓  396 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /privacy/ has a clean pre-action runtime and network boundary (731ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:12.9323552Z   ✓  397 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /terms/ has a clean pre-action runtime and network boundary (761ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:13.5886524Z   ✓  398 [chromium] › tests/runtime-audit.spec.mjs:16:3 › /__jq33-branded-not-found-probe__/ has a clean pre-action runtime and network boundary (996ms)
+Release Gate	Verify release candidate	2026-09-22T18:19:13.7734055Z 
+Release Gate	Verify release candidate	2026-09-22T18:19:13.7740532Z   398 passed (9.6m)
+Release Gate	Verify release candidate	2026-09-22T18:19:16.4878750Z Playwright reporter evidence passed (398 expected, non-flaky test(s); portable copy results.sanitized.json; no serialized environment, canary, username, or absolute machine paths).
+Release Gate	Verify production monitor	﻿2026-09-22T18:19:16.5424393Z ##[group]Run pnpm check:production-health:self-test
+Release Gate	Verify production monitor	2026-09-22T18:19:16.5424835Z [36;1mpnpm check:production-health:self-test[0m
+Release Gate	Verify production monitor	2026-09-22T18:19:16.5462609Z shell: /usr/bin/bash -e {0}
+Release Gate	Verify production monitor	2026-09-22T18:19:16.5463036Z env:
+Release Gate	Verify production monitor	2026-09-22T18:19:16.5463631Z   PUBLIC_FORMSPREE_CONTACT_URL: ***
+Release Gate	Verify production monitor	2026-09-22T18:19:16.5464290Z   PUBLIC_FORMSPREE_INQUIRY_URL: ***
+Release Gate	Verify production monitor	2026-09-22T18:19:16.5464961Z   PUBLIC_CALENDLY_URL: ***
+Release Gate	Verify production monitor	2026-09-22T18:19:16.5465387Z ##[endgroup]
+Release Gate	Verify production monitor	2026-09-22T18:19:17.0261126Z $ node scripts/check-production-health.mjs --self-test
+Release Gate	Verify production monitor	2026-09-22T18:19:17.0686088Z Production health self-test passed.
+Release Gate	Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	﻿2026-09-22T18:19:17.1030454Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Release Gate	Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:19:17.1032144Z Post job cleanup.
+Release Gate	Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:19:17.2232830Z (node:19153) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Release Gate	Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020	2026-09-22T18:19:17.2233830Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	﻿2026-09-22T18:19:17.2489660Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.2491995Z Post job cleanup.
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3430718Z [command]/usr/bin/git version
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3475773Z git version 2.55.0
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3519833Z Temporarily overriding HOME='/home/runner/work/_temp/39949477-adbb-4381-81a6-48149bd1ce21' before making global git config changes
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3521780Z Adding repository directory to the temporary git global config as a safe directory
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3527976Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/jq33-design-web-2-0/jq33-design-web-2-0
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3572509Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3615607Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3884907Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3916992Z http.https://github.com/.extraheader
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3931784Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.3974458Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.4237221Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Release Gate	Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262	2026-09-22T18:19:17.4278898Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Release Gate	Complete job	﻿2026-09-22T18:19:17.4681821Z Cleaning up orphan processes
+Release Gate	Complete job	2026-09-22T18:19:17.5110877Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

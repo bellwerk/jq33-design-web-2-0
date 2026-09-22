@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-09-22T18:11:10.241Z",
+  "reviewer": "independent release_verifier",
+  "candidate": "ab86817200f85449447da6812b754dddb06d139c",
+  "node": "v22.23.2",
+  "checks": [
+    {
+      "name": "Platform fix changes only Services page and settle helper",
+      "status": "PASS",
+      "details": [
+        "commercial-interior-design-montreal/index.html",
+        "tests/helpers/browser.mjs"
+      ]
+    },
+    {
+      "name": "Release source matches candidate",
+      "status": "PASS",
+      "details": {
+        "candidate": "ab86817200f85449447da6812b754dddb06d139c",
+        "drift": "",
+        "count": 57
+      }
+    },
+    {
+      "name": "Only desktop width changes in Services source",
+      "status": "PASS",
+      "details": {
+        "desktopWidthRules": 2
+      }
+    },
+    {
+      "name": "Settle waits for real finite CSS transitions with bounded failure",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "name": "Responsive assertions and homepage source preserved",
+      "status": "PASS",
+      "details": {}
+    },
+    {
+      "name": "Three fresh throttled 1440x900 probes settle with zero subsequent image movement",
+      "status": "PASS",
+      "details": {
+        "runs": [
+          {
+            "index": 0,
+            "delta": 0,
+            "remainingAnimations": 0
+          },
+          {
+            "index": 1,
+            "delta": 0,
+            "remainingAnimations": 0
+          },
+          {
+            "index": 2,
+            "delta": 0,
+            "remainingAnimations": 0
+          }
+        ]
+      }
+    },
+    {
+      "name": "Distribution binds clean source to final platform candidate",
+      "status": "PASS",
+      "details": {
+        "sourceRevision": "ab86817200f85449447da6812b754dddb06d139c",
+        "sourceDirty": false,
+        "sourceTreeSha256": "10a72245b3b39d9ea62488b8b9312aefa321fa5d8e1414c8b7badb212381711a",
+        "artifactSha256": "1c7b127d14b750477290cd3e50624aca34abc795a26c9a4062f3ee27c6488711"
+      }
+    },
+    {
+      "name": "Independent scripts/check-dist.mjs --root dist",
+      "status": "PASS",
+      "details": {
+        "exitCode": 0,
+        "output": "Distribution validation passed: 112 allowlisted files, artifact 1c7b127d14b750477290cd3e50624aca34abc795a26c9a4062f3ee27c6488711."
+      }
+    },
+    {
+      "name": "Independent scripts/check-security.mjs --root dist",
+      "status": "PASS",
+      "details": {
+        "exitCode": 0,
+        "output": "Security and privacy static validation passed."
+      }
+    },
+    {
+      "name": "Independent scripts/check-render-contract.mjs",
+      "status": "PASS",
+      "details": {
+        "exitCode": 0,
+        "output": "Render/component contracts passed."
+      }
+    },
+    {
+      "name": "Independent scripts/check-design-tokens.mjs",
+      "status": "PASS",
+      "details": {
+        "exitCode": 0,
+        "output": "Design token validation passed: colors and fonts are locked to named tokens."
+      }
+    },
+    {
+      "name": "Independent scripts/check-production-health.mjs --self-test",
+      "status": "PASS",
+      "details": {
+        "exitCode": 0,
+        "output": "Production health self-test passed."
+      }
+    }
+  ]
+}
